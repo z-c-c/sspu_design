@@ -2,7 +2,6 @@ package com.zcc.exceptions;
 
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,6 +32,9 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             mv.setViewName("/WEB-INF/404");
         }
         return mv;
+        /**
+         * 有了更好的方式处理全局异常，这种方式暂且不用
+         */
     }
 
 }
