@@ -1,0 +1,30 @@
+/***
+ * <<<<自己的小工具>>>>
+ * 顶级包含块【一般根据屏幕大小定义最大宽度和高度,以及最小支持屏幕尺寸】：.w1920【定义支持宽度1920px】, .page-frame【没有具体屏幕要求】
+ * 页眉、页脚：.header, .footer
+ * 侧边栏、导航栏：.sidebar, .nav
+ * 内容部分【相似页面具有公用类和私有类时,使用各页面特定标识和内容类组合使用,xxx代表标识】：.content, .content.xxx
+ * 水平布局（左中右）包含块基础类名：.f-left, .f-center【|.f-cter】, .f-right【f代表frame,若被占用,可换用s(代表side)】
+ * 垂直布局（上中下）包含块基础类名：.f-top, .f-mid, f-bott
+ * 具体块【被布局分割后的小区域,不需要辅助类时直接使用,或是与 布局辅助类 一起使用】：.f-block
+ * 【根据具体页面排版,水平基础类和垂直基础类互为 布局辅助类 】
+ * 功能辅助类【不具有单独样式,只和其它类一同使用,fz代表“辅助”】：.fz-act【代表激活状态】, .fz-selected【代表选中状态】
+ * 其他辅助类：|-颜色类【具有单独样式,基本全局使用,xxx代表某颜色】：.bg-xxx【背景颜色类】, .txt-xxx【文字颜色类】
+ *            |-主题类【局部使用,偶尔全局使用,包含一组相同样式的不同值的切换,xxx代表某主题】：.fz-xxx
+ *            |-个别样式类【全局使用,某些显示相关的样式包装成类】：.display-none【即display:none;】,.visibility-hidden【即visibility:hidden;】
+ *            |-etc.
+ */
+
+body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select,button{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+body{font:12px "microsoft yahei","Arial Narrow",HELVETICA;background:#fff;-webkit-text-size-adjust:100%}
+a{color:#000;text-decoration:none;font:12px;cursor:pointer;}
+em{font-style:normal}
+li{list-style:none}
+img{border:0;vertical-align:middle}
+table{border-collapse:collapse;border-spacing:0}
+p{word-wrap:break-word}
+input{border:none;background:none;padding-left:10px;outline:none;}
+button{border:none;background:none;cursor:pointer;outline:none;}
+b{font-weight:normal;}
+i{font-style:normal;}

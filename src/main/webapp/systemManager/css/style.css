@@ -1,0 +1,179 @@
+@font-face {
+    font-family: "myFont";
+    src: url('../font/HYZhuZiChaoRanTiW.eot'); /* IE9 兼容模式 */
+    src: url('../font/HYZhuZiChaoRanTiW.eot') format('embedded-opentype'), /* IE6-IE8 */
+             url('../font/HYZhuZiChaoRanTiW.woff') format('woff'), /* 现代浏览器 */
+             url('../font/HYZhuZiChaoRanTiW.ttf')  format('truetype'), /* Safari, Android, iOS */
+             url('../font/HYZhuZiChaoRanTiW.svg') format('svg'); /* Legacy iOS */
+}
+html,body{
+	position: relative;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	min-width: 1000px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.shell{
+	position: relative;
+	height: 100%;
+}
+
+.leftmenu{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 54px;
+	background: #dfe9f6;
+	transition: .5s;
+	white-space: nowrap;
+}
+	.shell.open .leftmenu{
+		width: 256px;
+	}
+	.leftmenu .logo{
+		width: 100%;
+		height: 64px;
+		line-height: 64px;
+		text-align: center;
+		font-size: 24px;
+		color: #fff;
+		background: url(../images/logoBg.jpg) round;
+		font-family: "myFont";
+	}
+.leftmenu .menu_1st > li{
+	/* height: 60px; */
+	line-height: 60px;
+	cursor: pointer;
+}	
+	.leftmenu .menu_1st h6{
+		position: relative;
+		/* padding: 0 16px 0 22px; */
+		font-size: 14px;
+		overflow: hidden;
+	}
+		.leftmenu .menu_1st h6 img{
+			margin: 0 20px;
+		}
+		.leftmenu .menu_1st h6:after{
+			content: "";
+			/* float: right; */
+			position: absolute;
+			display: block;
+			top: 28px;
+			left: 210px;
+			width: 10px;
+			height: 6px;
+			background: url(../images/idx-arrow.png) round;
+			transition: .5s;
+			transform: rotate(180deg);
+		}
+			.leftmenu .menu_1st li.opened h6:after{
+				transform: rotate(0deg);
+			}
+	.leftmenu .menu_1st .menu_2nd {
+		max-height: 0;
+		overflow: hidden;
+		transition: .8s;
+	}
+		.leftmenu .menu_1st > li.opened .menu_2nd{
+			max-height: 240px;
+		}
+	.leftmenu .menu_1st .menu_2nd > li{
+		box-sizing: border-box;
+		position: relative;
+		margin-bottom: 5px;
+		padding-left: 50px;
+		height: 40px;
+		line-height: 40px;		
+		transition: 0.3s linear;
+	}
+		.leftmenu .menu_1st .menu_2nd > li a{
+			width: 100%;
+			display: inline-block;
+			color: #666666;
+		}
+		.leftmenu .menu_1st .menu_2nd > li.f-cur{
+			background: #fff;		
+			box-shadow: 0px 10px 10px -10px 
+		rgba(71, 155, 253, 0.3);
+		}
+			.leftmenu .menu_1st .menu_2nd > li.f-cur a{
+				color: #52a1fd;
+			}
+		.leftmenu .menu_1st .menu_2nd > li.f-cur:before{
+			content: "";
+			position: absolute;
+			display: block;
+			left: 0;
+			width: 8px;
+			height: 100%;
+			background: #52A1FD;
+		}
+	
+	
+.rightframe{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 54px;
+	transition: .5s;
+}
+	.shell.open .rightframe{
+		left: 256px;
+	}
+.rightframe .f-header{
+	position: relative;
+	z-index: 10;
+	width: 100%;
+	height: 64px;
+	line-height: 64px;
+	background: #fff;
+	box-shadow: 0px 1px 4px 0px rgba(0, 21, 41, .12);
+}			
+	.rightframe .f-header > img{
+		margin-left: 26px;
+		cursor: pointer;
+	}
+	.rightframe .f-header .infor{
+		float: right;
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		right: 20px;
+		width: 300px;
+	}
+	.notice{
+		position: relative;
+		display: inline-block;
+		margin-right: 20px;
+		width: 12px;
+		height: 16px;
+		vertical-align: middle;
+		background: url(../images/idx-icon6.png) no-repeat;
+	}
+		.notice.has::after{
+			content: "";
+			position: absolute;
+			display: block;
+			right: 0;
+			width: 4px;
+			height: 4px;
+			border-radius: 50%;
+			background: red;
+		}
+	.avatar{
+		margin-right: 10px;
+	}
+
+.main{
+	position: absolute;
+	bottom: 0px;
+	top: 64px;
+	width: 100%;
+}	
