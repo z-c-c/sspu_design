@@ -1,0 +1,141 @@
+/* 重置 */
+html{
+	font-size: 12px;
+	font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+*{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+body,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,form,input,button,textarea,p,img,th,td,pre{
+	margin: 0;
+	padding: 0;
+}
+h1,h2,h3,h4,h5,h6{
+	font-size: 100%;
+	font-weight: normal;
+}
+address,caption,cite,code,dfn,em,strong,th,var,i,b{
+	font-style: normal;
+	font-weight: normal;
+}
+a{
+	text-decoration: none;
+}
+img{
+	border: none;
+}
+ol,ul,li{
+	list-style: none;
+}
+table{
+	margin: 0;
+	padding: 0;
+	border-collapse: collapse;
+}
+button,a{
+	cursor: pointer;
+}
+button,input,select,a{
+	outline: none;
+}
+
+/* 十二分栅格 */
+.clearfix{
+	zoom: 1;
+}
+.v-row{
+	position: relative;
+}
+.v-row:after,
+.clearfix:after{
+	display: block;
+	content: "";
+	clear: both;
+}
+.v-col-1,
+.v-col-2,
+.v-col-3,
+.v-col-4,
+.v-col-5,
+.v-col-6,
+.v-col-7,
+.v-col-8,
+.v-col-9,
+.v-col-10,
+.v-col-11,
+.v-col-12{
+    float: left;
+    box-sizing: border-box;
+}
+.v-col-1{
+	width: 8.33333%;
+}
+.v-col-2{
+	width: 16.66666%;
+}
+.v-col-3{
+	width: 25%;
+}
+.v-col-4{
+	width: 33.33333%;
+}
+.v-col-5{
+	width: 41.66666%;
+}
+.v-col-6{
+	width: 50%;
+}
+.v-col-7{
+	width: 58.33333%;
+}
+.v-col-8{
+	width: 66.66666%;
+}
+.v-col-9{
+	width: 75%;
+}
+.v-col-10{
+	width: 83.33333%;
+}
+.v-col-11{
+	width: 91.66666%;
+}
+.v-col-12{
+	width: 100%;
+}
+.v-fl{
+	float: left;
+}
+.v-fr{
+	float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

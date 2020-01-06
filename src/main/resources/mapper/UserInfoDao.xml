@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.manager.usermanager.dao.UserInfoDao">
+
+    <insert id="add" parameterType="com.zcc.manager.usermanager.entity.UserInfoEntity"  useGeneratedKeys="true" keyProperty="userName" keyColumn="user_name">
+        insert into user_info values (#{userName},#{password},#{phoneNumber},#{type},'0');
+    </insert>
+
+    <select id="findByUserName" resultType="com.zcc.manager.usermanager.entity.UserInfoEntity">
+        select * from user_info where user_name=#{userName} and is_delete!='1'
+    </select>
+
+    <select id="findByUserNameAndType" resultType="com.zcc.manager.usermanager.entity.UserInfoEntity">
+        select * from user_info where user_name=#{userName} and is_delete!='1'
+            <trim prefix="and">
+                <if test="type!='' and type!=null">
+                     type=#{type}
+                </if>
+            </trim>
+
+    </select>
+
+    <update id="update" parameterType="com.zcc.manager.usermanager.entity.UserInfoEntity">
+        update user_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="phoneNumber!=null">
+                phone_number=#{phoneNumber},
+            </if>
+            <if test="isDelete!=null">
+                is_delete=#{isDelete}
+            </if>
+            where user_name=#{userName}
+        </trim>
+    </update>
+</mapper>

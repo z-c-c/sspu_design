@@ -1,0 +1,589 @@
+@font-face{
+	font-family: 'FZCQJW';
+	src: url("../font/方正粗倩简体.ttf");
+}
+.headerBox{
+	width: 100%;
+	height: 70px;
+	line-height: 70px;
+	box-shadow: 70px 0 30px rgba(37,118,204,.1);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+.headerBox h1{
+	width: 80px;
+	height: 70px;
+	background: #4ca0fd url("../images/icon-header_03.png") no-repeat center center;
+}
+.headerBox h2{
+	font-family: FZCQJW;
+	font-size: 24px;
+	letter-spacing: 1px;
+	color: #2d8ffb;
+	margin-left: 26px;
+}
+.headerBox .adminInfo{
+	width: 250px;
+	height: inherit;
+	border-left: 1px solid #f7f7fa;
+	position: relative;
+}
+.headerBox .adminInfo .messageDef,
+.headerBox .adminInfo .messageNum{
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../images/icon-index.png") no-repeat 0 -136px;
+	position: relative;
+	top: 21px;
+	margin-left: 22px;
+	margin-right: 30px;
+}
+.headerBox .adminInfo .messageDef{
+	background-position: 0 -136px;
+}
+.headerBox .adminInfo .messageNum{
+	background-position: 0 -102px;
+}
+.headerBox .adminInfo .name{
+	font-size: 12px;
+	color: #666;
+}
+.headerBox .adminInfo .name span{
+	color: #2d8ffb;
+}
+.headerBox .adminInfo .avatar{
+	cursor: pointer;
+	position: relative;
+}
+.headerBox .adminInfo .avatar i{
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	overflow: hidden;
+	display: inline-block;
+	position: relative;
+	top: 10px;
+	margin: 0 6px 0 20px;
+}
+.headerBox .adminInfo .avatar span{
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background: url("../images/icon-index.png") no-repeat 0 -170px;
+	position: relative;
+	top: 8px;
+}
+.headerBox .adminInfo .avatar .dropDown{
+	width: 72px;
+	height: 90px;
+	background-color: #ffffff;
+	box-shadow: 0px 5px 12px 0px rgba(51, 102, 204, 0.2);
+	position: absolute;
+	right: 8px;
+	top: 80px;
+	font-size: 12px;
+	color: #666;
+	line-height: 24px;
+	text-align: center;
+	padding-left: 6px;
+	box-sizing: border-box;
+	text-indent: 10px;
+	display: none;
+	border-radius: 6px;
+	z-index: 1000;
+}
+.headerBox .adminInfo .avatar .dropDown::before{
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border: 12px solid transparent;
+	border-bottom-color: #fff; 
+	position: relative;
+	top: -23px;
+	left: 30px;
+}
+.headerBox .adminInfo .avatar .dropDown .setting{
+	background: url("../images/icon-index.png") no-repeat 0 -466px;
+}
+.headerBox .adminInfo .avatar .dropDown .logout{
+	background: url("../images/icon-index.png") no-repeat 0 -500px;
+}
+.headerBox .adminInfo .avatar:hover .dropDown{
+	display: block;
+}
+.conWrap{
+	width: 100%;
+	/* height: 863px; */
+	background: #f8f9ff;
+	position: absolute;
+	top: 70px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+}
+.navBox{
+	width: 80px;
+	height: 100%;
+	background-color: #2d8ffb;
+}
+.navBox ul{
+	margin-top: 23px;
+}
+.navBox ul li{
+	width: inherit;
+	height: 70px;
+	position: relative;
+	cursor: pointer;
+}
+.navBox ul li .firstMenu{
+	text-align: center;
+	font-size: 12px;
+	color: #fff;
+	display: block;
+}
+.navBox ul li .firstMenu::before{
+	content: "";
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/icon-index.png") no-repeat;
+	margin: 10px auto 2px;
+}
+.navBox ul li:nth-child(1) .firstMenu::before{
+	background-position: 0 0;
+}
+.navBox ul li:nth-child(2) .firstMenu::before{
+	background-position: 0 -34px;
+}
+.navBox ul li:nth-child(3) .firstMenu::before{
+	background-position: 0 -67px;
+}
+.navBox ul li .subMenu{
+	width: 105px;
+	height: auto;
+	background-color: #ffffff;
+	box-shadow: 0px 5px 12px 0px rgba(51, 102, 204, 0.2);
+	border-radius: 6px;
+	position: absolute;
+	top: 0;
+	left: 90px;
+	text-indent: 20px;
+	display: none;
+	z-index: 1000;
+}
+.navBox ul li .subMenu::before{
+	content: "";
+	display: block;
+	position: absolute; 
+	top: 20px;
+	left: -20px;
+	width: 20px;
+	height: 23px;
+	background: url("../images/subMenu-icon.png") no-repeat;
+}
+.navBox ul li .subMenu a{
+	color: #666;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+}
+.navBox ul li .subMenu a:first-child{
+	margin-top: 10px;
+}
+.navBox ul li .subMenu a:last-child{
+	margin-bottom: 10px;
+}
+.navBox ul li .subMenu a:hover{
+	color: #2d8ffb;
+}
+.mainIframe{
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 80px;
+}
+.mainIframe iframe{
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+/* 首页样式 */
+.iframeBox{
+	width: 100%;
+	height: 100%;
+	padding: 0 25px 0 20px;
+	box-sizing: border-box;	
+}
+/* 左边样式 */
+.indexLeft{
+	/* width: 440px; */
+	width: 35%;
+	height: auto;
+}
+.indexCenter{
+	width: 35%;
+	margin: 0 22px;
+}
+.indexRight{
+	width: 25%;
+}
+.myToDo{
+	margin-top: 20px;
+	width: 100%;
+	height: 220px;
+	/* height: 33.3333%; */
+	box-shadow: 0 13px 12px rgba(45,143,251,.2);
+	border-radius: 8px;
+}
+.myToDo>div{
+	width: 100%;
+	height: inherit;
+	background: url("../images/myToDoBg_03.png") no-repeat;
+	background-size: 100% 100%;
+	overflow: hidden;
+	position: relative;
+}
+.publicTitle{
+	font-size: 14px;
+	color: #2d8ffb;
+}
+.publicTitle::before{
+	content: "";
+	display: inline-block;
+	width: 3px;
+	height: 15px;
+	background: #2d8ffb;
+	position: relative;
+	top: 3px;
+	margin-left: 24px;
+	margin-right: 4px;
+}
+.mt-25{
+	margin-top: 25px;
+}
+.publicTitleWhite{
+	color: #fff;
+}
+.publicTitleWhite::before{
+	background: #fff;
+}
+.myToDo-con{
+	color: #fff;
+	/* width: 45%; */
+	width: 270px;
+	overflow: hidden;
+	margin: 20px auto 0;
+}
+.myToDo-con>div{
+	width: 270px;
+	height: 120px;
+	position: absolute;
+	overflow: hidden;
+}
+.myToDo-con>div ul{
+	width: 9999px;
+	position: absolute;
+	overflow: hidden;
+}
+.myToDo-con .item{
+	/* width: 100%; */
+	width: 270px;
+	font-size: 14px;
+	position: relative;
+}
+.myToDo-con h3{
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 8px;
+}
+.myToDo-con h3::before,
+.myToDo-con .status::before,
+.myToDo-con .update::before,
+.myToDo-con .time::before{
+	content: "";
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	position: relative;
+	top: 7px;
+	left: 0;
+	background: url("../images/icon-index.png") no-repeat;
+}
+.myToDo-con h3::before{
+	background-position: 0 -194px;
+	margin-right: 5px;
+}
+.myToDo-con .status::before{
+	background-position: 0 -228px;
+}
+.myToDo-con .update::before{
+	background-position: 0 -260px;
+}
+.myToDo-con .time::before{
+	background-position: 0 -330px;
+}
+.myToDo .prev,
+.myToDo .next{
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: rgba(255,255,255,.2) url("../images/icon-index.png") no-repeat 0 -295px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.myToDo .prev{
+	left: 10%;
+}
+.myToDo .next{
+	top: 45.2%;
+	right: 10%;
+	transform: rotate(180deg);
+}
+.myToDo .indicator{
+	position: absolute;
+	bottom: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.myToDo .indicator ul li{
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: rgba(255,255,255,.5);
+	margin: 0 3px;
+	float: left;
+}
+.myToDo .indicator ul li.active{
+	background: rgba(255,255,255,1);
+}
+/* 通知公告 */
+.boxStyle{
+	background: #fff;
+	border-radius: 8px;
+	border: 1px solid #f0f0f0;
+	box-sizing: border-box;
+}
+.mt-18{
+	margin-top: 18px;
+}
+.notice,
+.regulatory{
+	width: 100%;
+	height: 330px;
+	overflow: hidden;
+	position: relative;
+	margin-bottom: 30px;
+}
+.notice ul,
+.regulatory ul{
+	width: 95%;
+	font-size: 14px;
+}
+.notice ul li,
+.regulatory ul li{
+	height: 78px;
+	padding: 14px 0 0 0;
+	box-sizing: border-box;
+	line-height: 24px;
+}
+.notice ul li i,
+.regulatory ul li i{
+	display: block;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	float: left;
+	background: rgba(45,143,251,.2);
+	margin-right: 12px;
+	position: relative;
+	top: 7px;
+}
+.notice ul li i::before,
+.regulatory ul li i:before{
+	content: "";
+	display: block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/icon-index.png") no-repeat;
+	margin: 7px auto 0;
+}
+.notice ul li i::before{
+	background-position: 0 -364px;
+}
+.regulatory ul li i:before{
+	background-position: 0 -398px;
+}
+.notice ul li>div,
+.regulatory ul li>div{
+	width: 86%;
+	height: 63px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.notice ul li:last-child>div,
+.regulatory ul li:last-child>div{
+	border-bottom: none;
+}
+.notice ul li>div p,
+.regulatory ul li>div p{
+	width: 100%;
+	box-sizing: border-box;
+	color: #666;
+}
+.notice ul li .text,
+.regulatory ul li .text{
+	max-width: 90%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.notice ul li .new,
+.notice ul li .old{
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	position: relative;
+	top: 8px;
+	margin-left: 10px;
+}
+.notice ul li .new{
+	background: #f66a83;
+}
+.notice ul li .old{
+	background: #bfbfbf;
+}
+
+/* 统计分析 */
+.statistic,
+.statistic-r{
+	width: 100%;
+	background-color: #ffffff;
+	box-shadow: 0 10px 20px rgba(45,164,250,.06);
+	overflow: hidden;
+}
+.statistic{
+	margin-top: 20px;
+	border-radius: 8px;
+	height: 220px;
+}
+.statistic-r{
+	border-radius: 0 0 8px 8px;
+	height: 334px;
+}
+.statisticEcharts{
+	width: inherit;
+	height: 160px;
+}
+.statisticEcharts2{
+	width: inherit;
+	height: 180px;
+}
+.echartsInfo{
+	height: 72px;
+	line-height: 22px;
+	font-size: 12px;
+	color: #666;
+}
+.echartsInfo p{
+	text-align: left;
+	margin-left: 80%;
+}
+.echartsInfo p::before{
+	content: "";
+	display: inline-block;
+	width: 16px;
+	height: 8px;
+	margin-right: 5px;
+	border-radius: 3px;
+}
+.echartsInfo .p1::before{
+	background-color: #ffdb5b;
+}
+.echartsInfo .p2::before{
+	background-color: #68e0e3;
+}
+.echartsInfo .p3::before{
+	background-color: #37a2da;
+}
+/* 规章制度 */
+.mt-30{
+	margin-top: 30px;
+}
+/* 超期报警 */
+.overdue{
+	width: 100%;
+	height: 233px;
+	overflow: hidden;
+}
+.overdue ul{
+	height: 9999px;
+}
+.overdue ul li{
+	width: inherit;
+	height: 96px;
+	background-color: #ffffff;
+	border-radius: 4px;
+	box-shadow: 0 10px 20px rgba(45,164,250,.06);
+	overflow: hidden;
+	position: relative;
+	color: #666;
+	font-size: 12px;
+	line-height: 24px;
+	margin-bottom: 21px;
+}
+.overdue ul li::after{
+	content: "日志";
+	display: block;
+	width: 100%;
+	height: 26px;
+	background: #f66a83;
+	transform:translateX(49%) rotate(30deg);
+	position: absolute;
+	top: 0;
+	z-index: 1000;
+	color: #ffffff;
+	line-height: 30px;
+	text-indent: 46%;
+	font-size: 10px;
+}
+.overdue ul li h3{
+	font-size: 14px;
+	margin: 5px 0 0 21px;
+}
+.overdue ul li h3::before{
+	content: "";
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background: url("../images/icon-index.png") no-repeat 0 -428px;
+	position: relative;
+	top: 4px;
+}
+.overdue ul li p{
+	margin: 0 0 0 46px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

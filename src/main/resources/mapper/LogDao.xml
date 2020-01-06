@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.log.dao.LogDao">
+
+    <insert id="save" parameterType="com.zcc.log.entity.LogEntity">
+        <selectKey keyProperty="logId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into log values (#{logId},#{result},#{name},#{remoteAddr},#{requestUri},
+        #{method},#{params},#{exception},#{operateTime},#{endTime},#{userId});
+    </insert>
+</mapper>

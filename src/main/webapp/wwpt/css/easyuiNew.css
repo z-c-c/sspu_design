@@ -1,0 +1,63 @@
+@charset "GBK";
+.window .panel-title {
+    color: #181818;
+    font-size: 16px;
+    font-weight: normal;
+}
+.panel-title {
+	padding: 10px 0px 0 20px;
+}
+
+.window .window-header {
+    background: #ffffff;
+    padding: 5px 10px;
+}
+
+.window .panel-body {
+    border-top: #e4e6eb 1px solid;
+    border: 0px;
+    padding: 25px 10px 0px 30px;
+}
+
+.messager-button {
+    padding: 5px;
+    border: 0px;
+    background: #fff;
+    text-align: right;
+}
+
+.messager-icon {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 0 10px 10px 0;
+}
+
+.panel-tool a {
+    display: none;
+}
+
+.window {
+    position: fixed;
+    background: rgba(255, 255, 255, 0);
+    border-color: rgba(0, 0, 0, 0);
+    padding: 0;
+    border: 0px;
+}
+
+.window .panel-title {
+    color: #181818;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.messager-question {
+    background: url(../images/tanchuang.png) no-repeat scroll;
+}
+
+.l-btn:nth-child(1){
+	background-color: #409eff;
+}
+.messager-button .l-btn-small:nth-child(1) .l-btn-left .l-btn-text{
+	color: #ffffff !important;
+}

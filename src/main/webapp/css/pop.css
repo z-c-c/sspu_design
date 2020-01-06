@@ -1,0 +1,1112 @@
+/*重置*/
+*{
+	font-family: Arial, Helvetica,"Microsoft YaHei", "微软雅黑", sans-serif;
+}
+body, dt, dd, dl, li, ul, h1, h2, h3, h4, h5, h6, input, p {
+	margin: 0;
+	padding: 0;
+}
+li, ul, dt, dd, dl, h1, h2, h3, h4, h5, a {
+	line-height: none;
+	text-decoration: none;
+	list-style: none;
+}
+img {
+	border: none;
+}
+input[type="button"]{
+	cursor:pointer;
+}
+html,body{
+	height:100%;
+}
+body{
+	overflow:hidden;
+}
+/*adv*/
+
+.pop-title{
+	position:relative;
+	height:44px;
+	background-color:#f2f3f9;
+	font-size:16px;
+	font-weight:bold;
+	color:#333;
+	line-height:44px;
+	text-indent:24px;
+}
+.pop-box-content{
+	position: absolute;
+	left:0;
+	top:44px;
+	right:0;
+	bottom:0;
+	overflow-x:hidden;
+	overflow-y:auto;
+	padding:10px;
+}
+.table-search th{
+	height:30px;
+	font-size:12px;
+	font-weight:normal;
+	color:#787878;
+	line-height:28px;
+	text-align:right;
+	padding:5px 0;
+}
+.table-search th span{
+	color:#f00;
+}
+.table-search th.no-red span{
+	color:#333;
+}
+.table-search td{
+	height:30px;
+	font-size:14px;
+	color:#333;
+	line-height:28px;
+	padding:5px 0;
+}
+.table-search td label{
+	font-size:12px;
+	color:#636363;
+}
+.table-search td input[type="radio"],.table-search td input[type="checkbox"]{
+	vertical-align:middle;
+	margin:-2px 5px 0 5px;
+	*margin-top:0;
+}
+.table-hidden{
+	height:36px;
+	padding-right:10px;
+}
+.table-hidden a{
+	float:right;
+	height:36px;
+	background:url(../images/tab_hid.png) no-repeat right center;
+	font-size:12px;
+	font-weight:bold;
+	color:#333;
+	line-height:36px;
+	padding-right:15px;
+	cursor:pointer;
+}
+.table-btn-box{
+	text-align:center;
+	padding:10px 0;
+}
+.table-btn-box .easyui-linkbutton{
+	margin:0 10px;
+}
+
+/*查看户籍人口*/
+
+.photo-table{
+	width:720px;
+	margin:0 auto;
+}
+.photo-table li{
+	position:relative;
+	border-top:#ddd 1px dashed;
+	padding:15px 0;
+}
+.photo-table li:first-child{
+	min-height:130px;
+	border-top:0;
+}
+.photo-table li span{
+	position:absolute;
+	right:0;
+	top:15px;
+	display:block;
+	width:106px;
+	height:130px;
+	border:#d6d6d6 1px solid;
+	border-radius:8px;
+}
+.photo-table li span img{
+	display:block;
+	width:104px;
+	height:128px;
+	border:#fff 1px solid;
+	border-radius:8px;
+}
+.tabs-box{
+	padding:15px 0;
+}
+.member{
+	position:relative;
+	width:760px;
+	overflow:hidden;
+	margin:0 auto;
+}
+.member h6{
+	height:30px;
+	font-size:14px;
+	color:#333;
+	line-height:30px;
+}
+.trajectory{
+	width:750px;
+	margin:0 auto;
+	padding:15px 0;
+}
+
+/*新增户籍人口信息*/
+
+.add-hrp-step{
+	position:relative;
+	width:830px;
+	height:404px;
+	background-color:#fff;
+}
+.add-hrp-step li{
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:1;
+	width:830px;
+	height:404px;
+	background-color:#fff;
+}
+.add-hrp-step li.zz99{
+	z-index:99;
+}
+.step-title{
+	height:24px;
+	background-color:#f9f9f9;
+	border-bottom:#d8d8d8 1px solid;
+	padding:15px 55px;
+}
+.step-title li{
+	float:left;
+	heught:24px;
+	font-size:14px;
+	color:#fff;
+	line-height:24px;
+	text-align:center;
+}
+.step-title li.active,.step-title li.unactivated{
+	width:220px;
+}
+.step-title li.active{
+	background-color:#ff9801;
+}
+.step-title li.unactivated{
+	background-color:#bebebe;
+}
+.step-title li img{
+	display:block;
+}
+
+
+.photo-table{
+	width:720px;
+	margin:0 auto;
+}
+.photo-table li{
+	position:relative;
+	border-top:#ddd 1px dashed;
+	padding:15px 0;
+}
+.photo-table li:first-child{
+	border-top:0;
+}
+.user-photo{
+	position:absolute;
+	left:0;
+	top:15px;
+	overflow:hidden;
+	width:106px;
+	height:130px;
+	border:#d6d6d6 1px solid;
+	border-radius:8px;
+}
+.user-photo>img{
+	display:block;
+	width:104px;
+	height:128px;
+	border:#fff 1px solid;
+	border-radius:8px;
+}
+.user-photo a{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	display:block;
+	height:24px;
+	background-image:url(../Event-images/pop_bg.png);
+	font-size:12px;
+	color:#fff;
+	line-height:24px;
+	text-align:center;
+}
+.user-photo a img{
+	vertical-align:middle;
+	margin:-2px 5px 0 0;
+	*margin-top:0;
+}
+.user-photo.right{
+	left:auto;
+	right:0;
+}
+.step-main{
+	position:relative;
+	overflow:auto;
+	height:349px;
+}
+.photo-step{
+	width:760px;
+	margin:0 auto;
+}
+.photo-step>li{
+	position:relative;
+	border-top:#ddd 1px dashed;
+	padding:15px 0;
+}
+.photo-step>li:first-child{
+	min-height:130px;
+	border-top:0;
+	padding-left:115px;
+}
+
+.person-label{
+}
+.person-label dt{
+}
+.person-label dt:first-child{
+}
+.person-label dt h6{
+	height:30px;
+	font-size:14px;
+	color:#333;
+	line-height:30px;
+}
+.person-label-menu{
+	height:22px;
+	border-bottom:#c9c9c9 1px solid;
+	padding-top:5px;
+	padding-bottom:10px;
+	margin-bottom:10px;
+}
+.person-label-menu li{
+	float:left;
+	padding:0 5px;
+}
+.person-label-menu li a{
+	display:block;
+	height:20px;
+	background:#fff url(../images/plus.png) no-repeat 10px center;
+	font-size:12px;
+	color:#636363;
+	line-height:20px;
+	border:#c9c9c9 1px solid;
+	border-radius:22px;
+	padding-left:28px;
+	padding-right:10px;
+	cursor:pointer;
+}
+.person-label-menu li a.active{
+	background:#fcf8e3 url(../images/minus.png) no-repeat 10px center;
+	color:#f48323;
+	border:#ffdd98 1px solid;
+}
+.person-label-content{
+	padding-bottom:10px;
+	border-bottom:#ddd 1px solid;
+}
+.person-label-content .tabs li{
+	display:none;
+}
+.table-center{
+	width:660px;
+	margin:0 auto;
+	padding:15px 0;
+}
+.checkbox-list{
+	overflow:hidden;
+}
+.checkbox-list li{
+	float:left;
+	width:170px;
+}
+.checkbox-list.lg li{
+	width:250px;
+}
+
+/*page2*/
+
+.ps-info{
+	overflow:hidden;
+	width:760px;
+	padding:10px 0;
+	margin:0 auto;
+}
+.ps-info li{
+	float:left;
+	width:25%;
+}
+.ps-info li a{
+	display:block;
+	height:40px;
+	background-color:#f5f5f5;
+	font-size:14px;
+	color:#333;
+	line-height:40px;
+	text-align:center;
+	margin:0 5px;
+}
+.ps-info li a img{
+	vertical-align:middle;
+	margin:-2px 5px 0 0;
+	*margin-top:0;
+}
+.ps-info li a span{
+	color:#f00;
+	margin:0 3px;
+}
+
+/*新增信息*/
+
+.step-title.two{
+	height:24px;
+	background-color:#f9f9f9;
+	border-bottom:#d8d8d8 1px solid;
+	padding:15px 172px;
+}
+.step-title li{
+	float:left;
+	heught:24px;
+	font-size:14px;
+	color:#fff;
+	line-height:24px;
+	text-align:center;
+}
+.step-title li.active,.step-title li.unactivated{
+	width:220px;
+}
+.step-title li.active{
+	background-color:#ff9801;
+}
+.step-title li.unactivated{
+	background-color:#bebebe;
+}
+.step-title li img{
+	display:block;
+}
+.step-main.plus55{
+	height:405px;
+}
+
+/*住户管理*/
+
+.ah-list{
+	width:750px;
+	margin:0 auto;
+}
+.ah-list li{
+	height:400px;
+}
+.ah-list-operation{
+	padding:10px 0;
+}
+.ah-add-search{
+	width:238px;
+	height:348px;
+	background-color:#fbfbfb;
+	border:#ccc 1px solid;
+}
+.ah-add-search h6{
+	height:32px;
+    background-color: #efefef;
+    background: -webkit-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: -moz-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: -o-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: linear-gradient(to bottom,#F9F9F9 0,#efefef 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
+	font-size:14px;
+	color:#333;
+	line-height:32px;
+	text-indent:16px;
+	border-bottom:#ccc 1px solid;
+}
+.ah-add-search form{
+	padding:10px;
+}
+.ah-add-search ul{
+	overflow:auto;
+	width:218px;
+	height:257px;
+	background-color:#fff;
+	margin-left:10px;
+}
+.ah-add-search ul li{
+	height:28px;
+}
+.ah-add-search ul li span,.ah-add-search ul li a{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	font-size:12px;
+	color:#333;
+	line-height:28px;
+}
+.ah-add-search ul li span{
+	width:60px;
+	text-indent:15px;
+	*text-indent:5px;
+}
+
+/*变更地址*/
+
+.change-addess{
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	padding-bottom:15px;
+}
+.change-addess label{
+	font-size:14px;
+	margin-right:10px;
+}
+
+/*残疾人管理*/
+
+.service-table{
+	width:800px;
+	margin:0 auto;
+}
+.service-table li{
+	border-top:#ddd 1px dashed;
+	padding:0 10px;
+}
+.service-table li:first-child{
+	border-top:0;
+}
+.service-table li h6{
+	font-size:12px;
+	color:#333;
+	padding-top:10px;
+}
+.service-table li h6 span{
+	color:#1b6dff;
+}
+.service-header{
+	height:40px;
+}
+.service-header dt{
+	float:left;
+	line-height:40px;
+}
+.service-header dd{
+	float:right;
+	line-height:40px;
+}
+.service-table{
+	position:relative;
+}
+.service-search{
+	width:238px;
+	height:258px;
+	background-color:#fbfbfb;
+	border:#ccc 1px solid;
+}
+.service-table li .service-search h6{
+	height:32px;
+    background-color: #efefef;
+    background: -webkit-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: -moz-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: -o-linear-gradient(top,#F9F9F9 0,#efefef 100%);
+    background: linear-gradient(to bottom,#F9F9F9 0,#efefef 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#F9F9F9,endColorstr=#efefef,GradientType=0);
+	font-size:14px;
+	color:#333;
+	line-height:32px;
+	text-indent:16px;
+	border-bottom:#ccc 1px solid;
+	padding:0;
+}
+.service-search form{
+	padding:10px;
+}
+.service-search form label{
+	display:block;
+	padding-top:10px;
+}
+.service-search form label:first-child{
+	padding-top:0;
+}
+.service-search ul{
+	overflow:auto;
+	width:218px;
+	height:90px;
+	background-color:#fff;
+	margin-left:10px;
+}
+.service-search ul li{
+	height:28px;
+	padding:0;
+}
+.service-search ul li span,.service-search ul li a{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	font-size:12px;
+	color:#333;
+	line-height:28px;
+}
+.service-search ul li span{
+	width:70px;
+	text-indent:15px;
+}
+
+/*布局管理*/
+
+.house-layout{
+	width:650px;
+}
+.hl-header{
+	position:relative;
+	padding-left:50px;
+	margin-bottom:20px;
+}
+.hl-header h5{
+	font-size:16px;
+	color:#333;
+	line-height:26px;
+}
+.hl-header h6{
+	font-size:14px;
+	font-weight:normal;
+	color:#333;
+	line-height:26px;
+	margin-bottom:5px;
+}
+.steering{
+	position:absolute;
+	right:30px;
+	top:0;
+	width:90px;
+	height:90px;
+	background:url(../images/steering_bg.png) no-repeat center center;
+}
+.steering a{
+	position:absolute;
+	cursor:pointer;
+}
+.steering a.top{
+	left:31px;
+	top:5px;
+}
+.steering a.bottom{
+	left:31px;
+	bottom:5px;
+}
+.steering a.left{
+	top:31px;
+	left:5px;
+}
+.steering a.right{
+	top:31px;
+	right:5px;
+}
+.hl-body{
+	background:url(../images/roof.png) no-repeat center top;
+	padding-top:40px;
+}
+.hl-body-box{
+	overflow: hidden;
+	width:636px;
+	height:276px;
+	margin:0 auto;
+}
+.hl-body-table{
+}
+.hl-body-table td{
+	width:106px;
+	height:92px;
+}
+.hl-window{
+	position:relative;
+	width:100px;
+	height:30px;
+	background:#f0e6dd url(../images/window.jpg) no-repeat center 10px;
+	border:#fff 3px solid;
+	padding-top:56px;
+}
+.hl-window span{
+	display:block;
+	width:62px;
+	height:20px;
+	background-color:#964726;
+	font-size:12px;
+	color:#fff;
+	line-height:20px;
+	text-align:center;
+	border-radius:10px;
+	margin:0 auto;
+}
+.hl-window b{
+	display:block;
+	width:30px;
+	height:30px;
+	background:url(../images/rent.png) no-repeat center center;
+	position:absolute;
+	left:35px;
+	top:12px;
+}
+.hl-menu{
+	position:absolute;
+	top:10px;
+	right:10px;
+	width:160px;
+	height:460px;
+	background-color:#f2f3f9;
+	padding:0 10px;
+}
+.hl-menu-header{
+	overflow:hidden;
+}
+.hl-menu-header li{
+	float:left;
+	width:50%;
+	height:32px;
+	font-size:14px;
+	color:#999;
+	line-height:32px;
+	text-align:center;
+	border-bottom:#ccc 2px solid;
+	cursor:pointer;
+}
+.hl-menu-header li.active{
+	color:#1799c9;
+	border-bottom:#1799c9 2px solid;
+}
+.hl-menu-body{
+	overflow:auto;
+	height:400px;
+}
+.hl-menu-body li{
+	padding:10px;
+	display:none;
+}
+.hl-menu-body li dt{
+	overflow:hidden;
+	height:30px;
+}
+.hl-menu-body li dt a{
+	float:left;
+	width:100px;
+	height:30px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size:14px;
+	color:#333;
+	line-height:30px;
+}
+.hl-menu-body li dt span{
+	float:right;
+	font-size:14px;
+	color:#333;
+	line-height:30px;
+}
+
+.add-leader{
+	position:relative;
+	width:360px;
+	margin:0 auto;
+	padding-left:110px;
+	padding-top:20px;
+}
+.choice-attendant{
+	position:relative;
+	width:638px;
+	min-height:26px;
+	background-color:#fff;
+	border:#ccc 1px solid;
+}
+.attendant-name{
+	width:638px;
+	min-height:26px;
+}
+.attendant-name dl{
+	overflow:hidden;
+}
+.attendant-name dl dt{
+	position:relative;
+	float:left;
+	height:22px;
+	background-color:#f3f9ff;
+	font-size:14px;
+	color:#333;
+	line-height:20px;
+	border:#77a9d6 1px solid;
+	margin:2px;
+	padding-left:5px;
+	padding-right:22px;
+}
+.attendant-name dl dt span{
+	display:block;
+	width:22px;
+	height:22px;
+	position:absolute;
+	right:0;
+	top:0;
+	font-size:16px;
+	line-height:22px;
+	text-align:center;
+	cursor:pointer;
+}
+.attendant-pop{
+	position:absolute;
+	left:-1px;
+	bottom:-255px;
+	z-index:999;
+	width:618px;
+	height:230px;
+	background-color:#fff;
+	border:#ccc 1px solid;
+	padding:10px;
+}
+.attendant-pop-btn{
+	position:absolute;
+	right:10px;
+	top:10px;
+}
+.attendant-pop h5{
+	position:relative;
+	height:30px;
+	font-size:14px;
+	line-height:30px;
+}
+.attendant-pop h5 b{
+	display:block;
+	position:absolute;
+	right:0;
+	top:0;
+}
+.attendant-pop label{
+	display:block;
+	margin-bottom:10px;
+}
+
+
+.resive-scroll-box{
+	overflow:auto;
+	height:320px;
+}
+.revise-table{
+	border:#ccc 1px solid;
+	border-collapse:collapse;
+}
+.revise-table th,.revise-table td{
+	font-size:14px;
+	color:#333;
+	line-height:32px;
+	border:#eee 1px dotted;
+}
+.revise-table th{
+	background:url(../images/revise_th.jpg) repeat-x left top;
+	font-weight:normal;
+	border-bottom:#ccc 1px solid;
+}
+.revise-table td{
+	text-align:center;
+}
+.h400{
+	position:relative;
+	height:400px;
+	overflow:auto;
+}
+.split-line{
+	height:30px;
+	font-size:14px;
+	font-weight:bold;
+	color:#333;
+	line-height:30px;
+	border-top:#ccc 1px dashed;
+	margin-top:15px;
+}
+.check-form label{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}
+
+.bod-table{
+	border-collapse:collapse;
+}
+.bod-table th,.bod-table td{
+	border:#ccc 1px solid;
+	padding:5px;
+}
+.bod-table th{
+	background-color:#f9f9f9;
+}
+
+
+
+
+/*弹框*/
+
+.organizers{
+	width:600px;
+}
+.organizers .attendant-name{
+	width:600px;
+}
+.organizers a{
+	position:absolute;
+	top:0;
+	right:-38px;
+}
+
+
+
+.pop-table-box{
+	position:relative;
+	padding-right:200px;
+}
+
+
+/*上传模拟框*/
+
+.add-line.pl20{
+	padding-left:14px;
+}
+.my-file{
+	display:inline-block;
+	overflow:hidden;
+	position:relative;
+	width:550px;
+	height:26px;
+	border:#ccc 1px solid;
+	padding:0 10px;
+	vertical-align:middle;
+}
+.sm .my-file{
+	width:178px;
+}
+.my-file input:first-child{
+	display:block;
+	width:100%;
+	height:100%;
+	background:none;
+	border:0;
+	font-size:12px;
+	color:#999;
+	line-height:26px;
+}
+.my-file input:last-child{
+	position:absolute;
+	right:0;
+	top:0;
+	font-size:200px;
+	opacity:0;
+}
+.my-btn{
+	display:inline-block;
+	height:26px;
+	background: url(../images/my-btn.jpg) repeat-x left top;
+	font-size:12px;
+	color:#333;
+	line-height:26px;
+	border:#ccc 1px solid;
+	padding:0 10px;
+	vertical-align:middle;
+	cursor:pointer;
+}
+
+
+.ptb-pop{
+	position:absolute;
+	right:0;
+	top:0;
+	width:148px;
+	border:#ccc 1px solid;
+}
+.ptb-pop dt,.ptb-pop dd{
+	height:32px;
+	font-size:14px;
+	color:#333;
+	line-height:32px;
+}
+.ptb-pop dt{
+	background:#fff url(../images/ptb_pop.jpg) repeat-x left bottom;
+	font-size:15px;
+	text-align:center;
+}
+.ptb-pop dd{
+	position:relative;
+	border-top:#ccc 1px solid;
+	padding:0 10px;
+}
+.ptb-pop dd span{
+	position:absolute;
+	right:10px;
+	top:0;
+}
+.ptb-pop dd span b{
+	display:inline-block;
+	height:18px;
+	background-color:#d11300;
+	font-size:14px;
+	color:#fff;
+	line-height:18px;
+	text-align:center;
+	border-radius:3px;
+	margin-right:5px;
+	padding:0 5px;
+}
+
+
+.tit-text{
+	border:#ccc 1px solid;
+}
+.tit-text legend{
+	font-size:15px;
+	color:#333;
+	line-height:30px;
+	padding:0 10px;
+}
+.police-info li{
+	font-size:14px;
+	font-weight:bold;
+	color:#333;
+	line-height:28px;
+	padding-left:20px;
+}
+.police-info li span{
+	font-weight:normal;
+}
+.tit-text p{
+	font-size:14px;
+	color:#333;
+	line-height:28px;
+	text-indent:28px;
+	padding-left:20px;
+	padding-right:10px;
+}
+
+.bg-table{
+	border-collapse:collapse;
+}
+.bg-table tr th,.bg-table tr td{
+	border:#ccc 1px solid;
+}
+.bg-table tr th{
+	background-color:#faf9f9;
+}
+.ti15 tr td{
+	text-indent:15px;
+}
+
+
+.info-tit{
+	position:relative;
+	height:34px;
+	border-bottom:#ccc 1px solid;
+	margin:0 10px;
+}
+.info-tit>span{
+	float:left;
+	height:33px;
+	font-size:16px;
+	color:#333;
+	line-height:33px;
+	border-bottom:#008cbb 2px solid;
+	padding:0 15px;
+}
+.tit-right{
+	position:absolute;
+	right:0;
+	top:0;
+	padding:3px;
+}
+.tit-right a{
+	line-height:28px;
+	font-size:14px;
+}
+.preview-pic{
+	overflow:hidden;
+	width:780px;
+	margin:0 auto;
+}
+.preview-pic li{
+	position:relative;
+	float:left;
+	width:160px;
+	height:120px;
+	border:#ccc 1px solid;
+	margin:10px;
+	padding:5px;
+}
+.preview-pic li img{
+	display:block;
+}
+.preview-pic li span{
+	display:block;
+	position:absolute;
+	left:5px;
+	bottom:5px;
+	right:5px;
+	height:30px;
+	background:url(../Event-images/pop_bg.png);
+	font-size:14px;
+	color:#fff;
+	line-height:30px;
+	text-align:center;
+}
+
+.view-text{
+	padding:0 10px;
+}
+.view-text h5{
+	font-size:24px;
+	color:#333;
+	line-height:50px;
+	text-align:center;
+	border-bottom:#ccc 1px solid;
+	padding:0 50px 10px 50px;
+}
+.view-text h6{
+	font-size:14px;
+	color:#999;
+	line-height:30px;
+	text-align:center;
+}
+.view-text h6 span{
+	margin:0 20px;
+}
+.view-text p{
+	font-size:16px;
+	color:#333;
+	line-height:24px;
+	text-indent:32px;
+	padding:10px;
+}
+.view-text img{
+	display:block;
+	margin:10px auto;
+}
+
+
+.preview-text li{
+	font-size:14px;
+	color:#333;
+	line-height:28px;
+	text-decoration:underline;
+}
+a.concerned{
+	background:url(../images/concerned.png) no-repeat left center;
+	font-size:14px;
+	color:#333;
+	text-decoration:underline;
+	padding-left:20px;
+	cursor:pointer;
+}
+

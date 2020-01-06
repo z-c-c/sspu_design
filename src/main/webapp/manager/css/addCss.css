@@ -1,0 +1,112 @@
+/* 左侧菜单 */
+.leftMenuBox{
+    width: 220px;
+    /* height: 688px; */
+    height:100%;
+    border-radius: 2px;
+    padding-top: 14px;
+    box-sizing: border-box;
+    position: relative;
+    margin-left: 10px;
+}
+.listBox{
+    width: 200px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.listBox dt{
+    font-size: 16px;
+	line-height: 30px;
+    color: #179aed;
+}
+.listBox dt::before{
+    content: "";
+    display: inline-block;
+    background-size: 18px 17px;
+    width: 18px;
+    height: 17px;
+    margin-right: 12px;
+    position: relative;
+    top: 3px;
+}
+.listBox:nth-child(1) dt::before{
+    background: url("../images/iconMenu1.png") no-repeat 0 0;
+}
+.listBox:nth-child(2) dt::before{
+    background: url("../images/iconMenu2.png") no-repeat 0 0;
+}
+.listBox:nth-child(3) dt::before{
+    background: url("../images/iconMenu3.png") no-repeat 0 0;
+}
+.listBox dt{
+    background: url("../images/right.png") no-repeat right center;
+}
+.listBox dt.active{
+    background: url("../images/down.png") no-repeat right center;
+}
+/* .listBox dt::after{
+    content: "";
+    display: inline-block;
+    float: right;
+    width: 5px;
+    height: 9px;
+    background: url("../images/right.png") no-repeat;
+    position: relative;
+    top: 10px;
+    right: 0;
+} */
+.listBox dd{
+    width: inherit;
+    font-size: 14px;
+    line-height: 28px;
+}
+.listBox dd a{
+    display: block;
+    color: #8e9fa5;
+    height: 28px;
+    padding-left: 30px;
+    box-sizing: border-box;
+}
+.listBox dd a:hover{
+    background: #eff6ff;
+}
+.listBox dd a.circle::after{
+    content: "2";
+    display: inline-block;
+    width: 22px;
+	height: 14px;
+	background-color: #5a8bff;
+	border-radius: 7px;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    line-height: 14px;
+    position: relative;
+    top: 0;
+    left: 16px;
+}
+.leftMenuBox .menu{
+    position: absolute;
+    left: 29px;
+    top: 645px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #eff6ff;
+    cursor: pointer;
+}
+.leftMenuBox .menu i{
+    display: block;
+    width: 16px;
+    height: 2px;
+    margin: 0 0 2px -3px;
+	background-image: linear-gradient(#66aaff,#66aaff), 
+	                  linear-gradient(#61ddf7,#61ddf7);
+	opacity: 0.72;
+}
+.addWrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
