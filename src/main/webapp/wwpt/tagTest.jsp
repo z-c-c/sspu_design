@@ -101,15 +101,15 @@
                     var flag = true;
                     for (var j = 0; j < $(".tabConItem").eq(i).find(".span").length; j++) {
                         if ($(".tabConItem").eq(i).find(".span").eq(j).text().indexOf($("#txt1").val()) != -1) {
-                            // $(".tabConItem").eq(i).find(".span").eq(j).css('display', 'inline-block');
+                            // $(".tabConItem").eq(i).findByName(".span").eq(j).css('display', 'inline-block');
                             $(".tabConItem").eq(i).find(".span").eq(j).removeAttr("style");
                             // $(".tabConItem").eq(i).css('display', 'block');
                             $(".tabConItem").eq(i).removeAttr("style");
                             flag = false;
                         }
-                        /*if ($(".tabConItem").eq(i).find(".span").eq(j).text().substr(0, $("#txt1").val().length) == $("#txt1").val()) {
-                            // $(".tabConItem").eq(i).find(".span").eq(j).css('display', 'inline-block');
-                            $(".tabConItem").eq(i).find(".span").eq(j).removeAttr("style");
+                        /*if ($(".tabConItem").eq(i).findByName(".span").eq(j).text().substr(0, $("#txt1").val().length) == $("#txt1").val()) {
+                            // $(".tabConItem").eq(i).findByName(".span").eq(j).css('display', 'inline-block');
+                            $(".tabConItem").eq(i).findByName(".span").eq(j).removeAttr("style");
                             // $(".tabConItem").eq(i).css('display', 'block');
                             $(".tabConItem").eq(i).removeAttr("style");
                             flag = false;

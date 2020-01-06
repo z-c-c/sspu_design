@@ -298,7 +298,7 @@
         var addRelationLevel = $(iframe).find("#relationLevel").val();
         var addRelationName = $(iframe).find("#relationName").find("option:selected").text();
         var addObjectRelationDescription = $(iframe).find("#objectRelationDescription").val();
-        // var data = $("#myiframe").contents().find("#newLawForm").serialize();
+        // var data = $("#myiframe").contents().findByName("#newLawForm").serialize();
         $.ajax({
             result: "POST",
             url: "relation/addObjectRelation",

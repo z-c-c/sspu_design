@@ -261,7 +261,7 @@
     }
 
 
-    //$("form").find("input").attr("readonly","readonly")
+    //$("form").findByName("input").attr("readonly","readonly")
     function addRelation(id) {
         loadRealtionCode();
         if (id == null || id == undefined || id == "") {

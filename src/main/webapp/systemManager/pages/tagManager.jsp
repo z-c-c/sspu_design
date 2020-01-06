@@ -207,55 +207,55 @@
         }
         //获取数据列表
         function getTagList() {
-            $('body').mLoading("show");
+            // $('body').mLoading("show");
             $("#tagUl").html("");
             $.ajax({
                 type: "POST",
-                url: "wordManager/getTagList",
+                url: "/tagBaseInfo/findAllTag",
                 dataType: 'json',
-                data: {
-                    title: $("#content").val(),
-                    pageNumber: 1,
-                    pageSize: 6,
-                },
+                // data: {
+                //     title: $("#content").val(),
+                //     pageNumber: 1,
+                //     pageSize: 6,
+                // },
                 success: function (data) {
                     console.log(data)
-                    if (data.message == 'success') {
-                        var resultList = data.resultList.content;
-                        $("#totle").text("(" + data.resultList.totalElements + "条)");
-                        maxPages = data.resultList.totalPages;
-                        var str = '';
-                        for (var i = 0; i < resultList.length; i++) {
-                            var tagstr = '';
-                            var tagarr = resultList[i].content.split(",");
-                            for (var t = 0; t < tagarr.length; t++) {
-                                tagstr += '<dd id="' + resultList[i].objectId + t + '" onclick="updateTag(\'' + resultList[i].objectId + '\',\'' + resultList[i].objectId + t + '\')">' + tagarr[t] + '</dd>\n';
-                            }
-                            str += ' <li style="width: 100%" id="' + resultList[i].objectId + '" class="f-li">\n' +
-                                '                    <div>\n' +
-                                '                        <div class="fz-top">\n' +
-                                '                            <div title="' + resultList[i].objectName + '" class="fz-left" style="width: 80%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">\n' +
-                                '                                <img src="../../systemManager/images/p2-1-icon1.png">\n' +
-                                '                                <span>' + resultList[i].objectName + '</span><span style="color: #479bfd;">[' + tagarr.length + '个]</span>\n' +
-                                '                            </div>\n' +
-                                '                        </div>\n' +
-                                '                        <div class=\'fz-mid\'>\n' +
-                                '                            <dl class="tags">\n' + tagstr +
-                                '                                <dt id="' + resultList[i].objectId + 'add' + '" onclick="addTag(\'' + resultList[i].objectId + '\')"><img src="../../systemManager/images/p2-1-icon2.png"/></dt>\n' +
-                                '                            </dl>\n' +
-                                '                        </div>\n' +
-                                '                        <div class="fz-bott"></div>\n' +
-                                '                    </div>\n' +
-                                '                </li>';
-                        }
-                        $("#tagUl").html(str);
-                        if (page >= maxPages) {//检测没有下一页数据
-                            $(".drop-down-load").addClass("no-more");//改变底部提示文字
-                        } else {
-                            $(".drop-down-load").removeClass("no-more");
-                        }
-                        $('body').mLoading("hide");
-                    }
+                    // if (data.message == 'success') {
+                    //     var resultList = data.resultList.content;
+                    //     $("#totle").text("(" + data.resultList.totalElements + "条)");
+                    //     maxPages = data.resultList.totalPages;
+                    //     var str = '';
+                    //     for (var i = 0; i < resultList.length; i++) {
+                    //         var tagstr = '';
+                    //         var tagarr = resultList[i].content.split(",");
+                    //         for (var t = 0; t < tagarr.length; t++) {
+                    //             tagstr += '<dd id="' + resultList[i].objectId + t + '" onclick="updateTag(\'' + resultList[i].objectId + '\',\'' + resultList[i].objectId + t + '\')">' + tagarr[t] + '</dd>\n';
+                    //         }
+                    //         str += ' <li style="width: 100%" id="' + resultList[i].objectId + '" class="f-li">\n' +
+                    //             '                    <div>\n' +
+                    //             '                        <div class="fz-top">\n' +
+                    //             '                            <div title="' + resultList[i].objectName + '" class="fz-left" style="width: 80%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">\n' +
+                    //             '                                <img src="../../systemManager/images/p2-1-icon1.png">\n' +
+                    //             '                                <span>' + resultList[i].objectName + '</span><span style="color: #479bfd;">[' + tagarr.length + '个]</span>\n' +
+                    //             '                            </div>\n' +
+                    //             '                        </div>\n' +
+                    //             '                        <div class=\'fz-mid\'>\n' +
+                    //             '                            <dl class="tags">\n' + tagstr +
+                    //             '                                <dt id="' + resultList[i].objectId + 'add' + '" onclick="addTag(\'' + resultList[i].objectId + '\')"><img src="../../systemManager/images/p2-1-icon2.png"/></dt>\n' +
+                    //             '                            </dl>\n' +
+                    //             '                        </div>\n' +
+                    //             '                        <div class="fz-bott"></div>\n' +
+                    //             '                    </div>\n' +
+                    //             '                </li>';
+                    //     }
+                    //     $("#tagUl").html(str);
+                    //     if (page >= maxPages) {//检测没有下一页数据
+                    //         $(".drop-down-load").addClass("no-more");//改变底部提示文字
+                    //     } else {
+                    //         $(".drop-down-load").removeClass("no-more");
+                    //     }
+                    //     $('body').mLoading("hide");
+                    // }
 
                 }
             });
@@ -293,9 +293,9 @@
 
         <ul class="nav-box">
             <li class="clicked">全部</li>
-            <li>停用词库</li>
-            <li>自定义词库</li>
-            <li>基础词库</li>
+            <li>人员标签</li>
+            <li>单位标签</li>
+            <li>事件标签</li>
         </ul>
     </div>
     <div class="f-bott">
@@ -313,7 +313,7 @@
                         </div>
                         <div class='fz-mid'>
                             <dl class="tags">
-                                <dd style="background-color: red;color: white;font-size: 25px">标签一标签标签标签标签标签</dd>
+                                <dd style="background-color: red;color: white;font-size: 10px">标签一标签标签标签标签标签</dd>
                                 <dd onclick="updateTag()">标签一标签</dd>
                                 <dd onclick="updateTag()">标签一</dd>
                                 <dd onclick="updateTag()">标签一</dd>

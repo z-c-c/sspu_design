@@ -147,7 +147,7 @@
             var judgeparam_name=false;
             var judgeparam_type=false;
             for(var i = 0; i <$size ; i++){
-                // alert($('#add-params').find("dd:eq("+i+")").find("input:eq(0)").val())
+                // alert($('#add-params').findByName("dd:eq("+i+")").findByName("input:eq(0)").val())
                 if($('#add-params').find("dd:eq("+i+")").find("input:eq(0)").val()==""||$('#add-params').find("dd:eq("+i+")").find("input:eq(0)").val()==null) {
                     judgeparam_index=true;break;}}
             for(var i = 0; i <$size ; i++){

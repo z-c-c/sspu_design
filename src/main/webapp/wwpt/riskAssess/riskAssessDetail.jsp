@@ -475,7 +475,7 @@
         //     var documentHeight = $(document).height();
         //     var windowHeight = $(window).height();
         //     var itemH = $(".infoBox-r").outerHeight(true);
-        //     var contentItems = $(".contentWrap").find(".point");
+        //     var contentItems = $(".contentWrap").findByName(".point");
         //     var currentItem = "";
         //     // 屏幕滚动超过右侧“引用本篇的法规”的最后一个元素的距屏幕顶部的距离的时候，出现固定的模块
         //     if (scrollTop >= itemH) {
@@ -496,9 +496,9 @@
         //             }
         //         });
         //     }
-        //     if (currentItem && currentItem != $(".anchorList").find(".active").attr("href")) {
-        //         $(".anchorList").find(".active").removeClass("active");
-        //         $(".anchorList").find("[href=" + currentItem + "]").addClass("active");
+        //     if (currentItem && currentItem != $(".anchorList").findByName(".active").attr("href")) {
+        //         $(".anchorList").findByName(".active").removeClass("active");
+        //         $(".anchorList").findByName("[href=" + currentItem + "]").addClass("active");
         //         oMyBar1.jump({
         //             id: currentItem.slice(1) + "_id",
         //             time: 400
@@ -528,16 +528,16 @@
         });
 
         // // 生命周期 标签位置
-        // var liLen = $(".timeAxis").find("li").length;
-        // var liW = $(".timeAxis").find("li").outerWidth(true);
+        // var liLen = $(".timeAxis").findByName("li").length;
+        // var liW = $(".timeAxis").findByName("li").outerWidth(true);
         // $(".timeAxis").css("width", liW * (liLen - 1) + "px");
         // $(".timeWrap i.line").css("width", liW * (liLen - 1) + "px");
         // for (var i = 0; i < liLen + 1; i++) {
-        //     $(".timeAxis").find("li:nth-child(" + (i + 1) + ")").css({ "left": (i * 180 + 30) + "px" });
+        //     $(".timeAxis").findByName("li:nth-child(" + (i + 1) + ")").css({ "left": (i * 180 + 30) + "px" });
         //     if (i % 2 != 0 && i != 0) {
-        //         $(".timeAxis").find("li:nth-child(" + (i + 1) + ")").css({ "top": 140 + "px" });
+        //         $(".timeAxis").findByName("li:nth-child(" + (i + 1) + ")").css({ "top": 140 + "px" });
         //     } else {
-        //         $(".timeAxis").find("li:nth-child(" + (i + 1) + ")").css({ "top": 16 + "px" });
+        //         $(".timeAxis").findByName("li:nth-child(" + (i + 1) + ")").css({ "top": 16 + "px" });
         //     }
         // }
         // // 生命周期滚动条

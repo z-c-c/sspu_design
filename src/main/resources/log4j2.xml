@@ -14,6 +14,7 @@
         <console name="Console" target="SYSTEM_OUT">
             <!--PatternLayout :输出日志的格式,LOG4J2定义了输出代码,详见第二部分-->
             <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss,SSS}] [%p] - %l - %m%n"/>
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
         </console>
         <!--File :同步输出日志到本地文件-->
         <!--append="false" :根据其下日志策略,每次清空文件重新输入日志,可用于测试-->
