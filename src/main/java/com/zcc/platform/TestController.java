@@ -33,7 +33,7 @@ public class TestController {
         service.test();
         TagBaseInfoEntity tagBaseInfoEntity = new TagBaseInfoEntity();
         tagBaseInfoEntity.setTagName("测试标签");
-        List<TagBaseInfoService> all = tagBaseInfoService.findAll();
+        List<TagBaseInfoEntity> all = tagBaseInfoService.findAll();
         throw new Exception();
 //        return ResultBean.success(tagBaseInfoEntity);
     }

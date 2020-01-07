@@ -1,5 +1,7 @@
 package com.zcc.manager.tagmanager.service.impl;
 
+import com.zcc.commons.utils.Page;
+import com.zcc.exceptions.MyException;
 import com.zcc.manager.tagmanager.dao.TagBaseInfoDao;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.service.TagBaseInfoService;
@@ -26,13 +28,14 @@ public class TagBaseInfoServiceImpl implements TagBaseInfoService {
      */
     @Override
     public String save(TagBaseInfoEntity tagBaseInfoEntity) {
-        if (tagBaseInfoEntity.getTagId() != null) {
-            tagDao.update(tagBaseInfoEntity);
-        } else {
+        if (tagBaseInfoEntity.getTagId() == null || "".equals(tagBaseInfoEntity.getTagId())) {
             tagDao.add(tagBaseInfoEntity);
+        } else {
+            tagDao.update(tagBaseInfoEntity);
         }
         return tagBaseInfoEntity.getTagId();
     }
+
 
     /**
      * 添加标签
@@ -71,6 +74,18 @@ public class TagBaseInfoServiceImpl implements TagBaseInfoService {
         return tagBaseInfoEntities;
     }
 
+
+    /**
+     * 查找标签
+     *
+     * @param tagId
+     * @return
+     */
+    @Override
+    public TagBaseInfoEntity findById(String tagId) {
+        return tagDao.findById(tagId);
+    }
+
     /**
      * 查找标签
      *
@@ -84,9 +99,24 @@ public class TagBaseInfoServiceImpl implements TagBaseInfoService {
     }
 
     /**
+     * 分页查找标签
+     *
+     * @param tagBaseInfoEntity
+     * @param page
+     * @return
+     */
+    @Override
+    public List<TagBaseInfoEntity> find(TagBaseInfoEntity tagBaseInfoEntity, Page page) {
+        if (page != null) {
+            return tagDao.findWithPages(tagBaseInfoEntity, page);
+        }
+        return null;
+    }
+
+    /**
      * 根据标签标注对象查标签
      *
-     * @param objectType
+     * @param objectId
      * @return
      */
     @Override
@@ -100,7 +130,7 @@ public class TagBaseInfoServiceImpl implements TagBaseInfoService {
      * @return
      */
     @Override
-    public List<TagBaseInfoService> findAll() {
+    public List<TagBaseInfoEntity> findAll() {
         return tagDao.findAll();
     }
 }

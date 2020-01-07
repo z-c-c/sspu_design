@@ -1,7 +1,5 @@
 package com.zcc.commons.utils;
 
-import java.util.Collection;
-
 /**
  * @author zcc
  * 统一 返回结果集

@@ -1,5 +1,7 @@
 package com.zcc.manager.tagmanager.service;
 
+import com.zcc.commons.utils.Page;
+import com.zcc.exceptions.MyException;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 
 import java.util.List;
@@ -27,12 +29,13 @@ public interface TagBaseInfoService {
      */
     void  del(String tagId);
 
+
     /**
      * 查找标签
-     * @param tagName 标签名
-     * @return list
+     * @param tagId
+     * @return
      */
-    List<TagBaseInfoEntity> find(String tagName);
+    TagBaseInfoEntity findById(String tagId);
 
     /**
      * 查找标签
@@ -41,6 +44,22 @@ public interface TagBaseInfoService {
      */
     List<TagBaseInfoEntity> find(TagBaseInfoEntity tagBaseInfoEntity);
 
+    /**
+     * 查找标签
+     *
+     * @param tagName 标签名
+     * @return list
+     */
+    List<TagBaseInfoEntity> find(String tagName);
+
+    /**
+     * 分页查找标签
+     *
+     * @param tagBaseInfoEntity
+     * @param page
+     * @return
+     */
+    List<TagBaseInfoEntity> find(TagBaseInfoEntity tagBaseInfoEntity, Page page);
     /**
      * 根据标签标注对象查标签
      * @param objectId
@@ -52,6 +71,6 @@ public interface TagBaseInfoService {
      * 查询所有
      * @return
      */
-    List<TagBaseInfoService> findAll();
+    List<TagBaseInfoEntity> findAll();
 
 }

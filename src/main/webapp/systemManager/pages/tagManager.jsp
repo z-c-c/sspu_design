@@ -13,6 +13,7 @@
     <script type="text/javascript" src="../../systemManager/js/jquery.mloading.js"></script>
     <script type="text/javascript" src="../../systemManager/js/pop.js"></script>
     <script type="text/javascript" src="../../systemManager/js/spectrum.js"></script>
+    <script type="text/javascript" src="../../js/jquery.mousewheel.js"></script>
 
     <style type="text/css">
         .tagbtn {
@@ -32,7 +33,7 @@
 
         .drop-down-load:after {
             display: inline;
-            content: "下拉加载更多";
+            content: "下滑加载更多";
         }
 
         .drop-down-load.no-more:after {
@@ -43,18 +44,68 @@
             opacity: 0.5;
 
         }
+
+        #search {
+            width: 440px;
+            height: 40px;
+            border: none; /*取消默认的边框以设置自定义边框*/
+            outline: none; /*取消浏览器默认的蓝光边框以设置自定义的输入框*/
+            font-size: 16px;
+            color: rgb(112, 112, 112);
+            margin-left: 10px;
+
+        }
+
+        .searchbar { /*目的是设置自定义边框，比如圆角与阴影*/
+            border: rgb(218, 218, 218) solid 1px;
+            border-radius: 2em;
+            width: 515px;
+            height: 42px;
+            box-shadow: 0px 0px 5px rgb(212, 212, 212);
+            margin: 0 auto;
+
+            margin-left: 25%;
+
+
+        }
+
+        .searchbar img {
+            vertical-align: -11px;
+        }
+
+        .mcp {
+            height: 35px;
+        }
+
+        .mg {
+            height: 25px;
+            margin-left: 15px;
+        }
+
+        #search, .mcp, .mg {
+            vertical-align: middle;
+        }
+
+        input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset
+        }
     </style>
     <script type="text/javascript">
         var timer2 = null;
         var page = 1;
         var maxPages = 0;
+        var loadFlag = true;
         $(function () {
+
+            getTagList();
             $(".js-cancel").click(function () {
                 $(this).parents(".mmodal").hide();
+                loadFlag = true;
             });
             $(".nav-box li").click(function () {
                 $(this).addClass("clicked").siblings().removeClass("clicked");
             });
+
 
             //初始化调色板
             $(".full").spectrum({
@@ -69,18 +120,18 @@
                 maxPaletteSize: 10,
                 preferredFormat: "hex",
                 localStorageKey: "spectrum.demo",
-                move: function (color) {
-                    updateBorders(color);
-                },
+                // move: function (color) {
+                //     updateBorders(color);
+                // },
                 show: function () {
 
                 },
                 beforeShow: function () {
 
                 },
-                hide: function (color) {
-                    updateBorders(color);
-                },
+                // hide: function (color) {
+                //     updateBorders(color);
+                // },
 
                 palette: [
                     ["rgb(0, 0, 0)", "rgb(67, 67, 67)", "rgb(102, 102, 102)", /*"rgb(153, 153, 153)","rgb(183, 183, 183)",*/
@@ -101,201 +152,275 @@
                         "rgb(12, 52, 61)", "rgb(28, 69, 135)", "rgb(7, 55, 99)", "rgb(32, 18, 77)", "rgb(76, 17, 48)"]
                 ]
             });
-            //标签点击事件
-            $(".f-li dd").click(function () {
-                if ($(this).hasClass("clicked")) {
-                    $(this).removeClass("clicked");
-                    $(".modal").hide(300);
-                } else {
-                    $(".f-li dd").filter(".clicked").removeClass("clicked");
-                    $(this).addClass("clicked");
-                    var x = $(this).position().left;
-                    var y = $(this).position().top;
-                    var w = $(this).outerWidth(true);
-                    var txt = $(this).text();
-                    var width = $(".modal").outerWidth();
-                    var idx = $(this).parents(".f-li").index();
-                    $("#modal_title").text(txt);
-                    if (idx % 2) {
-                        $(".modal").removeClass("leftside").addClass("rightside");
-                        $(".modal").animate({opacity: 0}, 100).animate({
-                            left: x - width - 12,
-                            top: y - 10,
-                            opacity: 1
-                        }, 300);
-                        $(".modal").show(100);
-                    } else {
-                        $(".modal").removeClass("rightside").addClass("leftside");
-                        $(".modal").animate({opacity: 0}, 100).animate({left: x + w, top: y - 10, opacity: 1}, 300);
-                        $(".modal").show(100);
-                    }
-                }
-            });
-            // getTagList();
-            // isNeedCutWord();
 
-            $(window).scroll(function (e) {
-                var wH = $(window).height();
-                var wT = $(window).scrollTop();
-                var bH = $(".f-content").height();
-                clearTimeout(timer2);
-                timer2 = setTimeout(function () {
-                    if (Math.abs(bH - wH - wT) <= 100) {//下滚(若修改页面元素高度则需调整此判断)
-                        page++;
-                        //ajax访问请求
-                        $.ajax({
-                            type: "POST",
-                            url: "wordManager/getTagList",
-                            dataType: 'json',
-                            data: {
-                                title: $("#content").val(),
-                                pageNumber: page,
-                                pageSize: 6,
-                            },
-                            success: function (data) {
-                                if (data.message == 'success') {
-                                    var resultList = data.resultList.content;
-                                    var str = '';
-                                    for (var i = 0; i < resultList.length; i++) {
-                                        var tagstr = '';
-                                        var tagarr = resultList[i].content.split(",");
-                                        for (var t = 0; t < tagarr.length; t++) {
-                                            tagstr += '<dd id="' + resultList[i].objectId + t + '" onclick="updateTag(\'' + resultList[i].objectId + '\',\'' + resultList[i].objectId + t + '\')">' + tagarr[t] + '</dd>\n';
+            $(window).mousewheel(function (event) {
+                if (loadFlag) {
+                    if (event.deltaY < 0) {
+                        if (page < maxPages) {
+                            $('body').mLoading("show");
+                        }
+                        clearTimeout(timer2);
+                        timer2 = setTimeout(function () {
+                            if (page < maxPages) {
+                                page++;
+                                //ajax访问请求
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/tagBaseInfo/findTagWithPage",
+                                    dataType: 'json',
+                                    data: {
+                                        tagName: $("#search").val(),
+                                        tagLabelType: $("#searchLabelType").val(),
+                                        page: page,
+                                        pageSize: 30,
+                                    },
+                                    success: function (data) {
+                                        if (data.code == 'success') {
+                                            var tags = data.data.tags;
+                                            $("#totle").text("(" + data.data.total + "条)");
+                                            maxPages = Math.ceil(data.data.total / 30);
+                                            var str = '';
+                                            for (var i = 0; i < tags.length; i++) {
+                                                var tagCssCode
+                                                if (tags[i].tagCssCode === null || tags[i].tagCssCode.trim().length == 0) {
+                                                    tagCssCode = JSON.parse('{"color":"red"}');
+                                                } else {
+                                                    tagCssCode = JSON.parse(tags[i].tagCssCode);
+                                                }
+                                                var tagCssCode = JSON.parse(tags[i].tagCssCode);
+                                                str = '<dd style="background-color: ' + tagCssCode.color + ';color: white;font-size: 10px" onclick="tagClick($(this),\'' + tags[i].tagId + '\')">' + tags[i].tagName + '</dd>';
+                                                $("#tags").append(str);
+                                            }
+                                            $('body').mLoading("hide");
                                         }
-                                        str += ' <li style="width: 100%" id="' + resultList[i].objectId + '" class="f-li">\n' +
-                                            '                    <div>\n' +
-                                            '                        <div class="fz-top">\n' +
-                                            '                            <div title="' + resultList[i].objectName + '" class="fz-left" style="width: 80%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">\n' +
-                                            '                                <img src="../../systemManager/images/p2-1-icon1.png">\n' +
-                                            '                               <span>' + resultList[i].objectName + '</span><span style="color: #479bfd;">[' + tagarr.length + '个]</span>\n' +
-                                            '                            </div>\n' +
-                                            '                        </div>\n' +
-                                            '                        <div class=\'fz-mid\'>\n' +
-                                            '                            <dl class="tags">\n' + tagstr +
-                                            '                                <dt id="' + resultList[i].objectId + 'add' + '" onclick="addTag()"><img src="../../systemManager/images/p2-1-icon2.png"/></dt>\n' +
-                                            '                            </dl>\n' +
-                                            '                        </div>\n' +
-                                            '                        <div class="fz-bott"></div>\n' +
-                                            '                    </div>\n' +
-                                            '                </li>';
                                     }
-                                    $("#tagUl").append(str)
+                                });
+                                if (page >= maxPages) {//检测没有下一页数据
+                                    $(".drop-down-load").addClass("no-more");//改变底部提示文字
+                                } else {
+                                    $(".drop-down-load").removeClass("no-more");
                                 }
                             }
+                        }, 50);
+                    }
+                }
 
-                        });
+            });
+        });
+
+        function colorRGBtoHex(color) {
+            var rgb = color.split(',');
+            var r = parseInt(rgb[0].split('(')[1]);
+            var g = parseInt(rgb[1]);
+            var b = parseInt(rgb[2].split(')')[0]);
+            var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            return hex;
+        }
+
+        //获取数据列表
+        function getTagList(tagLabelType) {
+
+            $("#m4").hide();
+            $("#tags").find('dd').removeClass('clicked');
+            $("#searchLabelType").val(tagLabelType);
+            $("#tagType").text('全部标签');
+            if (tagLabelType === 'person') {
+                $("#tagType").text('人员标签');
+            }
+            if (tagLabelType === 'event') {
+                $("#tagType").text('事件标签');
+            }
+            if (tagLabelType === 'unit') {
+                $("#tagType").text('单位标签');
+            }
+            page = 1;
+            $('body').mLoading("show");
+            $("#tags").empty();
+            $.ajax({
+                type: "POST",
+                url: "/tagBaseInfo/findTagWithPage",
+                dataType: 'json',
+                data: {
+                    tagName: $("#search").val(),
+                    tagLabelType: tagLabelType,
+                    page: 1,
+                    pageSize: 30,
+                },
+                success: function (data) {
+                    if (data.code == 'success') {
+                        var tags = data.data.tags;
+                        $("#totle").text("(" + data.data.total + "条)");
+                        maxPages = Math.ceil(data.data.total / 30);
+                        var str = '';
+                        for (var i = 0; i < tags.length; i++) {
+                            var tagCssCode
+                            if (tags[i].tagCssCode === null || tags[i].tagCssCode.trim().length == 0) {
+                                tagCssCode = JSON.parse('{"color":"red"}');
+                            } else {
+                                tagCssCode = JSON.parse(tags[i].tagCssCode);
+                            }
+                            var tagCssCode = JSON.parse(tags[i].tagCssCode);
+                            str = '<dd style="background-color: ' + tagCssCode.color + ';color: white;font-size: 10px" onclick="tagClick($(this),\'' + tags[i].tagId + '\')">' + tags[i].tagName + '</dd>';
+                            $("#tags").append(str);
+                        }
                         if (page >= maxPages) {//检测没有下一页数据
                             $(".drop-down-load").addClass("no-more");//改变底部提示文字
                         } else {
                             $(".drop-down-load").removeClass("no-more");
                         }
+                        $('body').mLoading("hide");
+
                     }
-                }, 800);
-            });
-        });
-        //rgb转为16进制(不是ie的情况下)
-        function colorChange(rgb) {
-            // var rgb = dom.css('background-color');
-            if(!$.browser.msie){
-                rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-                function hex(x) {
-                    return ("0" + parseInt(x).toString(16)).slice(-2);
                 }
-                rgb= "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+            });
+        }
+
+        function tagClick(thisDom, id) {
+            $("#StagID").val(id);
+            if (thisDom.hasClass("clicked")) {
+                thisDom.removeClass("clicked");
+                $(".modal").hide(300);
+            } else {
+                $(".f-li dd").filter(".clicked").removeClass("clicked");
+                thisDom.addClass("clicked");
+                var x = thisDom.position().left;
+                var y = thisDom.position().top;
+                var w = thisDom.outerWidth(true);
+                var txt = thisDom.text();
+                var width = $(".modal").outerWidth();
+                var idx = thisDom.parents(".f-li").index();
+                $("#modal_title").text(txt);
+                $.ajax({
+                    type: 'post',
+                    url: '/tagBaseInfo/findTagById',
+                    dataType: 'json',
+                    data: {
+                        tagId: id
+                    },
+                    success: function (result) {
+                        if (result.code == 'success') {
+                            var tag = result.data;
+                            $("#showTagExplain").text(tag.tagExplain);
+                            $("#showTagColor").css("background-color", JSON.parse(tag.tagCssCode).color);
+                            if (tag.tagLabelType == 'person') {
+                                $("#showTagLabelType").text("人员");
+                            }
+                            if (tag.tagLabelType == 'event') {
+                                $("#showTagLabelType").text("事件");
+                            }
+                            if (tag.tagLabelType == 'unit') {
+                                $("#showTagLabelType").text("单位");
+                            }
+                        }
+                    }
+                })
+                if (idx % 2) {
+                    $(".modal").removeClass("leftside").addClass("rightside");
+                    $(".modal").animate({opacity: 0}, 100).animate({
+                        left: x - width - 12,
+                        top: y - 10,
+                        opacity: 1
+                    }, 300);
+                    $(".modal").show(100);
+                } else {
+                    $(".modal").removeClass("rightside").addClass("leftside");
+                    $(".modal").animate({opacity: 0}, 100).animate({left: x + w, top: y - 10, opacity: 1}, 300);
+                    $(".modal").show(100);
+                }
             }
-            return rgb;
-        }
-        //获取数据列表
-        function getTagList() {
-            // $('body').mLoading("show");
-            $("#tagUl").html("");
-            $.ajax({
-                type: "POST",
-                url: "/tagBaseInfo/findAllTag",
-                dataType: 'json',
-                // data: {
-                //     title: $("#content").val(),
-                //     pageNumber: 1,
-                //     pageSize: 6,
-                // },
-                success: function (data) {
-                    console.log(data)
-                    // if (data.message == 'success') {
-                    //     var resultList = data.resultList.content;
-                    //     $("#totle").text("(" + data.resultList.totalElements + "条)");
-                    //     maxPages = data.resultList.totalPages;
-                    //     var str = '';
-                    //     for (var i = 0; i < resultList.length; i++) {
-                    //         var tagstr = '';
-                    //         var tagarr = resultList[i].content.split(",");
-                    //         for (var t = 0; t < tagarr.length; t++) {
-                    //             tagstr += '<dd id="' + resultList[i].objectId + t + '" onclick="updateTag(\'' + resultList[i].objectId + '\',\'' + resultList[i].objectId + t + '\')">' + tagarr[t] + '</dd>\n';
-                    //         }
-                    //         str += ' <li style="width: 100%" id="' + resultList[i].objectId + '" class="f-li">\n' +
-                    //             '                    <div>\n' +
-                    //             '                        <div class="fz-top">\n' +
-                    //             '                            <div title="' + resultList[i].objectName + '" class="fz-left" style="width: 80%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">\n' +
-                    //             '                                <img src="../../systemManager/images/p2-1-icon1.png">\n' +
-                    //             '                                <span>' + resultList[i].objectName + '</span><span style="color: #479bfd;">[' + tagarr.length + '个]</span>\n' +
-                    //             '                            </div>\n' +
-                    //             '                        </div>\n' +
-                    //             '                        <div class=\'fz-mid\'>\n' +
-                    //             '                            <dl class="tags">\n' + tagstr +
-                    //             '                                <dt id="' + resultList[i].objectId + 'add' + '" onclick="addTag(\'' + resultList[i].objectId + '\')"><img src="../../systemManager/images/p2-1-icon2.png"/></dt>\n' +
-                    //             '                            </dl>\n' +
-                    //             '                        </div>\n' +
-                    //             '                        <div class="fz-bott"></div>\n' +
-                    //             '                    </div>\n' +
-                    //             '                </li>';
-                    //     }
-                    //     $("#tagUl").html(str);
-                    //     if (page >= maxPages) {//检测没有下一页数据
-                    //         $(".drop-down-load").addClass("no-more");//改变底部提示文字
-                    //     } else {
-                    //         $(".drop-down-load").removeClass("no-more");
-                    //     }
-                    //     $('body').mLoading("hide");
-                    // }
-
-                }
-            });
         }
 
-        function addTag() {
+        function tagShow(flag) {
+            loadFlag = false;
+            $("#tagName").val('');
+            $("#tagExplain").val('');
+            $("#tagLabelType").val('person');
+            //修改
+            if (flag) {
+                $.ajax({
+                    type: 'post',
+                    url: '/tagBaseInfo/findTagById',
+                    dataType: 'json',
+                    data: {
+                        tagId: $('#StagID').val()
+                    },
+                    success: function (result) {
+
+                        if (result.code == 'success') {
+                            var tag = result.data;
+                            $("#tagName").val(tag.tagName);
+                            $("#tagExplain").val(tag.tagExplain);
+                            $("#tagLabelType").val(tag.tagLabelType);
+                            var color = JSON.parse(tag.tagCssCode).color;
+                            $("#addColorDiv").find("div[class='sp-preview-inner']").css("background-color", color)
+                        }
+                    }
+                })
+            } else {
+                $('#StagID').val('');
+            }
             $("#m1").show();
         }
 
-        //切词
-        function cut() {
+        //保存
+        function save() {
+
             $('body').mLoading("show");
             $('body').mLoading({text: '保存中'});
+
+            var tagCssCode = {};
+            if ($("#addColorDiv").find("div[class='sp-preview-inner']").css("background-color") == undefined) {
+                tagCssCode.color = "";
+            } else {
+                tagCssCode.color = colorRGBtoHex($("#addColorDiv").find("div[class='sp-preview-inner']").css("background-color"));
+            }
+            $.ajax({
+                type: 'post',
+                url: '/tagBaseInfo/saveTag',
+                dataType: 'json',
+                data: {
+                    tagId: $("#StagID").val(),
+                    tagName: $("#tagName").val(),
+                    tagExplain: $("#tagExplain").val(),
+                    tagLabelType: $("#tagLabelType").val(),
+                    tagCssCode: JSON.stringify(tagCssCode),
+                },
+                success: function (result) {
+                    if (result.code == 'success') {
+                        $("#m1").hide();
+                        $('body').mLoading("hide");
+                        getTagList();
+                    }
+                }
+            });
+
+
             // $('body').mLoading("hide");
         }
     </script>
 </head>
 <body>
-<input id="quxiaoid" type="hidden">
-<input id="tagTabId" type="hidden">
+<input id="searchLabelType" type="hidden">
+<input id="StagID" type="hidden">
 <div class="f-content p2-1">
     <div class="f-top">
         <div class="f-title"><span>知识库管理&nbsp;/&nbsp;</span>数据标签管理</div>
         <div class="search-box">
-            <div class="fz-left" onclick="addTag()">
+            <div class="fz-left" onclick="tagShow()">
                 <img src="../../systemManager/images/p2-1-icon4.png">
                 <span>新建标签</span>
             </div>
-            <div class="fz-right">
-                <img src="../../systemManager/images/p2-1-icon5.png">
-                <input id="content" placeholder="请输入标签名"/>
-                <button onclick="getTagList()">搜索</button>
+            <div class="searchbar">
+                <input type="text" id="search" placeholder="请输入标签名"/>
+                <%--                <img src=../../images/microphone.png class="mcp">--%>
+                <img src=../../images/search.png class="mg" onclick="getTagList()">
             </div>
-        </div>
 
         <ul class="nav-box">
-            <li class="clicked">全部</li>
-            <li>人员标签</li>
-            <li>单位标签</li>
-            <li>事件标签</li>
+            <li class="clicked" onclick="getTagList()">全部</li>
+            <li onclick="getTagList('person')">人员标签</li>
+            <li onclick="getTagList('unit')">单位标签</li>
+            <li onclick="getTagList('event')">事件标签</li>
         </ul>
     </div>
     <div class="f-bott">
@@ -308,62 +433,14 @@
                             <div title="各种标签" class="fz-left"
                                  style="width: 80%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;">
                                 <img src="../../systemManager/images/p2-1-icon1.png">
-                                <span>各种标签</span><span style="color: #479bfd;">100个</span>
+                                <span id="tagType">标签</span><span style="color: #479bfd;"></span>
                             </div>
                         </div>
                         <div class='fz-mid'>
-                            <dl class="tags">
-                                <dd style="background-color: red;color: white;font-size: 10px">标签一标签标签标签标签标签</dd>
-                                <dd onclick="updateTag()">标签一标签</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dd onclick="updateTag()">标签一</dd>
-                                <dt onclick="addTag()">
-                                    <img src="../../systemManager/images/p2-1-icon2.png" alt=""/>
-                                </dt>
+                            <dl class="tags" id="tags">
+                                <%--                                <dt onclick="tagShow()">--%>
+                                <%--                                    <img src="../../systemManager/images/p2-1-icon2.png" alt=""/>--%>
+                                <%--                                </dt>--%>
                             </dl>
                         </div>
                         <div class="fz-bott"></div>
@@ -384,15 +461,16 @@
         <form class="modal-content">
             <div class="modal-inputset">
                 <label class="modal-label">标签名称</label>
-                <input class="modal-inputset__input"  name="objectName" required/>
+                <input class="modal-inputset__input" id="tagName" required/>
             </div>
             <div class="modal-inputset" id="wordContentdiv">
                 <label class="modal-label" style="display: block;">标签描述</label>
-                <textarea id="wordContent" class="modal-inputset__input" style="margin-top: -21px;margin-left: 75px;height: 100px;"></textarea>
+                <textarea id="tagExplain" class="modal-inputset__input"
+                          style="margin-top: -21px;margin-left: 75px;height: 100px;"></textarea>
             </div>
             <div class="modal-inputset">
                 <label class="modal-label">标注对象</label>
-                <select id="isUseextWords" class="modal-inputset__input" style="margin-left: 0px;width: 350px">
+                <select id="tagLabelType" class="modal-inputset__input" style="margin-left: 0px;width: 350px">
                     <option value="person">人员</option>
                     <option value="unit">单位</option>
                     <option value="event">事件</option>
@@ -400,12 +478,12 @@
             </div>
             <div class="modal-inputset" id="addColorDiv">
                 <label class="modal-label  modal-label--strong">标签颜色</label>
-                <input class="modal-inputset__input full" id="addTagColor"/>
+                <input class="modal-inputset__input full" id="tagCssCode"/>
             </div>
         </form>
         <div id="buttons" class="modal-buttons">
             <div class="modal-btns__btn modal-btns__btn--cancel js-cancel">取消</div>
-            <div class="modal-btns__btn modal-btns__btn--primary" onclick="cut()">保存</div>
+            <div class="modal-btns__btn modal-btns__btn--primary" onclick="save()">保存</div>
         </div>
     </div>
 </div>
@@ -432,37 +510,55 @@
         </div>
     </div>
 </div>
+
 <div class="modal" id="m4">
     <div class="fz-top">
         <div class="fz-left">
             <img src="../images/p2-1-icon3.png">
-            <span id="modal_title">生活垃圾管理条例</span>
+            <span id="modal_title"></span>
         </div>
     </div>
     <div class="fz-bott">
         <h6>标签描述:</h6>
         <dl class="tags">
-            <dd>垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量垃圾源头减量</dd>
+            <dd id="showTagExplain"></dd>
         </dl>
         <div class="f-block">
             <span>标签颜色:</span>
-            <b><span style="background-color: red">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b>
+            <b><span style="background-color: red"
+                     id="showTagColor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b>
         </div>
         <div class="f-block">
             <span>标签标注对象:</span>
-            <b>人员<img src="../images/p1-1-icon2.png"></b>
+            <b id="showTagLabelType">人员<img src="../images/p1-1-icon2.png"></b>
         </div>
-        <button id="sc" class="tagbtn" style="margin-left: 80px;background-color: red" onclick="del('del')">删&nbsp;除</button>
-        <button id="xg" class="tagbtn" style="margin-left: 10px;" onclick="addTag()">修&nbsp;改</button>
+        <button id="sc" class="tagbtn" style="margin-left: 80px;background-color: red" onclick="del()">删&nbsp;除</button>
+        <button id="xg" class="tagbtn" style="margin-left: 10px;" onclick="tagShow(true)">修&nbsp;改</button>
     </div>
 </div>
 </body>
 <script>
 
-    function del(e) {
+    function del() {
         mmodalConfirm("", "提示", "是否删除", function (e) {
             if (e) {
-                alert("删除")
+
+                $.ajax({
+                    type: 'post',
+                    url: '/tagBaseInfo/delTag',
+                    dataType: 'json',
+                    data: {
+                        tagId: $("#StagID").val()
+                    },
+                    success: function (result) {
+                        if (result.code == 'success') {
+                            mmodalConfirm("", "提示", "删除成功！");
+                            $("#m4").hide();
+                            getTagList();
+                        }
+                    }
+                })
+
             }
         })
     }

@@ -33,12 +33,20 @@
                 TAG_CSS_CODE = #{tagCssCode}
             </if>
         </trim>
+        where TAG_ID=#{tagId}
     </update>
+
+    <select id="findById" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
+        select *
+        from dm_tag_object_info
+        where TAG_ID = #{tagId}
+          and IS_DELETE != '1';
+    </select>
 
     <select id="findByName" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
         select *
         from dm_tag_object_info
-        where TAG_NAME like #{tagName}
+        where TAG_NAME like CONCAT('%', #{tagName}, '%')
           and IS_DELETE != '1';
     </select>
 
@@ -57,10 +65,10 @@
                 TAG_ID =#{tagId}
             </if>
             <if test="tagName!=null and tagName!=''">
-                and TAG_NAME like #{tagName}
+                and TAG_NAME like CONCAT("%",#{tagName},"%")
             </if>
             <if test="tagExplain!=null and tagExplain!=''">
-                and TAG_EXPLAIN like #{tagExplain}
+                and TAG_EXPLAIN like CONCAT("%",#{tagExplain},"%")
             </if>
             <if test="tagLabelType!=null and tagLabelType!=''">
                 and TAG_LABEL_TYPE = #{tagLabelType}
@@ -68,8 +76,30 @@
             <if test="tagCssCode!=null and tagCssCode!=''">
                 and TAG_CSS_CODE = #{tagCssCode}
             </if>
+            and IS_DELETE!='1';
         </where>
-        and IS_DELETE!='1';
+    </select>
+
+    <select id="findWithPages" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
+        select * from dm_tag_object_info
+        <where>
+            <if test="TagBaseInfoEntity.tagId!=null and TagBaseInfoEntity.tagId!=''">
+                TAG_ID =#{TagBaseInfoEntity.tagId}
+            </if>
+            <if test="TagBaseInfoEntity.tagName!=null and TagBaseInfoEntity.tagName!=''">
+                and TAG_NAME like CONCAT("%",#{TagBaseInfoEntity.tagName},"%")
+            </if>
+            <if test="TagBaseInfoEntity.tagExplain!=null and TagBaseInfoEntity.tagExplain!=''">
+                and TAG_EXPLAIN like CONCAT("%",#{TagBaseInfoEntity.tagExplain},"%")
+            </if>
+            <if test="TagBaseInfoEntity.tagLabelType!=null and TagBaseInfoEntity.tagLabelType!=''">
+                and TAG_LABEL_TYPE = #{TagBaseInfoEntity.tagLabelType}
+            </if>
+            <if test="TagBaseInfoEntity.tagCssCode!=null and TagBaseInfoEntity.tagCssCode!=''">
+                and TAG_CSS_CODE = #{TagBaseInfoEntity.tagCssCode}
+            </if>
+            and IS_DELETE!='1' limit ${Page.page},${Page.pageSize};
+        </where>
     </select>
 
     <select id="findByObjectId" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">

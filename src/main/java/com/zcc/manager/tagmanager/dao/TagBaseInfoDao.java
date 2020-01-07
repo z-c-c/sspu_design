@@ -1,7 +1,9 @@
 package com.zcc.manager.tagmanager.dao;
 
+import com.zcc.commons.utils.Page;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.service.TagBaseInfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -51,6 +53,14 @@ public interface TagBaseInfoDao {
     List<TagBaseInfoEntity> find(TagBaseInfoEntity tagBaseInfoEntity);
 
     /**
+     * 分页查找标签
+     *
+     * @param tagBaseInfoEntity tagBaseInfoEntity
+     * @param page              page
+     * @return list
+     */
+    List<TagBaseInfoEntity> findWithPages(@Param("TagBaseInfoEntity") TagBaseInfoEntity tagBaseInfoEntity, @Param("Page") Page page);
+    /**
      * 根据标注对象查标签
      * @param objectId objectId
      * @return list
@@ -61,6 +71,6 @@ public interface TagBaseInfoDao {
      * 查询所有
      * @return
      */
-    List<TagBaseInfoService> findAll();
+    List<TagBaseInfoEntity> findAll();
 
 }

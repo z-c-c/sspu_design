@@ -218,7 +218,7 @@
 			console.log(data)
 			$.ajax({
 				result:"POST",
-				url:"TagBaseInfoManager/addTag",
+                url: "TagBaseInfoManager/tagShow",
 				dataType:"text",
 				data:data,
 				success:function (result) {
