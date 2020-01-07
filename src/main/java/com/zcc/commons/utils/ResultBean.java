@@ -50,7 +50,7 @@ public class ResultBean<T> {
     }
 
     public static<T> ResultBean<T> success(T data) {
-        ResultBean resultBean = new ResultBean();
+        ResultBean<T> resultBean = new ResultBean<>();
         resultBean.setCode(ResultBean.SUCCESS);
         resultBean.setMessage("success");
         resultBean.setData(data);

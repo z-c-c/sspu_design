@@ -4,7 +4,6 @@ import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.ResultBean;
 import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
-import com.zcc.manager.tagmanager.dao.TagBaseInfoDao;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.service.TagBaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author zcc

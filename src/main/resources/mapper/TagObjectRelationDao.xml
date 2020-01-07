@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.manager.tagmanager.dao.TagObjectRelationDao">
+    <select id="findTagByObjectId" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
+        select t.TAG_ID, t.TAG_NAME, t.TAG_EXPLAIN, t.TAG_LABEL_TYPE, t.TAG_CSS_CODE, t.IS_DELETE
+        from dm_tag_object_relation r
+                 left join dm_tag_object_info t on r.TAG_ID = t.TAG_ID
+        where r.OBJECT_ID = #{objectId}
+          and r.IS_DELETE != '1'
+          and t.IS_DELETE != '1';
+    </select>
+
+    <insert id="addTagForObject">
+        <selectKey keyProperty="relationId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into dm_tag_object_relation values (#{relationId},#{tagID},#{objectId},#{objectType},'0');
+    </insert>
+
+    <update id="delTagForObject">
+        update dm_tag_object_relation
+        set IS_DELETE='1'
+        where TAG_ID = #{tagId}
+          and OBJECT_ID = #{objectId}
+    </update>
+</mapper>

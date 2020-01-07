@@ -15,11 +15,15 @@
 <body>
 <div class="shell open">
     <div class="leftmenu">
-        <div class="logo">后台管理系统</div>
+        <div class="logo"><span onclick="javascript:top.window.location='../wwpt/shell.jsp'" style="cursor: pointer"><&nbsp;&nbsp;</span>后台管理系统
+        </div>
         <ul class="menu_1st opened">
             <li><h6><img src="../systemManager/images/idx-icon1.png">基本信息管理</h6>
                 <ul class="menu_2nd">
-                    <li class="menu_2nd_li f-cur"><a href="../systemManager/pages/systemManager.jsp" target="main_frame">系统样式管理</a></li>
+                    <li class="menu_2nd_li f-cur"><a href="../systemManager/pages/tagManager.jsp" target="main_frame">标签管理</a>
+                    </li>
+                    <li class="menu_2nd_li "><a href="../systemManager/pages/systemManager.jsp" target="main_frame">系统样式管理</a>
+                    </li>
                 </ul>
             </li>
             <li><h6><img src="../systemManager/images/idx-icon2.png"/>知识库管理</h6>
@@ -27,7 +31,6 @@
                     <li class="menu_2nd_li"><a href="../systemManager/pages/ontologyManager.jsp" target="main_frame">本体领域管理</a></li>
                     <li class="menu_2nd_li"><a href="../systemManager/pages/instanceManager.jsp" target="main_frame">实例数据管理</a></li>
                     <li class="menu_2nd_li"><a href="../systemManager/pages/wordManager.jsp" target="main_frame">标签管理</a></li>
-                    <li class="menu_2nd_li"><a href="../systemManager/pages/tagManager.jsp" target="main_frame">数据标签管理</a></li>
                 </ul>
             </li>
             <li><h6><img src="../systemManager/images/idx-icon3.png"  alt=""/>数据接口管理</h6>
@@ -50,7 +53,8 @@
             </div>
         </div>
         <div class="main">
-            <iframe src="../systemManager/pages/systemManager.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%" height="100%" style="background: #edefef;"></iframe>
+            <iframe src="../systemManager/pages/tagManager.jsp" id="main_frame" name="main_frame" frameborder="0"
+                    width="100%" height="100%" style="background: #edefef;"></iframe>
         </div>
     </div>
 </div>
@@ -70,7 +74,13 @@
         $(".door").click(function(){
             $(".menu_1st > li.opened").removeClass("opened");
             $(".shell").hasClass('open') ? $(".shell").removeClass("open") : $(".shell").addClass("open");
-            $(".shell").hasClass("open") ? $(".logo").text("知识库后台管理系统") : $(".logo").text("");
+            if ($(".shell").hasClass("open")) {
+                $(".logo").text("后台管理系统")
+                $(".logo").prepend('<span onclick="javascript:top.window.location=\'../wwpt/shell.jsp\'" style="cursor: pointer"><&nbsp;&nbsp;</span>');
+
+            } else {
+                $(".logo").text("");
+            }
         })
     })
 </script>

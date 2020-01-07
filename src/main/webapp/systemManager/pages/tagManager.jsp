@@ -404,7 +404,7 @@
 <input id="StagID" type="hidden">
 <div class="f-content p2-1">
     <div class="f-top">
-        <div class="f-title"><span>知识库管理&nbsp;/&nbsp;</span>数据标签管理</div>
+        <div class="f-title"><span>基本信息管理&nbsp;/&nbsp;</span>标签管理</div>
         <div class="search-box">
             <div class="fz-left" onclick="tagShow()">
                 <img src="../../systemManager/images/p2-1-icon4.png">
