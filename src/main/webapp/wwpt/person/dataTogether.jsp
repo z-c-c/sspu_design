@@ -103,8 +103,8 @@
                             else{
                                 str1 += "<p class=\"proInfo\">无事件内容</p>";
                             }
-                            if (data[i][2].occuredTime != "0"&&data[i][2].occuredTime != "null"&&data[i][2].occuredTime != null) {
-                                var time = timestampToTime(data[i][2].occuredTime);
+                            if (data[i][2].occurredTime != "0" && data[i][2].occurredTime != "null" && data[i][2].occurredTime != null) {
+                                var time = timestampToTime(data[i][2].occurredTime);
 
                                 str1 += " <div class=\"infoBox\"><div class=\"item\">\n" +
                                     "                        <i></i><span>" + time + "</span>\n" +
@@ -206,9 +206,9 @@
                             } else{
                                 str1 += "<p class=\"proInfo\">无</p>";
                             }
-                            if (data[i][2].occuredTime != "0" && data[i][2].occuredTime != "null" && data[i][2].occuredTime != null) {
+                            if (data[i][2].occurredTime != "0" && data[i][2].occurredTime != "null" && data[i][2].occurredTime != null) {
 
-                                var time = timestampToTime(data[i][2].occuredTime);
+                                var time = timestampToTime(data[i][2].occurredTime);
                                 str1 += " <div class=\"infoBox\"><div class=\"item\">\n" +
                                     "                        <i></i><span>" + time + "</span>\n" +
                                     "                    </div>";

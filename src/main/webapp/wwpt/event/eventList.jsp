@@ -1,4 +1,3 @@
-<%@ taglib prefix="apptag" uri="app_tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: zcc
@@ -48,17 +47,13 @@
             margin: 0 4px;
             transition: .3s linear;
         }
+
+        input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px #ffffff inset
+        }
     </style>
 </head>
 <body>
-<input result="hidden" id="toUpdateEventId">
-<input result="hidden" id="toUpdateHandleLogId">
-<input result="hidden" id="editEventHandLogFlag">
-<input result="hidden" id="toUpdatehandleLogType">
-<input result="hidden" id="searchHandle">
-<input result="hidden" id="eventTagNames">
-<input result="hidden" id="eventInfo">
-<input result="hidden" id="sort">
 <div class="index-main">
     <div class="fx-left">
         <div class="searchBox">
@@ -70,48 +65,29 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox">
-                            <input result="text" placeholder="请输入关键字" id="search">
+                            <input result="text" placeholder="请输入关键字" id="SearchNameOrPlace">
                         </div>
-                        <button class="btn1" onclick="search(1,'',true)">搜索</button>
+                        <button class="btn1" onclick="findEvent('',true,1)">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>
                         <a id="advancedSearch" class="advancedSearch" onclick="advanceSearch()">高级搜索</a>
                     </div>
                     <div class="advanceData">
-
                         <div>
-                            <span>矛盾类别：</span>
-                            <apptag:dict result="select" clazz="vV-drop" style="width:250px;height:28px;"
-                                         id="searchMDLB" name="wwJdName" dictId="WTQD_MDLB"/>
-
-                            <span>矛盾级别：</span>
-
-                            <apptag:dict result="select" clazz="vV-drop" style="width:250px;height:28px;"
-                                         id="searchMDJB" name="wwJdName" dictId="WTQD_MDJB"/>
-                        </div>
-                        <div>
-                            <span>化解情况：</span>
-
-                            <apptag:dict result="select" clazz="vV-drop" style="width:250px;height:28px;"
-                                         id="searchHJQK" name="wwJdName" dictId="WTQD_SFHJ"/>
-
-                        </div>
-                        <div>
-                            <span>所属街道：</span>
-
-                            <apptag:dict result="select" clazz="vV-drop" style="width:250px;height:28px;"
-                                         id="searchJdName" name="wwJdName" dictId="XH_XZQY"/>
-                            <span>居&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;委：</span>
-                            <select class="vV-drop" style="width:250px;height:28px;" id="searchJw">
-                                <option value="" selected>请选择街道</option>
+                            <span>是否清算：</span>
+                            <select class="vV-drop" style="width:250px;height:28px;" id="SearchIsSettlement">
+                                <option value="" selected>请选择</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
                             </select>
                         </div>
                         <div>
-                            <span class="span">创建日期：</span>
-                            <input id="searchCreatTime" class="vV-ipt date w-246" result="text" style="width: 250px;"
+                            <span class="span">发生日期：</span>
+                            <input id="searchOccurredTime" class="vV-ipt date w-246" result="text" style="width: 250px;"
                                    value=""
                                    placeholder="请选择" readonly="readonly">
-                            <span class="span">化解日期：</span>
-                            <input id="searchJarq" class="vV-ipt date w-246" result="text" style="width: 250px;" value=""
+                            <span class="span">清算日期：</span>
+                            <input id="SearchSettlementTime" class="vV-ipt date w-246" result="text"
+                                   style="width: 250px;" value=""
                                    placeholder="请选择"
                                    readonly="readonly">
                         </div>
@@ -140,8 +116,8 @@
                     <!-- 分类label -->
                     <div class="labelDown">
                         <i class="labelCloseBtn">×</i>
-                        <apptag:dict result="tagDiv" clazz="tabName" id="tag" name="tag" dictId="TAG_MODULE"
-                                     defVal="TAG_LABLE_PEOPLE"/>
+                        <%--                        <apptag:dict result="tagDiv" clazz="tabName" id="tag" name="tag" dictId="TAG_MODULE"--%>
+                        <%--                                     defVal="TAG_LABLE_PEOPLE"/>--%>
                     </div>
                 </div>
             </div>
@@ -154,22 +130,22 @@
                         项
                     </span>
                 <div class="btnGroup">
-                    <a href="javascript:;" class="active" onclick="addShow()">新增</a>
+                    <a class="active" onclick="addShow()">新增</a>
                     <a onclick="exportEventToExcel()">下载</a>
                 </div>
             </div>
             <div class="sortBox clearfix">
                 <ul class="statusList v-fl" id="handleResolve">
-                    <li class="active" onclick="search(1,'-1',true)">全部</li>
-                    <li onclick="search(1,'1',true)">已化解</li>
-                    <li onclick="search(1,'0',true)">未化解</li>
+                    <li class="active">全部</li>
+                    <li>已处理</li>
+                    <li>未处理</li>
                 </ul>
                 <div class="sortList v-fr">
                     <a href="javascript:;" class="sort sortMethod">排序方式</a>
                     <div class="sortDown sortText">
-                        <p onclick="sortEvent('')">默认</p>
-                        <p onclick="sortEvent('occuredTime')">按发生时间</p>
-                        <p onclick="sortEvent('stCreateTime')">按入库时间</p>
+                        <p>默认</p>
+                        <p>按发生时间</p>
+                        <p>按更新时间</p>
                     </div>
                 </div>
             </div>
@@ -186,20 +162,20 @@
     <div class="fx-right">
         <div class="bear-block">
             <div class="bear-tit">
-                <h5>化解情况</h5>
+                <h5>处置情况</h5>
             </div>
             <div class="assessBox">
                 <div id="handleLoading"></div>
                 <div class="item item1">
                     <i></i>
                     <p class="num" id="handling">0个</p>
-                    <p class="name" >未化解</p>
+                    <p class="name">未处置</p>
                 </div>
                 <div class="line"></div>
                 <div class="item item2">
                     <i></i>
                     <p class="num" id="handled">0个</p>
-                    <p class="name">已化解</p>
+                    <p class="name">已处置</p>
                 </div>
             </div>
         </div>
@@ -218,7 +194,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="tanBox"  id="resolve" style="display: none">
     <div class="pubBlock kuang">
@@ -250,7 +225,7 @@
 
                     <tr>
                         <td colspan="4" height="60" align="center">
-                            <button class="alertBtn" onclick="saveResolve()">保存</button>
+                            <button class="alertBtn">保存</button>
                         </td>
                     </tr>
                 </table>
@@ -312,17 +287,6 @@
                     </tr>
 
                     <tr>
-                        <td width="20%" class="center">委办局</td>
-                        <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="handleCjdid" name="wwJdName" dictId="XH_WBJ"/>
-                        </td>
-                        <td width="20%" class="center">集访人数</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="number" value="" id="handleJfrs" style="width: 245px;">
-                        </td>
-                    </tr>
-                    <tr>
                         <td class="center">集访类型</td>
                         <td>
                             <ul class="vV-tabs" id="handleJflx" style="width: 260px">
@@ -338,8 +302,8 @@
 
                     <tr>
                         <td colspan="4" height="60" align="center">
-                            <button class="alertBtn" onclick="saveEventHandle('0')" id="handleLogBut">保存</button>
-                            <button class="alertBtn" onclick="saveEventHandle('1')" id="leaderBut">保存</button>
+                            <button class="alertBtn" id="handleLogBut">保存</button>
+                            <button class="alertBtn" id="leaderBut">保存</button>
                         </td>
                     </tr>
                 </table>
@@ -430,7 +394,7 @@
 
                         <td width="20%" class="center">发生时间</td>
                         <td width="30%">
-                            <input id="occuredTime" class="vV-ipt date w-246 Time" result="text" value=""
+                            <input id="occurredTime" class="vV-ipt date w-246 Time" result="text" value=""
                                    placeholder="请选择时间"
                                    readonly="readonly" required style="width: 200px;">
                         </td>
@@ -444,15 +408,15 @@
                     <tr>
                         <td width="20%" class="center">发生地址</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="occuredPlace" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="occurredPlace" style="width: 200px;">
                         </td>
 
                         <td width="20%" class="center">矛盾类别</td>
                         <td width="30%">
 <%--                            <select  class="easyui-combobox" style="width:200px;height:28px;" data-options="editable:false,valueField:'value',textField:'text'" id="wwMdlb">--%>
 <%--                            </select>--%>
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="wwMdlb" name="wwJdName" dictId="WTQD_MDLB"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
+                            <%--                                         id="wwMdlb" name="wwJdName" dictId="WTQD_MDLB"/>--%>
                         </td>
                     </tr>
                     <tr>
@@ -469,8 +433,8 @@
                     <tr>
                         <td width="20%" class="center">事件状态</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="eventStatus" name="wwJdName" dictId="FXFK_SFHJ"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
+                            <%--                                         id="eventStatus" name="wwJdName" dictId="FXFK_SFHJ"/>--%>
                         </td>
                     </tr>
                     <tr>
@@ -518,8 +482,8 @@
                     <tr>
                         <td class="center">矛盾级别</td>
                         <td>
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;z-index: 0"
-                                         id="wwMdjb" name="wwJdName" dictId="WTQD_MDJB"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;z-index: 0"--%>
+                            <%--                                         id="wwMdjb" name="wwJdName" dictId="WTQD_MDJB"/>--%>
                         </td>
                         <td class="center">是否信访</td>
                         <td id="wwCfqkXf">
@@ -628,8 +592,8 @@
                     <tr>
                         <td width="20%" class="center">涉及人数</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="wwSjrs" name="wwJdName" dictId="WTQD_SJRS"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
+                            <%--                                         id="wwSjrs" name="wwJdName" dictId="WTQD_SJRS"/>--%>
                         </td>
                         <td width="20%" class="center">责任人</td>
                         <td width="30%">
@@ -646,8 +610,8 @@
                     <tr>
                         <td width="20%" class="center">涉及领域</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="wwSjly" name="wwJdName" dictId="WTQD_SJLY"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
+                            <%--                                         id="wwSjly" name="wwJdName" dictId="WTQD_SJLY"/>--%>
                         </td>
                         <td width="20%" class="center">工作周期</td>
                         <td id="wwGzzq">
@@ -660,8 +624,8 @@
                     <tr>
                         <td class="center">所属街道</td>
                         <td>
-                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"
-                                         id="wwJdName" name="wwJdName" dictId="XH_XZQY"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
+                            <%--                                         id="wwJdName" name="wwJdName" dictId="XH_XZQY"/>--%>
                         </td>
                         <td class="center">居委名称</td>
                         <td>
@@ -687,6 +651,7 @@
 </div>
 <input result="hidden" id="addedTagNames">
 </body>
+
 <script result="text/javascript">
     var eventDateTogetherCount = 0;
     var unittag;
@@ -731,7 +696,6 @@
                     '                <i class="labelClose">×</i>\n' +
                     '            </span>');
                 search(1, "-1", true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 $(".labelCloseBtn").trigger('click');
                 clickHandle();
             });
@@ -752,9 +716,8 @@
                     '                    </span>');
                 $(".labelCloseBtn").trigger('click');
                 search(1, "-1", true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 clickHandle();
-            })
+            });
 
             // 标签删除
             $('.labelAll').on("click", ".labelClose", function () {
@@ -763,9 +726,8 @@
                 $(this).parent().remove();
                 $(".labelCloseBtn").trigger('click');
                 search(1, "-1", true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 clickHandle();
-            })
+            });
 
 
 
@@ -795,49 +757,41 @@
     }
 
     $(function () {
-        handleCount();
-        findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
-        initTags();
-        initObjectTag();
-        dataTogether();
-        initdic();
-        tagfind();
-        $("#searchJdName").change(function () {
-            initJw($(this).val())
-        })
-        $("#wwJdName").change(function () {
-            initJw($(this).val())
-        })
-        vVsub();
+        // handleCount();
+        findEvent("", true, 1);
+        // initTags();
+        // initObjectTag();
+        // dataTogether();
+        // tagfind();
 
         // 关闭弹窗
         $(".close").click(function () {
             $(".maskBox").fadeOut(200);
-        })
+        });
 
         $(".tabConSon2").perfectScrollbar();
 
         $(".js-cancel").click(function () {
             $(this).parents(".mmodal").hide();
-        })
+        });
 
         // 输入框控件调用
         vVsub();
 
-        jeDate("#searchCreatTime", {
+        jeDate("#searchOccurredTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD",
             multiPane: false,
-            range: " 至 "
+            range: "至"
         });
-        jeDate("#searchJarq", {
+        jeDate("#SearchSettlementTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD",
             multiPane: false,
-            range: " 至 "
+            range: "至"
         });
 
-        jeDate("#occuredTime", {
+        jeDate("#occurredTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD hh:mm:ss",
             zIndex: 3000,
@@ -937,35 +891,6 @@
 
     });
 
-    function initJw(jdCode) {
-        $.ajax({
-            result: "POST",
-            url: "/xqinfoController/findJwByJdCode",
-            dataType: "json",
-            async: false,
-            data: {
-                jdCode: jdCode
-            },
-            success: function (result) {
-
-                $("#searchJw").empty();
-                $("#wwJw").empty();
-                if (jdCode == "") {
-                    $("#searchJw").append('<option value="">请选择街道</option>')
-                    $("#wwJw").append('<option value="">请选择街道</option>')
-                } else {
-                    $("#searchJw").append('<option value="">请选择</option>')
-                    $("#wwJw").append('<option value="">请选择</option>')
-                }
-                for (var i = 0; i < result.length; i++) {
-                    $("#searchJw").append('<option value="' + result[i].jwCode + '">' + result[i].jw + '</option>')
-                    $("#wwJw").append('<option value="' + result[i].jwCode + '">' + result[i].jw + '</option>')
-                }
-            }
-        })
-    }
-
-
 
     function footerChange() {
         // .index-main高度
@@ -1047,19 +972,20 @@
     //单个事件数据聚合信息
     function eventDataTogether(eventId) {
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/eventInfo/findDataTogether",
             dataType: "json",
             async: false,
             data: {
                 eventId: eventId,
-                eventType: "",
                 page: 1,
                 pageSize: 1
             },
             success: function (result) {
-                var count = result.count;
-                eventDateTogetherCount = count;
+                if (result.code == 'success') {
+                    eventDateTogetherCount = result.data.count;
+                }
+
             }
         })
     }
@@ -1067,171 +993,142 @@
     //事件标签
     function getTags(objectId) {
         $.ajax({
-            result: "POST",
-            url: "/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagBaseInfo/findByObjectId",
             dataType: "json",
             async: false,
             data: {
-                objectId: objectId,
+                objectId: objectId
             },
             success: function (result) {
                 var str = '';
-                if (result.message == "success") {
-                    var tags = result.objectTag;
+                if (result.code === "success") {
+                    var tags = result.data;
                     var tagCount = 10;
-                    if (tags.length <= tagCount) {
-                        tagCount = tags.length;
+                    if (tags.length >= tagCount) {
+                        tags.length = tagCount;
                     }
                     for (var i = 0; i < tags.length; i++) {
-                        console.log(JSON.parse(tags[i].tagCssCode).color)
                         str += '<span style="background: ' + JSON.parse(tags[i].tagCssCode).color + '" class="green">' + tags[i].tagName + '</span>';
                     }
                 }
                 unittag = str;
+
             }
         });
     }
 
     //事件列表
-    function findContradiction(eventName, eventMDLB, MDJB, HJQK, JdName, Jw, creatTime, Jarq, page, pageSize, exportFlag, flag) {
-        if (HJQK == "") {
-            $("#handleResolve").children('.active').removeClass('active')
-            $("#handleResolve").find("li:eq(0)").addClass("active");
-            $("#searchHJQK").val("");
-        }
-        if (HJQK == "1") {
-            $("#handleResolve").children('.active').removeClass('active')
-            $("#handleResolve").find("li:eq(1)").addClass("active");
-            $("#searchHJQK").val("1");
-        }
-        if (HJQK == "0") {
-            $("#handleResolve").children('.active').removeClass('active')
-            $("#handleResolve").find("li:eq(2)").addClass("active");
-            $("#searchHJQK").val("0");
-
-        }
+    function findEvent(handleFlag, flag, page) {
 
         var tags = '';
         $(".labelAll span strong").each(function () {
             tags += "" + $(this).text() + "" + ','
-        })
+        });
         if (tags) {
             tags = tags.substring(0, tags.length - 1);
         }
+
         $("#loading").mLoading("show");
-        // $("#eventList").empty();
+        $("#eventList").empty();
         var begingDate = new Date();
         var time1 = window.setTimeout(function () {
+
+            var data = {};
+            data.nameOrPlace = $("#SearchNameOrPlace").val();
+            data.isSettlement = $("#SearchIsSettlement").val();
+            data.occurredTime = $("#searchOccurredTime").val();
+            data.settlementTime = $("#SearchSettlementTime").val();
+            data.isHandle = handleFlag;
+            data.page = page;
+            data.pageSize = 5;
             $.ajax({
-                result: "post",
-                // url: "/eventManager/findContradictionEvents",
-                url: "/esSearch/searchKey",
+                type: "post",
+                url: "/eventInfo/findByParam",
                 dataType: "json",
-                data: {
-                    objectType: "event",
-                    searchKey: eventName,
-                    wwMdlb: eventMDLB,
-                    wwMdjb: MDJB,
-                    wwSfhj: HJQK,
-                    wwJdCode: JdName,
-                    wwJw: Jw,
-                    stCreateTime: creatTime,
-                    wwJarq: Jarq,
-                    page: page,
-                    pageSize: pageSize,
-                    //现在导出有了单独的接口，不需要exportFlag了
-                    // exportFlag: exportFlag,
-                    tags: tags,
-                    sortField: $("#sort").val()
-                },
+                data: data,
                 success: function (result) {
-                    if (result.message != "error") {
-                        var rows = result.data.content;
+                    if (result.code === "success") {
+                        var events = result.data.events;
                         //下载本页时使用，用于暂存本页数据
                         // $("#eventInfo").val(JSON.stringify(rows))
                         $("#totalEvent").text("");
-                        $("#totalEvent").text(result.data.totalElements);
+                        $("#totalEvent").text(result.data.count);
                         $("#eventList").empty();
 
                         $("#loading").css("height", "0");
                         if (flag) {
                             // 分页
                             var pageTotal;
-                            if (result.data.totalElements <= 5) {
+                            if (result.data.count <= 5) {
                                 pageTotal = 1;
                             } else {
-                                pageTotal = Math.ceil(result.data.totalElements / 5);
+                                pageTotal = Math.ceil(result.data.count / 5);
                             }
                             new Page({
                                 id: 'pagination',
                                 pageTotal: pageTotal, //必填,总页数
                                 pageAmount: 5,  //每页多少条
-                                dataTotal: result.data.totalElements, //总共多少条数据
+                                dataTotal: result.data.count, //总共多少条数据
                                 curPage: 1, //初始页码,不填默认为1
                                 pageSize: 5, //分页个数,不填默认为5
                                 showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
                                 showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                                 getPage: function (page) {
-                                    var hjqk = $("#searchHandle").val();
-                                    search(page, hjqk, false);
+
+                                    // search(page, hjqk, false);
                                     //获取当前页数
 
                                 }
                             });
                         }
-                        if (rows.length == 0) {
+                        if (events.length == 0) {
                             var strs = '<li class="backG topCot" style="height: 250px;">' +
                                 '</li>';
                             $("#eventList").append(strs);
                         }
-                        for (var i = 0; i < rows.length; i++) {
+                        for (var i = 0; i < events.length; i++) {
 
-
-                            var hanled = "未化解";
+                            var hanled = "未处理";
                             var iconImg = '';
-                            if (rows[i].wwSfhj == "1") {
+                            if (events[i].isHandle == "1") {
                                 iconImg = '<i class="icon" style="background:url(../images/icon-green.png) no-repeat ">'
-                                hanled = "已化解";
+                                hanled = "已处理";
                             } else {
                                 iconImg = '<i class="icon">';
                             }
 
-                            //background: url(../images/icon-green.png) no-repeat;
-                            eventDataTogether(rows[i].id);
-                            if (!eventDateTogetherCount) {
-                                eventDateTogetherCount = 0;
-                            }
-                            getTags(rows[i].id);
+
+                            eventDataTogether(events[i].eventId);
+                            // if (!eventDateTogetherCount) {
+                            //     eventDateTogetherCount = 0;
+                            // }
+                            getTags(events[i].eventId);
                             if (!unittag) {
                                 unittag = ''
                             }
-                            var eventName = rows[i].eventName;
-                            if (eventName == null || eventName.trim().length == 0) {
-                                eventName = "无";
-                            }
-                            var eventContent = rows[i].eventContent;
-                            if (eventContent == null || eventContent.trim().length == 0) {
-                                eventContent = "无";
-                            }
 
-                            var creatTime = rows[i].stCreateTime;
+                            var occurredTime = "无";
+                            if (events[i].occurredTime != null) {
+                                occurredTime = new Date(events[i].occurredTime).format("yyyy-MM-dd  hh:mm:ss")
+                            }
                             var str = ' <li>\n' +
                                 '                        <div class="pubBox waitPG">\n' +
                                 iconImg +
                                 '                                <span>' + hanled + '</span>\n' +
                                 '                            </i>\n' +
-                                '                            <p class="proName"  onclick="baseInfo(\'' + rows[i].id + '\',\'' + eventName + '\')" style="cursor: pointer" >' + eventName + '</p>\n' +
+                                '                            <p class="proName"  onclick="baseInfo(\'' + events[i].eventId + '\',\'' + isValidStr(events[i].eventName) + '\')" style="cursor: pointer" >' + isValidStr(events[i].eventName) + '</p>\n' +
                                 '                            <p class="proInfo" style=" white-space:nowrap;\n' +
                                 '            text-overflow:ellipsis;\n' +
-                                '            overflow: hidden;">' + eventContent + '</p>\n' +
+                                '            overflow: hidden;">' + isValidStr(events[i].eventContent) + '</p>\n' +
                                 '                            <div class="infoBox">\n' +
-                                '                                <div class="item" name="创建时间">\n' +
+                                '                                <div class="item" name="发生时间">\n' +
                                 '                                    <i></i>\n' +
-                                '                                    <span>' + creatTime + '</span>\n' +
+                                '                                    <span>' + occurredTime + '</span>\n' +
                                 '                                </div>\n' +
                                 '                                <div class="item">\n' +
                                 '                                    <i></i>\n' +
-                                '                                    <span onclick="toEventDataTogether(\'' + rows[i].id + '\',\'' + eventDateTogetherCount + '\')" style="cursor: pointer">数据聚合（' + eventDateTogetherCount + '）</span>\n' +
+                                '                                    <span onclick="toEventDataTogether(\'' + events[i].eventId + '\',\'' + eventDateTogetherCount + '\')" style="cursor: pointer">数据聚合（' + eventDateTogetherCount + '）</span>\n' +
                                 '                                </div>\n' +
                                 // '                                <div class="item">\n' +
                                 // '                                    <i></i>\n' +
@@ -1244,13 +1141,13 @@
                                 '                                <div class="sortList sortList2 v-fr">\n' +
                                 '                                    <a href="javascript:;" class="sort">操作</a>\n' +
                                 '                                    <div class="sortDown sortDown2">\n' +
-                                '                                        <p onclick="baseInfo(\'' + rows[i].id + '\')">详情</p>\n' +
-                                '                                        <p onclick="showUpdate(\'' + rows[i].id + '\')"> 修改</p>\n' +
-                                '                                        <p onclick="showDel(\'' + rows[i].id + '\')">删除</p>\n' +
-                                '                                        <p onclick="resUnitShow(\'' + rows[i].id + '\')">责任单位</p>\n' +
-                                '                                        <p onclick="showEventHandle(\'' + rows[i].id + '\',\'handlelog\')">处置日志</p>\n' +
-                                '                                        <p onclick="showEventHandle(\'' + rows[i].id + '\',\'leader\')">领导批示</p>\n' +
-                                '                                        <p onclick="showResolve(\'' + rows[i].id + '\')">化解存档</p>\n' +
+                                '                                        <p onclick="baseInfo(\'' + events[i].eventId + '\')">详情</p>\n' +
+                                '                                        <p onclick="showUpdate(\'' + events[i].eventId + '\')"> 修改</p>\n' +
+                                '                                        <p onclick="showDel(\'' + events[i].eventId + '\')">删除</p>\n' +
+                                '                                        <p onclick="resUnitShow(\'' + events[i].eventId + '\')">责任单位</p>\n' +
+                                '                                        <p onclick="showEventHandle(\'' + events[i].eventId + '\',\'handlelog\')">处置日志</p>\n' +
+                                '                                        <p onclick="showEventHandle(\'' + events[i].eventId + '\',\'leader\')">领导批示</p>\n' +
+                                '                                        <p onclick="showResolve(\'' + events[i].eventId + '\')">化解存档</p>\n' +
                                 '                                    </div>\n' +
                                 '                                </div>\n' +
                                 '                            </div>\n' +
@@ -1330,7 +1227,7 @@
                         success: function (result) {
                             if (result == "success") {
                                 $("#m1").hide();
-                                findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                                findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                                 handleCount();
                                 dataTogether();
                                 // $("#m2").show();
@@ -1351,66 +1248,13 @@
         $.messager.alert("操作提示", "无数据聚合!");
     }
 
-    //搜索
-    function search(page, hjqk, flag) {
-        var eventName;
-        var eventMDLB;
-        var HJQK;
-        var JdName;
-        var Jw;
-        var creatTime;
-        var Jarq;
-        var MDJB;
-        eventMDLB = $("#searchMDLB").val();
-        HJQK = $("#searchHJQK").val();
-        JdName = $("#searchJdName").val();
-        Jw = $("#searchJw").val();
-        creatTime = $("#searchCreatTime").val();
-        Jarq = $("#searchJarq").val();
-        MDJB = $("#searchMDJB").val();
-        var advanceBoxClass = $(".advanceBox").attr("class");
-        if (advanceBoxClass.indexOf("active") == -1) {//不是高级搜索
-            eventName = $("#search").val();
-            searchonOff = false;
-        } else {//高级搜索
-            eventName = $("#search").val();
-        }
-        if (hjqk != "") {
-            if (hjqk == '-1') {
-                HJQK = "";
-                $("#searchHandle").val("")
-            } else {
-                HJQK = hjqk;
-                $("#searchHandle").val(hjqk)
-            }
-        } else {
-            $("#searchHandle").val("")
-        }
-        if (HJQK == -1) {
-            HJQK = "";
-        }
-        if (eventMDLB == -1) {
-            eventMDLB = "";
-        }
-        if (MDJB == -1) {
-            MDJB = "";
-        }
-        if (JdName == -1) {
-            JdName = "";
-        }
-        if (Jw == -1) {
-            Jw = "";
-        }
-        advanceSearch();
-        findContradiction(eventName, eventMDLB, MDJB, HJQK, JdName, Jw, creatTime, Jarq, page, 5, "0", flag);
-    }
     // 高级搜索
     function advanceSearch(){
         if (searchonOff) {
             $("#advancedSearch").html("收起工具");
             $("#advancedSearch").addClass("active");
             $(".advanceBox").addClass("active");
-            $(".advanceBox").animate({"height": "335px"}, 100);
+            $(".advanceBox").animate({"height": "178px"}, 100);
         } else {
             $("#advancedSearch").html("高级搜索");
             $("#advancedSearch").removeClass("active");
@@ -1534,7 +1378,7 @@
             url: "/TagBaseInfoManager/findTagByType",
             dataType: "json",
             data: {
-                tagLabelType: "unit",
+                tagLabelType: "unit"
             },
             success: function (result) {
                 if (result.message != "error") {
@@ -1614,58 +1458,7 @@
         })
     }
 
-    //责任单位显示
-    function resUnitShow(eventId) {
-        $("#toUpdateEventId").val("");
-        $("#toUpdateEventId").val(eventId);
-        $("#wwZrbmZb").val("");
-        $("#wwZrbmXb").val("");
-        $("#wwZrbmWt").val("");
-        $("#wwZrbmJd").val("");
-        $("#wwZrbmDb").val("");
-        $("#wwZbName").val("");
-        $("#wwXbName").val("");
-        $("#resUnit").show();
-    }
 
-    //保存责任单位
-    function saveResUnit() {
-        var eventid = $("#toUpdateEventId").val();
-
-        var data = {};
-        data.eventType = "contradictionEvent";
-        data.eventId = eventid;
-        data.wwZrbmZb = $("#wwZrbmZb").val();
-        data.wwZrbmXb = $("#wwZrbmXb").val();
-        data.wwZrbmWt = $("#wwZrbmWt").val();
-        data.wwZrbmJd = $("#wwZrbmJd").val();
-        data.wwZrbmDb = $("#wwZrbmDb").val();
-        var wwGzzq = "";
-
-        if ($("#wwGzzq1").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwGzzq = "7";
-        }
-        if ($("#wwGzzq1").find("label:eq(2)").hasClass("vV-radio ck")) {
-            wwGzzq = "15";
-        }
-        if ($("#wwGzzq1").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwGzzq = "30";
-        }
-        data.wwGzzq = wwGzzq;
-        $.ajax({
-            result: "POST",
-            url: "/eventManager/alterEventBaseInfo",
-            dataType: "json",
-            data: data,
-            success: function (result) {
-                if (result.message == "success") {
-                    $("#resUnit").hide();
-                    findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
-                    successOperator();
-                }
-            }
-        });
-    }
 
     //处置日志显示
     function showEventHandle(eventId, result) {
@@ -1740,8 +1533,8 @@
             success: function (result) {
                 if (result.message != "error") {
                     $("#eventHandle").hide();
-                    uploadHanlelogFj(result.handleLogId)
-                    findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                    uploadHanlelogFj(result.handleLogId);
+                    findEvent();
                     // $("#m2").show();
                     successOperator();
                 }
@@ -1782,169 +1575,30 @@
         $("#resolve").show();
     }
 
-    //保存化解存档
-    function saveResolve() {
-        var eventId = $("#toUpdateEventId").val();
-        var wwJarq = parserDate($("#wwJarq").val())
-        var wwCdrq = parserDate($("#wwCdrq").val())
-        var data = {};
-        data.eventId = eventId;
-        data.wwJarq = wwJarq;
-        data.wwCdrq = wwCdrq;
-        data.wwSfhj = "1";
-        data.eventType = "contradictionEvent";
-        $.ajax({
-            result: "POST",
-            url: "/eventManager/alterEventBaseInfo",
-            dataType: "json",
-            data: data,
-            success: function (result) {
-                if (result.message == "success") {
-                    $("#resolve").hide();
-                    findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
-                    // $("#m2").show();
-                    successOperator();
-                }
-            }
-        });
-    }
 
     function sortEvent(sortField) {
         $("#sort").val(sortField);
         search(1, "", true);
     }
 
-
-    function initSfhj() {
-        var data = [];
-        $.ajax({
-            result: "POST",
-            url: "/TagBaseInfoManager/getDictionaries",
-            dataType: 'json',
-            data: {
-                dictId: "WTQD_SFHJ"
-            },
-            success: function (result) {
-                $("#searchHJQK").empty();
-
-                data.push({"text": "无", "value": "-1"});
-                for (var i = 0; i < result.length; i++) {
-                    data.push({"text": result[i].name, "value": result[i].code});
-                }
-
-
-                $("#searchHJQK").combobox({
-                    data: data,
-                    valueField: "value",
-                    textField: "text",
-                    panelHeight: "auto"
-                });
-            }
-        })
-
-
-    }
-
     function selectFile(thisdom) {
-        thisdom.prev().trigger('click')
+        thisdom.prev().trigger('click');
         thisdom.prev().on('change', function (event) {
             var fileName = event.target.files[0].name
             thisdom.next().text(fileName)
         })
     }
 
-    function initdqlx() {
-        $.ajax({
-            result: "POST",
-            url: "/TagBaseInfoManager/getDictionaries",
-            dataType: 'json',
-            data: {
-                dictId: "WTQD_DQLX"
-            },
-            success: function (result) {
-                $("#wwDqlx").empty();
-
-                for (var i = 0; i < result.length; i++) {
-                    $("#wwDqlx").append('<li value="' + result[i].dictPK.id + '">' + result[i].name + '</li>')
-                }
-                $("#wwDqlx").find("li:eq(0)").addClass("act");
-
-                $(".vV-tabs").children().click(function () {
-                    $(this).addClass("act")
-                        .siblings().removeClass("act");
-                });
-            }
-        })
-    }
-
-    function initjflx() {
-        $.ajax({
-            result: "POST",
-            url: "/TagBaseInfoManager/getDictionaries",
-            dataType: 'json',
-            data: {
-                dictId: "WTQD_JFLX"
-            },
-            success: function (result) {
-                $("#handleJflx").empty();
-
-                for (var i = 0; i < result.length; i++) {
-                    $("#handleJflx").append('<li value="' + result[i].code + '">' + result[i].name + '</li>')
-                }
-                $("#handleJflx").find("li:eq(0)").addClass("act");
-
-                $(".vV-tabs").children().click(function () {
-                    $(this).addClass("act")
-                        .siblings().removeClass("act");
-                });
-            }
-        })
-    }
-
-    function initResponsibility() {
-        var data = [];
-        var params = 'XH_XZQY,XH_WBJ';
-        $.ajax({
-            result: "POST",
-            url: "/TagBaseInfoManager/getDictionariesWithManyParams",
-            dataType: 'json',
-            data: {
-                dictIds: params
-            },
-            success: function (result) {
-                $("#wwZrbmZb").append('<option value="-1"></option>');
-                $("#wwZrbmXb").append('<option value="-1"></option>');
-                for (var i = 0; i < result.length; i++) {
-                    $("#wwZrbmZb").append('<option value="' + result[i].name + '">' + result[i].name + '</option>');
-                    $("#wwZrbmXb").append('<option value="' + result[i].name + '">' + result[i].name + '</option>');
-                }
-            }
-        })
-    }
-
-    function initdic() {
-        initdqlx();
-        initjflx();
-        initResponsibility();
-    }
 
     function reset() {
-        debugger
-        $("#search").val("");
-        // $("#searchEventName").val("");
-        $("#searchHJQK").val("");
-        $("#searchMDLB").val("");
-        $("#searchMDJB").val("");
-        $("#searchJdName").val("");
-        $("#searchJw").val("");
-        $("#searchCreatTime").val("");
-        $("#searchJarq").val("");
+        $("#SearchNameOrPlace").val("");
+        $("#searchOccurredTime").val("");
+        $("#SearchIsSettlement").val("");
+        $("#SearchSettlementTime").val("");
         $(".labelAll span strong").each(function () {
             // var removeStr = $(this).text();
             $(this).parent().remove();
-
-        })
-        search(1, '-1', true);
+        });
 
     }
 
@@ -2151,9 +1805,9 @@
                     var eventBase = result.eventById;
                     var contradictionEvent = result.contradictionEventById;
                     $("#addeventName").val(eventBase.eventName);
-                    $("#occuredTime").val(new Date(eventBase.occuredTime).format("yyyy-MM-dd hh:mm:ss"));
+                    $("#occurredTime").val(new Date(eventBase.occurredTime).format("yyyy-MM-dd hh:mm:ss"));
                     $("#eventContent").val(eventBase.eventContent);
-                    $("#occuredPlace").val(eventBase.occuredPlace);
+                    $("#occurredPlace").val(eventBase.occurredPlace);
                     $("#wwMdlb").find("option[text='" + contradictionEvent.wwMdlb + "']").attr("selected", "selected");
                     $("#eventLongti").val(eventBase.eventLongti);
                     $("#eventLati").val(eventBase.eventLongti);
@@ -2317,9 +1971,9 @@
         var data = {};
         data.eventType = "contradictionEvent";
         data.eventName = $("#addeventName").val();
-        data.occuredTime = parserDate($("#occuredTime").val());
+        data.occurredTime = parserDate($("#occurredTime").val());
         data.eventContent = $("#eventContent").val();
-        data.occuredPlace = $("#occuredPlace").val();
+        data.occurredPlace = $("#occurredPlace").val();
         var wwMdlb = $("#wwMdlb option:selected").text();
         if (wwMdlb == "请选择") {
             wwMdlb = "";
@@ -2534,7 +2188,7 @@
                 success: function (result) {
                     if (result.message == "success") {
                         $("#addEvent").hide();
-                        findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                        findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                         successOperator();
                         handleCount();
                         dataTogether();
@@ -2563,7 +2217,7 @@
                 success: function (result) {
                     if (result.message == "success") {
                         $("#addEvent").hide();
-                        findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                        findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                         successOperator();
                     }
                 }

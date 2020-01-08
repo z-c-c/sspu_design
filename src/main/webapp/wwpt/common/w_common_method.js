@@ -203,3 +203,10 @@ function location_href(url) {
     f.target = "_self";
     f.submit();
 }
+
+function isValidStr(str) {
+    if (str == null || str == undefined || str == "null" || str == "undefined" || str.trim().length == 0) {
+        return "нч";
+    }
+    return str;
+}

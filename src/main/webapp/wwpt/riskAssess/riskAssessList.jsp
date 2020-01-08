@@ -166,7 +166,7 @@
                     <a href="javascript:;" class="sort sortMethod">排序方式</a>
                     <div class="sortDown sortText">
                         <p onclick="sortEvent('')">默认</p>
-                        <p onclick="sortEvent('occuredTime')">按发生时间</p>
+                        <p onclick="sortEvent('occurredTime')">按发生时间</p>
                         <p onclick="sortEvent('stCreateTime')">按入库时间</p>
                     </div>
                 </div>
@@ -413,7 +413,7 @@
 
                         <td width="20%" class="center">发生时间</td>
                         <td width="30%">
-                            <input id="occuredTime" class="vV-ipt date w-246 Time" result="text" value=""
+                            <input id="occurredTime" class="vV-ipt date w-246 Time" result="text" value=""
                                    placeholder="请选择时间"
                                    readonly="readonly" required style="width: 200px;">
                         </td>
@@ -427,7 +427,7 @@
                     <tr>
                         <td width="20%" class="center">发生地址</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="occuredPlace" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="occurredPlace" style="width: 200px;">
                         </td>
 
                         <td width="20%" class="center">矛盾类别</td>
@@ -731,7 +731,7 @@
                     '                <i class="labelClose">×</i>\n' +
                     '            </span>');
                 search(1,"-1",true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 $(".labelCloseBtn").trigger('click');
                 clickHandle();
             });
@@ -753,7 +753,7 @@
 
                 $(".labelCloseBtn").trigger('click');
                 search(1,"-1",true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 clickHandle();
             })
 
@@ -763,7 +763,7 @@
                 removeByValue(labelArr, removeStr);
                 $(this).parent().remove();
                 search(1,"-1",true);
-                // findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 $(".labelCloseBtn").trigger('click');
                 clickHandle();
             })
@@ -847,7 +847,7 @@
             range: " 至 "
         });
 
-        jeDate("#occuredTime", {
+        jeDate("#occurredTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD hh:mm:ss",
             zIndex: 3000,
@@ -1784,7 +1784,7 @@
             // success:function (result) {
             //     if(result=="success"){
             //         $("#addfxpg").hide();
-            //         findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
+            //         findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
             //         // $("#m2").show();
             //         successOperator();
             //     }
@@ -2508,9 +2508,9 @@
                     var eventBase = result.eventById;
                     var riskEvent = result.riskEventById;
                     $("#addeventName").val(eventBase.eventName);
-                    $("#occuredTime").val(new Date(eventBase.occuredTime).format("yyyy-MM-dd hh:mm:ss"));
+                    $("#occurredTime").val(new Date(eventBase.occurredTime).format("yyyy-MM-dd hh:mm:ss"));
                     $("#eventContent").val(eventBase.eventContent);
-                    $("#occuredPlace").val(eventBase.occuredPlace);
+                    $("#occurredPlace").val(eventBase.occurredPlace);
                     // $("#mdlx").combobox('select',riskEvent.mdlx);
                     $("#mdlx").find("option[value='"+riskEvent.mdlx+"']").attr("selected","selected");
                     $("#eventLongti").val(eventBase.eventLongti);
@@ -2576,9 +2576,9 @@
         var data = {};
         data.eventType = "riskEvent";
         data.eventName = $("#addeventName").val();
-        data.occuredTime = parserDate($("#occuredTime").val());
+        data.occurredTime = parserDate($("#occurredTime").val());
         data.eventContent = $("#eventContent").val();
-        data.occuredPlace = $("#occuredPlace").val();
+        data.occurredPlace = $("#occurredPlace").val();
         data.mdlx = $("#mdlx").val();
         let mdlxmc= $("#mdlx option:selected").text();
         if(mdlxmc==="请选择"){

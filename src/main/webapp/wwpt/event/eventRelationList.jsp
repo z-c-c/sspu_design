@@ -135,8 +135,8 @@
                 data.push({
                     OBJECTID: objectid,
                     OBJECTNAME: object.eventName,
-                    occuredTime: new Date(object.occuredTime).format("yyyy-MM-dd hh:mm:ss"),
-                    occuredPlace: object.occuredPlace,
+                    occurredTime: new Date(object.occurredTime).format("yyyy-MM-dd hh:mm:ss"),
+                    occurredPlace: object.occurredPlace,
                     objectType: "event",
                     itemStyle: {
                         normal: {
@@ -278,11 +278,11 @@
                             if(SJMC==null||SJMC.trim().length==0){
                                 SJMC="暂无";
                             }
-                            var FSSJ=n.occuredTime;
+                            var FSSJ = n.occurredTime;
                             if(FSSJ==null||FSSJ.trim().length==0){
                                 FSSJ="暂无";
                             }
-                            var FSDD=n.occuredPlace;
+                            var FSDD = n.occurredPlace;
                             if(FSDD==null||FSDD.trim().length==0){
                                 FSDD="暂无";
                             }

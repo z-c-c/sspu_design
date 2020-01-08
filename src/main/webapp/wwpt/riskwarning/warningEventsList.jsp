@@ -71,8 +71,8 @@
                             eventtag=''
                         }
                         var date ='无'
-                        if (judgeNull(warning[i].occuredTime)!='无') {
-                            date=formatDatebox(new Date(warning[i].occuredTime),"-",true)
+                        if (judgeNull(warning[i].occurredTime) != '无') {
+                            date = formatDatebox(new Date(warning[i].occurredTime), "-", true)
                         }
                         var str='<div class="pubBlock peoSty">\n' +
                             '                    <p class="proName">'+ judgeNull(warning[i].eventName)+'</p>\n' +

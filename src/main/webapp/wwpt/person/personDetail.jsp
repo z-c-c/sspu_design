@@ -905,8 +905,8 @@
                                 str1 += "<strong><b>来源</b><span>无</span> </strong>";
 
                             }
-                            if (data[k][1].occuredTime != "0"&&data[k][1].occuredTime !=null&&data[k][1].occuredTime !="null") {
-                                var time = timestampToTime(data[k][1].occuredTime.time);
+                            if (data[k][1].occurredTime != "0" && data[k][1].occurredTime != null && data[k][1].occurredTime != "null") {
+                                var time = timestampToTime(data[k][1].occurredTime.time);
                                 if(time!="1970-01-1 "){
                                     str1 += "<em>" + time + "</em>";
                                 }

@@ -1,5 +1,6 @@
 package com.zcc.commons.filter;
 
+import com.zcc.commons.utils.ConstUtil;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 
 import javax.servlet.*;
@@ -24,24 +25,23 @@ public class UserLoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
-        UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute("currentPerson");
+        UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute(ConstUtil.CURRENT_PERSON);
         String requestUri = request.getRequestURI();
         boolean flag = true;
-        if (currentPerson == null && !requestUri.contains("login.jsp")) {
+        if (currentPerson == null && !requestUri.contains(ConstUtil.LOGIN_JSP)) {
 
-            if(requestUri.contains("managerLogin.jsp")){
+            if (requestUri.contains(ConstUtil.MANAGER_LOGIN_JSP)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             }else {
-                if(requestUri.contains(".css") || requestUri.contains(".js") || requestUri.contains(".png")|| requestUri.contains(".jpg")||requestUri.contains(".mp4")){
-                    if(!requestUri.contains("jsp")){
+                if (requestUri.contains(ConstUtil.CSS) || requestUri.contains(ConstUtil.JS) || requestUri.contains(ConstUtil.PNG) || requestUri.contains(ConstUtil.JPG) || requestUri.contains(ConstUtil.MP4)) {
+                    if (!requestUri.contains(ConstUtil.JSP)) {
                         filterChain.doFilter(servletRequest, servletResponse);
                     }else {
                         HttpServletResponse response = (HttpServletResponse) servletResponse;
                         PrintWriter writer = response.getWriter();
                         writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
                     }
-                }
-                else if (requestUri.contains("login/login")) {
+                } else if (requestUri.contains(ConstUtil.LOGIN_LOGIN)) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
                 else {

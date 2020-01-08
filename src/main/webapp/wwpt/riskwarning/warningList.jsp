@@ -990,7 +990,7 @@
                                 '                                    <b>来源</b>\n' +
                                 '                                    <span>'+source+'</span>\n' +
                                 '                                </strong>\n' +
-                                '                                <em>'+formatDatebox(new Date(warning[i].occuredTime),"-",true)+'</em>\n' +
+                                '                                <em>' + formatDatebox(new Date(warning[i].occurredTime), "-", true) + '</em>\n' +
                                 '                            </div>\n' +
                                 '                        </dd>\n' +
                                 '                    </dl>';

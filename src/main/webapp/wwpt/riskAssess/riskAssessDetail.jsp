@@ -88,10 +88,10 @@
                 <table border="0" class="tableSty">
                     <tr>
                         <td width="90" class="tdColor">时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间</td>
-                        <td width="350" id="occuredTime"></td>
+                        <td width="350" id="occurredTime"></td>
                    
                         <td class="tdColor">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点</td>
-                        <td width="350" class="adress" id="occuredPlace"></td>
+                        <td width="350" class="adress" id="occurredPlace"></td>
                     </tr>
                     <tr>
                         <td class="tdColor">施工许可</td>
@@ -811,13 +811,13 @@
                 if(eventContent==null||eventContent.trim().length==0){
                     eventContent="无";
                 }
-                var occuredTime=new Date(eventById.occuredTime).format("yyyy-MM-dd hh:mm:ss");
-                if(eventById.occuredTime==null){
-                    occuredTime="无";
+                var occurredTime = new Date(eventById.occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                if (eventById.occurredTime == null) {
+                    occurredTime = "无";
                 }
-                var occuredPlace=eventById.occuredPlace;
-                if(occuredPlace==null||occuredPlace.trim().length==0){
-                    occuredPlace="无";
+                var occurredPlace = eventById.occurredPlace;
+                if (occurredPlace == null || occurredPlace.trim().length == 0) {
+                    occurredPlace = "无";
                 }
                 var sgxk=riskEventById.sgxk;
                 if(sgxk==null||sgxk.trim().length==0){
@@ -867,8 +867,8 @@
                 $("#eventName").text(eventName);
                 $("#eventStatus").text(eventStatus);
                 $("#eventContent").text(eventContent);
-                $("#occuredTime").text(occuredTime);
-                $("#occuredPlace").text(occuredPlace);
+                $("#occurredTime").text(occurredTime);
+                $("#occurredPlace").text(occurredPlace);
                 $("#sgxk").text(sgxk);
                 $("#hpxk").text(hpxk);
                 $("#zcyj").text(zcyj);

@@ -72,7 +72,7 @@
                 <table border="0" class="tableSty">
                     <tr>
                         <td width="90" class="tdColor">时间：</td>
-                        <td width="350" id="occuredTime"></td>
+                        <td width="350" id="occurredTime"></td>
 
                         <td width="90" class="tdColor">地点：</td>
                         <td class="green" id="adress"></td>
@@ -521,13 +521,13 @@
                 if(eventContent==null||eventContent.trim().length==0){
                     eventContent="无";
                 }
-                var occuredTime=new Date(eventById.occuredTime).format("yyyy-MM-dd hh:mm:ss")
-                if(eventById.occuredTime==null){
-                    occuredTime="无";
+                var occurredTime = new Date(eventById.occurredTime).format("yyyy-MM-dd hh:mm:ss")
+                if (eventById.occurredTime == null) {
+                    occurredTime = "无";
                 }
-                var occuredPlace=eventById.occuredPlace;
-                if(occuredPlace==null||occuredPlace.trim().length==0){
-                    occuredPlace="无";
+                var occurredPlace = eventById.occurredPlace;
+                if (occurredPlace == null || occurredPlace.trim().length == 0) {
+                    occurredPlace = "无";
                 }
                 var wwDsrA=contradictionEventById.wwDsrA;
                 if(wwDsrA==null||wwDsrA.trim().length==0){
@@ -567,8 +567,8 @@
                 $("#eventName").text(eventName);
                 $("#eventStatus").text(eventStatus);
                 $("#eventContent").text(eventContent);
-                $("#occuredTime").text(occuredTime);
-                $("#occuredPlace").text(occuredPlace);
+                $("#occurredTime").text(occurredTime);
+                $("#occurredPlace").text(occurredPlace);
                 $("#wwDsrA").text(wwDsrA);
                 $("#wwDsrB").text(wwDsrB);
                 $("#wwMdjb").text(wwMdjb)

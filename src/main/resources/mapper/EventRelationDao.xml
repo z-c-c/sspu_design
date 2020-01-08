@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.platform.event.dao.EventRelationDao">
+
+    <insert id="addEventRelationObject" parameterType="com.zcc.platform.event.entity.EventRelationEntity">
+        <selectKey keyProperty="relationListId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual;
+        </selectKey>
+        insert into event_relation_object values
+        (#{relationListId},#{eventId},#{objectId},#{objectType},#{relationName},'0');
+    </insert>
+
+    <update id="delEventRelationObject">
+        update event_relation_object
+        set IS_DELETE='1'
+        where EVENT_ID = #{eventId}
+          and OBJECT_ID = #{objectId};
+    </update>
+
+    <select id="findByEventIdAndObjectId" resultType="com.zcc.platform.event.entity.EventRelationEntity">
+        select *
+        from event_relation_object
+        where OBJECT_ID = #{objectId}
+          and EVENT_ID = #{eventId}
+          and IS_DELETE != '1';
+    </select>
+
+    <update id="updateEventRelationObject">
+        update event_relation_object
+        <trim prefix="set" suffixOverrides=",">
+            <if test="relationName!=null">
+                RELATION_NAME=#{relationName}
+            </if>
+        </trim>
+    </update>
+
+</mapper>

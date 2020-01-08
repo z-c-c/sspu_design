@@ -20,7 +20,7 @@ public interface UserInfoDao {
     /**
      * 根据用户名查找
      * @param userName userName
-     * @return
+     * @return UserInfoEntity
      */
     UserInfoEntity findByUserName(@Param("userName") String userName);
 
@@ -33,9 +33,9 @@ public interface UserInfoDao {
 
     /**
      * 查找
-     * @param userName
-     * @param type
-     * @return
+     * @param userName userName
+     * @param type type
+     * @return UserInfoEntity
      */
     UserInfoEntity findByUserNameAndType(@Param("userName") String userName,@Param("type")String type);
 }

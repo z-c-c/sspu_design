@@ -1,5 +1,6 @@
 package com.zcc.commons.controller;
 
+import com.zcc.commons.utils.ConstUtil;
 import com.zcc.log.annotation.Log;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import com.zcc.manager.usermanager.service.UserInfoService;
@@ -41,8 +42,8 @@ public class LoginController {
             } else {
                 userInfoEntity.setPassword(null);
                 userInfoEntity.setPhoneNumber(null);
-                session.setAttribute("currentPerson", userInfoEntity);
-                if ("0".equals(flag)) {
+                session.setAttribute(ConstUtil.CURRENT_PERSON, userInfoEntity);
+                if (ConstUtil.NO_FLAG.equals(flag)) {
                     map.put("url", "wwpt/shell.jsp");
                 } else {
                     map.put("url", "/manager/shell.jsp");

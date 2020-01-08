@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.platform.event.dao.EventInfoDao">
+
+    <insert id="add" parameterType="com.zcc.platform.event.entity.EventInfoEntity">
+        <selectKey keyProperty="eventId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','') from dual
+        </selectKey>
+        insert into event_info values
+        (#{eventId},#{eventName},#{eventContent},#{occurredTime},#{occurredPlace},
+        #{occurredLongti},#{occurredLati},#{createUserAccount},#{createTime},#{updateTime},#{updateUserAccount},#{isHandle},
+        #{isSettlement},#{settlementTime},#{linkPersonNo},#{linkUnitNo},#{linkEventNo},#{filePath},'0');
+    </insert>
+
+    <update id="del">
+        update event_info
+        set is_delete='1',
+            update_time=#{updateTime},
+            update_user_account=#{updateUserAccount}
+        where event_id = 'eventId';
+    </update>
+
+    <update id="update" parameterType="com.zcc.platform.event.entity.EventInfoEntity">
+        update event_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="eventName!=null">
+                event_name=#{eventName},
+            </if>
+            <if test="eventContent!=null">
+                event_content=#{eventContent},
+            </if>
+            <if test="occurredTime!=null">
+                occurred_time=#{occurredTime},
+            </if>
+            <if test="occurredPlace!=null">
+                occurred_place=#{occurredPlace},
+            </if>
+            <if test="occurredLongti!=null">
+                occurred_longti=#{occurredLongti},
+            </if>
+            <if test="occurredLati!=null">
+                occurred_lati=#{occurredLati},
+            </if>
+            <if test="updateTime!=null">
+                update_time=#{updateTime},
+            </if>
+            <if test="updateUserAccount!=null">
+                update_user_account=#{updateUserAccount},
+            </if>
+            <if test="isHandle!=null">
+                is_handle=#{isHandle},
+            </if>
+            <if test="isSettlement!=null">
+                is_settlement=#{isSettlement},
+            </if>
+            <if test="settlementTime!=null">
+                settlement_time=#{settlementTime},
+            </if>
+            <if test="linkPersonNo!=null">
+                link_person_no=#{linkPersonNo},
+            </if>
+            <if test="linkUnitNo!=null">
+                link_unit_no=#{linkUnitNo},
+            </if>
+            <if test="linkEventNo!=null">
+                link_event_no=#{linkEventNo},
+            </if>
+            <if test="filePath!=null">
+                file_path=#{filePath}
+            </if>
+        </trim>
+    </update>
+
+    <select id="findAll" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select *
+        from event_info e
+        where is_delete != '1';
+    </select>
+
+    <select id="findById" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select *
+        from event_info
+        where event_id = #{eventId}
+          and is_delete != '1';
+    </select>
+
+    <select id="findByParamWithPage"
+            resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select * from event_info
+        <where>
+            <if test="Map.nameOrPlace!=null and Map.nameOrPlace!=''">
+                concat(IFNULL('event_name',''),IFNULL('occurred_place','')) like concat('%',#{Map.nameOrPlace},'%')
+            </if>
+            <if test="Map.beginTime!=null and Map.beginTime!='' and (Map.endTime==null or Map.endTime=='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime==null or Map.beginTime=='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime!=null and Map.beginTime!='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime} and
+                DATE_FORMAT(occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.isHandle!=null and Map.isHandle!=''">
+                and is_handle=#{Map.isHandle}
+            </if>
+            <if test="Map.isSettlement!=null and Map.isSettlement!=''">
+                and is_settlement=#{Map.isSettlement}
+            </if>
+            <if test="Map.beginSettlementTime!=null and Map.beginSettlementTime!='' and (Map.endSettlementTime==null or Map.endSettlementTime=='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime==null or Map.beginSettlementTime=='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime!=null and Map.beginSettlementTime!='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime} and
+                DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            and is_delete!='1' limit ${Page.page},${Page.pageSize};
+        </where>
+    </select>
+
+    <select id="findByParam" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select * from design_zcc.event_info
+        <where>
+            <if test="Map.nameOrPlace!=null and Map.nameOrPlace!=''">
+                concat(IFNULL('event_name',''),IFNULL('occurred_place','')) like concat('%',#{Map.nameOrPlace},'%')
+            </if>
+            <if test="Map.beginTime!=null and Map.beginTime!='' and (Map.endTime==null or Map.endTime=='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime==null or Map.beginTime=='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime!=null and Map.beginTime!='')">
+                and DATE_FORMAT(occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime} and
+                DATE_FORMAT(occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.isHandle!=null and Map.isHandle!=''">
+                and is_handle=#{Map.isHandle}
+            </if>
+            <if test="Map.isSettlement!=null and Map.isSettlement!=''">
+                and is_settlement=#{Map.isSettlement}
+            </if>
+            <if test="Map.beginSettlementTime!=null and Map.beginSettlementTime!='' and (Map.endSettlementTime==null or Map.endSettlementTime=='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime==null or Map.beginSettlementTime=='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime!=null and Map.beginSettlementTime!='')">
+                and DATE_FORMAT(settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime} and
+                DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            and is_delete!='1';
+        </where>
+    </select>
+
+    <select id="findDataTogetherByIdWithPage" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select distinct e.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.OBJECT_ID = r2.OBJECT_ID
+                 join event_info e on r2.EVENT_ID = e.event_id
+        where r1.event_id = #{eventId}
+          and e.is_delete != '1'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+        limit #{Page.page},#{Page.pageSize};
+    </select>
+
+    <select id="findDataTogetherById" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select distinct e.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.OBJECT_ID = r2.OBJECT_ID
+                 join event_info e on r2.EVENT_ID = e.event_id
+        where r1.event_id = #{eventId}
+          and e.is_delete != '1'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1';
+    </select>
+
+    <select id="findAllDataTogetherWithPage" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select distinct e1.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join event_info e1 on r2.EVENT_ID = e1.event_id
+        where r1.event_id in (select e2.event_id from event_info e2 where e2.is_delete != '1')
+          and e1.is_delete != '1'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+        limit #{Page.page},#{Page.pageSize};
+    </select>
+
+    <select id="findAllDataTogether" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select distinct e1.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join event_info e1 on r2.EVENT_ID = e1.event_id
+        where r1.event_id in (select e2.event_id from event_info e2 where e2.is_delete != '1')
+          and e1.is_delete != '1'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1';
+    </select>
+</mapper>

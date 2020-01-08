@@ -83,7 +83,7 @@
                                 var eventId = objectInfo.eventId;
                                 var eventName = objectInfo.eventName == null ? "无" : objectInfo.eventName;
                                 var eventContent = objectInfo.eventContent == null ? "无" : objectInfo.eventContent;
-                                var occuredTime = objectInfo.occuredTime == null ? "无" : new Date(objectInfo.occuredTime.time).Format("yyyy.MM.dd");
+                                var occurredTime = objectInfo.occurredTime == null ? "无" : new Date(objectInfo.occurredTime.time).Format("yyyy.MM.dd");
                                 //onclick=\"goDetailPage('" + eventId + "','event','"+eventName+"')\"
                                 html += "<div class=\"pubBlock peoSty\" >" +
                                     "                <p class=\"proName\">" + eventName + "</p>\n" +
@@ -92,7 +92,7 @@
                                     "                <div class=\"infoBox\">\n" +
                                     "                    <div class=\"item\">\n" +
                                     "                        <i></i>\n" +
-                                    "                        <span>" + occuredTime + "</span>\n" +
+                                    "                        <span>" + occurredTime + "</span>\n" +
                                     "                    </div>\n" +
                                     "                    <div class=\"item\">\n" +
                                     // "                        <i></i>\n" +

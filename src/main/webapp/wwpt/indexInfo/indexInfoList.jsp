@@ -149,15 +149,15 @@
                                         var eventId = objectInfo.EVENT_ID;
                                         var eventName = objectInfo.EVENT_NAME == null ? "无" : objectInfo.EVENT_NAME;
                                         var eventContent = objectInfo.EVENT_CONTENT == null ? "无" : objectInfo.EVENT_CONTENT;
-                                        var occuredTime = objectInfo.OCCURED_TIME == null ? "无" : new Date(objectInfo.OCCURED_TIME.time).Format("yyyy.MM.dd");
-                                        html += createEventHtml(eventId, eventName, eventContent, occuredTime, tag, objectType);
+                                        var occurredTime = objectInfo.OCCURED_TIME == null ? "无" : new Date(objectInfo.OCCURED_TIME.time).Format("yyyy.MM.dd");
+                                        html += createEventHtml(eventId, eventName, eventContent, occurredTime, tag, objectType);
                                     }
                                 } else {
                                     var eventId = objectInfo.EVENT_ID;
                                     var eventName = objectInfo.EVENT_NAME == null ? "无" : objectInfo.EVENT_NAME;
                                     var eventContent = objectInfo.EVENT_CONTENT == null ? "无" : objectInfo.EVENT_CONTENT;
-                                    var occuredTime = objectInfo.OCCURED_TIME == null ? "无" : new Date(objectInfo.OCCURED_TIME.time).Format("yyyy.MM.dd");
-                                    html += createEventHtml(eventId, eventName, eventContent, occuredTime, tag, objectType);
+                                    var occurredTime = objectInfo.OCCURED_TIME == null ? "无" : new Date(objectInfo.OCCURED_TIME.time).Format("yyyy.MM.dd");
+                                    html += createEventHtml(eventId, eventName, eventContent, occurredTime, tag, objectType);
                                 }
                             }
                         }
@@ -214,7 +214,7 @@
             return html;
         }
 
-        function createEventHtml(eventId, eventName, eventContent, occuredTime, tag, objectType) {
+        function createEventHtml(eventId, eventName, eventContent, occurredTime, tag, objectType) {
             var html = "";
             objectType = objectType == undefined || objectType == null || objectType == "" ? "event" : objectType;
             //onclick=\"goDetailPage('" + eventId + "','event','"+eventName+"')\"
@@ -225,7 +225,7 @@
                 "                <div class=\"infoBox\">\n" +
                 "                    <div class=\"item\">\n" +
                 "                        <i></i>\n" +
-                "                        <span>" + occuredTime + "</span>\n" +
+                "                        <span>" + occurredTime + "</span>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "                <div class=\"labelBox\">\n";
