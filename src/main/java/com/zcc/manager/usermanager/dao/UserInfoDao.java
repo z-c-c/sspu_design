@@ -1,6 +1,5 @@
 package com.zcc.manager.usermanager.dao;
 
-import cn.hutool.system.UserInfo;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
