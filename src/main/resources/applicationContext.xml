@@ -75,12 +75,12 @@
             <!--  ollback-for=""  用于指定一个异常，当产生该异常时，事务回滚，产生其他异常时，事务不会滚。没有默认值，表示任何异常都回滚-->
             <!--   所有方法都是事务方法-->
             <tx:method name="*" propagation="REQUIRED"/>
-            <tx:method name="find*" read-only="true"></tx:method>
-            <tx:method name="get*" read-only="true"></tx:method>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
     <!--  开启注解AOP，在这里配置的不会再controller层生效，如需在controller层生效需要在SpringMVC配置文件中配置-->
-    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <aop:aspectj-autoproxy/>
     <!-- 支持annotation事务-->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" order="0"/>
 

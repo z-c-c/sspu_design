@@ -21,6 +21,10 @@ public class ConstUtil {
     public static final String JSP = "jsp";
     public static final String LOGIN_LOGIN = "login/login";
     public static final String NO_FLAG = "0";
+    public static final String PERSON_TAG = "person";
+    public static final String EVENT_TAG = "event";
+    public static final String UNIT_TAG = "unit";
+
 
 
     public static UserInfoEntity currentPerson(HttpServletRequest request) {

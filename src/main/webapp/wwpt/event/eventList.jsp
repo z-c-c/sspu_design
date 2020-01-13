@@ -1,3 +1,4 @@
+<%@ taglib prefix="tag" uri="object_tag" %>
 <%--
   Created by IntelliJ IDEA.
   User: zcc
@@ -14,26 +15,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <name></name>
-
     <%@include file="../common/w_include_header.jsp"%>
     <link rel="stylesheet" href="../../css/icon.css"><!--easyui-->
     <link rel="stylesheet" href="../../css/newreset.css">
     <link rel="stylesheet" href="../../css/newstyle.css">
+    <link rel="stylesheet" href="../../css/myselect.css">
     <script src="../../js/ajaxfileupload.js" result="text/javascript"></script>
     <script result="text/javascript" src="../common/w_common_method.js"></script>
-     <style result="text/css">
+    <script type="text/javascript" src="../../js/myselect.js"></script>
+    <style result="text/css">
         .tabCon > div.tabConSon2{
             height:180px;
             position:relative;
             overflow:hidden;
         }
+
         .backG{
             background: url('../images/noImage.png') no-repeat bottom center;
         }
+
         .topCot{
             position: relative;
             top: -50px;
         }
+
         .pageStyle ul li{
             width: 36px;
             height: 26px;
@@ -116,8 +121,7 @@
                     <!-- 分类label -->
                     <div class="labelDown">
                         <i class="labelCloseBtn">×</i>
-                        <%--                        <apptag:dict result="tagDiv" clazz="tabName" id="tag" name="tag" dictId="TAG_MODULE"--%>
-                        <%--                                     defVal="TAG_LABLE_PEOPLE"/>--%>
+                        <tag:tag clazz="tabName" id="tag" style=""/>
                     </div>
                 </div>
             </div>
@@ -195,9 +199,9 @@
     </div>
 </div>
 
-<div class="tanBox"  id="resolve" style="display: none">
+<div class="tanBox" id="resolve" style="display: none">
     <div class="pubBlock kuang">
-        <i class="close"  onclick="javascript:$('#operate').fadeOut();">×</i>
+        <i class="close" onclick="javascript:$('#operate').fadeOut();">×</i>
         <div class="bear-tit">
             <h5>化解存档</h5>
         </div>
@@ -318,7 +322,7 @@
         <div class="bear-tit">
             <h5>责任单位</h5>
         </div>
-        <div  style="height: 250px;">
+        <div style="height: 250px;">
             <div class="baseTable">
                 <table border="0">
                     <tr>
@@ -380,12 +384,12 @@
             <h5 id="addEventTitle" >新增事件</h5>
             <h5 id="updateEventTitle">修改事件</h5>
         </div>
-        <div class="titleCon"  style="height: 500px;">
+        <div class="titleCon" style="height: 500px;">
             <div class="baseTable">
                 <table border="0" style="width: 700px;">
-                        <div class="bear-tit bear-tit2 point">
-                            <h5>基本信息</h5>
-                        </div>
+                    <div class="bear-tit bear-tit2 point">
+                        <h5>基本信息</h5>
+                    </div>
                     <tr>
                         <td width="20%" class="center">事件名称</td>
                         <td width="30%">
@@ -410,230 +414,68 @@
                         <td width="30%">
                             <input class="vV-ipt" result="text" value="" id="occurredPlace" style="width: 200px;">
                         </td>
-
-                        <td width="20%" class="center">矛盾类别</td>
-                        <td width="30%">
-<%--                            <select  class="easyui-combobox" style="width:200px;height:28px;" data-options="editable:false,valueField:'value',textField:'text'" id="wwMdlb">--%>
-<%--                            </select>--%>
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
-                            <%--                                         id="wwMdlb" name="wwJdName" dictId="WTQD_MDLB"/>--%>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">事件经度</td>
+                        <td width="20%" class="center">事件发生经度</td>
                         <td width="30%">
                             <input class="vV-ipt" result="text" value="" id="eventLongti" style="width: 200px;">
                         </td>
-
-                        <td width="20%" class="center">事件纬度</td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="center">事件发生纬度</td>
                         <td width="30%">
                             <input class="vV-ipt" result="text" value="" id="eventLati" style="width: 200px;">
                         </td>
                     </tr>
                     <tr>
-                        <td width="20%" class="center">事件状态</td>
-                        <td width="30%">
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
-                            <%--                                         id="eventStatus" name="wwJdName" dictId="FXFK_SFHJ"/>--%>
+                        <td class="center">涉及人员</td>
+                        <td colspan="3">
+                            <select class="vV-drop" style="width:550px;height:28px;" id="linkPersonNo"
+                                    multiple="multiple">
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
-                        <td class="center">标签联动</td>
+                        <td class="center">涉及单位</td>
                         <td colspan="3">
-                            <div id="treeBox">
-                                <!--id必须是treeBox  -->
-                                <input class="focusEl" result="text" placeholder="请选择" id="tagNames" style="width: 200px;">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                            </div>
+                            <select class="vV-drop" style="width:550px;height:28px;" id="linkUnitNo"
+                                    multiple="multiple">
+                                <option value="" selected>请选择</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center">涉及事件</td>
+                        <td colspan="3">
+                            <select class="vV-drop" style="width:550px;height:28px;" id="linkEventNo"
+                                    multiple="multiple">
+                                <option value="" selected>请选择</option>
+                                <option value="1">已清算</option>
+                                <option value="0">未清算</option>
+                            </select>
                         </td>
                     </tr>
                 </table>
                 <table border="0">
                     <div class="bear-tit bear-tit2 point">
-                        <h5>重大矛盾</h5>
+                        <h5>扩展信息</h5>
                     </div>
                     <tr>
-                        <td width="20%" class="center">甲方</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwDsrA" style="width: 200px;">
-                        </td>
-                        <td width="20%" class="center">乙方</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwDsrB" style="width: 200px;">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">地区类型</td>
-                        <td>
-                            <ul class="vV-tabs" id="wwDqlx">
-                            </ul>
-                        </td>
-                        <td class="center">矛盾类型</td>
-                        <td>
-                            <ul class="vV-tabs" id="wwMdlx">
-                                <li class="act" value="0">群体</li>
-                                <li value="1">个体</li>
-                            </ul>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">矛盾级别</td>
-                        <td>
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;z-index: 0"--%>
-                            <%--                                         id="wwMdjb" name="wwJdName" dictId="WTQD_MDJB"/>--%>
-                        </td>
-                        <td class="center">是否信访</td>
-                        <td id="wwCfqkXf">
-                            <label class="vV-radio ck" name="wwCfqkXf">否</label>
-                            <label class="vV-radio " name="wwCfqkXf">是</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">12345</td>
-                        <td id="wwCfqk12345">
-                            <label class="vV-radio ck" name="wwCfqk12345">无</label>
-                            <label class="vV-radio " name="wwCfqk12345">有</label>
-                        </td>
-                        <td class="center">非访</td>
-                        <td id="wwCfqkFf">
-                            <label class="vV-radio ck" name="wwCfqkFf">无</label>
-                            <label class="vV-radio " name="wwCfqkFf">有</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">越级访</td>
-                        <td id="wwCfqkYjf">
-                            <label class="vV-radio ck" name="wwCfqkYjf">无</label>
-                            <label class="vV-radio " name="wwCfqkYjf">有</label>
-                        </td>
-                        <td class="center">大调解</td>
-                        <td id="wwCfqkDtj">
-                            <label class="vV-radio ck" name="wwCfqkDtj">无</label>
-                            <label class="vV-radio " name="wwCfqkDtj">有</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">诉讼</td>
-                        <td id="wwCfqkSs">
-                            <label class="vV-radio ck" name="wwCfqkSs">无</label>
-                            <label class="vV-radio " name="wwCfqkSs">有</label>
-                        </td>
-                        <td class="center">仲裁</td>
-                        <td id="wwCfqkZc">
-                            <label class="vV-radio ck" name="wwCfqkZc">无</label>
-                            <label class="vV-radio " name="wwCfqkZc">有</label>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="center">重复情况</td>
-                        <td id="wwCfqkW">
-                            <label class="vV-radio ck" name="wwCfqkW">无</label>
-                            <label class="vV-radio " name="wwCfqkW">有</label>
-                        </td>
-                        <td class="center">是否重大不稳定事件</td>
-                        <td id="wwIsZdbwdsj">
-                            <label class="vV-radio ck" name="wwIsZdbwdsj">否</label>
-                            <label class="vV-radio " name="wwIsZdbwdsj">是</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">是否跨省市事件</td>
-                        <td id="wwIsKsssj">
-                            <label class="vV-radio ck" name="wwIsKsssj">否</label>
-                            <label class="vV-radio" name="wwIsKsssj">是</label>
-                        </td>
-                        <td class="center">是否遗留事件</td>
-                        <td id="wwIsYlsj">
-                            <label class="vV-radio ck" name="wwIsYlsj">否</label>
-                            <label class="vV-radio" name="wwIsYlsj">是</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">是否落实化解事件</td>
-                        <td id="wwIsLshjsj">
-                            <label class="vV-radio ck" name="wwIsLshjsj">否</label>
-                            <label class="vV-radio" name="wwIsLshjsj">是</label>
-                        </td>
-                        <td class="center">是否落实化解措施事件</td>
-                        <td id="wwIsLswhjcssj">
-                            <label class="vV-radio ck" name="wwIsLswhjcssj">否</label>
-                            <label class="vV-radio" name="wwIsLswhjcssj">是</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">是否涉法涉诉</td>
-                        <td id="wwIsSfsu">
-                            <label class="vV-radio ck" name="wwIsSfsu">否</label>
-                            <label class="vV-radio" name="wwIsSfsu">是</label>
-                        </td>
-                        <td class="center">是否重复信访</td>
-                        <td id="wwIsCxcf">
-                            <label class="vV-radio ck" name="wwIsCxcf">否</label>
-                            <label class="vV-radio" name="wwIsCxcf">是</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">是否领导包案</td>
-                        <td id="wwIsLdba">
-                            <label class="vV-radio ck" name="wwIsLdba">否</label>
-                            <label class="vV-radio" name="wwIsLdba">是</label>
-                        </td>
-                        <td class="center" id="wwSFHHtitle">是否缓和</td>
-                        <td id="wwSFHH">
-                            <label class="vV-radio ck" name="wwSFHH">已缓和</label>
-                            <label class="vV-radio" name="wwSFHH">未缓和</label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">涉及人数</td>
-                        <td width="30%">
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
-                            <%--                                         id="wwSjrs" name="wwJdName" dictId="WTQD_SJRS"/>--%>
-                        </td>
-                        <td width="20%" class="center">责任人</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwZrr" style="width: 200px;">
-                        </td>
-                    <tr>
-                        <td class="center">备注</td>
+                        <td class="center">涉及单位详情</td>
                         <td colspan="3">
-                            <textarea class="vV-area w-400 m8" style="width: 550px;" id="wwBz"></textarea>
-                        </td>
-                    </tr>
-                    </tr>
-
-                    <tr>
-                        <td width="20%" class="center">涉及领域</td>
-                        <td width="30%">
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
-                            <%--                                         id="wwSjly" name="wwJdName" dictId="WTQD_SJLY"/>--%>
-                        </td>
-                        <td width="20%" class="center">工作周期</td>
-                        <td id="wwGzzq">
-                            <label class="vV-radio ck" name="wwGzzq" style="padding: 0 4px 0 29px;">7天</label>
-                            <label class="vV-radio" name="wwGzzq" style="padding: 0 4px 0 29px;">15天</label>
-                            <label class="vV-radio" name="wwGzzq" style="padding: 0 4px 0 29px;">一个月</label>
+                            <textarea class="vV-area w-400 m8" style="width: 550px;"
+                                      id="linkUnitRelationName"></textarea>
                         </td>
                     </tr>
 
-                    <tr>
-                        <td class="center">所属街道</td>
-                        <td>
-                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width:200px;height:28px;"--%>
-                            <%--                                         id="wwJdName" name="wwJdName" dictId="XH_XZQY"/>--%>
-                        </td>
-                        <td class="center">居委名称</td>
-                        <td>
-                            <select id="wwJw" class="vV-drop" style="width:200px;height:28px;">
-                                <option value="" selected>请选择街道</option>
-                            </select>
-                        </td>
-                    </tr>
                     <tr id="add">
                         <td colspan="4" height="60" align="center">
                             <button class="alertBtn" onclick="save('add')">保存</button>
@@ -666,71 +508,6 @@
     function initSelect() {
         if (initpersontagflag && initeventtagflag && initunittagflag) {
 
-            //隐藏列表框
-            $("body").click(function () {
-                $(".fuzzyData").fadeOut();
-            });
-
-            //移入移出效果
-            $(".spanItem").hover(function () {
-                $(this).css('background-color', '#dbf1fc');
-            }, function () {
-                $(this).css('background-color', 'white');
-            });
-
-
-            //项点击
-            var labelArr = [];
-            var labelAllH = 0;
-            var labelTop = 0;
-            $(".spanItem").on("click", function () {
-                var textCon = $(this).text();
-                if (labelArr.indexOf(textCon) != -1) {
-                    return
-                }
-                labelArr.push(textCon);
-                // 隐藏输入框
-                $(".fuzzyBox").css("display", "none");
-                $(".labelAll").prepend('<span>\n' +
-                    '                <strong>' + textCon + '</strong>\n' +
-                    '                <i class="labelClose">×</i>\n' +
-                    '            </span>');
-                search(1, "-1", true);
-                $(".labelCloseBtn").trigger('click');
-                clickHandle();
-            });
-            $(".tabCon .span").on("click", function () {
-                var textHtml = $(this).html();
-                if (labelArr.indexOf(textHtml) != -1) {
-                    return
-                }
-                labelArr.push(textHtml);
-                $(".fuzzyBox").css("display", "none");
-                //清空输入框
-                $("#txt1").val("");
-                $("#txt1").keyup();
-
-                $(".labelAll").prepend('<span>\n' +
-                    '                        <strong>' + textHtml + '</strong>\n' +
-                    '                        <i class="labelClose">×</i>\n' +
-                    '                    </span>');
-                $(".labelCloseBtn").trigger('click');
-                search(1, "-1", true);
-                clickHandle();
-            });
-
-            // 标签删除
-            $('.labelAll').on("click", ".labelClose", function () {
-                var removeStr = $(this).parent().find("strong").text();
-                removeByValue(labelArr, removeStr);
-                $(this).parent().remove();
-                $(".labelCloseBtn").trigger('click');
-                search(1, "-1", true);
-                clickHandle();
-            });
-
-
-
             // 标签联动
             treeBox({
                 el: '$(".focusEl")', //焦点事件DOM 必传
@@ -756,13 +533,81 @@
         }
     }
 
+
     $(function () {
+
+        //隐藏列表框
+        $("body").click(function () {
+            $(".fuzzyData").fadeOut();
+        });
+
+        // //移入移出效果
+        // $(".spanItem").hover(function () {
+        //     $(this).css('background-color', '#dbf1fc');
+        // }, function () {
+        //     $(this).css('background-color', 'white');
+        // });
+
+
+        //项点击
+        var labelArr = [];
+        var labelAllH = 0;
+        var labelTop = 0;
+
+        // $(".spanItem").on("click", function () {
+        //     var textCon = $(this).text();
+        //     if (labelArr.indexOf(textCon) != -1) {
+        //         return
+        //     }
+        //     labelArr.push(textCon);
+        //     // 隐藏输入框
+        //     $(".fuzzyBox").css("display", "none");
+        //     $(".labelAll").prepend('<span>\n' +
+        //         '                <strong>' + textCon + '</strong>\n' +
+        //         '                <i class="labelClose">×</i>\n' +
+        //         '            </span>');
+        //     alert(1)
+        //     search(1, "-1", true);
+        //     $(".labelCloseBtn").trigger('click');
+        //     clickHandle();
+        // });
+        $(".tabCon .span").on("click", function () {
+            var textHtml = $(this).html();
+            if (labelArr.indexOf(textHtml) != -1) {
+                return
+            }
+            var id = $(this).attr("id");
+            labelArr.push(textHtml);
+            $(".fuzzyBox").css("display", "none");
+            //清空输入框
+            $("#txt1").val("");
+            $("#txt1").keyup();
+
+            $(".labelAll").prepend('<span>\n' +
+                '                        <strong id="' + id + '">' + textHtml + '</strong>\n' +
+                '                        <i class="labelClose">×</i>\n' +
+                '                    </span>');
+            $(".labelCloseBtn").trigger('click');
+            search(1, "-1", true);
+            clickHandle();
+        });
+
+        // 标签删除
+        $('.labelAll').on("click", ".labelClose", function () {
+            var removeStr = $(this).parent().find("strong").text();
+            removeByValue(labelArr, removeStr);
+            $(this).parent().remove();
+            $(".labelCloseBtn").trigger('click');
+            search(1, "-1", true);
+            clickHandle();
+        });
+
         // handleCount();
         findEvent("", true, 1);
         // initTags();
         // initObjectTag();
         // dataTogether();
-        // tagfind();
+        tagfind();
 
         // 关闭弹窗
         $(".close").click(function () {
@@ -778,6 +623,9 @@
         // 输入框控件调用
         vVsub();
 
+        $("#linkPersonNo").fSelect();
+        $("#linkUnitNo").fSelect();
+        $("#linkEventNo").fSelect();
         jeDate("#searchOccurredTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD",
@@ -813,13 +661,10 @@
             zIndex: 3000,
         });
 
-
-
-
         // 排序方式
         $(".statusList li").click(function () {
             $(this).addClass("active").siblings().removeClass("active");
-        })
+        });
         var sortHtml = "";
         var sortMOnOff = true;
         $(".sortMethod").click(function () {
@@ -1023,8 +868,9 @@
 
         var tags = '';
         $(".labelAll span strong").each(function () {
-            tags += "" + $(this).text() + "" + ','
+            tags += "" + $(this).attr("id") + "" + ','
         });
+
         if (tags) {
             tags = tags.substring(0, tags.length - 1);
         }
@@ -1331,7 +1177,7 @@
     function initPersonTags() {
         $.ajax({
             result: "POST",
-            url: "/TagBaseInfoManager/findTagByType",
+            url: "/tagBaseInfo/findTagByParam",
             dataType: "json",
             data: {
                 tagLabelType: "person",
@@ -1375,7 +1221,7 @@
     function initUnitTags() {
         $.ajax({
             result: "POST",
-            url: "/TagBaseInfoManager/findTagByType",
+            url: "/tagBaseInfo/findTagByParam",
             dataType: "json",
             data: {
                 tagLabelType: "unit"
@@ -1418,7 +1264,7 @@
     function initEventTags() {
         $.ajax({
             result: "POST",
-            url: "/TagBaseInfoManager/findTagByType",
+            url: "/tagBaseInfo/findTagByParam",
             dataType: "json",
             data: {
                 tagLabelType: "event",
@@ -1457,7 +1303,6 @@
             }
         })
     }
-
 
 
     //处置日志显示

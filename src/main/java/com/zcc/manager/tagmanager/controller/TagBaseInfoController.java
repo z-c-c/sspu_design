@@ -23,8 +23,11 @@ import java.util.Map;
 public class TagBaseInfoController {
 
 
-    @Autowired
-    private TagBaseInfoService tagBaseInfoService;
+    private final TagBaseInfoService tagBaseInfoService;
+
+    public TagBaseInfoController(TagBaseInfoService tagBaseInfoService) {
+        this.tagBaseInfoService = tagBaseInfoService;
+    }
 
 
     @Log(name = "保存标签")

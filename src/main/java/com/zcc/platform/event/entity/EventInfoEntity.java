@@ -1,5 +1,6 @@
 package com.zcc.platform.event.entity;
 
+
 import java.io.Serializable;
 import java.util.Date;
 

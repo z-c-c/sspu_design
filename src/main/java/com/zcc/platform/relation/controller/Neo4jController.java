@@ -27,7 +27,7 @@ public class Neo4jController {
     @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
     @ResponseBody
     public String test() {
-        String cql = "match (p1:person{id:1})-[r*]-(p2:person{id:2}) return p1,p2,r";
+        String cql = "match (p1:student{name:'小明'})-[r*]-(p2:student) return p1,p2,r";
         Map<String, Object> params = new HashMap<>(6);
         JSONArray jsonArray = dao.executeCql(cql, params);
         String s = jsonArray.toString();
