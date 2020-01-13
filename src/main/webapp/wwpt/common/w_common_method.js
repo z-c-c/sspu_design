@@ -1,4 +1,4 @@
-//»ñÈ¡ÍøÖ·À¸²ÎÊı
+//è·å–ç½‘å€æ å‚æ•°
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
@@ -7,14 +7,14 @@ function GetQueryString(name) {
 }
 
 function timestampToTime(timestamp) {
-    var date = new Date(timestamp);//Ê±¼ä´ÁÎª10Î»Ğè*1000£¬Ê±¼ä´ÁÎª13Î»µÄ»°²»Ğè³Ë1000
+    var date = new Date(timestamp);//æ—¶é—´æˆ³ä¸º10ä½éœ€*1000ï¼Œæ—¶é—´æˆ³ä¸º13ä½çš„è¯ä¸éœ€ä¹˜1000
     var Y = date.getFullYear() + '-';
     var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
     var D = date.getDate() + ' ';
     /* var h = date.getHours() + ':';
    ??? var m = date.getMinutes() + ':';
    ??? var s = date.getSeconds();*/
-    return Y + M + D;//²»ÏÔÊ¾Ê±·ÖÃë
+    return Y + M + D;//ä¸æ˜¾ç¤ºæ—¶åˆ†ç§’
 }
 function uuid() {
     var s = [];
@@ -31,7 +31,7 @@ function uuid() {
 }
 
 
-//¸ù¾İ´«µİ¹ıÀ´µÄ²ÎÊıname»ñÈ¡¶ÔÓ¦µÄÖµ
+//æ ¹æ®ä¼ é€’è¿‡æ¥çš„å‚æ•°nameè·å–å¯¹åº”çš„å€¼
 function getParameter(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = location.search.substr(1).match(reg);
@@ -41,29 +41,29 @@ function getParameter(name) {
 
 Date.prototype.Format = function (fmt) { //author: meizz
     var o = {
-        "M+": this.getMonth() + 1, //ÔÂ·İ
-        "d+": this.getDate(), //ÈÕ
-        "H+": this.getHours(), //Ğ¡Ê±
-        "m+": this.getMinutes(), //·Ö
-        "s+": this.getSeconds(), //Ãë
-        "q+": Math.floor((this.getMonth() + 3) / 3), //¼¾¶È
-        "S": this.getMilliseconds() //ºÁÃë
+        "M+": this.getMonth() + 1, //æœˆä»½
+        "d+": this.getDate(), //æ—¥
+        "H+": this.getHours(), //å°æ—¶
+        "m+": this.getMinutes(), //åˆ†
+        "s+": this.getSeconds(), //ç§’
+        "q+": Math.floor((this.getMonth() + 3) / 3), //å­£åº¦
+        "S": this.getMilliseconds() //æ¯«ç§’
     };
     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }
-//¸ñÊ½»¯ÈÕÆÚ
+//æ ¼å¼åŒ–æ—¥æœŸ
 Date.prototype.format = function (fmt) {
     var o = {
-        "M+": this.getMonth() + 1,                 //ÔÂ·İ
-        "d+": this.getDate(),                    //ÈÕ
-        "h+": this.getHours(),                   //Ğ¡Ê±
-        "m+": this.getMinutes(),                 //·Ö
-        "s+": this.getSeconds(),                 //Ãë
-        "q+": Math.floor((this.getMonth() + 3) / 3), //¼¾¶È
-        "S": this.getMilliseconds()             //ºÁÃë
+        "M+": this.getMonth() + 1,                 //æœˆä»½
+        "d+": this.getDate(),                    //æ—¥
+        "h+": this.getHours(),                   //å°æ—¶
+        "m+": this.getMinutes(),                 //åˆ†
+        "s+": this.getSeconds(),                 //ç§’
+        "q+": Math.floor((this.getMonth() + 3) / 3), //å­£åº¦
+        "S": this.getMilliseconds()             //æ¯«ç§’
     };
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -109,7 +109,7 @@ function clickHandle() {
     }
 }
 
-//É¾³ıÊı×éÖ¸¶¨ÔªËØ
+//åˆ é™¤æ•°ç»„æŒ‡å®šå…ƒç´ 
 function removeByValue(arr, val) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i] == val) {
@@ -121,28 +121,28 @@ function removeByValue(arr, val) {
 
 
 function tagfind() {
-    // ±êÇ©Ä£ºı²éÑ¯
-    // Ä£ºı²éÑ¯µã»÷¼ÓºÅ£¬inputÊäÈë¿òÏÔÊ¾
+    // æ ‡ç­¾æ¨¡ç³ŠæŸ¥è¯¢
+    // æ¨¡ç³ŠæŸ¥è¯¢ç‚¹å‡»åŠ å·ï¼Œinputè¾“å…¥æ¡†æ˜¾ç¤º
     $(".addBtn").click(function () {
         $(".fuzzyBox").css("display", "inline-block");
         $(".labelDown").fadeIn();
         clickHandle();
     })
     $("#txt1").keyup(function () {
-        // $(".fuzzyData").fadeIn();//Ö»ÒªÊäÈë¾ÍÏÔÊ¾ÁĞ±í¿ò
+        // $(".fuzzyData").fadeIn();//åªè¦è¾“å…¥å°±æ˜¾ç¤ºåˆ—è¡¨æ¡†
 
         if ($("#txt1").val().length <= 0) {
-            // $(".spanItem").css('display', 'block');//Èç¹ûÊ²Ã´¶¼Ã»Ìî£¬Ìø³ö£¬±£³ÖÈ«²¿ÏÔÊ¾×´Ì¬
-            // $(".span").css('display', 'block');//Èç¹ûÊ²Ã´¶¼Ã»Ìî£¬Ìø³ö£¬±£³ÖÈ«²¿ÏÔÊ¾×´Ì¬
-            $(".span").removeAttr("style");//Èç¹ûÊ²Ã´¶¼Ã»Ìî£¬Ìø³ö£¬±£³ÖÈ«²¿ÏÔÊ¾×´Ì¬
-            $(".tabConItem").removeAttr("style");//Èç¹ûÊ²Ã´¶¼Ã»Ìî£¬Ìø³ö£¬±£³ÖÈ«²¿ÏÔÊ¾×´Ì¬
+            // $(".spanItem").css('display', 'block');//å¦‚æœä»€ä¹ˆéƒ½æ²¡å¡«ï¼Œè·³å‡ºï¼Œä¿æŒå…¨éƒ¨æ˜¾ç¤ºçŠ¶æ€
+            // $(".span").css('display', 'block');//å¦‚æœä»€ä¹ˆéƒ½æ²¡å¡«ï¼Œè·³å‡ºï¼Œä¿æŒå…¨éƒ¨æ˜¾ç¤ºçŠ¶æ€
+            $(".span").removeAttr("style");//å¦‚æœä»€ä¹ˆéƒ½æ²¡å¡«ï¼Œè·³å‡ºï¼Œä¿æŒå…¨éƒ¨æ˜¾ç¤ºçŠ¶æ€
+            $(".tabConItem").removeAttr("style");//å¦‚æœä»€ä¹ˆéƒ½æ²¡å¡«ï¼Œè·³å‡ºï¼Œä¿æŒå…¨éƒ¨æ˜¾ç¤ºçŠ¶æ€
             return;
         }
 
-        $(".span").css('display', 'none');//Èç¹ûÌîÁË£¬ÏÈ½«ËùÓĞµÄÑ¡ÏîÒş²Ø
+        $(".span").css('display', 'none');//å¦‚æœå¡«äº†ï¼Œå…ˆå°†æ‰€æœ‰çš„é€‰é¡¹éšè—
 
         for (var i = 0; i < $(".tabConItem").length; i++) {
-            //Ä£ºıÆ¥Åä£¬½«ËùÓĞÆ¥ÅäÏîÏÔÊ¾
+            //æ¨¡ç³ŠåŒ¹é…ï¼Œå°†æ‰€æœ‰åŒ¹é…é¡¹æ˜¾ç¤º
             var flag = true;
             for (var j = 0; j < $(".tabConItem").eq(i).find(".span").length; j++) {
                 if ($(".tabConItem").eq(i).find(".span").eq(j).text().indexOf($("#txt1").val()) != -1) {
@@ -153,18 +153,18 @@ function tagfind() {
                     flag = false;
                 }
             }
-            //Ã»ÓĞ±êÇ©ÁĞÒş²Ø
+            //æ²¡æœ‰æ ‡ç­¾åˆ—éšè—
             if (flag) {
                 $(".tabConItem").eq(i).css('display', 'none');
             }
         }
     });
-    // ÈË-Éç»áÊµÌå-ÊÂ¼şÇĞ»»
+    // äºº-ç¤¾ä¼šå®ä½“-äº‹ä»¶åˆ‡æ¢
     $(".tabName div").mouseenter(function () {
         $(this).addClass("active").siblings().removeClass("active");
         $(".tabCon").children().eq($(this).index()).removeClass("displayNone").siblings().addClass("displayNone");
     })
-    // ±êÇ©µ¯´°¹Ø±Õ
+    // æ ‡ç­¾å¼¹çª—å…³é—­
     $(".labelCloseBtn").click(function () {
         $("#txt1").val("");
         $("#txt1").keyup();
@@ -205,8 +205,9 @@ function location_href(url) {
 }
 
 function isValidStr(str) {
-    if (str == null || str == undefined || str == "null" || str == "undefined" || str.trim().length == 0) {
-        return "ÎŞ";
+
+    if (str == null || str === undefined || str === "null" || str === "undefined" || str.trim().length === 0) {
+        return "æ— ";
     }
     return str;
 }
