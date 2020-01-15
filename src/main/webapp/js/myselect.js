@@ -5,7 +5,7 @@
         } else {
             //默认配置项
             var settings = $.extend({
-                placeholder: ' ===请选择=== ',//占位符，默认显示什么
+                placeholder: '',//占位符，默认显示什么
                 numDisplayed: 10,//设置页面上可以显示几个选项（超出这个数量将会显示选择了n项）
                 overflowText: '选择了{n}项',//超出这个数量将会显示"选择了n项"
                 searchText: '搜索',//搜索框中占位符显示什么字
@@ -300,7 +300,6 @@
 //=========================全不选/清空=====================================
     $(document).on('click', '#clearAllBtn', function () {
         var $wrap = $(this).closest('.fs-wrap');
-
         if ($wrap.hasClass('multiple')) {
             var selected = [];
 

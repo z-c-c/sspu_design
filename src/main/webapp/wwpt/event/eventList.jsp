@@ -121,7 +121,7 @@
                     <!-- 分类label -->
                     <div class="labelDown">
                         <i class="labelCloseBtn">×</i>
-                        <tag:tag clazz="tabName" id="tag" style=""/>
+                        <tag:tag clazz="tabName" id="tag" style="" type="tagDiv"/>
                     </div>
                 </div>
             </div>
@@ -381,10 +381,10 @@
     <div class="pubBlock kuang">
         <i class="close">×</i>
         <div class="bear-tit">
-            <h5 id="addEventTitle" >新增事件</h5>
+            <h5 id="addEventTitle">新增事件</h5>
             <h5 id="updateEventTitle">修改事件</h5>
         </div>
-        <div class="titleCon" style="height: 500px;">
+        <div class="titleCon" style="height: 550px;">
             <div class="baseTable">
                 <table border="0" style="width: 700px;">
                     <div class="bear-tit bear-tit2 point">
@@ -425,19 +425,29 @@
                             <input class="vV-ipt" result="text" value="" id="eventLati" style="width: 200px;">
                         </td>
                     </tr>
+
+                </table>
+                <table border="0" style="width: 700px;">
+                    <div class="bear-tit bear-tit2 point">
+                        <h5>扩展信息</h5>
+                    </div>
+
+                    <tr>
+                        <td class="center">标签联动</td>
+                        <td colspan="3">
+                            <tag:tag clazz="vV-drop" style="width:550px;height:28px;" id="linkTag" type="tagSelect"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="center">涉及人员</td>
                         <td colspan="3">
                             <select class="vV-drop" style="width:550px;height:28px;" id="linkPersonNo"
                                     multiple="multiple">
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
+                                <option value="1">小明</option>
+                                <option value="2">小王</option>
+                                <option value="3">小张</option>
+                                <option value="4">小李</option>
+                                <option value="5">小赵</option>
                             </select>
                         </td>
                     </tr>
@@ -446,9 +456,9 @@
                         <td colspan="3">
                             <select class="vV-drop" style="width:550px;height:28px;" id="linkUnitNo"
                                     multiple="multiple">
-                                <option value="" selected>请选择</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
+                                <option value="A">A单位</option>
+                                <option value="B">B单位</option>
+                                <option value="C">C单位</option>
                             </select>
                         </td>
                     </tr>
@@ -457,25 +467,17 @@
                         <td colspan="3">
                             <select class="vV-drop" style="width:550px;height:28px;" id="linkEventNo"
                                     multiple="multiple">
-                                <option value="" selected>请选择</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
+                                <option value="AA">A事件</option>
+                                <option value="BB">B事件</option>
+                                <option value="CC">C事件</option>
                             </select>
                         </td>
                     </tr>
-                </table>
-                <table border="0">
-                    <div class="bear-tit bear-tit2 point">
-                        <h5>扩展信息</h5>
-                    </div>
                     <tr>
-                        <td class="center">涉及单位详情</td>
-                        <td colspan="3">
-                            <textarea class="vV-area w-400 m8" style="width: 550px;"
-                                      id="linkUnitRelationName"></textarea>
+                        <td width="20%" class="center"></td>
+                        <td width="30%">
                         </td>
                     </tr>
-
                     <tr id="add">
                         <td colspan="4" height="60" align="center">
                             <button class="alertBtn" onclick="save('add')">保存</button>
@@ -535,7 +537,6 @@
 
 
     $(function () {
-
         //隐藏列表框
         $("body").click(function () {
             $(".fuzzyData").fadeOut();
@@ -626,6 +627,7 @@
         $("#linkPersonNo").fSelect();
         $("#linkUnitNo").fSelect();
         $("#linkEventNo").fSelect();
+        $("#linkTag").fSelect();
         jeDate("#searchOccurredTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD",
@@ -1114,11 +1116,14 @@
     function addShow() {
         $("input").val("");
         $("#eventContent").val("");
-        $("#eventStatus").val("");
         $("#update").hide();
         $("#addEventTitle").show();
         $("#updateEventTitle").hide();
         $("#add").show();
+        $(".fs-options").find('div').removeClass("selected");
+        $(".fs-label").attr("title", "");
+        $(".fs-label").text("");
+
         $("#addEvent").show();
     }
 

@@ -23,6 +23,10 @@ public class TagTld extends BodyTagSupport {
     private String id;
     private String style;
     private String clazz;
+    private String type;
+
+    private final String TAG_DIV = "tagDiv";
+    private final String TAG_SELECT = "tagSelect";
 
     static {
         WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
@@ -40,9 +44,50 @@ public class TagTld extends BodyTagSupport {
         System.out.println(this.getClazz());
         try {
             pageContext.getOut().write("");
+            if (this.TAG_DIV.equals(this.getType())) {
+                pageContext.getOut().write(getTagDiv());
+            }
+            if (this.TAG_SELECT.equals(this.getType())) {
+                pageContext.getOut().write(getTagSelect());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        return super.doEndTag();
+    }
+
+    private static Map<String, List<TagBaseInfoEntity>> getObjectTag() {
+        Map<String, List<TagBaseInfoEntity>> map = new HashMap<>(3);
+        TagBaseInfoEntity tag = new TagBaseInfoEntity();
+        tag.setTagLabelType(ConstUtil.PERSON_TAG);
+        List<TagBaseInfoEntity> personTag = service.find(tag);
+        tag.setTagLabelType(ConstUtil.EVENT_TAG);
+        List<TagBaseInfoEntity> eventTag = service.find(tag);
+        tag.setTagLabelType(ConstUtil.UNIT_TAG);
+        List<TagBaseInfoEntity> unitTag = service.find(tag);
+        map.put(ConstUtil.PERSON_TAG, personTag);
+        map.put(ConstUtil.EVENT_TAG, eventTag);
+        map.put(ConstUtil.UNIT_TAG, unitTag);
+        return map;
+    }
+
+    private String getTagSelect() {
+
+        List<TagBaseInfoEntity> all = service.findAll();
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("<select class=\"" + this.getClazz() + "\" style=\"" + this.getStyle() + "\" id=\"" + this.getId() + "\"\n" +
+                "                                    multiple=\"multiple\">");
+        for (TagBaseInfoEntity tagBaseInfoEntity : all) {
+            stringBuffer.append(" <option value=\"" + tagBaseInfoEntity.getTagId() + "\">" + tagBaseInfoEntity.getTagName() + "</option>");
+        }
+        stringBuffer.append("</select>");
+        return stringBuffer.toString();
+    }
+
+    private String getTagDiv() {
         Map<String, List<TagBaseInfoEntity>> objectTag = getObjectTag();
         List<TagBaseInfoEntity> personTag = objectTag.get(ConstUtil.PERSON_TAG);
         List<TagBaseInfoEntity> eventTag = objectTag.get(ConstUtil.EVENT_TAG);
@@ -83,27 +128,7 @@ public class TagTld extends BodyTagSupport {
             tagString.append("    </div></div>");
         }
         tagString.append("    </div></div></div>");
-        try {
-            pageContext.getOut().write(tagString.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return super.doEndTag();
-    }
-
-    private static Map<String, List<TagBaseInfoEntity>> getObjectTag() {
-        Map<String, List<TagBaseInfoEntity>> map = new HashMap<>(3);
-        TagBaseInfoEntity tag = new TagBaseInfoEntity();
-        tag.setTagLabelType(ConstUtil.PERSON_TAG);
-        List<TagBaseInfoEntity> personTag = service.find(tag);
-        tag.setTagLabelType(ConstUtil.EVENT_TAG);
-        List<TagBaseInfoEntity> eventTag = service.find(tag);
-        tag.setTagLabelType(ConstUtil.UNIT_TAG);
-        List<TagBaseInfoEntity> unitTag = service.find(tag);
-        map.put(ConstUtil.PERSON_TAG, personTag);
-        map.put(ConstUtil.EVENT_TAG, eventTag);
-        map.put(ConstUtil.UNIT_TAG, unitTag);
-        return map;
+        return tagString.toString();
     }
 
     @Override
@@ -132,4 +157,11 @@ public class TagTld extends BodyTagSupport {
         this.clazz = clazz;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
