@@ -211,3 +211,15 @@ function isValidStr(str) {
     }
     return str;
 }
+
+function safeToString(str) {
+    if (str == null) {
+        return "";
+    } else {
+        try {
+            return str.toString();
+        } catch (e) {
+            return "";
+        }
+    }
+}

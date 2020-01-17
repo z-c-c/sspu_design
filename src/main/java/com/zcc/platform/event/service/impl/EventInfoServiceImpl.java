@@ -4,6 +4,8 @@ import com.zcc.commons.utils.ConstUtil;
 import com.zcc.commons.utils.DateFormat;
 import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.StringUtil;
+import com.zcc.manager.tagmanager.entity.TagObjectRelationEntity;
+import com.zcc.manager.tagmanager.service.TagObjectRelationService;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import com.zcc.platform.event.dao.EventInfoDao;
 import com.zcc.platform.event.dao.EventRelationDao;
@@ -28,6 +30,8 @@ public class EventInfoServiceImpl implements EventInfoService {
     private EventInfoDao eventInfoDao;
     @Autowired
     private EventRelationDao eventRelationDao;
+    @Autowired
+    private TagObjectRelationService tagObjectRelationService;
 
     /**
      * 保存事件
@@ -36,17 +40,69 @@ public class EventInfoServiceImpl implements EventInfoService {
      * @return id
      */
     @Override
-    public String save(EventInfoEntity eventInfoEntity, HttpServletRequest request) {
+    public String save(EventInfoEntity eventInfoEntity, HttpServletRequest request, String tags, String linkPersonNos, String linkUnitNos, String linkEventNos) {
         UserInfoEntity currentPerson = ConstUtil.currentPerson(request);
         if (StringUtil.isValidStr(eventInfoEntity.getEventId())) {
             eventInfoEntity.setUpdateUserAccount(currentPerson.getUserName());
             eventInfoEntity.setUpdateTime(new Date());
             eventInfoDao.update(eventInfoEntity);
+
         } else {
             eventInfoEntity.setCreateTime(new Date());
+            eventInfoEntity.setUpdateTime(new Date());
             eventInfoEntity.setCreateUserAccount(currentPerson.getUserName());
+            eventInfoEntity.setUpdateUserAccount(currentPerson.getUserName());
             eventInfoDao.add(eventInfoEntity);
         }
+        //事件打标签
+        if (StringUtil.isValidStr(tags)) {
+            String[] split = tags.split(",");
+            for (String s : split) {
+                TagObjectRelationEntity tagObjectRelationEntity = new TagObjectRelationEntity();
+                tagObjectRelationEntity.setTagId(s);
+                tagObjectRelationEntity.setObjectId(eventInfoEntity.getEventId());
+                tagObjectRelationEntity.setObjectType(ConstUtil.EVENT_TAG);
+                tagObjectRelationEntity.setIsDelete("0");
+                tagObjectRelationService.addTagForObject(tagObjectRelationEntity);
+            }
+        }
+        //添加事件关联人员
+        if (StringUtil.isValidStr(linkPersonNos)) {
+            String[] split = linkPersonNos.split(",");
+            for (String s : split) {
+                EventRelationEntity eventRelationEntity = new EventRelationEntity();
+                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
+                eventRelationEntity.setObjectId(s);
+                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_PERSON);
+                eventRelationEntity.setIsDelete("0");
+                this.addEventRelationObject(eventRelationEntity);
+            }
+        }
+        //添加事件关联单位
+        if (StringUtil.isValidStr(linkUnitNos)) {
+            String[] split = linkUnitNos.split(",");
+            for (String s : split) {
+                EventRelationEntity eventRelationEntity = new EventRelationEntity();
+                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
+                eventRelationEntity.setObjectId(s);
+                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_UNIT);
+                eventRelationEntity.setIsDelete("0");
+                this.addEventRelationObject(eventRelationEntity);
+            }
+        }
+        //添加事件关联对象
+        if (StringUtil.isValidStr(linkEventNos)) {
+            String[] split = linkEventNos.split(",");
+            for (String s : split) {
+                EventRelationEntity eventRelationEntity = new EventRelationEntity();
+                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
+                eventRelationEntity.setObjectId(s);
+                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_EVENT);
+                eventRelationEntity.setIsDelete("0");
+                this.addEventRelationObject(eventRelationEntity);
+            }
+        }
+
         return eventInfoEntity.getEventId();
     }
 

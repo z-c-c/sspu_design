@@ -35,4 +35,13 @@ public interface TagObjectRelationDao {
      * @param objectId objectId
      */
     void delTagForObject(@Param("tagId") String tagId, @Param("objectId") String objectId);
+
+    /**
+     * 查找对象的特定标签
+     *
+     * @param objectId objectId
+     * @param tagId    tagId
+     * @return TagBaseInfoEntity
+     */
+    TagBaseInfoEntity findTagByObjectIdAndTagId(@Param("objectId") String objectId, @Param("tagId") String tagId);
 }

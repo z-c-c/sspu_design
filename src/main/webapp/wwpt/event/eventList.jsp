@@ -393,7 +393,7 @@
                     <tr>
                         <td width="20%" class="center">事件名称</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="addeventName" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="eventName" style="width: 200px;">
                         </td>
 
                         <td width="20%" class="center">发生时间</td>
@@ -414,15 +414,15 @@
                         <td width="30%">
                             <input class="vV-ipt" result="text" value="" id="occurredPlace" style="width: 200px;">
                         </td>
-                        <td width="20%" class="center">事件发生经度</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="eventLongti" style="width: 200px;">
-                        </td>
                     </tr>
                     <tr>
+                        <td width="20%" class="center">事件发生经度</td>
+                        <td width="30%">
+                            <input class="vV-ipt" result="text" value="" id="occurredLongti" style="width: 200px;">
+                        </td>
                         <td width="20%" class="center">事件发生纬度</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="eventLati" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="occurredLati" style="width: 200px;">
                         </td>
                     </tr>
 
@@ -1643,436 +1643,76 @@
         $("#updateEventTitle").show();
         $("#update").show();
         $.ajax({
-            result: "POST",
-            url: "/eventManager/findEventBaseInfoById",
+            type: "POST",
+            url: "/eventInfo/findById",
             dataType: "json",
             data: {
-                eventType: "contradictionEvent",
                 eventId: eventId
             },
             success: function (result) {
-                if (result.message == "success") {
-                    var eventBase = result.eventById;
-                    var contradictionEvent = result.contradictionEventById;
-                    $("#addeventName").val(eventBase.eventName);
-                    $("#occurredTime").val(new Date(eventBase.occurredTime).format("yyyy-MM-dd hh:mm:ss"));
-                    $("#eventContent").val(eventBase.eventContent);
-                    $("#occurredPlace").val(eventBase.occurredPlace);
-                    $("#wwMdlb").find("option[text='" + contradictionEvent.wwMdlb + "']").attr("selected", "selected");
-                    $("#eventLongti").val(eventBase.eventLongti);
-                    $("#eventLati").val(eventBase.eventLongti);
-                    $("#eventStatus").val(contradictionEvent.wwSfhj);
-                    // $("#stUpdateTime").val(new Date(eventBase.stUpdateTime).format("yyyy-MM-dd hh:mm:ss"));
-                    $("#wwDsrA").val(contradictionEvent.wwDsrA);
-                    $("#wwDsrB").val(contradictionEvent.wwDsrB);
-                    $("#wwDqlx").find("li").removeClass("act");
-                    $("#wwDqlx").find("li[value='" + contradictionEvent.wwDqlx + "']").addClass("act");
-                    $("#wwMdlx").find("li").removeClass("act");
-                    $("#wwMdlx").find("li[value='" + contradictionEvent.wwMdlx + "']").addClass("act");
-                    $("#wwMdjb").find("option:contains(" + contradictionEvent.wwMdJbName + ")").attr("selected", "selected");
-                    $("#wwCfqkXf").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkXf == "0") {
-                        $("#wwCfqkXf").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkXf").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqk12345").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqk12345 == "0") {
-                        $("#wwCfqk12345").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqk12345").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqkFf").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkFf == "0") {
-                        $("#wwCfqkFf").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkFf").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqkYjf").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkYjf == "0") {
-                        $("#wwCfqkYjf").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkYjf").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwCfqkDtj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkDtj == "0") {
-                        $("#wwCfqkDtj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkDtj").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqkSs").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkSs == "0") {
-                        $("#wwCfqkSs").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkSs").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqkZc").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkZc == "0") {
-                        $("#wwCfqkZc").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkZc").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwCfqkW").find("label").removeClass("ck");
-                    if (contradictionEvent.wwCfqkW == "0") {
-                        $("#wwCfqkW").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwCfqkW").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsZdbwdsj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsZdbwdsj == "0") {
-                        $("#wwIsZdbwdsj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsZdbwdsj").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsKsssj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsKsssj == "0") {
-                        $("#wwIsKsssj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsKsssj").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsYlsj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsYlsj == "0") {
-                        $("#wwIsYlsj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsYlsj").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsLshjsj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsLshjsj == "0") {
-                        $("#wwIsLshjsj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsLshjsj").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwIsLswhjcssj").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsLswhjcssj == "0") {
-                        $("#wwIsLswhjcssj").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsLswhjcssj").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsSfsu").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsSfsu == "0") {
-                        $("#wwIsSfsu").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsSfsu").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsCxcf").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsCxcf == "0") {
-                        $("#wwIsCxcf").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsCxcf").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwIsLdba").find("label").removeClass("ck");
-                    if (contradictionEvent.wwIsLdba == "0") {
-                        $("#wwIsLdba").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwIsLdba").find("label:eq(1)").addClass("ck");
-                    }
-                    $("#wwSFHH").find("label").removeClass("ck");
-                    if (contradictionEvent.wwSFHH == "0") {
-                        $("#wwSFHH").find("label:eq(0)").addClass("ck");
-                    } else {
-                        $("#wwSFHH").find("label:eq(1)").addClass("ck");
-                    }
-
-                    $("#wwZrr").val(contradictionEvent.wwZrr);
-                    $("#wwSjrs").find("option:contains(" + contradictionEvent.wwSjrs + ")").attr("selected", "selected");
-                    $("#wwBz").val(contradictionEvent.wwBz);
-                    if (contradictionEvent.wwSjly == "") {
-                        $("#wwSjly").val("");
-                    } else {
-                        $("#wwSjly").find("option:contains('" + contradictionEvent.wwSjly + "')").attr("selected", "selected");
-                    }
-                    $("#wwGzzq").val(contradictionEvent.wwGzzq);
-                    $("#wwGzzq").find("lable").removeClass("ck");
-                    if (contradictionEvent.wwGzzq == "7") {
-                        $("#wwGzzq").find("lable option:eq(0)").addClass("ck");
-                    }
-                    if (contradictionEvent.wwGzzq == "15") {
-                        $("#wwGzzq").find("lable option:eq(1)").addClass("ck");
-                    }
-                    if (contradictionEvent.wwGzzq == "30") {
-                        $("#wwGzzq").find("lable option:eq(2)").addClass("ck");
-                    }
-                    $("#wwJdName").val(contradictionEvent.wwJdCode);
-                    initJw(contradictionEvent.wwJdCode)
-                    $("#wwJw").val(contradictionEvent.wwJw)
-                    var wwSfhj = contradictionEvent.wwSfhj;
-                    if (wwSfhj == "0") {
-                        $("#wwSFHH").show();
-                        $("#wwSFHHtitle").show();
-                    } else {
-                        $("#wwSFHH").hide();
-                        $("#wwSFHHtitle").hide();
-                    }
-                    IsHj = wwSfhj;
-                    $("#addEvent").show();
-                }
+                $("#addEvent").show();
+                console.log(result)
             }
         });
     }
 
     function save(flag) {
         var data = {};
-        data.eventType = "contradictionEvent";
-        data.eventName = $("#addeventName").val();
+        data.eventName = $("#eventName").val();
         data.occurredTime = parserDate($("#occurredTime").val());
         data.eventContent = $("#eventContent").val();
         data.occurredPlace = $("#occurredPlace").val();
-        var wwMdlb = $("#wwMdlb option:selected").text();
-        if (wwMdlb == "请选择") {
-            wwMdlb = "";
-        }
-        data.wwMdlb = wwMdlb;
-        data.eventLongti = $("#eventLongti").val();
-        data.eventLati = $("#eventLati").val();
-        data.wwSfhj = $("#eventStatus").val();
-        // data.stUpdateTime = parserDate($("#stUpdateTime").val());
-        data.wwDsrA = $("#wwDsrA").val();
-        data.wwDsrB = $("#wwDsrB").val();
-        data.wwDqlx = $("#wwDqlx").find("li[class='act']").attr('value')
-        data.wwMdlx = $("#wwMdlx").find("li[class='act']").attr('value')
-        data.wwMdjb = $("#wwMdjb option:selected").val();
-        var wwMdJbName = $("#wwMdjb option:selected").text();
-        if (wwMdJbName == "请选择") {
-            wwMdJbName = "";
-        }
-        data.wwMdJbName = wwMdJbName;
-        var wwCfqkXf;
-        if ($("#wwCfqkXf").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkXf = "0";
-        }
-        if ($("#wwCfqkXf").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkXf = "1";
-        }
-        data.wwCfqkXf = wwCfqkXf;
-
-        var wwCfqk12345;
-        if ($("#wwCfqk12345").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqk12345 = "0";
-        }
-        if ($("#wwCfqk12345").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqk12345 = "1";
-        }
-        data.wwCfqk12345 = wwCfqk12345;
-
-        var wwCfqkFf;
-        if ($("#wwCfqkFf").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkFf = "0";
-        }
-        if ($("#wwCfqkFf").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkFf = "1";
-        }
-        data.wwCfqkFf = wwCfqkFf;
-
-        var wwCfqkYjf;
-        if ($("#wwCfqkYjf").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkYjf = "0";
-        }
-        if ($("#wwCfqkYjf").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkYjf = "1";
-        }
-        data.wwCfqkYjf = wwCfqkYjf;
-
-        var wwCfqkDtj;
-        if ($("#wwCfqkDtj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkDtj = "0";
-        }
-        if ($("#wwCfqkDtj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkDtj = "1";
-        }
-        data.wwCfqkDtj = wwCfqkDtj;
-
-        var wwCfqkSs;
-        if ($("#wwCfqkSs").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkSs = "0";
-        }
-        if ($("#wwCfqkSs").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkSs = "1";
-        }
-        data.wwCfqkSs = wwCfqkSs;
-
-        var wwCfqkZc;
-        if ($("#wwCfqkZc").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkZc = "0";
-        }
-        if ($("#wwCfqkZc").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkZc = "1";
-        }
-        data.wwCfqkZc = wwCfqkZc;
-
-        var wwCfqkW;
-        if ($("#wwCfqkW").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwCfqkW = "0";
-        }
-        if ($("#wwCfqkW").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwCfqkW = "1";
-        }
-        data.wwCfqkW = wwCfqkW;
-
-        var wwIsZdbwdsj;
-        if ($("#wwIsZdbwdsj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsZdbwdsj = "0";
-        }
-        if ($("#wwIsZdbwdsj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsZdbwdsj = "1";
-        }
-        data.wwIsZdbwdsj = wwIsZdbwdsj;
-
-        var wwIsKsssj;
-        if ($("#wwIsKsssj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsKsssj = "0";
-        }
-        if ($("#wwIsKsssj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsKsssj = "1";
-        }
-        data.wwIsKsssj = wwIsKsssj;
-        var wwIsYlsj;
-        if ($("#wwIsYlsj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsYlsj = "1";
-        }
-        if ($("#wwIsYlsj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsYlsj = "0";
-        }
-        data.wwIsYlsj = wwIsYlsj;
-
-        var wwIsLshjsj;
-        if ($("#wwIsLshjsj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsLshjsj = "1";
-        }
-        if ($("#wwIsLshjsj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsLshjsj = "0";
-        }
-        data.wwIsLshjsj = wwIsLshjsj;
-
-        var wwIsLswhjcssj;
-        if ($("#wwIsLswhjcssj").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsLswhjcssj = "1";
-        }
-        if ($("#wwIsLswhjcssj").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsLswhjcssj = "0";
-        }
-        data.wwIsLswhjcssj = wwIsLswhjcssj;
-
-        var wwIsSfsu;
-        if ($("#wwIsSfsu").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsSfsu = "1";
-        }
-        if ($("#wwIsSfsu").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsSfsu = "0";
-        }
-        data.wwIsSfsu = wwIsSfsu;
-
-        var wwIsCxcf;
-        if ($("#wwIsCxcf").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsCxcf = "1";
-        }
-        if ($("#wwIsCxcf").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsCxcf = "0";
-        }
-        data.wwIsCxcf = wwIsCxcf;
-
-        var wwIsLdba;
-        if ($("#wwIsLdba").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwIsLdba = "1";
-        }
-        if ($("#wwIsLdba").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwIsLdba = "0";
-        }
-        data.wwIsLdba = wwIsLdba;
-        data.wwZrr = $("#wwZrr").val();
-        var wwSjrs = $("#wwSjrs option:selected").text();
-        if (wwSjrs == "请选择") {
-            wwSjrs = "";
-        }
-        data.wwSjrs = wwSjrs;
-        data.wwBz = $("#wwBz").val();
-        var wwSjly = $("#wwSjly option:selected").text();
-        if (wwSjly == "请选择") {
-            wwSjly = "";
-        }
-        data.wwSjly = wwSjly;
-        var wwGzzq;
-        if ($("#wwGzzq").find("label:eq(0)").hasClass("vV-radio ck")) {
-            wwGzzq = "7";
-        }
-        if ($("#wwGzzq").find("label:eq(1)").hasClass("vV-radio ck")) {
-            wwGzzq = "15";
-        }
-        if ($("#wwGzzq").find("label:eq(2)").hasClass("vV-radio ck")) {
-            wwGzzq = "30";
-        }
-        data.wwGzzq = wwGzzq;
-        var wwJdName = $("#wwJdName option:selected").text();
-        if (wwJdName == "请选择") {
-            wwJdName = "";
-        }
-        data.wwJdName = wwJdName;
-        data.wwJdCode = $("#wwJdName").val();
-        data.wwJw = $("#wwJw").val();
-        var wwJwmc = $("#wwJwmc option:selected").text();
-        if (wwJwmc == "请选择") {
-            wwJwmc = "";
-        }
-        data.wwJwmc = wwJwmc;
-        data.tagNames = $("#tagNames").val();
-        if (flag == "add") {
-            var wwSFHH;
-            if ($("#wwSFHH").find("label:eq(0)").hasClass("vV-radio ck")) {
-                wwSFHH = "1";
-            }
-            if ($("#wwSFHH").find("label:eq(1)").hasClass("vV-radio ck")) {
-                wwSFHH = "0";
-            }
-            data.wwSFHH = wwSFHH;
+        data.occurredLongti = $("#occurredLongti").val();
+        data.occurredLati = $("#occurredLati").val();
+        data.tags = safeToString($("#linkTag").val());
+        data.linkPersonNos = safeToString($("#linkPersonNo").val());
+        data.linkUnitNos = safeToString($("#linkUnitNo").val());
+        data.linkEventNos = safeToString($("#linkEventNo").val());
+        console.log(data);
+        if (flag === "add") {
             $.ajax({
-                result: "POST",
-                url: "/eventManager/addEventBaseInfo",
+                type: "POST",
+                url: "/eventInfo/save",
                 dataType: "json",
                 data: data,
                 success: function (result) {
-                    if (result.message == "success") {
+                    if (result.code === "success") {
                         $("#addEvent").hide();
-                        findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                        findEvent("", true, 1);
                         successOperator();
-                        handleCount();
-                        dataTogether();
+                        // handleCount();
+                        // dataTogether();
                     }
                 }
             });
         }
-        if (flag == "update") {
-            //未化解才添加是否缓和信息
-            if (IsHj == 0) {
-                var wwSFHH;
-                if ($("#wwSFHH").find("label:eq(0)").hasClass("vV-radio ck")) {
-                    wwSFHH = "1";
-                }
-                if ($("#wwSFHH").find("label:eq(1)").hasClass("vV-radio ck")) {
-                    wwSFHH = "0";
-                }
-                data.wwSFHH = wwSFHH;
-            }
-            data.eventId = $("#toUpdateEventId").val();
-            $.ajax({
-                result: "POST",
-                url: "/eventManager/alterEventBaseInfo",
-                dataType: "json",
-                data: data,
-                success: function (result) {
-                    if (result.message == "success") {
-                        $("#addEvent").hide();
-                        findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
-                        successOperator();
-                    }
-                }
-            });
-        }
+        // if (flag == "update") {
+        //     //未化解才添加是否缓和信息
+        //     if (IsHj == 0) {
+        //         var wwSFHH;
+        //         if ($("#wwSFHH").find("label:eq(0)").hasClass("vV-radio ck")) {
+        //             wwSFHH = "1";
+        //         }
+        //         if ($("#wwSFHH").find("label:eq(1)").hasClass("vV-radio ck")) {
+        //             wwSFHH = "0";
+        //         }
+        //         data.wwSFHH = wwSFHH;
+        //     }
+        //     data.eventId = $("#toUpdateEventId").val();
+        //     $.ajax({
+        //         result: "POST",
+        //         url: "/eventManager/alterEventBaseInfo",
+        //         dataType: "json",
+        //         data: data,
+        //         success: function (result) {
+        //             if (result.message == "success") {
+        //                 $("#addEvent").hide();
+        //                 findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+        //                 successOperator();
+        //             }
+        //         }
+        //     });
+        // }
 
     }
 </script>

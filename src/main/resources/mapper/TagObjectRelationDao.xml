@@ -16,7 +16,7 @@
         <selectKey keyProperty="relationId" resultType="String" order="BEFORE">
             select replace(uuid(),'-','') from dual
         </selectKey>
-        insert into dm_tag_object_relation values (#{relationId},#{tagID},#{objectId},#{objectType},'0');
+        insert into dm_tag_object_relation values (#{relationId},#{tagId},#{objectId},#{objectType},'0');
     </insert>
 
     <update id="delTagForObject">
@@ -25,4 +25,13 @@
         where TAG_ID = #{tagId}
           and OBJECT_ID = #{objectId}
     </update>
+
+    <select id="findTagByObjectIdAndTagId" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
+        select *
+        from dm_tag_object_relation
+        where OBJECT_ID = #{objectId}
+          and TAG_ID = #{tagId}
+          and IS_DELETE != '1';
+    </select>
+
 </mapper>

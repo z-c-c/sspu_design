@@ -39,7 +39,10 @@ public class TagObjectRelationServiceImpl implements TagObjectRelationService {
      */
     @Override
     public void addTagForObject(TagObjectRelationEntity tagObjectRelationEntity) {
-        tagObjectRelationDao.addTagForObject(tagObjectRelationEntity);
+        TagBaseInfoEntity tagByObjectIdAndTagId = tagObjectRelationDao.findTagByObjectIdAndTagId(tagObjectRelationEntity.getObjectId(), tagObjectRelationEntity.getTagId());
+        if (tagByObjectIdAndTagId == null) {
+            tagObjectRelationDao.addTagForObject(tagObjectRelationEntity);
+        }
     }
 
     /**

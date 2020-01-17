@@ -19,9 +19,13 @@ public interface EventInfoService {
      *
      * @param eventInfoEntity eventInfoEntity
      * @param request         request
+     * @param tags            tags
+     * @param linkPersonNos   linkPersonNos
+     * @param linkUnitNos     linkUnitNos
+     * @param linkEventNos    linkEventNos
      * @return id
      */
-    String save(EventInfoEntity eventInfoEntity, HttpServletRequest request);
+    String save(EventInfoEntity eventInfoEntity, HttpServletRequest request, String tags, String linkPersonNos, String linkUnitNos, String linkEventNos);
 
     /**
      * 删除事件

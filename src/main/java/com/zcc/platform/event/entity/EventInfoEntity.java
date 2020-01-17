@@ -35,9 +35,9 @@ public class EventInfoEntity implements Serializable {
      */
     private String isSettlement;
     private String settlementTime;
-    private Integer linkPersonNo;
-    private Integer linkUnitNo;
-    private Integer linkEventNo;
+    private String linkPersonNo;
+    private String linkUnitNo;
+    private String linkEventNo;
     private String filePath;
     private String isDelete;
 
@@ -146,27 +146,27 @@ public class EventInfoEntity implements Serializable {
         this.settlementTime = settlementTime;
     }
 
-    public Integer getLinkPersonNo() {
+    public String getLinkPersonNo() {
         return linkPersonNo;
     }
 
-    public void setLinkPersonNo(Integer linkPersonNo) {
+    public void setLinkPersonNo(String linkPersonNo) {
         this.linkPersonNo = linkPersonNo;
     }
 
-    public Integer getLinkUnitNo() {
+    public String getLinkUnitNo() {
         return linkUnitNo;
     }
 
-    public void setLinkUnitNo(Integer linkUnitNo) {
+    public void setLinkUnitNo(String linkUnitNo) {
         this.linkUnitNo = linkUnitNo;
     }
 
-    public Integer getLinkEventNo() {
+    public String getLinkEventNo() {
         return linkEventNo;
     }
 
-    public void setLinkEventNo(Integer linkEventNo) {
+    public void setLinkEventNo(String linkEventNo) {
         this.linkEventNo = linkEventNo;
     }
 

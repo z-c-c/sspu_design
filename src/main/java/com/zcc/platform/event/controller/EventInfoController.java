@@ -33,8 +33,9 @@ public class EventInfoController {
     @Log(name = "保存事件")
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResultBean save(EventInfoEntity eventInfoEntity, HttpServletRequest request) {
-        return ResultBean.success(eventInfoService.save(eventInfoEntity, request));
+    public ResultBean save(EventInfoEntity eventInfoEntity, HttpServletRequest request, String tags, String linkPersonNos, String linkUnitNos, String linkEventNos) {
+        String eventId = eventInfoService.save(eventInfoEntity, request, tags, linkPersonNos, linkUnitNos, linkEventNos);
+        return ResultBean.success();
     }
 
     @Log(name = "删除事件")
