@@ -37,14 +37,17 @@ public class LogAspect {
     private static final ThreadLocal<LogEntity> LOG_THREAD_LOCAL =
             new NamedThreadLocal<LogEntity>("ThreadLocal logEntity");
 
-    @Autowired
-    private HttpServletRequest request;
+    private final HttpServletRequest request;
 
-    @Autowired
-    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-    @Autowired
-    private LogService logService;
+    private final LogService logService;
+
+    public LogAspect(HttpServletRequest request, ThreadPoolTaskExecutor threadPoolTaskExecutor, LogService logService) {
+        this.request = request;
+        this.threadPoolTaskExecutor = threadPoolTaskExecutor;
+        this.logService = logService;
+    }
 
     @Pointcut("@annotation(com.zcc.log.annotation.Log)")
     private void operationLog() {
@@ -60,8 +63,8 @@ public class LogAspect {
         BEGIN_TIME_THREAD_LOCAL.set(beginTime);
         //这里日志级别为debug
         if (logger.isDebugEnabled()) {
-            logger.debug("开始计时: {}  URI: {}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-                    .format(beginTime), request.getRequestURI());
+//            logger.debug(" {}  访问接口: {}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+//                    .format(beginTime), request.getRequestURI());
         }
         //注解中的name对应的值
         String name = getAnnotationName(joinPoint);
@@ -107,14 +110,14 @@ public class LogAspect {
         //结束时间
         long endTime = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
-            logger.debug("计时结束：{}  URI: {}  耗时： {}mm   最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime),
-                    request.getRequestURI(),
-                    endTime - beginTime,
-                    Runtime.getRuntime().maxMemory() / 1024 / 1024,
-                    Runtime.getRuntime().totalMemory() / 1024 / 1024,
-                    Runtime.getRuntime().freeMemory() / 1024 / 1024,
-                    (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024);
+//            logger.debug("{} 接口访问结束 URI: {}  耗时： {}mm   最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
+//                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime),
+//                    request.getRequestURI(),
+//                    endTime - beginTime,
+//                    Runtime.getRuntime().maxMemory() / 1024 / 1024,
+//                    Runtime.getRuntime().totalMemory() / 1024 / 1024,
+//                    Runtime.getRuntime().freeMemory() / 1024 / 1024,
+//                    (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024);
         }
         LogEntity logEntity = LOG_THREAD_LOCAL.get();
         logEntity.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime));

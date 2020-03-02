@@ -9,130 +9,46 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <name>¸ß¼¶ËÑË÷</name>
-    <%@ include file="/common/include_header.jsp" %>
-    <script>
-
-        /*¹Ø±Õiframe*/
-        function cancle() {
-            closeFrame();
-        }
-
-    </script>
+    <%@include file="../wwpt/common/w_include_header.jsp" %>
+    <script type="text/javascript" src="../wwpt/common/w_common_method.js"></script>
 </head>
 <body>
-<div class="pop-name">¸ß¼¶ËÑË÷</div>
-<div class="pop-box-content" style="width: 780px">
-    <form id="ff">
-        <div class="h400" style="height: 350px">
-            <table border="0" bordercolor="" cellpadding="0" cellspacing="1" class="list bg-grey" width="100%">
-                <tr class="tr_tit">
-                    <td width="20%" class="td_tit"><label>µãÎ»°²×°Î»ÖÃ</label></td>
-                    <td width="30%" class="td_det">
-                        <input class="easyui-validatebox" name="pointAddr" id="pointAddr" result="text"
-                               style="width: 96.7%"/>
-                    </td>
-                    <td width="20%" class="td_tit"><label>µãÎ»×´Ì¬</label></td>
-                    <td width="30%" class="td_det">
-                        <input class="easyui-validatebox" name="pointStatusText" id="pointStatusText" result="text"
-                               style="width: 96.7%"/>
-                    </td>
-                </tr>
-                <tr class="tr_tit">
-                    <td class="td_tit" width="20%">
-                        <lable>°²×°Ê±¼ä</lable>
-                    </td>
-                    <td class="td_det" width="30%">
-                        <input class="easyui-datebox " name="startInstalDate" id="startDate" result="text"
-                               style="width: 43.7%"/>
-                        ÖÁ
-                        <input class="easyui-datebox " name="endInstalDate" id="endDate" result="text"
-                               style="width: 43.7%"/>
-                    </td>
-                    <td class="td_tit" width="20%">
-                        <lable>¼à¿ØµãÃû³Æ</lable>
-                    </td>
-                    <td class="td_det" width="30%">
-                        <input class="easyui-validatebox" name="pointName" id="pointName" result="text"
-                               style="width: 96.7%"/>
-                    </td>
-                </tr>
-                <tr class="tr_tit">
-                    <td class="td_tit">
-                        <lable>¼à¿ØÄ¿±ê</lable>
-                    </td>
-                    <td class="td_det">
-                        <input class="easyui-validatebox" name="cameraTarget" id="cameraTarget" result="text"
-                               style="width: 96.7%"/>
-                    </td>
-                    <td class="td_tit">
-                        <lable>ÅÉ³öËùODF±àºÅ</lable>
-                    </td>
-                    <td class="td_det">
-                        <input class="easyui-validatebox " name="odfNo" id="odfNo" result="text" style="width: 96.7%"/>
-                    </td>
-                </tr>
-                <tr class="tr_tit">
-                    <td class="td_tit">
-                        <lable>»úÐÍ</lable>
-                    </td>
-                    <td class="td_det">
-                        <input class="easyui-validatebox" name="deviceTypeText" id="deviceTypeText" result="text"
-                               style="width: 96.7%"/>
-                    </td>
-                    <td class="td_tit">
-                        <lable>¹ú¼Ê±àºÅ</lable>
-                    </td>
-                    <td class="td_det">
-                        <input class="easyui-validatebox " name="gbNo" id="gbNo" result="text" style="width: 96.7%"/>
-                    </td>
-                </tr>
-                <tr class="tr_tit">
-                    <td class="td_tit">
-                        <lable>Ê©¹¤µ¥Î»</lable>
-                    </td>
-                    <td class="td_det">
-                        <br/>
-                        <select class="select-sgdw" name="sgdw" id="sgdw" style="width: 96.7%"></select>
-                    </td>
-                    <td class="td_tit">
-                        <lable>¹«°²µ¥Î»</lable>
-                    </td>
-                    <td class="td_det">
-                        <select class="select-police" name="police" id="police" style="width: 96.7%"></select>
-                    </td>
-                </tr>
-                <tr class="tr_tit">
-                    <td class="td_tit" width="20%">
-                        <lable>×î½üÐÞ¸ÄÈÕÆÚ</lable>
-                    </td>
-                    <td class="td_det" width="30%">
-                        <input class="easyui-datebox " name="lastMDateStart" result="text" style="width: 43.7%"/>
-                        ÖÁ
-                        <input class="easyui-datebox " name="lastMDateEnd" result="text" style="width: 43.7%"/>
-                    </td>
-                    <td class="td_tit" width="20%"> <lable>°²×°×´Ì¬ </lable></td>
-                    <td class="td_det" width="30%">
-                        <select class = "easyui-combobox" name="stateCode" id="stateCode" style="width: 96.7%" value="">
-                            <option value=""></option>
-                            <option value="10021">´ýÐÞÕý</option>
-                            <option value="10002">Éê±¨¾À´í</option>
-                            <option value="10010">´ýÉóºË</option>
-                            <option value="10020">´ý°²×°</option>
-                            <option value="10030">´ý¼àÀíÈ·ÈÏ</option>
-                            <option value="10040">´ýÒµÖ÷È·ÈÏ</option>
-                            <option value="10050">ÒÑÍê³É</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="table-btn-box">
-            <a class="easyui-linkbutton l-btn-blue pd10" onclick="doQuery()" style="height: 28px;">²éÑ¯</a>
-            <a class="easyui-linkbutton pd10" onclick="cancle()" style="height: 30px;">È¡Ïû</a>
-        </div>
-    </form>
-</div>
+<script>
+    $(function () {
+        alert(1)
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/portal/newlogin.action?account=sjzx&&password=123456",
+            data: $('#userLoginForm').serialize(),
+            error: function (request) {
+                $("#message").html("ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØÐÂµÇÂ¼");
+            },
+            success: function (data) {
+                var message = strToJson(data);
+                kan = message;
+                if (message.message == "success") {
+                    console.log(message)
+                    window.open('http://localhost:8080/portal/searchMenu.jsp');
+                    // location_href('http://localhost:8080'+message.url);
+                } else if (message.message == "teamFail")
+                    $("#message").html("¸ÃÓÃ»§Ã»ÓÐÉèÖÃ×éÖ¯£¬ÎÞ·¨µÇÂ½");
+                else if (message.message == "powerFail")
+                    $("#message").html("¸ÃÓÃ»§Ã»ÓÐÈ¨ÏÞ£¬ÎÞ·¨µÇÂ½");
+                else
+                    $("#message").html("ÓÃ»§Ãû»òÃÜÂë´íÎó£¬ÇëÖØÐÂµÇÂ¼");
+            }
+        });
+    })
+
+    function strToJson(str) {
+        var json = (new Function("return " + str))();
+        return json;
+    }
+</script>
+<%--<div class="iframeBox">--%>
+<%--    <iframe src="http://localhost:8080/portal/searchMenu.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"--%>
+<%--            height="100%" class="iframeMain"></iframe>--%>
+<%--</div>--%>
 
 </body>
 </html>

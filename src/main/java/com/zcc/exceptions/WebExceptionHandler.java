@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ResponseBody
 public class WebExceptionHandler {
 
-
     @ExceptionHandler()
     public ResultBean unknownException(Exception ex) {
         ex.printStackTrace();
@@ -22,6 +21,6 @@ public class WebExceptionHandler {
 
     @ExceptionHandler(MyException.class)
     public ResultBean myException(){
-        return ResultBean.error(ResultBean.ERROR,"发生了我的异常");
+        return ResultBean.error(ResultBean.ERROR, "发生了'我的异常'");
     }
 }

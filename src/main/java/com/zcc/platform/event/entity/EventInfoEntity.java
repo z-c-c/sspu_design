@@ -31,7 +31,7 @@ public class EventInfoEntity implements Serializable {
      */
     private String isHandle;
     /**
-     * 是否结算
+     * 是否结算（化解）
      */
     private String isSettlement;
     private String settlementTime;

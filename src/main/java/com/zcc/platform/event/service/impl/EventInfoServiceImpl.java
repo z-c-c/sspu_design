@@ -16,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author zcc
@@ -52,11 +50,15 @@ public class EventInfoServiceImpl implements EventInfoService {
             eventInfoEntity.setUpdateTime(new Date());
             eventInfoEntity.setCreateUserAccount(currentPerson.getUserName());
             eventInfoEntity.setUpdateUserAccount(currentPerson.getUserName());
+            eventInfoEntity.setIsHandle("0");
+            eventInfoEntity.setIsSettlement("0");
             eventInfoDao.add(eventInfoEntity);
         }
         //事件打标签
         if (StringUtil.isValidStr(tags)) {
             String[] split = tags.split(",");
+            //先删除对象拥有的所有标签
+            tagObjectRelationService.delTagForObject(eventInfoEntity.getEventId());
             for (String s : split) {
                 TagObjectRelationEntity tagObjectRelationEntity = new TagObjectRelationEntity();
                 tagObjectRelationEntity.setTagId(s);
@@ -65,45 +67,42 @@ public class EventInfoServiceImpl implements EventInfoService {
                 tagObjectRelationEntity.setIsDelete("0");
                 tagObjectRelationService.addTagForObject(tagObjectRelationEntity);
             }
+        } else {
+            tagObjectRelationService.delTagForObject(eventInfoEntity.getEventId());
         }
         //添加事件关联人员
         if (StringUtil.isValidStr(linkPersonNos)) {
             String[] split = linkPersonNos.split(",");
             for (String s : split) {
-                EventRelationEntity eventRelationEntity = new EventRelationEntity();
-                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
-                eventRelationEntity.setObjectId(s);
-                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_PERSON);
-                eventRelationEntity.setIsDelete("0");
-                this.addEventRelationObject(eventRelationEntity);
+                addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_PERSON);
             }
         }
         //添加事件关联单位
         if (StringUtil.isValidStr(linkUnitNos)) {
             String[] split = linkUnitNos.split(",");
             for (String s : split) {
-                EventRelationEntity eventRelationEntity = new EventRelationEntity();
-                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
-                eventRelationEntity.setObjectId(s);
-                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_UNIT);
-                eventRelationEntity.setIsDelete("0");
-                this.addEventRelationObject(eventRelationEntity);
+                addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_UNIT);
             }
         }
         //添加事件关联对象
         if (StringUtil.isValidStr(linkEventNos)) {
             String[] split = linkEventNos.split(",");
             for (String s : split) {
-                EventRelationEntity eventRelationEntity = new EventRelationEntity();
-                eventRelationEntity.setEventId(eventInfoEntity.getEventId());
-                eventRelationEntity.setObjectId(s);
-                eventRelationEntity.setObjectType(EventRelationEntity.OBJECT_TYPE_EVENT);
-                eventRelationEntity.setIsDelete("0");
-                this.addEventRelationObject(eventRelationEntity);
+                addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_EVENT);
             }
         }
 
         return eventInfoEntity.getEventId();
+    }
+
+    private void addEventRelationObject(EventInfoEntity eventInfoEntity, String s, String objectTypeEvent) {
+        EventRelationEntity eventRelationEntity = new EventRelationEntity();
+        eventRelationEntity.setEventId(eventInfoEntity.getEventId());
+        eventRelationEntity.setObjectId(s);
+        eventRelationEntity.setObjectType(objectTypeEvent);
+        eventRelationEntity.setIsDelete("0");
+        eventRelationEntity.setRelationName("");
+        this.addEventRelationObject(eventRelationEntity);
     }
 
     /**
@@ -147,7 +146,17 @@ public class EventInfoServiceImpl implements EventInfoService {
      */
     @Override
     public List<EventInfoEntity> find(Map<String, Object> map, Page page) {
+        formatTime(map);
+        if (StringUtil.isValidStr(StringUtil.safeToString(map.get(ConstUtil.TAGS)))) {
+            map.remove(ConstUtil.TAGS);
+            map.put(ConstUtil.TAGS, Arrays.asList(StringUtil.safeToString(map.get(ConstUtil.TAGS)).split(",")));
+            return eventInfoDao.findByParamWithTag(map, page);
+        } else {
+            return eventInfoDao.findByParamWithPage(map, page);
+        }
+    }
 
+    private void formatTime(Map<String, Object> map) {
         if (StringUtil.isValidStr(StringUtil.safeToString(map.get("occurredTime")))) {
             map.put("beginTime", StringUtil.safeToString(map.get("occurredTime")).substring(0, 10));
             map.put("endTime", StringUtil.safeToString(map.get("occurredTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
@@ -156,7 +165,6 @@ public class EventInfoServiceImpl implements EventInfoService {
             map.put("beginTime", StringUtil.safeToString(map.get("settlementTime")).substring(0, 10));
             map.put("endTime", StringUtil.safeToString(map.get("settlementTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
         }
-        return eventInfoDao.findByParamWithPage(map, page);
     }
 
     /**
@@ -167,14 +175,7 @@ public class EventInfoServiceImpl implements EventInfoService {
      */
     @Override
     public List<EventInfoEntity> find(Map<String, Object> map) {
-        if (StringUtil.isValidStr(StringUtil.safeToString(map.get("occurredTime")))) {
-            map.put("beginTime", StringUtil.safeToString(map.get("occurredTime")).substring(0, 10));
-            map.put("endTime", StringUtil.safeToString(map.get("occurredTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
-        }
-        if (StringUtil.isValidStr(StringUtil.safeToString(map.get("settlementTime")))) {
-            map.put("beginTime", StringUtil.safeToString(map.get("settlementTime")).substring(0, 10));
-            map.put("endTime", StringUtil.safeToString(map.get("settlementTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
-        }
+        formatTime(map);
         return eventInfoDao.findByParam(map);
     }
 
@@ -193,7 +194,7 @@ public class EventInfoServiceImpl implements EventInfoService {
             if (StringUtil.isValidStr(byEventIdAndObjectId.getRelationName())) {
                 eventRelationEntity.setRelationName(eventRelationEntity.getRelationName() + ";" + byEventIdAndObjectId.getRelationName());
             }
-            eventRelationDao.updateEventRelationObject(eventRelationEntity.getEventId(), eventRelationEntity.getObjectId());
+            eventRelationDao.updateEventRelationObject(eventRelationEntity.getEventId(), eventRelationEntity.getObjectId(), eventRelationEntity.getRelationName());
         }
         return eventRelationEntity.getEventId();
     }

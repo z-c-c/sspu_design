@@ -30,10 +30,11 @@
     <update id="updateEventRelationObject">
         update event_relation_object
         <trim prefix="set" suffixOverrides=",">
-            <if test="relationName!=null">
+            <if test="relationName!=null or relationName!=''">
                 RELATION_NAME=#{relationName}
             </if>
         </trim>
+        where EVENT_ID=#{eventId} and OBJECT_ID=#{objectId}
     </update>
 
 </mapper>

@@ -63,6 +63,15 @@ public interface EventInfoDao {
     List<EventInfoEntity> findByParamWithPage(@Param("Map") Map<String, Object> map, @Param("Page") Page page);
 
     /**
+     * 查找事件（标签）
+     *
+     * @param map
+     * @param page
+     * @return list
+     */
+    List<EventInfoEntity> findByParamWithTag(@Param("Map") Map<String, Object> map, @Param("Page") Page page);
+
+    /**
      * 查找事件
      *
      * @param map map

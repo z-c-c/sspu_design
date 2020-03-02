@@ -40,6 +40,6 @@ public interface EventRelationDao {
      * @param eventId
      * @param objectId
      */
-    void updateEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId);
+    void updateEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId, @Param("relationName") String relationName);
 
 }

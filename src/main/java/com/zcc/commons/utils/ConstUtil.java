@@ -24,8 +24,7 @@ public class ConstUtil {
     public static final String PERSON_TAG = "person";
     public static final String EVENT_TAG = "event";
     public static final String UNIT_TAG = "unit";
-
-
+    public static final String TAGS = "tags";
 
     public static UserInfoEntity currentPerson(HttpServletRequest request) {
         return (UserInfoEntity) request.getSession().getAttribute(CURRENT_PERSON);

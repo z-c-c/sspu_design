@@ -39,6 +39,23 @@
             top: -50px;
         }
 
+        .close1 {
+            display: block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            background: #eaedf1;
+            border-radius: 50%;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
         .pageStyle ul li{
             width: 36px;
             height: 26px;
@@ -98,7 +115,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="labelSearch">
+                <div class="labelSearch" style="z-index: 1">
                     <div class="clearfix">
                         <span class="labelText v-fl">标签</span>
                         <div class="labelAdd v-fl">
@@ -493,7 +510,8 @@
         </div>
     </div>
 </div>
-<input result="hidden" id="addedTagNames">
+<input type="hidden" id="addedTagNames">
+<input type="hidden" id="toUpdateEventId">
 </body>
 
 <script result="text/javascript">
@@ -572,6 +590,8 @@
         //     $(".labelCloseBtn").trigger('click');
         //     clickHandle();
         // });
+
+        //标签点击，填充到标签列表框
         $(".tabCon .span").on("click", function () {
             var textHtml = $(this).html();
             if (labelArr.indexOf(textHtml) != -1) {
@@ -589,7 +609,7 @@
                 '                        <i class="labelClose">×</i>\n' +
                 '                    </span>');
             $(".labelCloseBtn").trigger('click');
-            search(1, "-1", true);
+            findEvent("", true, 1)
             clickHandle();
         });
 
@@ -599,7 +619,7 @@
             removeByValue(labelArr, removeStr);
             $(this).parent().remove();
             $(".labelCloseBtn").trigger('click');
-            search(1, "-1", true);
+            findEvent("", true, 1)
             clickHandle();
         });
 
@@ -607,7 +627,7 @@
         findEvent("", true, 1);
         // initTags();
         // initObjectTag();
-        // dataTogether();
+        dataTogether();
         tagfind();
 
         // 关闭弹窗
@@ -752,26 +772,23 @@
         var beginDate = new Date();
         var timer1 = window.setTimeout(function () {
             $.ajax({
-                result: "post",
-                url: "/eventManager/dataTogetherWithPage",
+                type: "post",
+                url: "/eventInfo/findAllDataTogether",
                 dataType: "json",
                 data: {
-                    eventId: "",
-                    eventType: "contradictionEvent",
                     page: 1,
                     pageSize: 5
                 },
                 success: function (result) {
-                    var list = result.dataTogether;
-                    var count = result.count;
-                    // var count = 0;
+                    let list = result.data.dataTogether;
+                    let count = result.count;
                     $("#dataTogetherCount").text(count);
                     $("#dataTogether").empty();
                     if (count == 0) {
-                        var str = '<li style="height: 250px" class="backG"></li>';
+                        let str = '<li style="height: 250px" class="backG"></li>';
                         $("#dataTogether").append(str);
                     }
-                    for (var i = 0; i < list.length; i++) {
+                    for (let i = 0; i < list.length; i++) {
                         var event = list[i];
                         var eventName = event.EVENT_NAME;
                         if (eventName == null || eventName.trim().length == 0) {
@@ -872,17 +889,18 @@
         $(".labelAll span strong").each(function () {
             tags += "" + $(this).attr("id") + "" + ','
         });
-
         if (tags) {
             tags = tags.substring(0, tags.length - 1);
         }
 
+        console.log(tags)
         $("#loading").mLoading("show");
         $("#eventList").empty();
         var begingDate = new Date();
         var time1 = window.setTimeout(function () {
 
             var data = {};
+            data.tags = tags;
             data.nameOrPlace = $("#SearchNameOrPlace").val();
             data.isSettlement = $("#SearchIsSettlement").val();
             data.occurredTime = $("#searchOccurredTime").val();
@@ -1062,22 +1080,22 @@
             msg: '是否删除？',
             ok: "是", cancel: "否",
             fn: function (r) {
+
                 if (r) {
                     var eventId = $("#toUpdateEventId").val();
                     $.ajax({
-                        result: "POST",
-                        url: "/eventManager/delEventBaseInfo",
-                        dataType: "text",
+                        type: "POST",
+                        url: "/eventInfo/del",
+                        dataType: "json",
                         data: {
-                            eventType: "contradictionEvent",
                             eventId: eventId
                         },
                         success: function (result) {
-                            if (result == "success") {
+                            if (result.code == "success") {
                                 $("#m1").hide();
-                                findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
-                                handleCount();
-                                dataTogether();
+                                findEvent("", true, 1);
+                                // handleCount();
+                                // dataTogether();
                                 // $("#m2").show();
                                 successOperator();
                             }
@@ -1121,9 +1139,7 @@
         $("#updateEventTitle").hide();
         $("#add").show();
         $(".fs-options").find('div').removeClass("selected");
-        $(".fs-label").attr("title", "");
-        $(".fs-label").text("");
-
+        $(".fs-options").find('div').removeClass("selected");
         $("#addEvent").show();
     }
 
@@ -1164,6 +1180,7 @@
                     $("#allTags").empty();
                     for (var i = 0; i < tags.length; i++) {
                         $("#allTags").append('<span class="spanItem">' + tags[i].tagName + '</span>');
+                        $("#allTags2").append('<span class="spanItem">' + tags[i].tagName + '</span>');
                         $("#addEventTags").append('<option>' + tags[i].tagName + '</option>');
                     }
                 }
@@ -1569,7 +1586,6 @@
                 $("#handleUser").val(result.handleUser);
                 $("#handleCuser").val(result.handleCuser);
                 var handleCjdid = result.handleCjdid;
-                debugger
                 if (handleCjdid == null || handleCjdid.trim().length == 0 || handleCjdid == "") {
                     $("#handleCjdid").val("")
                 } else {
@@ -1618,7 +1634,6 @@
                             if (result == "success") {
                                 var toUploadEventId = $("#toUpdateEventId").val();
                                 var eventHandleLogType = $("#toUpdatehandleLogType").val();
-                                debugger
                                 reShowHandleLog(toUploadEventId, eventHandleLogType, 1, true);
                                 successOperator();
                             }
@@ -1642,6 +1657,31 @@
         $("#addEventTitle").hide();
         $("#updateEventTitle").show();
         $("#update").show();
+
+
+        $.ajax({
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
+            dataType: "json",
+            data: {
+                objectId: eventId
+            },
+            success: function (result) {
+                if (result.code === "success") {
+                    let tags = result.data;
+                    let names = '';
+                    for (let i = 0; i < tags.length; i++) {
+                        names += tags[i].tagName + ","
+                        $(".fs-options").eq(0).find('div[data-value=\"' + tags[i].tagId + '\"]').addClass("selected");
+                    }
+                    names = names.substr(0, names.length - 1);
+                    $(".fs-label").eq(0).attr("title", names);
+                    $(".fs-label").eq(0).text(names);
+
+                }
+            }
+        });
+
         $.ajax({
             type: "POST",
             url: "/eventInfo/findById",
@@ -1650,10 +1690,22 @@
                 eventId: eventId
             },
             success: function (result) {
-                $("#addEvent").show();
-                console.log(result)
+                if (result.code === "success") {
+                    let event = result.data;
+                    $("#toUpdateEventId").val(event.eventId);
+                    $("#eventName").val(isValidStr(event.eventName));
+                    $("#occurredTime").val(new Date(event.occurredTime).format("yyyy-MM-dd hh:mm:ss"));
+                    $("#eventContent").val(isValidStr(event.eventContent));
+                    $("#occurredPlace").val(isValidStr(event.occurredPlace));
+                    $("#occurredLongti").val(isValidStr(event.occurredLongti));
+                    $("#occurredLati").val(isValidStr(event.occurredLati));
+                    $("#addEvent").show();
+                }
+
+
             }
         });
+
     }
 
     function save(flag) {
@@ -1686,34 +1738,22 @@
                 }
             });
         }
-        // if (flag == "update") {
-        //     //未化解才添加是否缓和信息
-        //     if (IsHj == 0) {
-        //         var wwSFHH;
-        //         if ($("#wwSFHH").find("label:eq(0)").hasClass("vV-radio ck")) {
-        //             wwSFHH = "1";
-        //         }
-        //         if ($("#wwSFHH").find("label:eq(1)").hasClass("vV-radio ck")) {
-        //             wwSFHH = "0";
-        //         }
-        //         data.wwSFHH = wwSFHH;
-        //     }
-        //     data.eventId = $("#toUpdateEventId").val();
-        //     $.ajax({
-        //         result: "POST",
-        //         url: "/eventManager/alterEventBaseInfo",
-        //         dataType: "json",
-        //         data: data,
-        //         success: function (result) {
-        //             if (result.message == "success") {
-        //                 $("#addEvent").hide();
-        //                 findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
-        //                 successOperator();
-        //             }
-        //         }
-        //     });
-        // }
-
+        if (flag == "update") {
+            data.eventId = $("#toUpdateEventId").val();
+            $.ajax({
+                type: "POST",
+                url: "/eventInfo/save",
+                dataType: "json",
+                data: data,
+                success: function (result) {
+                    if (result.code == "success") {
+                        $("#addEvent").hide();
+                        findEvent("", true, 1);
+                        successOperator();
+                    }
+                }
+            });
+        }
     }
 </script>
 </html>

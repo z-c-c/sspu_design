@@ -5,6 +5,7 @@ import com.zcc.manager.tagmanager.entity.TagObjectRelationEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -35,6 +36,13 @@ public interface TagObjectRelationDao {
      * @param objectId objectId
      */
     void delTagForObject(@Param("tagId") String tagId, @Param("objectId") String objectId);
+
+    /**
+     * 删除对象的所有标签
+     *
+     * @param objectId
+     */
+    void delAllTagForObject(String objectId);
 
     /**
      * 查找对象的特定标签

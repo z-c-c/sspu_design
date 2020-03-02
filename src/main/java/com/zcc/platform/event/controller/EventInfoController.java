@@ -3,16 +3,14 @@ package com.zcc.platform.event.controller;
 import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.ResultBean;
 import com.zcc.commons.utils.StringUtil;
+import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.service.EventInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -102,9 +100,9 @@ public class EventInfoController {
     @Log(name = "全部事件数据聚合")
     @ResponseBody
     @RequestMapping(value = "/findAllDataTogether", method = RequestMethod.POST)
-    public ResultBean findAllDataTogether(Page page) {
+    public ResultBean findAllDataTogether(Integer page, Integer pageSize) throws MyException {
         Map<String, Object> map = new HashMap<>(2);
-        List<EventInfoEntity> dataTogether = eventInfoService.findDataTogether(page);
+        List<EventInfoEntity> dataTogether = eventInfoService.findDataTogether(Page.setPageAndSize(page, pageSize));
         int count = eventInfoService.findDataTogether().size();
         map.put("dataTogether", dataTogether);
         map.put("count", count);

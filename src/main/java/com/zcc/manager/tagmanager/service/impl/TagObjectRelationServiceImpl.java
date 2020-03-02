@@ -55,4 +55,14 @@ public class TagObjectRelationServiceImpl implements TagObjectRelationService {
     public void delTagForObject(String tagId, String objectId) {
         tagObjectRelationDao.delTagForObject(tagId, objectId);
     }
+
+    /**
+     * 删除对象的所有标签
+     *
+     * @param objectId
+     */
+    @Override
+    public void delTagForObject(String objectId) {
+        tagObjectRelationDao.delAllTagForObject(objectId);
+    }
 }

@@ -26,6 +26,12 @@
           and OBJECT_ID = #{objectId}
     </update>
 
+    <update id="delAllTagForObject">
+        update dm_tag_object_relation
+        set IS_DELETE='1'
+        where OBJECT_ID = #{objectId}
+    </update>
+
     <select id="findTagByObjectIdAndTagId" resultType="com.zcc.manager.tagmanager.entity.TagBaseInfoEntity">
         select *
         from dm_tag_object_relation
