@@ -148,8 +148,9 @@ public class EventInfoServiceImpl implements EventInfoService {
     public List<EventInfoEntity> find(Map<String, Object> map, Page page) {
         formatTime(map);
         if (StringUtil.isValidStr(StringUtil.safeToString(map.get(ConstUtil.TAGS)))) {
+            List<String> tags = Arrays.asList(StringUtil.safeToString(map.get(ConstUtil.TAGS)).split(","));
             map.remove(ConstUtil.TAGS);
-            map.put(ConstUtil.TAGS, Arrays.asList(StringUtil.safeToString(map.get(ConstUtil.TAGS)).split(",")));
+            map.put(ConstUtil.TAGS, tags);
             return eventInfoDao.findByParamWithTag(map, page);
         } else {
             return eventInfoDao.findByParamWithPage(map, page);

@@ -119,8 +119,9 @@
                 and DATE_FORMAT(settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime} and
                 DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
             </if>
-            and is_delete!='1' limit ${Page.page},${Page.pageSize};
+            and is_delete!='1' order by occurred_time desc limit ${Page.page},${Page.pageSize} ;
         </where>
+
     </select>
 
     <select id="findByParamWithTag" resultType="com.zcc.platform.event.entity.EventInfoEntity">

@@ -24,19 +24,19 @@
     <script result="text/javascript" src="../common/w_common_method.js"></script>
     <script type="text/javascript" src="../../js/myselect.js"></script>
     <style result="text/css">
-        .tabCon > div.tabConSon2{
-            height:180px;
-            position:relative;
-            overflow:hidden;
+        .tabCon > div.tabConSon2 {
+            height: 180px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .backG{
+        .backG {
             background: url('../images/noImage.png') no-repeat bottom center;
         }
 
-        .topCot{
+        .topCot {
             position: relative;
-            top: -50px;
+            top: 0px;
         }
 
         .close1 {
@@ -87,7 +87,7 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox">
-                            <input result="text" placeholder="请输入关键字" id="SearchNameOrPlace">
+                            <input result="text" placeholder="事件名或发生地址" id="SearchNameOrPlace">
                         </div>
                         <button class="btn1" onclick="findEvent('',true,1)">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>
@@ -157,9 +157,9 @@
             </div>
             <div class="sortBox clearfix">
                 <ul class="statusList v-fl" id="handleResolve">
-                    <li class="active">全部</li>
-                    <li>已处理</li>
-                    <li>未处理</li>
+                    <li class="active" onclick="findEvent('',true,1)">全部</li>
+                    <li onclick="findEvent('1',true,1)">已处理</li>
+                    <li onclick="findEvent('0',true,1)">未处理</li>
                 </ul>
                 <div class="sortList v-fr">
                     <a href="javascript:;" class="sort sortMethod">排序方式</a>
@@ -623,7 +623,7 @@
             clickHandle();
         });
 
-        // handleCount();
+        handleCount();
         findEvent("", true, 1);
         // initTags();
         // initObjectTag();
@@ -685,6 +685,7 @@
 
         // 排序方式
         $(".statusList li").click(function () {
+            console.log("切换")
             $(this).addClass("active").siblings().removeClass("active");
         });
         var sortHtml = "";
@@ -785,7 +786,7 @@
                     $("#dataTogetherCount").text(count);
                     $("#dataTogether").empty();
                     if (count == 0) {
-                        let str = '<li style="height: 250px" class="backG"></li>';
+                        let str = '<li style="height: 200px" class="backG"></li>';
                         $("#dataTogether").append(str);
                     }
                     for (let i = 0; i < list.length; i++) {
@@ -892,8 +893,6 @@
         if (tags) {
             tags = tags.substring(0, tags.length - 1);
         }
-
-        console.log(tags)
         $("#loading").mLoading("show");
         $("#eventList").empty();
         var begingDate = new Date();
@@ -941,7 +940,6 @@
                                 showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
                                 showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                                 getPage: function (page) {
-
                                     // search(page, hjqk, false);
                                     //获取当前页数
 
@@ -1094,7 +1092,7 @@
                             if (result.code == "success") {
                                 $("#m1").hide();
                                 findEvent("", true, 1);
-                                // handleCount();
+                                handleCount();
                                 // dataTogether();
                                 // $("#m2").show();
                                 successOperator();
@@ -1152,11 +1150,11 @@
     function handleCount() {
         $.ajax({
             result: "POST",
-            url: "/eventManager/contradictionIsHandle",
+            url: "/eventInfo/handleCount",
             dataType: "json",
             success: function (result) {
-                var handled = result.handled;
-                var handling = result.handling;
+                var handled = result.data.handled;
+                var handling = result.data.handling;
                 $("#handled").text(handled + "个")
                 $("#handling").text(handling + "个")
             }
@@ -1720,7 +1718,6 @@
         data.linkPersonNos = safeToString($("#linkPersonNo").val());
         data.linkUnitNos = safeToString($("#linkUnitNo").val());
         data.linkEventNos = safeToString($("#linkEventNo").val());
-        console.log(data);
         if (flag === "add") {
             $.ajax({
                 type: "POST",
@@ -1732,8 +1729,8 @@
                         $("#addEvent").hide();
                         findEvent("", true, 1);
                         successOperator();
-                        // handleCount();
-                        // dataTogether();
+                        handleCount();
+                        dataTogether();
                     }
                 }
             });
@@ -1749,6 +1746,7 @@
                     if (result.code == "success") {
                         $("#addEvent").hide();
                         findEvent("", true, 1);
+                        handleCount();
                         successOperator();
                     }
                 }
