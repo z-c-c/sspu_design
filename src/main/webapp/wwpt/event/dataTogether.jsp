@@ -42,17 +42,17 @@
 <%--<div class="footerBox"></div>--%>
 </body>
 <script result="text/javascript">
-    var result=getParameter("Type");
+    var result = getParameter("Type");
     var unittag;
     var eventDateTogetherCount;
 
 
-    $(function(){
+    $(function () {
 
-        if(result=="contradictionEvent"||result=="riskEvent"){
-            initAllDataTogether(result,1,true);
-        }else{
-            initEventDataTogether(result,1,true);
+        if (result == "event") {
+            initAllDataTogether(1, true);
+        } else {
+            initEventDataTogether(result, 1, true);
         }
 
         // 输入框控件调用
@@ -80,8 +80,8 @@
     function footerChange() {
         // .index-main高度
         var indexMainH = $(".peopleInfo").outerHeight(true);
-        if(indexMainH<750){
-            indexMainH=750;
+        if (indexMainH < 750) {
+            indexMainH = 750;
         }
         $(".whiteBox").css("height", indexMainH);
         $(".footerBox").css("top", indexMainH + 50);
@@ -90,35 +90,36 @@
     //单个事件数据聚合数量
     function eventDataTogether(eventId) {
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/eventInfo/findDataTogether",
             dataType: "json",
             async: false,
             data: {
                 eventId: eventId,
-                page:1,
-                pageSize:1
+                page: 1,
+                pageSize: 5
             },
             success: function (result) {
-                var count = result.count;
+                var count = result.data.count;
                 eventDateTogetherCount = count;
             }
         })
     }
-    function initEventDataTogether(type1,page,flag) {
+
+    function initEventDataTogether(type1, page, flag) {
 
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/eventInfo/findDataTogether",
             dataType: "json",
             data: {
                 eventId: type1,
-                page:page,
-                pageSize:5
+                page: page,
+                pageSize: 5
             },
             success: function (result) {
-                var list = result.dataTogether;
-                var count = result.count;
+                var list = result.data.dataTogether;
+                var count = result.data.count;
                 if (flag) {
                     // 分页
                     var pageTotal;
@@ -138,38 +139,38 @@
                         showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                         getPage: function (page) {
                             //获取当前页数
-                            initEventDataTogether(result, page, false);
+                            initEventDataTogether(type1, page, false);
                         }
                     });
                 }
                 $("#dataTogetherCount").text(count);
                 $("#dataTogether").empty();
-                if(list.length==0){
-                    var strs='<li class="backG topCot" style="height: 350px;">' +
+                if (list.length == 0) {
+                    var strs = '<li class="backG topCot" style="height: 350px;">' +
                         '</li>';
                     $("#dataTogether").append(strs);
                 }
                 for (var i = 0; i < list.length; i++) {
 
-                    // eventDataTogether(list[i].EVENT_ID);
+                    // eventDataTogether(list[i].eventId);
                     if (!eventDateTogetherCount) {
                         eventDateTogetherCount = 0;
                     }
-                    getTags(list[i].EVENT_ID);
+                    getTags(list[i].eventId);
                     if (!unittag) {
                         unittag = ''
                     }
-                    var EVENT_NAME = list[i].EVENT_NAME;
+                    var EVENT_NAME = list[i].eventName;
                     if (EVENT_NAME == null || EVENT_NAME.trim().length == 0) {
                         EVENT_NAME = '暂无';
                     }
-                    var EVENT_CONTENT = list[i].EVENT_CONTENT;
+                    var EVENT_CONTENT = list[i].eventContent;
                     if (EVENT_CONTENT == null || EVENT_CONTENT.trim().length == 0) {
                         EVENT_CONTENT = '暂无';
                     }
-                    var OCCURED_TIME = new Date(list[i].OCCURED_TIME).format("yyyy-MM-dd hh:mm:ss");
-                    if (list[i].OCCURED_TIME == null||list[i].OCCURED_TIME==0) {
-                        OCCURED_TIME='暂无';
+                    var OCCURED_TIME = new Date(list[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                    if (list[i].occurredTime == null || list[i].OCCURED_TIME == 0) {
+                        OCCURED_TIME = '暂无';
                     }
 
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
@@ -197,27 +198,27 @@
 
     function toEventDataTogether(eventId) {
 
-        openNewWindow("dataTogether.jsp?Type="+eventId+"");
+        openNewWindow("dataTogether.jsp?Type=" + eventId + "");
     }
-    //数据聚合汇总
-    function initAllDataTogether(type1,page,flag) {
+
+    //事件的数据聚合
+    function initAllDataTogether(page, flag) {
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/eventInfo/findAllDataTogether",
             dataType: "json",
             data: {
-                eventType: type1,
-                page:page,
-                pageSize:5
+                page: page,
+                pageSize: 5
             },
             success: function (result) {
-
-                var list = result.dataTogether;
-                var count = result.count;
+                console.log(result)
+                let list = result.data.dataTogether;
+                let count = result.data.count;
                 if (flag) {
                     // 分页
                     var pageTotal;
-                    if ( count<= 5) {
+                    if (count <= 5) {
                         pageTotal = 1;
                     } else {
                         pageTotal = Math.ceil(count / 5);
@@ -233,53 +234,53 @@
                         showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                         getPage: function (page) {
                             //获取当前页数
-                            initAllDataTogether(result,page,false);
+                            initAllDataTogether(page, false);
                         }
                     });
                 }
                 $("#dataTogetherCount").text(count);
                 $("#dataTogether").empty();
-                if(list.length==0){
-                    var strs='<li class="backG topCot" style="height: 350px;">' +
+                if (list.length == 0) {
+                    let strs = '<li class="backG topCot" style="height: 350px;">' +
                         '</li>';
                     $("#dataTogether").append(strs);
                 }
-                for (var i = 0; i < list.length; i++) {
+                for (let i = 0; i < list.length; i++) {
 
-                    eventDataTogether(list[i].EVENT_ID);
+                    eventDataTogether(list[i].eventId);
                     if (!eventDateTogetherCount) {
                         eventDateTogetherCount = 0;
                     }
-                    getTags(list[i].EVENT_ID);
+                    getTags(list[i].eventId);
                     if (!unittag) {
                         unittag = ''
                     }
-                    var EVENT_NAME=list[i].EVENT_NAME;
-                    if(EVENT_NAME==null||EVENT_NAME.trim().length==0){
-                        EVENT_NAME='暂无';
+                    var EVENT_NAME = list[i].eventName;
+                    if (EVENT_NAME == null || EVENT_NAME.trim().length == 0) {
+                        EVENT_NAME = '暂无';
                     }
-                    var EVENT_CONTENT=list[i].EVENT_CONTENT;
-                    if(EVENT_CONTENT==null||EVENT_CONTENT.trim().length==0){
-                        EVENT_CONTENT='暂无';
+                    var EVENT_CONTENT = list[i].eventContent;
+                    if (EVENT_CONTENT == null || EVENT_CONTENT.trim().length == 0) {
+                        EVENT_CONTENT = '暂无';
                     }
-                    var OCCURED_TIME=new Date(list[i].OCCURED_TIME).format("yyyy-MM-dd hh:mm:ss");
-                    if(list[i].OCCURED_TIME==null){
-                        OCCURED_TIME='暂无';
+                    var OCCURED_TIME = new Date(list[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                    if (list[i].occurredTime == null) {
+                        OCCURED_TIME = '暂无';
                     }
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
-                        '                <p class="proName">'+EVENT_NAME+'</p>\n' +
-                        '                <p class="proInfo" style="width: 100%">'+EVENT_CONTENT+'</p>\n' +
+                        '                <p class="proName">' + EVENT_NAME + '</p>\n' +
+                        '                <p class="proInfo" style="width: 100%">' + EVENT_CONTENT + '</p>\n' +
                         '                <div class="infoBox">\n' +
                         '                    <div class="item">\n' +
                         '                        <i></i>\n' +
-                        '                        <span>'+OCCURED_TIME+'</span>\n' +
+                        '                        <span>' + OCCURED_TIME + '</span>\n' +
                         '                    </div>\n' +
                         '                    <div class="item">\n' +
                         '                        <i></i>\n' +
-                        '                        <a onclick="toEventDataTogether(\'' + list[i].EVENT_ID + '\')" style="cursor: pointer">数据聚合（'+eventDateTogetherCount+'）</a>\n' +
+                        '                        <a onclick="toEventDataTogether(\'' + list[i].eventId + '\')" style="cursor: pointer">数据聚合（' + eventDateTogetherCount + '）</a>\n' +
                         '                    </div>\n' +
                         '                </div>\n' +
-                        '                <div class="labelBox">\n' +unittag+
+                        '                <div class="labelBox">\n' + unittag +
                         '                </div>\n' +
                         '            </div>');
                 }
@@ -292,8 +293,8 @@
     //事件标签
     function getTags(objectId) {
         $.ajax({
-            result: "POST",
-            url: "/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
             dataType: "json",
             async: false,
             data: {
@@ -301,8 +302,8 @@
             },
             success: function (result) {
                 var str = '';
-                if (result.message == "success") {
-                    var tags = result.objectTag;
+                if (result.code == "success") {
+                    var tags = result.data;
                     for (var i = 0; i < tags.length; i++) {
                         str += '<span style="background: ' + tags[i].tagColorCode + '" class="green">' + tags[i].tagName + '</span>';
                     }

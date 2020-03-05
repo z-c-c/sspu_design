@@ -203,10 +203,10 @@
         <div class="bear-block">
             <div class="bear-tit">
                 <h5>数据聚合（<span id="dataTogetherCount">0</span>）</h5>
-                <a href="dataTogether.jsp?Type=contradictionEvent" target="_blank">更多>></a>
+                <a href="dataTogether.jsp?Type=event" target="_blank">更多>></a>
             </div>
             <div class="dataBox">
-                <div id="dataBoxLoading" ></div>
+                <div id="dataBoxLoading"></div>
                 <div class="dataList marquee1">
                     <div class="view" id="dataTogether">
                     </div>
@@ -782,7 +782,7 @@
                 },
                 success: function (result) {
                     let list = result.data.dataTogether;
-                    let count = result.count;
+                    let count = result.data.count;
                     $("#dataTogetherCount").text(count);
                     $("#dataTogether").empty();
                     if (count == 0) {
@@ -791,21 +791,21 @@
                     }
                     for (let i = 0; i < list.length; i++) {
                         var event = list[i];
-                        var eventName = event.EVENT_NAME;
+                        var eventName = event.eventName;
                         if (eventName == null || eventName.trim().length == 0) {
                             eventName = '无';
                         }
-                        var eventContent = event.EVENT_CONTENT;
+                        var eventContent = event.eventContent;
                         if (eventContent == null || eventContent.trim().length == 0) {
                             eventContent = '无';
                         }
-                        var eventSource = event.EVENT_SOURCE;
+                        var eventSource = event.eventSource;
                         if (eventSource == null || eventSource.trim().length == 0) {
                             eventSource = '无';
                         }
-                        var stCreateTime = new Date(event.ST_CREATE_TIME).format("yyyy-MM-dd hh:mm:ss");
-                        if (event.ST_CREATE_TIME == null) {
-                            stCreateTime = '无';
+                        var occurredTime = new Date(event.occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                        if (event.occurredTime == null) {
+                            occurredTime = '无';
                         }
                         $("#dataTogether").append('<dl>\n' +
                             '                              <dt>\n' +
@@ -821,7 +821,7 @@
                             '                                <b>来源</b>\n' +
                             '                                <span>' + eventSource + '</span>\n' +
                             '                                </strong>\n' +
-                            '                                <em>' + stCreateTime + '</em>\n' +
+                            '                                <em>' + occurredTime + '</em>\n' +
                             '                            </div>\n' +
                             '                            </dd>\n' +
                             '                            </dl>');
