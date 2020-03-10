@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.manager.govunitmanager.dao.GovUnitDao">
+
+    <insert id="add" parameterType="com.zcc.manager.govunitmanager.entity.GovUnitEntity">
+        insert into gov_unit (name, is_delete)
+        values (#{name}, #{isDelete});
+    </insert>
+
+    <update id="delete">
+        update gov_unit
+        set is_delete='1'
+        where id = #{id};
+    </update>
+
+    <update id="update" parameterType="com.zcc.manager.govunitmanager.entity.GovUnitEntity">
+        update gov_unit
+        set name=#{name}
+        where id = #{id};
+    </update>
+
+    <select id="findAll" resultType="com.zcc.manager.govunitmanager.entity.GovUnitEntity">
+        select *
+        from gov_unit
+        where is_delete is not null
+          and is_delete != '1';
+    </select>
+
+    <select id="findAllWithPage" resultType="com.zcc.manager.govunitmanager.entity.GovUnitEntity"
+            parameterType="com.zcc.commons.utils.Page">
+        select *
+        from gov_unit
+        where is_delete is not null
+          and is_delete != '1'
+        limit ${page},${pageSize};
+    </select>
+
+    <insert id="addGovRelation" parameterType="com.zcc.manager.govunitmanager.entity.GovUnitRelation">
+        insert into gov_unit_relation (event_id, gov_unit_id, is_delete, type)
+        values (#{eventId}, #{govUnitId}, #{isDelete}, #{type});
+    </insert>
+
+
+    <update id="delGovRelation">
+        update gov_unit_relation
+        set is_delete='1'
+        where event_id = #{eventId};
+    </update>
+
+    <select id="findGovRelationUnit" resultType="com.zcc.manager.govunitmanager.entity.GovUnitEntity">
+        select g.*
+        from gov_unit_relation r
+                 left join gov_unit g on r.gov_unit_id = g.id
+        where r.event_id = #{eventId}
+          and r.type = ${type}
+          and r.is_delete != '1'
+          and g.is_delete != '1'
+    </select>
+</mapper>

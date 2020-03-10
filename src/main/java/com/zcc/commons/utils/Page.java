@@ -36,4 +36,14 @@ public class Page {
         return p;
     }
 
+    public Page() {
+    }
+
+    public Page(Integer page, Integer pageSize) throws MyException {
+        if (page <= 0 || pageSize <= 0) {
+            throw new MyException("分页参数错误");
+        }
+        this.page = (page - 1) * pageSize;
+        this.pageSize = pageSize;
+    }
 }

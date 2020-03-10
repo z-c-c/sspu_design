@@ -1651,35 +1651,35 @@
     function resUnitShow(eventId) {
         $("#toUpdateEventId").val("");
         $("#toUpdateEventId").val(eventId);
-        $("#zbdw").find("option:eq(0)").attr("selected","selected");
-        $("#xbdw").find("option:eq(0)").attr("selected","selected");
-        $("#wtdwmc").find("option:eq(0)").attr("selected","selected");
+        $("#zbdw").find("option:eq(0)").attr("selected", "selected");
+        $("#xbdw").find("option:eq(0)").attr("selected", "selected");
+        $("#wtdwmc").find("option:eq(0)").attr("selected", "selected");
         $("#resUnit").show();
     }
 
     //保存责任单位
     function saveResUnit() {
-        var eventid = $("#toUpdateEventId").val();
         var data = {};
-        data.eventType = "riskEvent";
-        data.eventId = eventid;
-        data.zbdw = $("#zbdw").val();
-        data.zbdwmc = $("#zbdw option:selected").text();
-        data.xbdw = $("#xbdw").val();
-        data.xbdwmc = $("#xbdw option:selected").text();
-        data.ssjd = $("#ssjd1").val();
-        data.ssjdmc=$("#ssjd1 option:selected").text();
-        data.wtdwmc = $("#wtdwmc").val();
+        let zbdw;
+        zbdw.eventId = $("#toUpdateEventId").val();
+        zbdw.govUnitId = $("#zbdw").val();
+        zbdw.type = '1';
+        data.push(zbdw);
+        let xbdw;
+        xbdw.eventId = $("#toUpdateEventId").val();
+        xbdw.govUnitId = $("#xbdw").val();
+        xbdw.type = '0';
+        data.push(xbdw);
+
         $.ajax({
             result: "POST",
             url: "/eventManager/alterEventBaseInfo",
             dataType: "json",
             data: data,
             success: function (result) {
-                if (result.message=== "success") {
+                if (result.message === "success") {
                     $("#resUnit").hide();
                     findContradiction("", "", "", "", "", "", "", "", 1, 5, "0", true);
-                    // $("#m2").show();
                     successOperator();
                 }
             }

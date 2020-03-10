@@ -1,4 +1,5 @@
 <%@ taglib prefix="tag" uri="object_tag" %>
+<%@ taglib prefix="gov" uri="gov_unit" %>
 <%--
   Created by IntelliJ IDEA.
   User: zcc
@@ -334,54 +335,26 @@
     </div>
 </div>
 <div class="tanBox" id="resUnit" style="display: none">
-    <div class="pubBlock kuang" style="width: 750px;">
+    <div class="pubBlock kuang" style="width: 600px;height: 210px">
         <i class="close">×</i>
         <div class="bear-tit">
             <h5>责任单位</h5>
         </div>
-        <div style="height: 250px;">
+        <div style="height: 110px;">
             <div class="baseTable">
                 <table border="0">
                     <tr>
                         <td width="20%" class="center">主办单位</td>
                         <td width="30%">
-                            <select id="wwZrbmZb" class="vV-drop" style="width:200px;height:28px;" data-options="editable:false">
-                            </select>
+                            <gov:gov id="zbdw" clazz="vV-drop" style="width:250px;height:28px;"></gov:gov>
                         </td>
-
+                    </tr>
+                    <tr>
                         <td width="20%" class="center">协办单位</td>
                         <td width="30%">
-                            <select id="wwZrbmXb" class="vV-drop" style="width:200px;height:28px;" data-options="editable:false">
-                            </select>
+                            <gov:gov id="xbdw" clazz="vV-drop" style="width:250px;height:28px;"></gov:gov>
                         </td>
                     </tr>
-                    <tr>
-                        <td width="20%" class="center">委托单位</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwZrbmWt" style="width: 200px;">
-                        </td>
-
-                        <td width="20%" class="center">责任部门(街道)</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwZrbmJd" style="width: 200px;">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="20%" class="center">督办单位</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="wwZrbmDb" style="width: 200px;">
-                        </td>
-
-                        <td class="center">工作周期</td>
-                        <td id="wwGzzq1">
-                            <label class="vV-radio ck" name="wwGzzq1" style="padding: 0 4px 0 29px;">7天</label>
-                            <label class="vV-radio" name="wwGzzq1" style="padding: 0 4px 0 29px;">15天</label>
-                            <label class="vV-radio" name="wwGzzq1" style="padding: 0 4px 0 29px;">一个月</label>
-                        </td>
-
-                    </tr>
-
                     <tr>
                         <td colspan="4" height="60" align="center">
                             <button class="alertBtn" onclick="saveResUnit()">保存</button>
@@ -1044,12 +1017,57 @@
 
     }
 
+    //责任单位显示
+    function resUnitShow(eventId) {
+        $("#toUpdateEventId").val(eventId);
+        $.ajax({
+            type: 'get',
+            url: '/eventInfo/findResponsibilityUnit',
+            data: {
+                eventId: eventId
+            },
+            dataType: 'json',
+            success: function (result) {
+                $("#zbdw").val(result.data.zb.id);
+                $("#xbdw").val(result.data.xb.id);
+            }
+        })
+        $("#resUnit").show();
+    }
+
     function toEventDataTogether(eventId, eventDateTogetherCount) {
         if (eventDateTogetherCount == 0) {
             noDataTogether();
         } else {
             openNewWindow("dataTogether.jsp?Type=" + eventId + "");
         }
+    }
+
+    function saveResUnit() {
+        var data = [];
+        let zbdw = {};
+        zbdw.eventId = $("#toUpdateEventId").val();
+        zbdw.govUnitId = $("#zbdw").val();
+        zbdw.type = '1';
+        data.push(zbdw);
+        let xbdw = {};
+        xbdw.eventId = $("#toUpdateEventId").val();
+        xbdw.govUnitId = $("#xbdw").val();
+        xbdw.type = '0';
+        data.push(xbdw);
+        console.log(data)
+        $.ajax({
+            type: "POST",
+            url: "/eventInfo/addResponsibilityUnit",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function (result) {
+                $("#resUnit").hide();
+                successOperator();
+            }
+
+        })
     }
 
     //详细信息

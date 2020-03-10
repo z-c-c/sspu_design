@@ -71,6 +71,7 @@
                 file_path=#{filePath}
             </if>
         </trim>
+        where event_id=#{eventId}
     </update>
 
     <select id="findAll" resultType="com.zcc.platform.event.entity.EventInfoEntity">

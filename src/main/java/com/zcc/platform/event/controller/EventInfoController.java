@@ -5,6 +5,9 @@ import com.zcc.commons.utils.ResultBean;
 import com.zcc.commons.utils.StringUtil;
 import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
+import com.zcc.manager.govunitmanager.entity.GovUnitEntity;
+import com.zcc.manager.govunitmanager.entity.GovUnitRelation;
+import com.zcc.manager.govunitmanager.service.GovUnitService;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.service.EventInfoService;
@@ -26,6 +29,8 @@ public class EventInfoController {
 
     @Autowired
     private EventInfoService eventInfoService;
+    @Autowired
+    private GovUnitService govUnitService;
 
 
     @Log(name = "保存事件")
@@ -112,6 +117,24 @@ public class EventInfoController {
         int count = eventInfoService.findDataTogether().size();
         map.put("dataTogether", dataTogether);
         map.put("count", count);
+        return ResultBean.success(map);
+    }
+
+    @Log(name = "添加责任单位")
+    @PostMapping(value = "/addResponsibilityUnit")
+    public ResultBean addResponsibilityUnit(@RequestBody List<GovUnitRelation> govUnitRelations) {
+        govUnitService.addGovRelation(govUnitRelations);
+        return ResultBean.success();
+    }
+
+    @Log(name = "查找事件责任单位")
+    @GetMapping(value = "/findResponsibilityUnit")
+    public ResultBean findResponsibilityUnit(String eventId) {
+        Map<String, Object> map = new HashMap<>(2);
+        GovUnitEntity zb = govUnitService.findGovRelationUnit(eventId, "1");
+        GovUnitEntity wb = govUnitService.findGovRelationUnit(eventId, "0");
+        map.put("zb", zb);
+        map.put("xb", wb);
         return ResultBean.success(map);
     }
 }

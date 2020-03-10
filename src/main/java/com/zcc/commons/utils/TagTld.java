@@ -16,6 +16,7 @@ import java.util.Objects;
 
 /**
  * @author zcc
+ * 自定义tag标签对应类
  */
 public class TagTld extends BodyTagSupport {
 
@@ -43,7 +44,6 @@ public class TagTld extends BodyTagSupport {
     public int doEndTag() throws JspException {
         System.out.println(this.getClazz());
         try {
-            pageContext.getOut().write("");
             if (this.TAG_DIV.equals(this.getType())) {
                 pageContext.getOut().write(getTagDiv());
             }
