@@ -11,6 +11,7 @@ import com.zcc.platform.event.dao.EventInfoDao;
 import com.zcc.platform.event.dao.EventRelationDao;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
+import com.zcc.platform.event.entity.HandleLogEntity;
 import com.zcc.platform.event.service.EventInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -253,5 +254,60 @@ public class EventInfoServiceImpl implements EventInfoService {
     @Override
     public List<EventInfoEntity> findDataTogether() {
         return eventInfoDao.findAllDataTogether();
+    }
+
+    @Override
+    public int saveEventHandleLog(HandleLogEntity handleLogEntity, HttpServletRequest request) {
+        UserInfoEntity userInfoEntity = ConstUtil.currentPerson(request);
+        handleLogEntity.setHandleCreateTime(new Date());
+        handleLogEntity.setHandleCreateUser(userInfoEntity.getUserName());
+        handleLogEntity.setIsDelete("0");
+        //有id为修改
+        if (StringUtil.isValidStr(StringUtil.safeToString(handleLogEntity.getHandleLogId()))) {
+            HandleLogEntity handleLog = eventInfoDao.findHandleLog(handleLogEntity.getHandleLogId());
+            if (!StringUtil.isValidStr(handleLogEntity.getHandleFilePath())) {
+                handleLogEntity.setHandleFilePath(handleLog.getHandleFilePath());
+            }
+            eventInfoDao.updateEventHandleLog(handleLogEntity);
+        } else {
+            eventInfoDao.addEventHandleLog(handleLogEntity);
+        }
+        //修改事件为已经处置
+        EventInfoEntity eventInfo = eventInfoDao.findById(handleLogEntity.getHandleEventId());
+        eventInfo.setIsHandle("1");
+        eventInfoDao.update(eventInfo);
+        return handleLogEntity.getHandleLogId();
+    }
+
+    @Override
+    public List<HandleLogEntity> findEventHandleLog(String eventId, Page page) {
+        return eventInfoDao.findEventHandleLogWithPage(eventId, page);
+    }
+
+    @Override
+    public List<HandleLogEntity> findEventHandleLog(String eventId) {
+        return eventInfoDao.findEventHandleLog(eventId);
+    }
+
+    @Override
+    public HandleLogEntity findHandleLog(Integer handleLogId) {
+        return eventInfoDao.findHandleLog(handleLogId);
+    }
+
+    @Override
+    public void delHandleLog(int handleLogId) {
+        eventInfoDao.delHandleLog(handleLogId);
+    }
+
+    @Override
+    public void settlement(HttpServletRequest request, EventInfoEntity eventInfoEntity) {
+        UserInfoEntity currentPerson = ConstUtil.currentPerson(request);
+        if (StringUtil.isValidStr(eventInfoEntity.getEventId())) {
+            eventInfoEntity.setUpdateUserAccount(currentPerson.getUserName());
+            eventInfoEntity.setUpdateTime(new Date());
+            eventInfoEntity.setIsSettlement("1");
+            eventInfoDao.update(eventInfoEntity);
+
+        }
     }
 }

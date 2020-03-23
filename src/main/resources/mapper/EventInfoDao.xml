@@ -252,4 +252,54 @@
           and r1.IS_DELETE != '1'
           and r2.IS_DELETE != '1';
     </select>
+
+    <insert id="addEventHandleLog" useGeneratedKeys="true" keyProperty="handleLogId" keyColumn="HANDLE_LOG_ID"
+            parameterType="com.zcc.platform.event.entity.HandleLogEntity">
+        insert into xhww_handle_log (HANDLE_EVENT_ID, HANDLE_CONTENT, HANDLE_DATE, HANDLE_USER, HANDLE_FILE_PATH,
+                                     HANDLE_CREATE_TIME, HANDLE_CREATE_USER, HANDLE_UNIT, HANDLE_PASS, IS_DELETE)
+        VALUES (#{handleEventId}, #{handleContent}, #{handleDate}, #{handleUser}, #{handleFilePath},
+                #{handleCreateTime}, #{handleCreateUser}, #{handleUnit}, #{handlePass}, '0');
+    </insert>
+
+    <update id="updateEventHandleLog" parameterType="com.zcc.platform.event.entity.HandleLogEntity">
+        update xhww_handle_log
+        set HANDLE_CONTENT=#{handleContent},
+            HANDLE_DATE=#{handleDate},
+            HANDLE_USER=#{handleUser},
+            HANDLE_FILE_PATH=#{handleFilePath},
+            HANDLE_CREATE_TIME=#{handleCreateTime},
+            HANDLE_CREATE_USER=#{handleCreateUser},
+            HANDLE_UNIT=#{handleUnit},
+            HANDLE_PASS=#{handlePass}
+        where HANDLE_LOG_ID = #{handleLogId};
+    </update>
+
+    <select id="findEventHandleLogWithPage" resultType="com.zcc.platform.event.entity.HandleLogEntity">
+        select *
+        from xhww_handle_log
+        where HANDLE_EVENT_ID = #{eventId}
+          and IS_DELETE != '1'
+        limit ${page.page},${page.pageSize};
+    </select>
+
+    <select id="findEventHandleLog" resultType="com.zcc.platform.event.entity.HandleLogEntity">
+        select *
+        from xhww_handle_log
+        where HANDLE_EVENT_ID = #{eventId}
+          and IS_DELETE != '1';
+    </select>
+
+    <select id="findHandleLog" resultType="com.zcc.platform.event.entity.HandleLogEntity">
+        select *
+        from xhww_handle_log
+        where HANDLE_LOG_ID = #{handleLogId}
+        limit 1;
+    </select>
+
+    <update id="delHandleLog">
+        update xhww_handle_log
+        set IS_DELETE='1'
+        where HANDLE_LOG_ID = #{handleLogId};
+    </update>
+
 </mapper>

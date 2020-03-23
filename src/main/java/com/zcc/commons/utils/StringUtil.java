@@ -2,6 +2,7 @@ package com.zcc.commons.utils;
 
 /**
  * @author zcc
+ * 字符串工具
  */
 public class StringUtil {
 

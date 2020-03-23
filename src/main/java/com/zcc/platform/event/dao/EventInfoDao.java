@@ -3,6 +3,7 @@ package com.zcc.platform.event.dao;
 import com.zcc.commons.utils.Page;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
+import com.zcc.platform.event.entity.HandleLogEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -110,5 +111,54 @@ public interface EventInfoDao {
      * @return list
      */
     List<EventInfoEntity> findAllDataTogether();
+
+    /**
+     * 添加处置日志
+     *
+     * @param handleLogEntity
+     * @return
+     */
+    void addEventHandleLog(HandleLogEntity handleLogEntity);
+
+
+    /**
+     * 修改处置日志
+     *
+     * @param handleLogEntity
+     * @return
+     */
+    void updateEventHandleLog(HandleLogEntity handleLogEntity);
+
+    /**
+     * 查找处置日志
+     *
+     * @param eventId
+     * @param page
+     * @return
+     */
+    List<HandleLogEntity> findEventHandleLogWithPage(@Param("eventId") String eventId, @Param("page") Page page);
+
+    /**
+     * 查找处置日志
+     *
+     * @param eventId
+     * @return
+     */
+    List<HandleLogEntity> findEventHandleLog(String eventId);
+
+    /**
+     * 查找处置日志
+     *
+     * @param handleLogId
+     * @return
+     */
+    HandleLogEntity findHandleLog(Integer handleLogId);
+
+    /**
+     * 删除处置日志
+     *
+     * @param handleLogId
+     */
+    void delHandleLog(int handleLogId);
 
 }

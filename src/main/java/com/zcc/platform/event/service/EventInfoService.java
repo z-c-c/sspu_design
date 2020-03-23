@@ -3,6 +3,7 @@ package com.zcc.platform.event.service;
 import com.zcc.commons.utils.Page;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
+import com.zcc.platform.event.entity.HandleLogEntity;
 import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletRequest;
@@ -114,5 +115,55 @@ public interface EventInfoService {
      * @return list
      */
     List<EventInfoEntity> findDataTogether();
+
+
+    /**
+     * 保存处置日志
+     *
+     * @param handleLogEntity
+     * @param request
+     * @return
+     */
+    int saveEventHandleLog(HandleLogEntity handleLogEntity, HttpServletRequest request);
+
+    /**
+     * 查找处置日志
+     *
+     * @param eventId
+     * @param page
+     * @return
+     */
+    List<HandleLogEntity> findEventHandleLog(String eventId, Page page);
+
+    /**
+     * 查找处置日志
+     *
+     * @param eventId
+     * @return
+     */
+    List<HandleLogEntity> findEventHandleLog(String eventId);
+
+    /**
+     * 查找处置日志
+     *
+     * @param handleLogId
+     * @return
+     */
+    HandleLogEntity findHandleLog(Integer handleLogId);
+
+    /**
+     * 删除处置日志
+     *
+     * @param handleLogId
+     */
+    void delHandleLog(int handleLogId);
+
+    /**
+     * 事件化解存档
+     *
+     * @param request
+     * @param eventInfoEntity
+     */
+    void settlement(HttpServletRequest request, EventInfoEntity eventInfoEntity);
 
 }

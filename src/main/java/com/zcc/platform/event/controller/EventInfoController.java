@@ -1,5 +1,6 @@
 package com.zcc.platform.event.controller;
 
+import com.zcc.commons.utils.FileUtil;
 import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.ResultBean;
 import com.zcc.commons.utils.StringUtil;
@@ -10,9 +11,9 @@ import com.zcc.manager.govunitmanager.entity.GovUnitRelation;
 import com.zcc.manager.govunitmanager.service.GovUnitService;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
+import com.zcc.platform.event.entity.HandleLogEntity;
 import com.zcc.platform.event.service.EventInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -136,5 +137,54 @@ public class EventInfoController {
         map.put("zb", zb);
         map.put("xb", wb);
         return ResultBean.success(map);
+    }
+
+    @Log(name = "保存事件处置日志")
+    @PostMapping(value = "/saveEventHandleLog")
+    public ResultBean saveEventHandleLog(HandleLogEntity handleLogEntity, HttpServletRequest request) {
+        return ResultBean.success(eventInfoService.saveEventHandleLog(handleLogEntity, request));
+    }
+
+    @Log(name = "查找事件处置日志")
+    @GetMapping(value = "/findEventHandleLog")
+    public ResultBean findEventHandleLog(String eventId, Page page) throws MyException {
+        Map<String, Object> map = new HashMap<>(2);
+        List<HandleLogEntity> eventHandleLog = eventInfoService.findEventHandleLog(eventId, Page.setPageAndSize(page.getPage(), page.getPageSize()));
+        List<HandleLogEntity> all = eventInfoService.findEventHandleLog(eventId);
+        map.put("data", eventHandleLog);
+        map.put("all", all);
+        return ResultBean.success(map);
+    }
+
+    @Log(name = "查找事件处置日志")
+    @GetMapping("/findHandleLog")
+    public ResultBean findHandleLog(Integer handleLogId) {
+        return ResultBean.success(eventInfoService.findHandleLog(handleLogId));
+    }
+
+    @Log(name = "删除处置日志")
+    @GetMapping("/delHandleLog")
+    public ResultBean delHandleLog(Integer handleLogId) {
+        eventInfoService.delHandleLog(handleLogId);
+        return ResultBean.success();
+    }
+
+    @Log(name = "上传处置附件")
+    @PostMapping("/uploadFile")
+    public ResultBean uploadFile(HttpServletRequest request, String attrName, Integer handleLogLd) {
+        HandleLogEntity handleLog = eventInfoService.findHandleLog(handleLogLd);
+        String filePath = FileUtil.upLoad(request, attrName, StringUtil.safeToString(handleLogLd));
+        if (StringUtil.isValidStr(filePath)) {
+            handleLog.setHandleFilePath(filePath);
+            eventInfoService.saveEventHandleLog(handleLog, request);
+        }
+        return ResultBean.success();
+    }
+
+    @Log(name = "事件化解存档")
+    @PostMapping(value = "/settlement")
+    public ResultBean settlementEvent(HttpServletRequest request, EventInfoEntity eventInfoEntity) {
+        eventInfoService.settlement(request, eventInfoEntity);
+        return ResultBean.success();
     }
 }

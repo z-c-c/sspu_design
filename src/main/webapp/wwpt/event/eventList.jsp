@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <name></name>
-    <%@include file="../common/w_include_header.jsp"%>
+    <%@include file="../common/w_include_header.jsp" %>
     <link rel="stylesheet" href="../../css/icon.css"><!--easyui-->
     <link rel="stylesheet" href="../../css/newreset.css">
     <link rel="stylesheet" href="../../css/newstyle.css">
@@ -57,7 +57,7 @@
             z-index: 10;
         }
 
-        .pageStyle ul li{
+        .pageStyle ul li {
             width: 36px;
             height: 26px;
             line-height: 26px;
@@ -96,11 +96,11 @@
                     </div>
                     <div class="advanceData">
                         <div>
-                            <span>是否清算：</span>
+                            <span>是否结案：</span>
                             <select class="vV-drop" style="width:250px;height:28px;" id="SearchIsSettlement">
                                 <option value="" selected>请选择</option>
-                                <option value="1">已清算</option>
-                                <option value="0">未清算</option>
+                                <option value="1">已结案</option>
+                                <option value="0">未结案</option>
                             </select>
                         </div>
                         <div>
@@ -108,7 +108,7 @@
                             <input id="searchOccurredTime" class="vV-ipt date w-246" result="text" style="width: 250px;"
                                    value=""
                                    placeholder="请选择" readonly="readonly">
-                            <span class="span">清算日期：</span>
+                            <span class="span">结案日期：</span>
                             <input id="SearchSettlementTime" class="vV-ipt date w-246" result="text"
                                    style="width: 250px;" value=""
                                    placeholder="请选择"
@@ -151,9 +151,8 @@
                         <strong id="totalEvent">0</strong>
                         项
                     </span>
-                <div class="btnGroup">
+                <div class="btnGroup" style="width: 105px">
                     <a class="active" onclick="addShow()">新增</a>
-                    <a onclick="exportEventToExcel()">下载</a>
                 </div>
             </div>
             <div class="sortBox clearfix">
@@ -172,7 +171,8 @@
                 </div>
             </div>
             <div class="searchCon" style="position: relative">
-                <div id="loading" style="position: absolute;z-index:5;top: 50%;left: 50%;margin-top: -100px;margin-left: -100px;height: 500px">
+                <div id="loading"
+                     style="position: absolute;z-index:5;top: 50%;left: 50%;margin-top: -100px;margin-left: -100px;height: 500px">
                 </div>
                 <ul id="eventList">
                 </ul>
@@ -218,12 +218,12 @@
 </div>
 
 <div class="tanBox" id="resolve" style="display: none">
-    <div class="pubBlock kuang">
+    <div class="pubBlock kuang" style="width: 600px;">
         <i class="close" onclick="javascript:$('#operate').fadeOut();">×</i>
         <div class="bear-tit">
             <h5>化解存档</h5>
         </div>
-        <div style="height: 200px">
+        <div style="height: 100px">
             <div class="baseTable">
                 <table border="0">
 
@@ -231,23 +231,14 @@
                         <div>
                             <td width="20%" class="center">结案时间</td>
                             <td width="30%">
-                                <input id="wwJarq" class="vV-ipt date w-246" result="text" value="" placeholder="请选择时间" readonly="readonly">
+                                <input id="settlementTime" class="vV-ipt date w-246" result="text" value=""
+                                       placeholder="请选择时间" readonly="readonly">
                             </td>
                         </div>
                     </tr>
-                    <tr>
-                        <div>
-                            <td width="20%" class="center">存档时间</td>
-                            <td width="30%">
-                                <input id="wwCdrq" class="vV-ipt date w-246" result="text" value="" placeholder="请选择时间" readonly="readonly">
-                            </td>
-                        </div>
-                    </tr>
-
-
                     <tr>
                         <td colspan="4" height="60" align="center">
-                            <button class="alertBtn">保存</button>
+                            <button class="alertBtn" onclick="saveSettlement()">保存</button>
                         </td>
                     </tr>
                 </table>
@@ -260,15 +251,14 @@
     <div class="pubBlock kuang">
         <i class="close">×</i>
         <div class="bear-tit">
-            <h5 id="handleLogTitle">录入处置日志</h5>
-            <h5 id="leaderTitle">录入领导批示</h5>
+            <h5>录入处置日志</h5>
         </div>
         <div class="lr-Box">
             <table border="0" class="lrTable mt-20" id="handleList">
             </table>
             <div class="clearfix pageBox">
                 <div class="v-fl">
-                    &nbsp;&nbsp;共&nbsp;<span class="totalHandle">2</span>&nbsp;条数据
+                    &nbsp;&nbsp;共&nbsp;<span class="totalHandle">0</span>&nbsp;条数据
                 </div>
                 <div id="paginationHandle" class=" v-fr pageStyle"></div>
             </div>
@@ -278,7 +268,8 @@
                     <tr>
                         <td width="39%" class="center">处置内容</td>
                         <td colspan="3">
-                            <textarea class="vV-area w-400 m8" style="width: 680px;height: 50px;" id="handleContent"></textarea>
+                            <textarea class="vV-area w-400 m8" style="width: 680px;height: 50px;"
+                                      id="handleContent"></textarea>
                         </td>
                     </tr>
                 </table>
@@ -286,46 +277,34 @@
                     <tr>
                         <td width="20%" class="center">处置时间</td>
                         <td width="30%">
-                            <input id="handleDate" class="vV-ipt date w-246 Time" result="text" value="" placeholder="(默认为当前时间)" readonly="readonly" style="width: 245px;">
+                            <input id="handleDate" class="vV-ipt date w-246 Time" result="text" value=""
+                                   placeholder="(默认为当前时间)" readonly="readonly" style="width: 245px;">
                         </td>
                         <td class="center">上传文件</td>
                         <td>
                             <div>
-                                <input result="file" class="upload-btn" id="czPath" name="czPath">
-                                <span result="text" class="file-input-trigger" onclick="selectFile($(this))">选择文件</span>
+                                <input type="file" class="upload-btn" id="czPath" name="czPath">
+                                <span type="text" class="file-input-trigger" onclick="selectFile($(this))">选择文件</span>
                                 <p class="file-name" id="handleFilepath"></p>
                             </div>
                         </td>
                     <tr>
-                        <td width="20%" class="center">操作人</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="handleUser" style="width: 245px;">
-                        </td>
-                        <td width="20%" class="center">创建人</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="handleCuser" style="width: 245px;">
-                        </td>
 
-                    </tr>
-
-                    <tr>
-                        <td class="center">集访类型</td>
-                        <td>
-                            <ul class="vV-tabs" id="handleJflx" style="width: 260px">
-                            </ul>
+                        <td width="20%" class="center">处置单位</td>
+                        <td width="30%">
+                            <gov:gov id="handleUnit" clazz="vV-drop" style="width:245px;height:28px;"></gov:gov>
                         </td>
                         <td class="center">是否通过</td>
                         <td id="handleIsflag">
-                            <label class="vV-radio" name="handleIsflag">是</label>
-                            <label class="vV-radio ck" name="handleIsflag">否</label>
+                            <label class="vV-radio ck" name="handleIsflag">是</label>
+                            <label class="vV-radio" name="handleIsflag">否</label>
                         </td>
                     </tr>
                     <br>
 
                     <tr>
                         <td colspan="4" height="60" align="center">
-                            <button class="alertBtn" id="handleLogBut">保存</button>
-                            <button class="alertBtn" id="leaderBut">保存</button>
+                            <button class="alertBtn" id="handleLogBut" onclick="saveEventHandle()">保存</button>
                         </td>
                     </tr>
                 </table>
@@ -485,6 +464,8 @@
 </div>
 <input type="hidden" id="addedTagNames">
 <input type="hidden" id="toUpdateEventId">
+<input type="hidden" id="toUpdateHandleLogId">
+<input type="hidden" id="editEventHandLogFlag">
 </body>
 
 <script result="text/javascript">
@@ -645,12 +626,7 @@
             zIndex: 3000,
         });
 
-        jeDate("#wwJarq", {
-            theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
-            format: "YYYY-MM-DD hh:mm:ss",
-            zIndex: 3000,
-        });
-        jeDate("#wwCdrq", {
+        jeDate("#settlementTime", {
             theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
             format: "YYYY-MM-DD hh:mm:ss",
             zIndex: 3000,
@@ -886,6 +862,7 @@
                 dataType: "json",
                 data: data,
                 success: function (result) {
+                    console.log(result)
                     if (result.code === "success") {
                         var events = result.data.events;
                         //下载本页时使用，用于暂存本页数据
@@ -983,7 +960,6 @@
                                 '                                        <p onclick="showDel(\'' + events[i].eventId + '\')">删除</p>\n' +
                                 '                                        <p onclick="resUnitShow(\'' + events[i].eventId + '\')">责任单位</p>\n' +
                                 '                                        <p onclick="showEventHandle(\'' + events[i].eventId + '\',\'handlelog\')">处置日志</p>\n' +
-                                '                                        <p onclick="showEventHandle(\'' + events[i].eventId + '\',\'leader\')">领导批示</p>\n' +
                                 '                                        <p onclick="showResolve(\'' + events[i].eventId + '\')">化解存档</p>\n' +
                                 '                                    </div>\n' +
                                 '                                </div>\n' +
@@ -991,8 +967,6 @@
                                 '                        </div>\n' +
                                 '                    </li>';
                             $("#eventList").append(str)
-
-
                         }
                         // 操作下拉
                         var dropSort = true;
@@ -1028,8 +1002,10 @@
             },
             dataType: 'json',
             success: function (result) {
-                $("#zbdw").val(result.data.zb.id);
-                $("#xbdw").val(result.data.xb.id);
+                let zbid = result.data.zb == null ? "" : result.data.zb.id;
+                let xbid = result.data.zb == null ? "" : result.data.xb.id;
+                $("#zbdw").val(zbid);
+                $("#xbdw").val(xbid);
             }
         })
         $("#resUnit").show();
@@ -1055,7 +1031,6 @@
         xbdw.govUnitId = $("#xbdw").val();
         xbdw.type = '0';
         data.push(xbdw);
-        console.log(data)
         $.ajax({
             type: "POST",
             url: "/eventInfo/addResponsibilityUnit",
@@ -1131,7 +1106,7 @@
     }
 
     // 高级搜索
-    function advanceSearch(){
+    function advanceSearch() {
         if (searchonOff) {
             $("#advancedSearch").html("收起工具");
             $("#advancedSearch").addClass("active");
@@ -1159,10 +1134,6 @@
         $("#addEvent").show();
     }
 
-    //导出事件
-    function exportEventToExcel() {
-        $('<form id="exportEvent" method="post" action="/eventManager/downloadAllContradictionEvent/"></form>').appendTo('body').submit().remove();
-    }
 
     //已处理、未处理统计
     function handleCount() {
@@ -1344,25 +1315,9 @@
 
 
     //处置日志显示
-    function showEventHandle(eventId, result) {
+    function showEventHandle(eventId) {
         $("#editEventHandLogFlag").val("0");
-        var showType;
-
-        if (result == "handlelog") {
-            $("#handleLogTitle").show();
-            $("#leaderTitle").hide();
-            $("#handleLogBut").show();
-            $("#leaderBut").hide();
-            showType = 0;
-        }
-        if (result == "leader") {
-            $("#handleLogTitle").hide();
-            $("#leaderTitle").show();
-            $("#handleLogBut").hide();
-            $("#leaderBut").show();
-            showType = 1;
-        }
-        reShowHandleLog(eventId, showType, 1, true);
+        reShowHandleLog(eventId, 1, true);
         $("#toUpdateEventId").val(eventId)
         $("#handleContent").val("");
         $("#czPath").val("");
@@ -1378,7 +1333,7 @@
     }
 
     //保存处置日志
-    function saveEventHandle(handleType) {
+    function saveEventHandle() {
 
         var eventId = $("#toUpdateEventId").val();
         var data = {};
@@ -1386,38 +1341,31 @@
         if (editFlag == "1") {
             data.handleLogId = $("#toUpdateHandleLogId").val();
         }
-        data.handleType = handleType;//代表处置日志,1为领导批示
         data.handleEventId = eventId;
         data.handleContent = $("#handleContent").val();
         data.handleDate = parserDate($("#handleDate").val());
-        data.handleUser = $("#handleUser").val();
-        data.handleCuser = $("#handleCuser").val();
-        var handleCjdid = $("#handleCjdid option:selected").text();
-        if (handleCjdid == "请选择") {
-            handleCjdid = "";
-        }
-        data.handleCjdid = handleCjdid;
-        data.handleJfrs = $("#handleJfrs").val();
-        var handleIsflag = "";
+
+        var handlePass = "";
         if ($("#handleIsflag").find("label:eq(0)").hasClass("vV-radio ck")) {
-            handleIsflag = "1";
+            handlePass = "1";
         }
         if ($("#handleIsflag").find("label:eq(1)").hasClass("vV-radio ck")) {
-            handleIsflag = "0";
+            handlePass = "0";
         }
-        data.handleIsflag = handleIsflag;
-        var handleJflx = $("#handleJflx").find("li[class='act']").attr('value');
-        data.handleJflx = handleJflx;
+        data.handlePass = handlePass;
+        data.handleUnit = $("#handleUnit option:selected").text();
+        console.log(data)
         $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/addEventHandleLog",
+            type: "POST",
+            url: "/eventInfo/saveEventHandleLog",
             dataType: "json",
             data: data,
             success: function (result) {
+                console.log(result)
                 if (result.message != "error") {
                     $("#eventHandle").hide();
-                    uploadHanlelogFj(result.handleLogId);
-                    findEvent();
+                    uploadFile(result.data);
+                    findEvent("", true, 1);
                     // $("#m2").show();
                     successOperator();
                 }
@@ -1425,18 +1373,18 @@
         });
     }
 
-    function uploadHanlelogFj(handleLogId) {
+    function uploadFile(handleLogId) {
         var fileEleId = "czPath";
         var attrName = "czPath";
         //单个文件的异步上传
         $.ajaxFileUpload({
             result: "POST",
-            url: "/eventHandleLogController/uploadHandleLogFj",
+            url: "/eventInfo/uploadFile",
             fileElementId: fileEleId,
-            dataType: "text",
+            dataType: "json",
             data: {
                 attrName: attrName,
-                eventHandlogId: handleLogId
+                handleLogLd: handleLogId
             },
         });
     }
@@ -1453,9 +1401,29 @@
     //化解存档显示
     function showResolve(eventId) {
         $("#toUpdateEventId").val(eventId)
-        $("#wwJarq").val("");
-        $("#wwCdrq").val("");
+        $("#settlementTime").val("");
         $("#resolve").show();
+    }
+
+    //保存化解存档
+    function saveSettlement() {
+        $.ajax({
+            type: "POST",
+            url: "/eventInfo/settlement",
+            dataType: 'json',
+            data: {
+                eventId: $("#toUpdateEventId").val(),
+                settlementTime: parserDate($("#settlementTime").val()),
+            },
+            success: function (result) {
+                if (result.code == 'success') {
+                    $("#resolve").hide();
+                    successOperator();
+                    findEvent("", true, 1);
+                }
+            }
+
+        })
     }
 
 
@@ -1465,7 +1433,7 @@
     }
 
     function selectFile(thisdom) {
-        thisdom.prev().trigger('click');
+        thisdom.prev().trigger('click')
         thisdom.prev().on('change', function (event) {
             var fileName = event.target.files[0].name
             thisdom.next().text(fileName)
@@ -1485,24 +1453,21 @@
 
     }
 
-    function reShowHandleLog(eventId, result, page, pageFlag) {
+    function reShowHandleLog(eventId, page, pageFlag) {
         $("#toUpdateEventId").val(eventId);
-        $("#toUpdatehandleLogType").val(result);
+        let data = {};
+        data.eventId = eventId;
+        data.page = page;
+        data.pageSize = 3;
         $.ajax({
             result: "POST",
-            url: "/eventHandleLogController/listEventHandleLogWithPage",
+            url: "/eventInfo/findEventHandleLog",
             dataType: "json",
-            data: {
-                eventId: eventId,
-                result: result,
-                page: page,
-                pageSize: 3
-            },
+            data: data,
             success: function (result) {
-                var total = result.total;
+                var total = result.data.all.length;
                 $(".totalHandle").text(total)
-                var rows = result.rows;
-
+                var rows = result.data.data;
 
                 var pageTotal;
                 if (total <= 3) {
@@ -1520,61 +1485,43 @@
                         curPage: 1, //初始页码,不填默认为1
                         pageSize: 3, //分页个数,不填默认为5
                         getPage: function (page) {
-                            reShowHandleLog(eventId, result, page, false);
+                            reShowHandleLog(eventId, page, false);
                         }
                     });
                 }
                 $("#handleList").empty();
                 $("#handleList").append('<tr>\n' +
-                    '                    <th width="10%">处置日期</th>\n' +
-                    '                    <th width="10%">集访类型</th>\n' +
-                    '                    <th width="10%">集访人数</th>\n' +
-                    '                    <th width="20%">处置情况</th>\n' +
-                    '                    <th width="10%">处置附件</th>\n' +
-                    '                    <th width="20%">录入单位</th>\n' +
-                    '                    <th width="10%">操作</th>\n' +
+                    '                    <th width="15%">处置日期</th>\n' +
+                    '                    <th width="30%">处置内容</th>\n' +
+                    '                    <th width="20%">处置单位</th>\n' +
+                    '                    <th width="20%">是否通过</th>\n' +
+                    '                    <th width="15%">操作</th>\n' +
                     '                </tr>')
                 for (var i = 0; i < rows.length; i++) {
-                    var handleCtime = new Date(rows[i].handleCtime).format("yyyy-MM-dd");
-                    if (rows[i].handleCtime == null) {
-                        handleCtime = "无"
-                    }
-                    var handleJflx = rows[i].handleJflx;
-                    if (handleJflx == "1") {
-                        handleJflx = "人员聚集"
-                    } else if (handleJflx == "2") {
-                        handleJflx = "日常处置"
-                    } else if (handleJflx == "3") {
-                        handleJflx = "召开会议"
-                    } else {
-                        handleJflx = "无"
-                    }
-                    var handleJfrs = rows[i].handleJfrs;
-                    if (handleJfrs == null || handleJfrs.trim().length == 0) {
-                        handleJfrs = "0"
+                    var handleDate = new Date(rows[i].handleDate).format("yyyy-MM-dd");
+                    if (rows[i].handleDate == null) {
+                        handleDate = "无"
                     }
                     var handleContent = rows[i].handleContent;
                     if (handleContent == null || handleContent.trim().length == 0) {
                         handleContent = "无"
                     }
-                    var handleFilepath = rows[i].handleFilepath;
-                    if (handleFilepath == null || handleFilepath.trim().length == 0) {
-                        handleFilepath = "无"
+                    var handleUnit = rows[i].handleUnit;
+                    if (handleUnit == null || handleUnit.trim().length == 0) {
+                        handleUnit = "无"
+                    }
+                    var handlePass = rows[i].handlePass;
+                    if (handlePass == null || handlePass.trim().length == 0) {
+                        handlePass = "未知"
                     } else {
-                        handleFilepath = getCaption(handleFilepath);
+                        handlePass = handlePass == "1" ? "是" : "否";
                     }
 
-                    var handleCjdid = rows[i].handleCjdid;
-                    if (handleCjdid == null || handleCjdid.trim().length == 0) {
-                        handleCjdid = "无"
-                    }
                     $("#handleList").append(' <tr>\n' +
-                        '                    <td>' + handleCtime + '</td>\n' +
-                        '                    <td>' + handleJflx + '</td>\n' +
-                        '                    <td>' + handleJfrs + '</td>\n' +
-                        '                    <td >' + handleContent + '</td>\n' +
-                        '                    <td>' + handleFilepath + '</td>\n' +
-                        '                    <td>' + handleCjdid + '</td>\n' +
+                        '                    <td>' + handleDate + '</td>\n' +
+                        '                    <td>' + handleContent + '</td>\n' +
+                        '                    <td>' + handleUnit + '</td>\n' +
+                        '                    <td >' + handlePass + '</td>\n' +
                         '                    <td>\n' +
                         '                        <a onclick="editHandleLog(\'' + rows[i].handleLogId + '\')" style="color: #409dff">编辑</a>\n' +
                         '                        <a onclick="delHandleLog(\'' + rows[i].handleLogId + '\')" style="color: #409dff">删除</a>\n' +
@@ -1589,43 +1536,31 @@
         $("#editEventHandLogFlag").val("1");
         $("#toUpdateHandleLogId").val(handleLogId)
         $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/findEventHandleLogById",
+            type: "GET",
+            url: "/eventInfo/findHandleLog",
             dataType: "json",
             data: {
                 handleLogId: handleLogId,
             },
             success: function (result) {
-                $("#handleContent").val(result.handleContent);
-                $("#handleDate").val(new Date(result.handleDate).format("yyyy-MM-dd hh:ss:mm"));
-                // $("#handleFilepath").text(getCaption(result.handleFilepath));
-                $("#handleUser").val(result.handleUser);
-                $("#handleCuser").val(result.handleCuser);
-                var handleCjdid = result.handleCjdid;
-                if (handleCjdid == null || handleCjdid.trim().length == 0 || handleCjdid == "") {
-                    $("#handleCjdid").val("")
-                } else {
-                    $("#handleCjdid").val($("#handleCjdid").find("option:contains('" + handleCjdid + "')").val())
+                console.log(result)
+                if (result.code == "success") {
+                    $("#handleContent").val(result.data.handleContent);
+                    $("#handleDate").val(new Date(result.data.handleDate).format("yyyy-MM-dd hh:ss:mm"));
+                    // $("#handleUnit").val(result.data.handleUnit);
+                    $("#handleUnit option:contains('" + result.data.handleUnit + "')").attr('selected', true);
+                    $("#handleIsflag").find("label").removeClass("ck");
+                    if (result.data.handlePass == "1") {
+                        $("#handleIsflag").find("label:eq(0)").addClass("ck");
+                    }
+                    if (result.data.handlePass == "0") {
+                        $("#handleIsflag").find("label:eq(1)").addClass("ck");
+                    }
+
+                    $("#handleFilepath").text(getCaption(result.data.handleFilePath));
                 }
-                $("#handleJfrs").val(result.handleJfrs);
-                var handleJflx = result.handleJflx;
-                $("#handleJflx").find("li").removeClass("act");
-                if (handleJflx == "1") {
-                    $("#handleJflx").find("li:eq(0)").addClass("act");
-                }
-                if (handleJflx == "2") {
-                    $("#handleJflx").find("li:eq(1)").addClass("act");
-                }
-                if (handleJflx == "3") {
-                    $("#handleJflx").find("li:eq(2)").addClass("act");
-                }
-                $("#handleIsflag").find("label").removeClass("ck");
-                if (result.handleIsflag == "1") {
-                    $("#handleIsflag").find("label:eq(0)").addClass("ck");
-                }
-                if (result.handleIsflag == "0") {
-                    $("#handleIsflag").find("label:eq(1)").addClass("ck");
-                }
+
+
             }
         })
     }
@@ -1640,17 +1575,16 @@
             fn: function (r) {
                 if (r) {
                     $.ajax({
-                        result: "POST",
-                        url: "/eventHandleLogController/delEventHandleLog",
-                        dataType: "text",
+                        type: "GET",
+                        url: "/eventInfo/delHandleLog",
+                        dataType: "json",
                         data: {
                             handleLogId: handleLogId,
                         },
                         success: function (result) {
-                            if (result == "success") {
+                            if (result.code == "success") {
                                 var toUploadEventId = $("#toUpdateEventId").val();
-                                var eventHandleLogType = $("#toUpdatehandleLogType").val();
-                                reShowHandleLog(toUploadEventId, eventHandleLogType, 1, true);
+                                reShowHandleLog(toUploadEventId, 1, true);
                                 successOperator();
                             }
                         }
@@ -1662,7 +1596,7 @@
 
     //截取字符串
     function getCaption(obj) {
-        return obj.split("@@@@")[1]
+        return obj.split("ZCC")[1]
     }
 
     var IsHj;
