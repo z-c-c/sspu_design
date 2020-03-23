@@ -1,5 +1,6 @@
 package com.zcc.manager.tagmanager.service.impl;
 
+import com.zcc.commons.utils.StringUtil;
 import com.zcc.manager.tagmanager.dao.TagObjectRelationDao;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.entity.TagObjectRelationEntity;
@@ -63,6 +64,8 @@ public class TagObjectRelationServiceImpl implements TagObjectRelationService {
      */
     @Override
     public void delTagForObject(String objectId) {
-        tagObjectRelationDao.delAllTagForObject(objectId);
+        if (StringUtil.isValidStr(objectId)) {
+            tagObjectRelationDao.delAllTagForObject(objectId);
+        }
     }
 }

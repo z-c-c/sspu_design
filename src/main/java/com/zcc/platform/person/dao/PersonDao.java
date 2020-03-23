@@ -1,22 +1,24 @@
 package com.zcc.platform.person.dao;
 
 import com.zcc.commons.utils.Page;
-import com.zcc.platform.person.entity.PersonInfoEntity;
+import com.zcc.platform.person.entity.PersonEntity;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author zcc
  */
-public interface PersonInfoDao {
+@Repository
+public interface PersonDao {
     /**
      * 添加人员
      *
-     * @param personInfoEntity
+     * @param personEntity
      * @return
      */
-    String addPerson(PersonInfoEntity personInfoEntity);
+    void addPerson(PersonEntity personEntity);
 
     /**
      * 删除人员
@@ -28,9 +30,9 @@ public interface PersonInfoDao {
     /**
      * 修改人员
      *
-     * @param personInfoEntity
+     * @param personEntity
      */
-    void updatePerson(PersonInfoEntity personInfoEntity);
+    void updatePerson(PersonEntity personEntity);
 
     /**
      * 查找人员
@@ -38,7 +40,7 @@ public interface PersonInfoDao {
      * @param personId
      * @return
      */
-    PersonInfoEntity findPersonById(String personId);
+    PersonEntity findPersonById(String personId);
 
     /**
      * 模糊查找
@@ -46,7 +48,7 @@ public interface PersonInfoDao {
      * @param param
      * @return
      */
-    List<PersonInfoEntity> findPerson(String param);
+    List<PersonEntity> findPerson(String param);
 
     /**
      * 模糊查找+标签查找
@@ -55,7 +57,7 @@ public interface PersonInfoDao {
      * @param tags
      * @return
      */
-    List<PersonInfoEntity> findPersonWithTag(@Param("param") String param, @Param("tags") List<String> tags);
+    List<PersonEntity> findPersonWithTag(@Param("param") String param, @Param("tags") List<String> tags);
 
     /**
      * 模糊查找+分页
@@ -64,7 +66,7 @@ public interface PersonInfoDao {
      * @param page
      * @return
      */
-    List<PersonInfoEntity> findPersonWithPage(@Param("param") String param, @Param("page") Page page);
+    List<PersonEntity> findPersonWithPage(@Param("param") String param, @Param("page") Page page);
 
     /**
      * 模糊查找+标签+分页
@@ -74,6 +76,6 @@ public interface PersonInfoDao {
      * @param tags
      * @return
      */
-    List<PersonInfoEntity> findPersonWithPageAndTag(@Param("param") String param, @Param("page") Page page, @Param("tags") List<String> tags);
+    List<PersonEntity> findPersonWithPageAndTag(@Param("param") String param, @Param("page") Page page, @Param("tags") List<String> tags);
 
 }

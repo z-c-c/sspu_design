@@ -3,7 +3,7 @@ package com.zcc.platform.person.entity;
 /**
  * @author zcc
  */
-public class PersonInfoEntity {
+public class PersonEntity {
 
     private String personId;
     private String personName;

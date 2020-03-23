@@ -2,14 +2,14 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zcc.platform.person.dao.PersonInfoDao">
+<mapper namespace="com.zcc.platform.person.dao.PersonDao">
 
-    <insert id="addPerson" parameterType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <insert id="addPerson" parameterType="com.zcc.platform.person.entity.PersonEntity">
         <selectKey keyProperty="personId" resultType="String" order="BEFORE">
             select replace(uuid(),'-','')from dual;
-            insert into person_info values
-            (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0');
         </selectKey>
+        insert into person_info values
+        (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0');
     </insert>
 
     <update id="delPerson">
@@ -19,7 +19,7 @@
     </update>
 
 
-    <update id="updatePerson" parameterType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <update id="updatePerson" parameterType="com.zcc.platform.person.entity.PersonEntity">
         update person_info
         <trim prefix="set" prefixOverrides=",">
             <if test="personName!=null">
@@ -53,14 +53,14 @@
         where person_id=#{personId};
     </update>
 
-    <select id="findPersonById" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <select id="findPersonById" resultType="com.zcc.platform.person.entity.PersonEntity">
         select *
         from person_info
         where person_id = #{personId}
           and is_delete != '1';
     </select>
 
-    <select id="findPerson" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <select id="findPerson" resultType="com.zcc.platform.person.entity.PersonEntity">
         select *
         from person_info
         <where>
@@ -74,7 +74,7 @@
     </select>
 
 
-    <select id="findPersonWithTag" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <select id="findPersonWithTag" resultType="com.zcc.platform.person.entity.PersonEntity">
         select p.person_id,
         p.person_name,
         p.person_used_name,
@@ -110,7 +110,7 @@
         </where>
     </select>
 
-    <select id="findPersonWithPage" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <select id="findPersonWithPage" resultType="com.zcc.platform.person.entity.PersonEntity">
         select *
         from person_info
         <where>
@@ -123,7 +123,7 @@
         </where>
     </select>
 
-    <select id="findPersonWithPageAndTag" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+    <select id="findPersonWithPageAndTag" resultType="com.zcc.platform.person.entity.PersonEntity">
         select p.person_id,
         p.person_name,
         p.person_used_name,
