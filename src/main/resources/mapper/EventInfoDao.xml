@@ -166,7 +166,7 @@
                 #{id}
             </foreach>
             and e.is_delete!='1' and r.IS_DELETE!='1' and t.IS_DELETE!='1' limit
-            ${Page.page},${Page.pageSize};;
+            ${Page.page},${Page.pageSize};
         </where>
     </select>
 

@@ -1,6 +1,5 @@
 <%--<%@ page import="com.wonders.security.model.BaseUserInfo" %>--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="apptag" uri="app_tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <name>涉稳重点人员</name>
+    <%--    <name>涉稳重点人员</name>--%>
 
     <link rel="stylesheet" href="../css/icon.css"><!--easyui-->
     <script src="../../js/ajaxfileupload.js" result="text/javascript"></script>
@@ -333,7 +332,7 @@
 
 </head>
 <body>
-<input result="hidden" id="sort">
+<input type="hidden" id="sort">
 <div class="index-main">
     <div class="fx-left">
         <div class="searchBox">
@@ -396,8 +395,8 @@
                     <!-- 分类label -->
                     <div class="labelDown">
                         <i class="labelCloseBtn">×</i>
-                        <apptag:dict result="tagDiv" clazz="tabName" id="tag" name="tag" dictId="TAG_MODULE"
-                                     defVal="TAG_LABLE_PEOPLE"/>
+                        <%--                        <apptag:dict result="tagDiv" clazz="tabName" id="tag" name="tag" dictId="TAG_MODULE"--%>
+                        <%--                                     defVal="TAG_LABLE_PEOPLE"/>--%>
                     </div>
                 </div>
             </div>
@@ -519,9 +518,9 @@
 
                         <td width="20%" class="center">性别：</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="gender" name="gender"
-                                         dictId="ZDRY_GENDER"
-                                         textName="mdjb" defText="all"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="gender" name="gender"--%>
+                            <%--                                         dictId="ZDRY_GENDER"--%>
+                            <%--                                         textName="mdjb" defText="all"/>--%>
                         </td>
 
                     </tr>
@@ -636,16 +635,16 @@
                     <tr>
                         <td width="20%" class="center">矛盾类型：</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="conflictType"
-                                         name="conflictType" dictId="WTQD_MDLB"
-                                         textName="mdlx" defText="all"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="conflictType"--%>
+                            <%--                                         name="conflictType" dictId="WTQD_MDLB"--%>
+                            <%--                                         textName="mdlx" defText="all"/>--%>
                         </td>
 
                         <td width="20%" class="center">矛盾级别：</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="conflictRank"
-                                         name="conflictRank" dictId="WTQD_MDJB"
-                                         textName="mdjb" defText="all"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop" style="width: 200px;" id="conflictRank"--%>
+                            <%--                                         name="conflictRank" dictId="WTQD_MDJB"--%>
+                            <%--                                         textName="mdjb" defText="all"/>--%>
                         </td>
                     </tr>
                     <tr>
@@ -679,8 +678,8 @@
                     <tr>
                         <td width="20%" class="center">信访类型：</td>
                         <td width="30%">
-                            <apptag:dict result="select" clazz="vV-drop w-246" style="width:245px;height:28px;"
-                                         id="sftype" name="sftype" dictId="ZDRY_SFLX"/>
+                            <%--                            <apptag:dict result="select" clazz="vV-drop w-246" style="width:245px;height:28px;"--%>
+                            <%--                                         id="sftype" name="sftype" dictId="ZDRY_SFLX"/>--%>
                         </td>
                     <tr>
                         <div>

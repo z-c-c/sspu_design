@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.platform.person.dao.PersonInfoDao">
+
+    <insert id="addPerson" parameterType="com.zcc.platform.person.entity.PersonInfoEntity">
+        <selectKey keyProperty="personId" resultType="String" order="BEFORE">
+            select replace(uuid(),'-','')from dual;
+            insert into person_info values
+            (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0');
+        </selectKey>
+    </insert>
+
+    <update id="delPerson">
+        update person_info
+        set is_delete='1'
+        where person_id = #{personId};
+    </update>
+
+
+    <update id="updatePerson" parameterType="com.zcc.platform.person.entity.PersonInfoEntity">
+        update person_info
+        <trim prefix="set" prefixOverrides=",">
+            <if test="personName!=null">
+                person_name=#{personName},
+            </if>
+            <if test="personUsedName!=null">
+                person_used_name=#{personUsedName},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender},
+            </if>
+            <if test="personIdentityNo!=null">
+                person_identity_no=#{personIdentityNo},
+            </if>
+            <if test="personImage!=null">
+                person_image=#{personImage},
+            </if>
+            <if test="nationality!=null">
+                nationality=#{nationality},
+            </if>
+            <if test="nativePlace!=null">
+                native_place=#{nativePlace},
+            </if>
+            <if test="phoneNo!=null">
+                phone_no=#{phoneNo},
+            </if>
+            <if test="liveAddr!=null">
+                live_addr=#{liveAddr},
+            </if>
+        </trim>
+        where person_id=#{personId};
+    </update>
+
+    <select id="findPersonById" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+        select *
+        from person_info
+        where person_id = #{personId}
+          and is_delete != '1';
+    </select>
+
+    <select id="findPerson" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+        select *
+        from person_info
+        <where>
+            <if test="param!=null and param !=''">
+                concat(ifnull(person_name, ''), ifnull(person_used_name, ''), ifnull(gender, ''),
+                IFNULL(person_identity_no, ''), ifnull(phone_no, ''),ifnull(native_place,''),ifnull(live_addr,'')) like
+                concat('%', #{param}, '%')
+            </if>
+            and is_delete != '1';
+        </where>
+    </select>
+
+
+    <select id="findPersonWithTag" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+        select p.person_id,
+        p.person_name,
+        p.person_used_name,
+        p.gender,
+        p.person_identity_no,
+        p.person_image,
+        p.nationality,
+        p.native_place,
+        p.phone_no,
+        p.live_addr,
+        p.is_delete,
+        r.RELATION_ID,
+        r.TAG_ID,
+        r.OBJECT_ID,
+        r.OBJECT_TYPE,
+        r.IS_DELETE
+        from person_info p,
+        dm_tag_object_relation r,
+        dm_tag_object_info t
+        <where>
+            <if test="param!=null and param !=''">
+                concat(ifnull(p.person_name, ''), ifnull(p.person_used_name, ''), ifnull(p.gender, ''),
+                IFNULL(p.person_identity_no, ''), ifnull(p.phone_no,
+                ''),ifnull(p.native_place,''),ifnull(p.live_addr,'')) like
+                concat('%', #{param}, '%')
+            </if>
+            and r.TAG_ID in
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")">
+                #{tagId}
+            </foreach>
+            and p.person_id = r.OBJECT_ID and r.OBJECT_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
+            and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1';
+        </where>
+    </select>
+
+    <select id="findPersonWithPage" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+        select *
+        from person_info
+        <where>
+            <if test="param!=null and param !=''">
+                concat(ifnull(person_name, ''), ifnull(person_used_name, ''), ifnull(gender, ''),
+                IFNULL(person_identity_no, ''), ifnull(phone_no, ''),ifnull(native_place,''),ifnull(live_addr,'')) like
+                concat('%', #{param}, '%')
+            </if>
+            and is_delete != '1' limit ${page.page},${page.pageSize};
+        </where>
+    </select>
+
+    <select id="findPersonWithPageAndTag" resultType="com.zcc.platform.person.entity.PersonInfoEntity">
+        select p.person_id,
+        p.person_name,
+        p.person_used_name,
+        p.gender,
+        p.person_identity_no,
+        p.person_image,
+        p.nationality,
+        p.native_place,
+        p.phone_no,
+        p.live_addr,
+        p.is_delete,
+        r.RELATION_ID,
+        r.TAG_ID,
+        r.OBJECT_ID,
+        r.OBJECT_TYPE,
+        r.IS_DELETE
+        from person_info p,
+        dm_tag_object_relation r,
+        dm_tag_object_info t
+        <where>
+            <if test="param!=null and param !=''">
+                concat(ifnull(p.person_name, ''), ifnull(p.person_used_name, ''), ifnull(p.gender, ''),
+                IFNULL(p.person_identity_no, ''), ifnull(p.phone_no,
+                ''),ifnull(p.native_place,''),ifnull(p.live_addr,'')) like
+                concat('%', #{param}, '%')
+            </if>
+            and r.TAG_ID in
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")">
+                #{tagId}
+            </foreach>
+            and p.person_id = r.OBJECT_ID and r.OBJECT_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
+            and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1' limit ${page.page},${page.pageSize};
+        </where>
+    </select>
+</mapper>

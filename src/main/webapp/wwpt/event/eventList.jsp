@@ -862,7 +862,6 @@
                 dataType: "json",
                 data: data,
                 success: function (result) {
-                    console.log(result)
                     if (result.code === "success") {
                         var events = result.data.events;
                         //下载本页时使用，用于暂存本页数据
@@ -1354,14 +1353,12 @@
         }
         data.handlePass = handlePass;
         data.handleUnit = $("#handleUnit option:selected").text();
-        console.log(data)
         $.ajax({
             type: "POST",
             url: "/eventInfo/saveEventHandleLog",
             dataType: "json",
             data: data,
             success: function (result) {
-                console.log(result)
                 if (result.message != "error") {
                     $("#eventHandle").hide();
                     uploadFile(result.data);
@@ -1450,6 +1447,9 @@
             // var removeStr = $(this).text();
             $(this).parent().remove();
         });
+        $("#handleResolve").find("li").removeClass("active");
+        $("#handleResolve").find("li").eq(0).addClass("active");
+        findEvent("", true, 1);
 
     }
 
@@ -1543,7 +1543,6 @@
                 handleLogId: handleLogId,
             },
             success: function (result) {
-                console.log(result)
                 if (result.code == "success") {
                     $("#handleContent").val(result.data.handleContent);
                     $("#handleDate").val(new Date(result.data.handleDate).format("yyyy-MM-dd hh:ss:mm"));
