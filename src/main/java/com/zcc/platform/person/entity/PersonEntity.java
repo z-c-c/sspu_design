@@ -7,6 +7,7 @@ public class PersonEntity {
 
     private String personId;
     private String personName;
+    private String age;
     private String personUsedName;
     private String gender;
     private String personIdentityNo;
@@ -113,5 +114,13 @@ public class PersonEntity {
 
     public void setIsDelete(String isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 }

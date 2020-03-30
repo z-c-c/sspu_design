@@ -21,9 +21,9 @@ public class FileUtil {
      *
      * @param request
      * @param attrName    标签的name属性
-     * @param handleLogId 文件的id
+     * @param id 文件的id
      */
-    public static String upLoad(HttpServletRequest request, String attrName, String handleLogId) {
+    public static String upLoad(HttpServletRequest request, String attrName, String id) {
         MultipartHttpServletRequest request1 = (MultipartHttpServletRequest) request;
         MultipartFile mFile = request1.getFile(attrName);
         //文件上传的位置
@@ -37,7 +37,7 @@ public class FileUtil {
         String outPath = null;
         String fileName = mFile.getOriginalFilename();
         if (StringUtil.isValidStr(fileName)) {
-            fileName = handleLogId + "ZCC" + fileName;
+            fileName = id + "ZCC" + fileName;
             //获取当前系统下的文件分隔符
             String property = System.getProperty("file.separator");
             outPath = path + property + fileName;

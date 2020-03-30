@@ -19,6 +19,14 @@ public interface PersonService {
     String save(PersonEntity personEntity, String tags);
 
     /**
+     * 保存人员
+     *
+     * @param personEntity
+     * @return
+     */
+    String save(PersonEntity personEntity);
+
+    /**
      * 删除人员
      *
      * @param personId
@@ -32,6 +40,14 @@ public interface PersonService {
      * @return
      */
     PersonEntity findById(String personId);
+
+    /**
+     * 查找人员
+     *
+     * @param gender gender
+     * @return list
+     */
+    List<PersonEntity> findByGender(String gender);
 
     /**
      * 模糊查找
@@ -68,4 +84,36 @@ public interface PersonService {
      * @return
      */
     List<PersonEntity> find(String param, Page page, String tags);
+
+    /**
+     * 人物数据聚合
+     *
+     * @param personId personId
+     * @return list
+     */
+    List<PersonEntity> dateTogether(String personId);
+
+    /**
+     * 数据聚合
+     *
+     * @param personId personId
+     * @param page     page
+     * @return list
+     */
+    List<PersonEntity> dateTogether(String personId, Page page);
+
+    /**
+     * 数据聚合
+     *
+     * @return
+     */
+    List<PersonEntity> dateTogetherAll();
+
+    /**
+     * 数据聚合
+     *
+     * @param page page
+     * @return
+     */
+    List<PersonEntity> dateTogetherAll(Page page);
 }

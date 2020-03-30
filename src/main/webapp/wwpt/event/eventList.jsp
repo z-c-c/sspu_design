@@ -514,36 +514,13 @@
             $(".fuzzyData").fadeOut();
         });
 
-        // //移入移出效果
-        // $(".spanItem").hover(function () {
-        //     $(this).css('background-color', '#dbf1fc');
-        // }, function () {
-        //     $(this).css('background-color', 'white');
-        // });
-
 
         //项点击
         var labelArr = [];
         var labelAllH = 0;
         var labelTop = 0;
 
-        // $(".spanItem").on("click", function () {
-        //     var textCon = $(this).text();
-        //     if (labelArr.indexOf(textCon) != -1) {
-        //         return
-        //     }
-        //     labelArr.push(textCon);
-        //     // 隐藏输入框
-        //     $(".fuzzyBox").css("display", "none");
-        //     $(".labelAll").prepend('<span>\n' +
-        //         '                <strong>' + textCon + '</strong>\n' +
-        //         '                <i class="labelClose">×</i>\n' +
-        //         '            </span>');
-        //     alert(1)
-        //     search(1, "-1", true);
-        //     $(".labelCloseBtn").trigger('click');
-        //     clickHandle();
-        // });
+
 
         //标签点击，填充到标签列表框
         $(".tabCon .span").on("click", function () {
@@ -835,7 +812,7 @@
     //事件列表
     function findEvent(handleFlag, flag, page) {
 
-        var tags = '';
+        let tags = '';
         $(".labelAll span strong").each(function () {
             tags += "" + $(this).attr("id") + "" + ','
         });
@@ -976,7 +953,7 @@
                                 $(this).next().fadeOut();
                             }
                             dropSort = !dropSort;
-                        })
+                        });
                         $(".sortDown").mouseleave(function () {
                             $(this).fadeOut(200);
                         });
@@ -1130,6 +1107,8 @@
         $("#add").show();
         $(".fs-options").find('div').removeClass("selected");
         $(".fs-options").find('div').removeClass("selected");
+        $(".fs-label").eq(0).attr("title", "");
+        $(".fs-label").eq(0).text("");
         $("#addEvent").show();
     }
 
@@ -1607,7 +1586,6 @@
         $("#updateEventTitle").show();
         $("#update").show();
 
-
         $.ajax({
             type: "POST",
             url: "/tagObjectRelation/findTagByObjectId",
@@ -1619,8 +1597,9 @@
                 if (result.code === "success") {
                     let tags = result.data;
                     let names = '';
+                    $(".fs-options").eq(0).find('div').removeClass("selected");
                     for (let i = 0; i < tags.length; i++) {
-                        names += tags[i].tagName + ","
+                        names += tags[i].tagName + ",";
                         $(".fs-options").eq(0).find('div[data-value=\"' + tags[i].tagId + '\"]').addClass("selected");
                     }
                     names = names.substr(0, names.length - 1);

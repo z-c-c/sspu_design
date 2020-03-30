@@ -57,6 +57,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public String save(PersonEntity personEntity) {
+        if (StringUtil.isValidStr(personEntity.getPersonId())) {
+            personDao.updatePerson(personEntity);
+        } else {
+            personDao.addPerson(personEntity);
+        }
+        return personEntity.getPersonId();
+    }
+
+    @Override
     public void del(String personId) {
         personDao.delPerson(personId);
     }
@@ -64,6 +74,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonEntity findById(String personId) {
         return personDao.findPersonById(personId);
+    }
+
+    @Override
+    public List<PersonEntity> findByGender(String gender) {
+        return personDao.findByGender(gender);
     }
 
     @Override
@@ -84,5 +99,25 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<PersonEntity> find(String param, Page page, String tags) {
         return personDao.findPersonWithPageAndTag(param, page, Arrays.asList(tags.split(",")));
+    }
+
+    @Override
+    public List<PersonEntity> dateTogether(String personId) {
+        return personDao.dateTogether(personId);
+    }
+
+    @Override
+    public List<PersonEntity> dateTogether(String personId, Page page) {
+        return personDao.dateTogetherWithPage(personId, page);
+    }
+
+    @Override
+    public List<PersonEntity> dateTogetherAll() {
+        return personDao.dateTogetherAll();
+    }
+
+    @Override
+    public List<PersonEntity> dateTogetherAll(Page page) {
+        return personDao.dateTogetherAllWithPage(page);
     }
 }

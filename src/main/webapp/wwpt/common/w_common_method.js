@@ -223,3 +223,7 @@ function safeToString(str) {
         }
     }
 }
+
+function successOperator() {
+    $.messager.alert("操作提示", "操作成功!");
+}

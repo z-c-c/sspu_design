@@ -4,6 +4,7 @@ import com.zcc.commons.utils.Page;
 import com.zcc.platform.person.entity.PersonEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -43,12 +44,20 @@ public interface PersonDao {
     PersonEntity findPersonById(String personId);
 
     /**
+     * 查找人员
+     *
+     * @param gender
+     * @return
+     */
+    List<PersonEntity> findByGender(String gender);
+
+    /**
      * 模糊查找
      *
      * @param param
      * @return
      */
-    List<PersonEntity> findPerson(String param);
+    List<PersonEntity> findPerson(@Param("param") String param);
 
     /**
      * 模糊查找+标签查找
@@ -77,5 +86,37 @@ public interface PersonDao {
      * @return
      */
     List<PersonEntity> findPersonWithPageAndTag(@Param("param") String param, @Param("page") Page page, @Param("tags") List<String> tags);
+
+    /**
+     * 数据聚合
+     *
+     * @param personId
+     * @return
+     */
+    List<PersonEntity> dateTogether(String personId);
+
+    /**
+     * 数据聚合
+     *
+     * @param personId
+     * @param page
+     * @return
+     */
+    List<PersonEntity> dateTogetherWithPage(@Param("personId") String personId, @Param("page") Page page);
+
+    /**
+     * 数据聚合
+     *
+     * @return
+     */
+    List<PersonEntity> dateTogetherAll();
+
+    /**
+     * 数据聚合
+     *
+     * @param page
+     * @return
+     */
+    List<PersonEntity> dateTogetherAllWithPage(Page page);
 
 }

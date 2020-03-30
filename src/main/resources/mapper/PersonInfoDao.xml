@@ -9,7 +9,7 @@
             select replace(uuid(),'-','')from dual;
         </selectKey>
         insert into person_info values
-        (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0');
+        (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0',#{age});
     </insert>
 
     <update id="delPerson">
@@ -37,6 +37,9 @@
             <if test="personImage!=null">
                 person_image=#{personImage},
             </if>
+            <if test="age!=null">
+                age=#{age},
+            </if>
             <if test="nationality!=null">
                 nationality=#{nationality},
             </if>
@@ -47,16 +50,23 @@
                 phone_no=#{phoneNo},
             </if>
             <if test="liveAddr!=null">
-                live_addr=#{liveAddr},
+                live_addr=#{liveAddr}
             </if>
         </trim>
-        where person_id=#{personId};
+        where person_id=#{personId}
     </update>
 
     <select id="findPersonById" resultType="com.zcc.platform.person.entity.PersonEntity">
         select *
         from person_info
         where person_id = #{personId}
+          and is_delete != '1';
+    </select>
+
+    <select id="findByGender" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select *
+        from person_info
+        where gender = #{gender}
           and is_delete != '1';
     </select>
 
@@ -102,10 +112,10 @@
                 concat('%', #{param}, '%')
             </if>
             and r.TAG_ID in
-            <foreach collection="tags" item="tagId" index="index" open="(" close=")">
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")" separator=",">
                 #{tagId}
             </foreach>
-            and p.person_id = r.OBJECT_ID and r.OBJECT_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
+            and p.person_id = r.OBJECT_ID and r.TAG_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
             and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1';
         </where>
     </select>
@@ -151,11 +161,65 @@
                 concat('%', #{param}, '%')
             </if>
             and r.TAG_ID in
-            <foreach collection="tags" item="tagId" index="index" open="(" close=")">
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")" separator=",">
                 #{tagId}
             </foreach>
-            and p.person_id = r.OBJECT_ID and r.OBJECT_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
+            and p.person_id = r.OBJECT_ID and r.TAG_ID=t.TAG_ID and r.OBJECT_TYPE = 'person'
             and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1' limit ${page.page},${page.pageSize};
         </where>
+    </select>
+
+    <select id="dateTogether" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select distinct *
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join person_info p on r2.OBJECT_ID = p.person_id
+        where r1.OBJECT_TYPE = 'person'
+          and r2.OBJECT_TYPE = 'person'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID = #{personId};
+    </select>
+
+    <select id="dateTogetherWithPage" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select distinct *
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join person_info p on r2.OBJECT_ID = p.person_id
+        where r1.OBJECT_TYPE = 'person'
+          and r2.OBJECT_TYPE = 'person'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID = #{personId}
+        limit ${page.page},${page.pageSize};
+    </select>
+
+    <select id="dateTogetherAll" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join person_info p on r2.OBJECT_ID = p.person_id
+        where r1.OBJECT_TYPE = 'person'
+          and r2.OBJECT_TYPE = 'person'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID in (select p2.person_id from person_info p2 where p2.is_delete != '1');
+    </select>
+
+    <select id="dateTogetherAllWithPage" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join person_info p on r2.OBJECT_ID = p.person_id
+        where r1.OBJECT_TYPE = 'person'
+          and r2.OBJECT_TYPE = 'person'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID in (select p2.person_id from person_info p2 where p2.is_delete != '1')
+        limit ${page},${pageSize};
     </select>
 </mapper>
