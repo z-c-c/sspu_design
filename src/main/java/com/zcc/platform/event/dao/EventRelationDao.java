@@ -4,6 +4,8 @@ import com.zcc.platform.event.entity.EventRelationEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author zcc
  */
@@ -26,6 +28,14 @@ public interface EventRelationDao {
     void delEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId);
 
     /**
+     * 删除事件关联对象
+     *
+     * @param eventId    eventId
+     * @param objectType objectType
+     */
+    void delEventRelationType(@Param("eventId") String eventId, @Param("objectType") String objectType);
+
+    /**
      * 查找指定的关联对象
      *
      * @param eventId  eventId
@@ -33,6 +43,15 @@ public interface EventRelationDao {
      * @return EventRelationEntity
      */
     EventRelationEntity findByEventIdAndObjectId(@Param("eventId") String eventId, @Param("objectId") String objectId);
+
+    /**
+     * 查找事件关联对象
+     *
+     * @param eventId    eventId
+     * @param objectType objectType
+     * @return
+     */
+    List<EventRelationEntity> findByEventIdAndObjectType(@Param("eventId") String eventId, @Param("objectType") String objectType);
 
     /**
      * 修改关联关系

@@ -77,6 +77,15 @@ public interface EventInfoService {
     String addEventRelationObject(EventRelationEntity eventRelationEntity);
 
     /**
+     * 查找事件关联对象
+     *
+     * @param eventId    eventId
+     * @param objectType objectType
+     * @return list
+     */
+    List findEventRelationObject(String eventId, String objectType);
+
+    /**
      * 删除事件关联对象
      *
      * @param eventId  eventId

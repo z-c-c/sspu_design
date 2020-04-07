@@ -1,5 +1,6 @@
 <%@ taglib prefix="tag" uri="object_tag" %>
 <%@ taglib prefix="gov" uri="gov_unit" %>
+<%@ taglib prefix="object" uri="object" %>
 <%--
   Created by IntelliJ IDEA.
   User: zcc
@@ -410,14 +411,8 @@
                     <tr>
                         <td class="center">涉及人员</td>
                         <td colspan="3">
-                            <select class="vV-drop" style="width:550px;height:28px;" id="linkPersonNo"
-                                    multiple="multiple">
-                                <option value="1">小明</option>
-                                <option value="2">小王</option>
-                                <option value="3">小张</option>
-                                <option value="4">小李</option>
-                                <option value="5">小赵</option>
-                            </select>
+                            <object:object type="person" clazz="vV-drop" style="width:550px;height:28px;"
+                                           id="linkPersonNo"/>
                         </td>
                     </tr>
                     <tr>
@@ -1109,6 +1104,8 @@
         $(".fs-options").find('div').removeClass("selected");
         $(".fs-label").eq(0).attr("title", "");
         $(".fs-label").eq(0).text("");
+        $(".fs-label").eq(1).attr("title", "");
+        $(".fs-label").eq(1).text("");
         $("#addEvent").show();
     }
 

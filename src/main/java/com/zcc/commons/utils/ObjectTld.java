@@ -1,9 +1,10 @@
 package com.zcc.commons.utils;
 
-import com.zcc.manager.govunitmanager.entity.GovUnitEntity;
-import com.zcc.manager.govunitmanager.service.GovUnitService;
 import com.zcc.manager.govunitmanager.service.impl.GovUnitServiceImpl;
-import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
+import com.zcc.platform.event.entity.EventRelationEntity;
+import com.zcc.platform.person.entity.PersonEntity;
+import com.zcc.platform.person.service.PersonService;
+import com.zcc.platform.person.service.impl.PersonServiceImpl;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -15,49 +16,50 @@ import java.util.Objects;
 
 /**
  * @author zcc
- * 自定义govUtilTag对应类 返回GovUtil列表
  */
-public class GovUtilTld extends BodyTagSupport {
-
-    private static GovUnitService govUnitService;
+public class ObjectTld extends BodyTagSupport {
     private String id;
     private String style;
     private String clazz;
+    private String type;
+    private static PersonService personService;
 
     static {
         WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
-        govUnitService = Objects.requireNonNull(currentWebApplicationContext).getBean(GovUnitServiceImpl.class);
+        personService = Objects.requireNonNull(currentWebApplicationContext).getBean(PersonServiceImpl.class);
     }
 
     @Override
     public int doStartTag() throws JspException {
-
-        try {
-            pageContext.getOut().write(getGovUnit());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return super.doStartTag();
     }
 
     @Override
     public int doEndTag() throws JspException {
+        try {
+            if (EventRelationEntity.OBJECT_TYPE_PERSON.equals(this.type)) {
+                pageContext.getOut().write(getPerson());
+            } else if (EventRelationEntity.OBJECT_TYPE_UNIT.equals(this.type)) {
+                pageContext.getOut().write("");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return super.doEndTag();
     }
 
-    private String getGovUnit() {
-        List<GovUnitEntity> govUnitServiceAll = govUnitService.findAll();
+    private String getPerson() {
+        List<PersonEntity> personEntities = personService.find(null);
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("<select class=\"" + this.getClazz() + "\" style=\"" + this.getStyle() + "\" id=\"" + this.getId() + "\"" +
-                "                                    >");
-        for (GovUnitEntity govUnitEntity : govUnitServiceAll) {
-            stringBuffer.append(" <option value=\"" + govUnitEntity.getId() + "\">" + govUnitEntity.getName() + "</option>");
+                "                                    multiple=\"multiple\">");
+        for (PersonEntity personEntity : personEntities) {
+            stringBuffer.append(" <option value=\"" + personEntity.getPersonId() + "\">" + personEntity.getPersonName() + "</option>");
         }
         stringBuffer.append("</select>");
         return stringBuffer.toString();
     }
-
 
     @Override
     public String getId() {
@@ -83,5 +85,13 @@ public class GovUtilTld extends BodyTagSupport {
 
     public void setClazz(String clazz) {
         this.clazz = clazz;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

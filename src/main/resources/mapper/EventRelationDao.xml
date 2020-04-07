@@ -19,10 +19,25 @@
           and OBJECT_ID = #{objectId};
     </update>
 
+    <update id="delEventRelationType">
+        update event_relation_object
+        set IS_DELETE='1'
+        where EVENT_ID = #{eventId}
+          and OBJECT_ID = #{objectType};
+    </update>
+
     <select id="findByEventIdAndObjectId" resultType="com.zcc.platform.event.entity.EventRelationEntity">
         select *
         from event_relation_object
         where OBJECT_ID = #{objectId}
+          and EVENT_ID = #{eventId}
+          and IS_DELETE != '1';
+    </select>
+
+    <select id="findByEventIdAndObjectType" resultType="com.zcc.platform.event.entity.EventRelationEntity">
+        select *
+        from event_relation_object
+        where OBJECT_TYPE = #{objectType}
           and EVENT_ID = #{eventId}
           and IS_DELETE != '1';
     </select>

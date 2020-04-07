@@ -13,6 +13,8 @@ import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.entity.HandleLogEntity;
 import com.zcc.platform.event.service.EventInfoService;
+import com.zcc.platform.person.dao.PersonDao;
+import com.zcc.platform.person.entity.PersonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,9 @@ public class EventInfoServiceImpl implements EventInfoService {
     private EventRelationDao eventRelationDao;
     @Autowired
     private TagObjectRelationService tagObjectRelationService;
+
+    @Autowired
+    private PersonDao personDao;
 
     /**
      * 保存事件
@@ -77,6 +82,8 @@ public class EventInfoServiceImpl implements EventInfoService {
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_PERSON);
             }
+        } else {
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_PERSON);
         }
         //添加事件关联单位
         if (StringUtil.isValidStr(linkUnitNos)) {
@@ -84,13 +91,17 @@ public class EventInfoServiceImpl implements EventInfoService {
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_UNIT);
             }
+        } else {
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_UNIT);
         }
-        //添加事件关联对象
+        //添加事件关联事件
         if (StringUtil.isValidStr(linkEventNos)) {
             String[] split = linkEventNos.split(",");
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_EVENT);
             }
+        } else {
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_EVENT);
         }
 
         return eventInfoEntity.getEventId();
@@ -201,6 +212,21 @@ public class EventInfoServiceImpl implements EventInfoService {
         return eventRelationEntity.getEventId();
     }
 
+
+    @Override
+    public List findEventRelationObject(String eventId, String objectType) {
+        //查找关联人员
+        if (EventRelationEntity.OBJECT_TYPE_PERSON.equals(objectType)) {
+            List<PersonEntity> result = new ArrayList<>();
+            List<EventRelationEntity> byEventIdAndObjectType = eventRelationDao.findByEventIdAndObjectType(eventId, objectType);
+            for (EventRelationEntity eventRelationEntity : byEventIdAndObjectType) {
+                result.add(personDao.findPersonById(eventRelationEntity.getObjectId()));
+            }
+            return result;
+        }
+        return null;
+    }
+
     /**
      * 删除事件关联对象
      *
@@ -211,6 +237,7 @@ public class EventInfoServiceImpl implements EventInfoService {
     public void delEventRelationObject(String eventId, String objectId) {
         eventRelationDao.delEventRelationObject(eventId, objectId);
     }
+
 
     /**
      * 单个事件的数据聚合,分页
