@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.platform.unit.dao.UnitDao">
+
+    <insert id="addUnit" parameterType="com.zcc.platform.unit.entity.UnitEntity">
+        <selectKey resultType="String" order="BEFORE" keyProperty="unitId">
+            select replace(uuid(),'-','') from dual;
+        </selectKey>
+        insert into unit_info values
+        (#{unitId},#{unitName},#{unitDetail},#{unitLegalPerson},#{usccCode},#{status},#{industry},#{addr},#{registerTime},'0');
+    </insert>
+
+    <update id="delUnit">
+        update unit_info
+        set is_delete='1'
+        where unit_id = #{unitId};
+    </update>
+
+    <update id="updateUnit" parameterType="com.zcc.platform.unit.entity.UnitEntity">
+        update unit_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="unitName!=null">
+                unit_name=#{unitName}
+            </if>
+            <if test="unitDetail!=null">
+                unit_detail=#{unitDetail}
+            </if>
+            <if test="unitLegalPerson!=null">
+                unit_legal_person=#{unitLegalPerson}
+            </if>
+            <if test="usccCode!=null">
+                uscc_code=#{usccCode}
+            </if>
+            <if test="status!=null">
+                status=#{status}
+            </if>
+            <if test="industry!=null">
+                industry=#{industry}
+            </if>
+            <if test="addr!=null">
+                addr=#{addr}
+            </if>
+            <if test="registerTime!=null">
+                register_time=#{registerTime}
+            </if>
+        </trim>
+        where unit_id=#{unitId};
+    </update>
+
+    <select id="findUnitById" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select *
+        from unit_info
+        where unit_id = #{unitId}
+          and is_delete != '1';
+    </select>
+
+    <select id="findUnitByStatus" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select *
+        from unit_info
+        where status = #{status}
+          and is_delete != '1';
+    </select>
+
+    <select id="findUnit" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select * from unit_info
+        <where>
+            <if test="param!=null and param!=''">
+                concat(ifnull(unit_name,''),ifnull(unit_legal_person,''),ifnull(industry,''),ifnull(addr),'') like
+                concat('%',#{param},'%')
+            </if>
+            and is_delete!='1';
+        </where>
+    </select>
+
+    <select id="findUnitWithTag" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select p.unit_id, p.unit_name, p.unit_detail, p.unit_legal_person, p.uscc_code, p.status, p.industry, p.addr,
+        p.register_time, p.is_delete
+        from unit_info p, dm_tag_object_relation r,
+        dm_tag_object_info t
+        <where>
+            <if test="param!=null and param!=''">
+                concat(ifnull(p.unit_name,''),ifnull(p.unit_legal_person,''),ifnull(p.industry,''),ifnull(p.addr),'')
+                like
+                concat('%',#{param},'%')
+            </if>
+            and r.TAG_ID in
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")" separator=",">
+                #{tagId}
+            </foreach>
+            and p.unit_id = r.OBJECT_ID and r.TAG_ID=t.TAG_ID and r.OBJECT_TYPE = 'unit'
+            and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1';
+        </where>
+    </select>
+
+
+    <select id="findUnitWithPage" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select * from unit_info
+        <where>
+            <if test="param!=null and param!=''">
+                concat(ifnull(unit_name,''),ifnull(unit_legal_person,''),ifnull(industry,''),ifnull(addr),'') like
+                concat('%',#{param},'%')
+            </if>
+            and is_delete!='1' limit ${page.page},${page.pageSize};
+        </where>
+    </select>
+
+    <select id="findUnitWithPageAndTag" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select p.unit_id, p.unit_name, p.unit_detail, p.unit_legal_person, p.uscc_code, p.status, p.industry, p.addr,
+        p.register_time, p.is_delete
+        from unit_info p, dm_tag_object_relation r,
+        dm_tag_object_info t
+        <where>
+            <if test="param!=null and param!=''">
+                concat(ifnull(p.unit_name,''),ifnull(p.unit_legal_person,''),ifnull(p.industry,''),ifnull(p.addr),'')
+                like
+                concat('%',#{param},'%')
+            </if>
+            and r.TAG_ID in
+            <foreach collection="tags" item="tagId" index="index" open="(" close=")" separator=",">
+                #{tagId}
+            </foreach>
+            and p.unit_id = r.OBJECT_ID and r.TAG_ID=t.TAG_ID and r.OBJECT_TYPE = 'unit'
+            and p.is_delete != '1' and r.IS_DELETE!='1' and t.IS_DELETE!='1' limit ${page.page},${page.pageSize};
+        </where>
+    </select>
+
+    <select id="dataTogether" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join unit_info p on r2.OBJECT_ID = p.unit_id
+        where r1.OBJECT_TYPE = 'unit'
+          and r2.OBJECT_TYPE = 'unit'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID = #{unitId};
+    </select>
+
+    <select id="dataTogetherWithPage" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join unit_info p on r2.OBJECT_ID = p.unit_id
+        where r1.OBJECT_TYPE = 'unit'
+          and r2.OBJECT_TYPE = 'unit'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID = #{unitId}
+        limit ${page.page},${page.pageSize};
+    </select>
+
+    <select id="dataTogetherAll">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join unit_info p on r2.OBJECT_ID = p.unit_id
+        where r1.OBJECT_TYPE = 'unit'
+          and r2.OBJECT_TYPE = 'unit'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID in (select p2.unit_id from unit_info p2 where p2.is_delete != '1');
+    </select>
+
+    <select id="dataTogetherAllWithPage" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select distinct p.*
+        from event_relation_object r1
+                 join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
+                 join unit_info p on r2.OBJECT_ID = p.unit_id
+        where r1.OBJECT_TYPE = 'unit'
+          and r2.OBJECT_TYPE = 'unit'
+          and r1.IS_DELETE != '1'
+          and r2.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r1.OBJECT_ID in (select p2.unit_id from unit_info p2 where p2.is_delete != '1')
+        limit ${page},${pageSize};
+    </select>
+
+</mapper>

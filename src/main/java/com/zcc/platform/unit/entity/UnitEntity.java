@@ -1,7 +1,7 @@
 package com.zcc.platform.unit.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (UnitInfo)实体类

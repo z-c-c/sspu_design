@@ -4,7 +4,6 @@ import com.zcc.commons.utils.Page;
 import com.zcc.platform.person.entity.PersonEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -52,8 +51,7 @@ public interface PersonDao {
     List<PersonEntity> findByGender(String gender);
 
     /**
-     * 模糊查找
-     *
+     * 模糊查找 ：姓名/曾用名/性别/手机号/身份证号/籍贯/居住地
      * @param param
      * @return
      */

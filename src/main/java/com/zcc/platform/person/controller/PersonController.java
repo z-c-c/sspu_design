@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +45,7 @@ public class PersonController {
         personService.save(byId);
         return ResultBean.success();
     }
+
     @Log(name = "删除人员")
     @DeleteMapping("/del/{id}")
     public ResultBean del(@PathVariable("id") String personId) {
