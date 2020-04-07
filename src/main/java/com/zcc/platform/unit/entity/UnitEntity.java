@@ -14,23 +14,48 @@ public class UnitEntity implements Serializable {
 
     private String unitId;
 
+    /**
+     * 单位名称
+     */
     private String unitName;
+    /**
+     * 单位描述
+     */
+    private String unitDetail;
 
+    /**
+     * 单位法人
+     */
     private String unitLegalPerson;
-
+    /**
+     * 统一社会信用码
+     */
     private String usccCode;
 
+    /**
+     * 是否经营
+     */
     private String status;
 
+    /**
+     * 行业
+     */
     private String industry;
 
+    /***
+     * 单位地址
+     */
     private String addr;
 
-    private String street;
-
+    /**
+     * 单位组册时间
+     */
     private Date registerTime;
 
-    private String isdelete;
+    /**
+     * 删除标志
+     */
+    private String isDelete;
 
 
     public String getUnitId() {
@@ -89,13 +114,6 @@ public class UnitEntity implements Serializable {
         this.addr = addr;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
 
     public Date getRegisterTime() {
         return registerTime;
@@ -105,12 +123,19 @@ public class UnitEntity implements Serializable {
         this.registerTime = registerTime;
     }
 
-    public String getIsdelete() {
-        return isdelete;
+    public String getIsDelete() {
+        return isDelete;
     }
 
-    public void setIsdelete(String isdelete) {
-        this.isdelete = isdelete;
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete;
     }
 
+    public String getUnitDetail() {
+        return unitDetail;
+    }
+
+    public void setUnitDetail(String unitDetail) {
+        this.unitDetail = unitDetail;
+    }
 }
