@@ -606,7 +606,6 @@
 
         // 排序方式
         $(".statusList li").click(function () {
-            console.log("切换")
             $(this).addClass("active").siblings().removeClass("active");
         });
         var sortHtml = "";
@@ -1609,6 +1608,31 @@
 
         $.ajax({
             type: "POST",
+            url: "/eventInfo/findEventRelationObject",
+            dataType: "json",
+            data: {
+                eventId: eventId,
+                objectType: 'person'
+            },
+            success: function (result) {
+                if (result.code === "success") {
+                    let persons = result.data;
+                    let names = '';
+                    $(".fs-options").eq(1).find('div').removeClass("selected");
+                    for (let i = 0; i < persons.length; i++) {
+                        names += persons[i].personName + ",";
+                        $(".fs-options").eq(1).find('div[data-value=\"' + persons[i].personId + '\"]').addClass("selected");
+                    }
+                    names = names.substr(0, names.length - 1);
+                    $(".fs-label").eq(1).attr("title", names);
+                    $(".fs-label").eq(1).text(names);
+
+                }
+            }
+        });
+
+        $.ajax({
+            type: "POST",
             url: "/eventInfo/findById",
             dataType: "json",
             data: {
@@ -1641,8 +1665,22 @@
         data.occurredPlace = $("#occurredPlace").val();
         data.occurredLongti = $("#occurredLongti").val();
         data.occurredLati = $("#occurredLati").val();
-        data.tags = safeToString($("#linkTag").val());
-        data.linkPersonNos = safeToString($("#linkPersonNo").val());
+        var tags = '';
+        $(".fs-options").eq(0).find('div').each(function () {
+            if ($(this).hasClass('selected')) {
+
+                tags += $(this).context.dataset.value + ',';
+            }
+        });
+        data.tags = safeToString(tags);
+        var persons = '';
+        $(".fs-options").eq(1).find('div').each(function () {
+            if ($(this).hasClass('selected')) {
+
+                persons += $(this).context.dataset.value + ',';
+            }
+        });
+        data.linkPersonNos = safeToString(persons);
         data.linkUnitNos = safeToString($("#linkUnitNo").val());
         data.linkEventNos = safeToString($("#linkEventNo").val());
         if (flag === "add") {

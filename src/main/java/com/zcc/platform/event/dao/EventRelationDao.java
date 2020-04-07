@@ -49,7 +49,7 @@ public interface EventRelationDao {
      *
      * @param eventId    eventId
      * @param objectType objectType
-     * @return
+     * @return list
      */
     List<EventRelationEntity> findByEventIdAndObjectType(@Param("eventId") String eventId, @Param("objectType") String objectType);
 

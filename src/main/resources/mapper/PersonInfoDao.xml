@@ -170,7 +170,7 @@
     </select>
 
     <select id="dateTogether" resultType="com.zcc.platform.person.entity.PersonEntity">
-        select distinct *
+        select distinct p.*
         from event_relation_object r1
                  join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
                  join person_info p on r2.OBJECT_ID = p.person_id
@@ -183,7 +183,7 @@
     </select>
 
     <select id="dateTogetherWithPage" resultType="com.zcc.platform.person.entity.PersonEntity">
-        select distinct *
+        select distinct p.*
         from event_relation_object r1
                  join event_relation_object r2 on r1.EVENT_ID = r2.EVENT_ID
                  join person_info p on r2.OBJECT_ID = p.person_id

@@ -99,6 +99,11 @@ public class EventInfoController {
         return ResultBean.success();
     }
 
+    @Log(name = "查找事件关联对象")
+    @PostMapping("/findEventRelationObject")
+    public ResultBean findEventRelationObject(String eventId, String objectType) {
+        return ResultBean.success(eventInfoService.findEventRelationObject(eventId, objectType));
+    }
     @Log(name = "单个事件数据聚合")
     @RequestMapping(value = "/findDataTogether", method = RequestMethod.POST)
     public ResultBean findDataTogether(String eventId, Integer page, Integer pageSize) throws Exception {

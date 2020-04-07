@@ -616,7 +616,16 @@
         data.nativePlace = $("#nativePlace").val();
         data.phoneNo = $("#phoneNo").val();
         data.liveAddr = $("#liveAddr").val();
-        data.tags = safeToString($("#linkTag").val());
+
+        var tags = '';
+        $(".fs-options").eq(0).find('div').each(function () {
+            if ($(this).hasClass('selected')) {
+
+                tags += $(this).context.dataset.value + ',';
+            }
+        });
+        data.tags = safeToString(tags);
+        console.log(data)
         $.ajax({
             type: "POST",
             url: "/persons/save",

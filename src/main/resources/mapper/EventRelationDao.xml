@@ -23,7 +23,7 @@
         update event_relation_object
         set IS_DELETE='1'
         where EVENT_ID = #{eventId}
-          and OBJECT_ID = #{objectType};
+          and OBJECT_TYPE = #{objectType};
     </update>
 
     <select id="findByEventIdAndObjectId" resultType="com.zcc.platform.event.entity.EventRelationEntity">
