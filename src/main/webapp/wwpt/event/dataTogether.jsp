@@ -212,7 +212,6 @@
                 pageSize: 5
             },
             success: function (result) {
-                console.log(result)
                 let list = result.data.dataTogether;
                 let count = result.data.count;
                 if (flag) {
@@ -305,7 +304,8 @@
                 if (result.code == "success") {
                     var tags = result.data;
                     for (var i = 0; i < tags.length; i++) {
-                        str += '<span style="background: ' + tags[i].tagColorCode + '" class="green">' + tags[i].tagName + '</span>';
+                        let color = JSON.parse(tags[i].tagCssCode).color;
+                        str += '<span style="background: ' + color + '" class="green">' + tags[i].tagName + '</span>';
                     }
                 }
                 unittag = str;

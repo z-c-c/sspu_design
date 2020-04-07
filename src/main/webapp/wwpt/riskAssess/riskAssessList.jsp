@@ -731,7 +731,7 @@
                     '                <i class="labelClose">×</i>\n' +
                     '            </span>');
                 search(1,"-1",true);
-                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findPerson("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 $(".labelCloseBtn").trigger('click');
                 clickHandle();
             });
@@ -753,7 +753,7 @@
 
                 $(".labelCloseBtn").trigger('click');
                 search(1,"-1",true);
-                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findPerson("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 clickHandle();
             })
 
@@ -763,7 +763,7 @@
                 removeByValue(labelArr, removeStr);
                 $(this).parent().remove();
                 search(1,"-1",true);
-                // findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+                // findPerson("", "", "", "", "", "", "", "", 1, 5, "0", true);
                 $(".labelCloseBtn").trigger('click');
                 clickHandle();
             })
@@ -1784,7 +1784,7 @@
             // success:function (result) {
             //     if(result=="success"){
             //         $("#addfxpg").hide();
-            //         findEvent("", "", "", "", "", "", "", "", 1, 5, "0", true);
+            //         findPerson("", "", "", "", "", "", "", "", 1, 5, "0", true);
             //         // $("#m2").show();
             //         successOperator();
             //     }

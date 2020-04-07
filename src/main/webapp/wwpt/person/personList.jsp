@@ -686,7 +686,7 @@
                         if (!unittag) {
                             unittag = ''
                         }
-                        dataTogetherById(persons[i].personId)
+                        dataTogetherById(persons[i].personId);
                         // pid = result["data"]["content"][i].id;
                         str1 += "<ul >";
                         str1 += "<li>";
@@ -694,7 +694,7 @@
                         if (persons[i].personImage != null && persons[i].personImage != "" && persons[i].personImage != "null") {
                             str1 += "<div style=\"float: left;\"><img src=\"/uploads/" + persons[i].personImage + "\" style=\"margin-left: 20px;top: -22px\"alt=\"\"></div>"
                         } else {
-                            str1 += "<div style=\"float: left;\"><img src=\"../images/people.png\" style=\"margin-left: 20px;top: -22px\"alt=\"\"></div>"
+                            str1 += "<div style=\"float: left;\"><img src=\"../images/people.png\" style=\"margin-left: 20px;top: -8px\"alt=\"\"></div>"
                         }
                         str1 += "<div style=\"margin-left: 120px;\"><p class=\"proInfo\" name=\"paId\" hidden=\"hidden\">" + persons[i].personId + "</p>";
                         if (persons[i].personName != null && persons[i].personName != "" && persons[i].personName != "null") {
@@ -728,7 +728,7 @@
                         }
                         str1 += "</table>";
 
-                        str1 += "<div class='infoBox'><div class=\"item\"><i></i><span>年龄:" + persons[i].age + "岁</span></div><div class=\"item\"><i></i><span>数据聚合(" + personCount + ")</span></div></div>";
+                        str1 += "<div class='infoBox'><div class=\"item\"><i></i><span>年龄:" + persons[i].age + "岁</span></div><div class=\"item\"><i></i><span onclick='toMoreDateTogether(\"" + persons[i].personId + "\",\"" + personCount + "\")' style='cursor: pointer'>数据聚合(" + personCount + ")</span></div></div>";
                         // str1 += "</div>";
                         // str1 += "</div>";
                         str1 += "<div class=\"btnGroup\">";
@@ -748,6 +748,18 @@
                 }
             }
         })
+    }
+
+    function toMoreDateTogether(personId, count) {
+        if (count == 0) {
+            noDataTogether();
+        } else {
+            openNewWindow("personDataTogether.jsp?paId=" + personId + "");
+        }
+    }
+
+    function noDataTogether() {
+        $.messager.alert("操作提示", "无数据聚合!");
     }
 
     function genderCount() {
@@ -946,7 +958,7 @@
 
 
     function findMore() {
-        var url = 'dataTogether.jsp';
+        let url = 'personDataTogether.jsp';
         openNewWindow(url);
     }
 
@@ -1096,7 +1108,7 @@
         var timer1 = window.setTimeout(function () {
             $.ajax({
                 type: "post",
-                url: "/persons//dataTogether/all",
+                url: "/persons/dataTogether/all",
                 dataType: "json",
                 data: {
                     page: 1,
@@ -1146,7 +1158,7 @@
 
                     }
                 }
-            })
+            });
             $("#dataBoxLoading").hide();
             window.clearTimeout(timer1);
         }, new Date() - beginDate + 200)
@@ -1164,6 +1176,7 @@
                 pageSize: 1
             },
             success: function (result) {
+                console.log(personId, result)
                 if (result.code == 'success') {
                     personCount = result.data.total;
                 }
