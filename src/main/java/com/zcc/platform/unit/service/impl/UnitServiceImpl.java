@@ -78,23 +78,23 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
-    public List<UnitEntity> find(String param) {
-        return unitDao.findUnit(param);
+    public List<UnitEntity> find(String param, String status) {
+        return unitDao.findUnit(param, status);
     }
 
     @Override
-    public List<UnitEntity> find(String param, String tags) {
-        return unitDao.findUnitWithTag(param, Arrays.asList(tags.split(",")));
+    public List<UnitEntity> find(String param, String tags, String status) {
+        return unitDao.findUnitWithTag(param, Arrays.asList(tags.split(",")), status);
     }
 
     @Override
-    public List<UnitEntity> find(String param, Page page) {
-        return unitDao.findUnitWithPage(param, page);
+    public List<UnitEntity> find(String param, Page page, String status) {
+        return unitDao.findUnitWithPage(param, page, status);
     }
 
     @Override
-    public List<UnitEntity> find(String param, Page page, String tags) {
-        return unitDao.findUnitWithPageAndTag(param, page, Arrays.asList(tags.split(",")));
+    public List<UnitEntity> find(String param, Page page, String tags, String status) {
+        return unitDao.findUnitWithPageAndTag(param, page, Arrays.asList(tags.split(",")), status);
     }
 
     @Override

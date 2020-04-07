@@ -89,7 +89,7 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox">
-                            <input result="text" placeholder="事件名或发生地址" id="SearchNameOrPlace">
+                            <input result="text" placeholder="事件名/发生地址" id="SearchNameOrPlace">
                         </div>
                         <button class="btn1" onclick="findEvent('',true,1)">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>
@@ -418,12 +418,14 @@
                     <tr>
                         <td class="center">涉及单位</td>
                         <td colspan="3">
-                            <select class="vV-drop" style="width:550px;height:28px;" id="linkUnitNo"
-                                    multiple="multiple">
-                                <option value="A">A单位</option>
-                                <option value="B">B单位</option>
-                                <option value="C">C单位</option>
-                            </select>
+                            <%--                            <select class="vV-drop" style="width:550px;height:28px;" id=""--%>
+                            <%--                                    multiple="multiple">--%>
+                            <%--                                <option value="A">A单位</option>--%>
+                            <%--                                <option value="B">B单位</option>--%>
+                            <%--                                <option value="C">C单位</option>--%>
+                            <%--                            </select>--%>
+                            <object:object type="unit" clazz="vV-drop" style="width:550px;height:28px;"
+                                           id="linkUnitNo"/>
                         </td>
                     </tr>
                     <tr>
@@ -860,9 +862,8 @@
                                 showPageTotalFlag: true, //是否显示数据统计,不填默认不显示
                                 showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                                 getPage: function (page) {
-                                    // search(page, hjqk, false);
-                                    //获取当前页数
 
+                                    findEvent(handleFlag, page, false);
                                 }
                             });
                         }
@@ -1630,6 +1631,29 @@
                 }
             }
         });
+        $.ajax({
+            type: "POST",
+            url: "/eventInfo/findEventRelationObject",
+            dataType: "json",
+            data: {
+                eventId: eventId,
+                objectType: 'unit'
+            },
+            success: function (result) {
+                if (result.code === "success") {
+                    let units = result.data;
+                    let names = '';
+                    $(".fs-options").eq(2).find('div').removeClass("selected");
+                    for (let i = 0; i < units.length; i++) {
+                        names += units[i].unitName + ",";
+                        $(".fs-options").eq(2).find('div[data-value=\"' + units[i].unitId + '\"]').addClass("selected");
+                    }
+                    names = names.substr(0, names.length - 1);
+                    $(".fs-label").eq(2).attr("title", names);
+                    $(".fs-label").eq(2).text(names);
+                }
+            }
+        });
 
         $.ajax({
             type: "POST",
@@ -1681,7 +1705,13 @@
             }
         });
         data.linkPersonNos = safeToString(persons);
-        data.linkUnitNos = safeToString($("#linkUnitNo").val());
+        var units = '';
+        $(".fs-options").eq(2).find('div').each(function () {
+            if ($(this).hasClass('selected')) {
+                units += $(this).context.dataset.value + ',';
+            }
+        });
+        data.linkUnitNos = safeToString(units);
         data.linkEventNos = safeToString($("#linkEventNo").val());
         if (flag === "add") {
             $.ajax({

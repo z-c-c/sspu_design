@@ -53,27 +53,29 @@ public interface UnitDao {
      * 模糊查找:单位名称/单位行业/单位地址/单位法人
      *
      * @param param param
+     * @param status  status
      * @return list
      */
-    List<UnitEntity> findUnit(@Param("param") String param);
+    List<UnitEntity> findUnit(@Param("param") String param, @Param("status") String status);
 
     /**
      * 模糊查找+标签查找
      *
      * @param param param
      * @param tags  tags
+     * @param status status
      * @return list
      */
-    List<UnitEntity> findUnitWithTag(@Param("param") String param, @Param("tags") List<String> tags);
+    List<UnitEntity> findUnitWithTag(@Param("param") String param, @Param("tags") List<String> tags, @Param("status") String status);
 
     /**
      * 模糊查找+分页
-     *
+     * @param status status
      * @param param param
      * @param page  page
      * @return list
      */
-    List<UnitEntity> findUnitWithPage(@Param("param") String param, @Param("page") Page page);
+    List<UnitEntity> findUnitWithPage(@Param("param") String param, @Param("page") Page page, @Param("status") String status);
 
     /**
      * 模糊查找+标签查找+分页
@@ -81,9 +83,10 @@ public interface UnitDao {
      * @param param param
      * @param page  page
      * @param tags  tags
+     * @param status status
      * @return list
      */
-    List<UnitEntity> findUnitWithPageAndTag(@Param("param") String param, @Param("page") Page page, @Param("tags") List<String> tags);
+    List<UnitEntity> findUnitWithPageAndTag(@Param("param") String param, @Param("page") Page page, @Param("tags") List<String> tags, @Param("status") String status);
 
     /**
      * 数据聚合

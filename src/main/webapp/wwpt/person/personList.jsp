@@ -625,7 +625,6 @@
             }
         });
         data.tags = safeToString(tags);
-        console.log(data)
         $.ajax({
             type: "POST",
             url: "/persons/save",
@@ -865,7 +864,6 @@
             fn: function (r) {
                 if (r) {
                     var personId = paId;
-                    // console.log("pa"+paId);
                     $.ajax({
                         url: '/personaffair/deletePerson',
                         result: 'post',
@@ -1185,7 +1183,6 @@
                 pageSize: 1
             },
             success: function (result) {
-                console.log(personId, result)
                 if (result.code == 'success') {
                     personCount = result.data.total;
                 }

@@ -15,6 +15,8 @@ import com.zcc.platform.event.entity.HandleLogEntity;
 import com.zcc.platform.event.service.EventInfoService;
 import com.zcc.platform.person.dao.PersonDao;
 import com.zcc.platform.person.entity.PersonEntity;
+import com.zcc.platform.unit.dao.UnitDao;
+import com.zcc.platform.unit.entity.UnitEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +35,10 @@ public class EventInfoServiceImpl implements EventInfoService {
     private EventRelationDao eventRelationDao;
     @Autowired
     private TagObjectRelationService tagObjectRelationService;
-
     @Autowired
     private PersonDao personDao;
+    @Autowired
+    private UnitDao unitDao;
 
     /**
      * 保存事件
@@ -221,6 +224,13 @@ public class EventInfoServiceImpl implements EventInfoService {
             List<EventRelationEntity> byEventIdAndObjectType = eventRelationDao.findByEventIdAndObjectType(eventId, objectType);
             for (EventRelationEntity eventRelationEntity : byEventIdAndObjectType) {
                 result.add(personDao.findPersonById(eventRelationEntity.getObjectId()));
+            }
+            return result;
+        } else if (EventRelationEntity.OBJECT_TYPE_UNIT.equals(objectType)) {
+            List<UnitEntity> result = new ArrayList<>();
+            List<EventRelationEntity> byEventIdAndObjectType = eventRelationDao.findByEventIdAndObjectType(eventId, objectType);
+            for (EventRelationEntity eventRelationEntity : byEventIdAndObjectType) {
+                result.add(unitDao.findUnitById(eventRelationEntity.getObjectId()));
             }
             return result;
         }

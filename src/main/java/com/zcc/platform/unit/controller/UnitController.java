@@ -1,6 +1,9 @@
 package com.zcc.platform.unit.controller;
 
+import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.ResultBean;
+import com.zcc.commons.utils.StringUtil;
+import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.platform.unit.entity.UnitEntity;
 import com.zcc.platform.unit.service.UnitService;
@@ -56,20 +59,34 @@ public class UnitController {
 
     @Log(name = "查找单位")
     @PostMapping("/param")
-    public ResultBean findByParam(String param, String tags, int page, int pageSize) {
-        return ResultBean.success();
+    public ResultBean findByParam(String param, String tags, int page, int pageSize, String status) throws MyException {
+        Map<String, Object> map = new HashMap<>(2);
+        if (StringUtil.isValidStr(tags)) {
+            map.put("total", unitService.find(param, tags, status).size());
+            map.put("data", unitService.find(param, Page.setPageAndSize(page, pageSize), tags, status));
+        } else {
+            map.put("total", unitService.find(param, status).size());
+            map.put("data", unitService.find(param, Page.setPageAndSize(page, pageSize), status));
+        }
+        return ResultBean.success(map);
     }
 
     @Log(name = "单个单位的数据聚合")
     @PostMapping("/dataTogether")
-    public ResultBean dataTogether(String unitId, int page, int pageSize) {
-        return ResultBean.success();
+    public ResultBean dataTogether(String unitId, int page, int pageSize) throws MyException {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("total", unitService.dataTogether(unitId).size());
+        map.put("data", unitService.dataTogether(unitId, Page.setPageAndSize(page, pageSize)));
+        return ResultBean.success(map);
     }
 
     @Log(name = "所有单位的数据聚合")
     @PostMapping("/dataTogether/all")
-    public ResultBean dataTogether(int page, int pageSize) {
-        return ResultBean.success();
+    public ResultBean dataTogether(int page, int pageSize) throws MyException {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("total", unitService.dataTogether().size());
+        map.put("data", unitService.dataTogether(Page.setPageAndSize(page, pageSize)));
+        return ResultBean.success(map);
     }
 
 }

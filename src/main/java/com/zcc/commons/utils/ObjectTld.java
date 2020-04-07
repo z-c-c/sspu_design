@@ -5,6 +5,9 @@ import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.person.entity.PersonEntity;
 import com.zcc.platform.person.service.PersonService;
 import com.zcc.platform.person.service.impl.PersonServiceImpl;
+import com.zcc.platform.unit.entity.UnitEntity;
+import com.zcc.platform.unit.service.UnitService;
+import com.zcc.platform.unit.service.impl.UnitServiceImpl;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -23,10 +26,12 @@ public class ObjectTld extends BodyTagSupport {
     private String clazz;
     private String type;
     private static PersonService personService;
+    private static UnitService unitService;
 
     static {
         WebApplicationContext currentWebApplicationContext = ContextLoader.getCurrentWebApplicationContext();
         personService = Objects.requireNonNull(currentWebApplicationContext).getBean(PersonServiceImpl.class);
+        unitService = Objects.requireNonNull(currentWebApplicationContext).getBean(UnitServiceImpl.class);
     }
 
     @Override
@@ -40,7 +45,7 @@ public class ObjectTld extends BodyTagSupport {
             if (EventRelationEntity.OBJECT_TYPE_PERSON.equals(this.type)) {
                 pageContext.getOut().write(getPerson());
             } else if (EventRelationEntity.OBJECT_TYPE_UNIT.equals(this.type)) {
-                pageContext.getOut().write("");
+                pageContext.getOut().write(getUnit());
             }
 
         } catch (IOException e) {
@@ -51,14 +56,24 @@ public class ObjectTld extends BodyTagSupport {
 
     private String getPerson() {
         List<PersonEntity> personEntities = personService.find(null);
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("<select class=\"" + this.getClazz() + "\" style=\"" + this.getStyle() + "\" id=\"" + this.getId() + "\"" +
-                "                                    multiple=\"multiple\">");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<select class=\"").append(this.getClazz()).append("\" style=\"").append(this.getStyle()).append("\" id=\"").append(this.getId()).append("\"").append("  multiple=\"multiple\">");
         for (PersonEntity personEntity : personEntities) {
-            stringBuffer.append(" <option value=\"" + personEntity.getPersonId() + "\">" + personEntity.getPersonName() + "</option>");
+            stringBuilder.append(" <option value=\"").append(personEntity.getPersonId()).append("\">").append(personEntity.getPersonName()).append("</option>");
         }
-        stringBuffer.append("</select>");
-        return stringBuffer.toString();
+        stringBuilder.append("</select>");
+        return stringBuilder.toString();
+    }
+
+    private String getUnit() {
+        List<UnitEntity> unitEntities = unitService.find(null, null);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<select class=\"").append(this.getClazz()).append("\" style=\"").append(this.getStyle()).append("\" id=\"").append(this.getId()).append("\"").append("  multiple=\"multiple\">");
+        for (UnitEntity unitEntity : unitEntities) {
+            stringBuilder.append(" <option value=\"").append(unitEntity.getUnitId()).append("\">").append(unitEntity.getUnitName()).append("</option>");
+        }
+        stringBuilder.append("</select>");
+        return stringBuilder.toString();
     }
 
     @Override
