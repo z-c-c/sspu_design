@@ -181,9 +181,9 @@
         <li><a href="./event/eventList.jsp" target="main_frame">事件处理</a></li>
         <li><a href="./person/personList.jsp" target="main_frame">人员管理</a></li>
         <li><a href="./unit/unitList.jsp" target="main_frame">单位管理</a></li>
-        <li><a href="javascript:;" target="main_frame">关系管理</a></li>
+        <%--        <li><a href="javascript:;" target="main_frame">关系管理</a></li>--%>
         <li><a href="javascript:;" target="main_frame">风险洞察</a></li>
-        <li><a href="http://localhost:8080/login.jsp" target="main_frame">报表分析</a></li>
+        <li><a href="http://localhost:9999/login.jsp" target="_top">报表分析</a></li>
         <%
             if(currentPerson.getType().equals("1")){
         %>

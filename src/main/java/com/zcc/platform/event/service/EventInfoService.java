@@ -77,13 +77,30 @@ public interface EventInfoService {
     String addEventRelationObject(EventRelationEntity eventRelationEntity);
 
     /**
-     * 查找事件关联对象
-     *
+     * 查找事件关联对象（提供对象的全额信息）
      * @param eventId    eventId
      * @param objectType objectType
      * @return list
      */
     List findEventRelationObject(String eventId, String objectType);
+
+    /**
+     * 查找事件关联对象（只提供对象的简略信息）
+     *
+     * @param eventId
+     * @param objectType
+     * @return
+     */
+    List findEventRelationObjectSimp(String eventId, String objectType);
+
+    /**
+     * 查找对象关联的事件
+     *
+     * @param objectId
+     * @param objectType
+     * @return
+     */
+    List<EventInfoEntity> findObjectLinkEvent(String objectId, String objectType);
 
     /**
      * 删除事件关联对象

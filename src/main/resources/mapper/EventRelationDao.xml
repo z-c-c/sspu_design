@@ -42,6 +42,67 @@
           and IS_DELETE != '1';
     </select>
 
+    <resultMap id="EventLinkPersonMap" type="Map">
+        <result property="personId" column="personId"/>
+        <result property="personName" column="person_name"/>
+        <result property="personNo" column="person_identity_no"/>
+        <result property="personPhoneNo" column="phone_no"/>
+        <result property="personAge" column="age"/>
+        <result property="objectType" column="objectType"/>
+    </resultMap>
+
+    <select id="findEventLinkPerson" resultMap="EventLinkPersonMap">
+        select distinct p.person_id   as 'personId'
+                      , person_name
+                      , gender
+                      , person_identity_no
+                      , phone_no
+                      , age
+                      , r.OBJECT_TYPE as 'objectType'
+        from event_relation_object r
+                 join person_info p
+        where r.OBJECT_ID = p.person_id
+          and r.OBJECT_TYPE = 'person'
+          and r.IS_DELETE != '1'
+          and p.is_delete != '1'
+          and r.EVENT_ID = #{eventId}
+    </select>
+
+    <resultMap id="EventLinkUnitMap" type="Map">
+        <result property="unitId" column="unit_id"/>
+        <result property="unitName" column="unit_name"/>
+        <result property="unitAddr" column="addr"/>
+        <result property="objectType" column="OBJECT_TYPE"/>
+    </resultMap>
+
+    <select id="findEventLinkUnit" resultMap="EventLinkUnitMap">
+        select distinct u.unit_id,
+                        u.unit_name,
+                        u.addr,
+                        r.OBJECT_TYPE
+        from event_relation_object r
+                 join unit_info u
+                      on r.OBJECT_ID = u.unit_id
+        where r.OBJECT_TYPE = 'unit'
+          and r.IS_DELETE != '1'
+          and u.is_delete != '1'
+          and r.EVENT_ID = #{eventId}
+    </select>
+
+
+    <select id="findObjectLinkEvent" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select distinct e.event_id,
+                        e.event_name,
+                        e.occurred_time,
+                        e.occurred_place
+        from event_relation_object r
+                 join event_info e on r.EVENT_ID = e.event_id
+        where r.OBJECT_TYPE = #{objectType}
+          and r.OBJECT_ID = #{objectId}
+          and r.IS_DELETE != '1'
+          and e.is_delete != '1';
+    </select>
+
     <update id="updateEventRelationObject">
         update event_relation_object
         <trim prefix="set" suffixOverrides=",">

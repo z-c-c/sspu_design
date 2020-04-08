@@ -1,5 +1,6 @@
 package com.zcc.platform.event.dao;
 
+import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -52,6 +53,31 @@ public interface EventRelationDao {
      * @return list
      */
     List<EventRelationEntity> findByEventIdAndObjectType(@Param("eventId") String eventId, @Param("objectType") String objectType);
+
+    /**
+     * 查找事件关联人员
+     *
+     * @param eventId eventId
+     * @return list<Map>
+     */
+    List findEventLinkPerson(String eventId);
+
+    /**
+     * 查找事件关联单位
+     *
+     * @param eventId
+     * @return
+     */
+    List findEventLinkUnit(String eventId);
+
+    /**
+     * 查找对象关联的事件
+     *
+     * @param objectId   objectId
+     * @param objectType objectType
+     * @return list<EventInfoEntity>
+     */
+    List<EventInfoEntity> findObjectLinkEvent(@Param("objectId") String objectId, @Param("objectType") String objectType);
 
     /**
      * 修改关联关系

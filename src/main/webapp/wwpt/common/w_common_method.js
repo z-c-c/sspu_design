@@ -206,7 +206,7 @@ function location_href(url) {
 
 function isValidStr(str) {
 
-    if (str == null || str === undefined || str === "null" || str === "undefined" || str.trim().length === 0) {
+    if (str == null || str === undefined || str === "null" || str === "undefined" || str.length == 0) {
         return "无";
     }
     return str;

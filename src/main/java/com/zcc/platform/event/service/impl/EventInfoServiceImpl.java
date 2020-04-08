@@ -237,6 +237,25 @@ public class EventInfoServiceImpl implements EventInfoService {
         return null;
     }
 
+    @Override
+    public List findEventRelationObjectSimp(String eventId, String objectType) {
+        if (EventRelationEntity.OBJECT_TYPE_PERSON.equals(objectType)) {
+            return eventRelationDao.findEventLinkPerson(eventId);
+        } else if (EventRelationEntity.OBJECT_TYPE_UNIT.equals(objectType)) {
+            return eventRelationDao.findEventLinkUnit(eventId);
+        } else {
+            List eventLinkPerson = eventRelationDao.findEventLinkPerson(eventId);
+            List eventLinkUnit = eventRelationDao.findEventLinkUnit(eventId);
+            eventLinkPerson.addAll(eventLinkUnit);
+            return eventLinkPerson;
+        }
+    }
+
+    @Override
+    public List<EventInfoEntity> findObjectLinkEvent(String objectId, String objectType) {
+        return eventRelationDao.findObjectLinkEvent(objectId, objectType);
+    }
+
     /**
      * 删除事件关联对象
      *

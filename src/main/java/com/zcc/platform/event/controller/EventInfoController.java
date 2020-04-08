@@ -99,10 +99,30 @@ public class EventInfoController {
         return ResultBean.success();
     }
 
-    @Log(name = "查找事件关联对象")
+    @Log(name = "查找事件关联对象（详细信息）")
     @PostMapping("/findEventRelationObject")
     public ResultBean findEventRelationObject(String eventId, String objectType) {
         return ResultBean.success(eventInfoService.findEventRelationObject(eventId, objectType));
+    }
+
+    @Log(name = "查找事件关联对象（简略信息）")
+    @GetMapping("/findEventRelationObject")
+    public ResultBean eventRelationObject(String id, String objectType, String type) {
+        //如果type是event,则eventId实际上为ObjectId，即通过对象查事件
+        if (EventRelationEntity.OBJECT_TYPE_EVENT.equals(objectType)) {
+            return ResultBean.success(eventInfoService.findObjectLinkEvent(id, type));
+        }
+        //如果type不是event，则是通过事件查对象的
+        else {
+            return ResultBean.success(eventInfoService.findEventRelationObjectSimp(id, objectType));
+        }
+
+    }
+
+    @Log(name = "查找对象关联的事件")
+    @PostMapping("/findObjectLinkEvent")
+    public ResultBean findObjectLinkEvent(String objectId, String objectType) {
+        return ResultBean.success(eventInfoService.findObjectLinkEvent(objectId, objectType));
     }
     @Log(name = "单个事件数据聚合")
     @RequestMapping(value = "/findDataTogether", method = RequestMethod.POST)
