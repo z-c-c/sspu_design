@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zcc.platform.warning.dao.WarningDao">
+
+    <insert id="addWarning" parameterType="com.zcc.platform.warning.entity.WarningEntity">
+        <selectKey resultType="String" keyProperty="noticeId" order="BEFORE">
+            select replace(uuid(),'-','') from dual;
+        </selectKey>
+        insert into warning_info values
+        (#{noticeId},#{noticeName},#{noticeContent},#{noticeType},#{noticeLevel},#{noticeDate},#{noticeAddr},#{noticeLongi},#{noticeLati},#{noticeObjectName},#{noticeObjectType},#{noticeObjectId},#{warningTags});
+    </insert>
+
+    <delete id="delWarningById">
+        delete
+        from warning_info
+        where NOTICE_ID = #{noticeId};
+    </delete>
+
+    <delete id="delWarningByType">
+        delete
+        from warning_info
+        where NOTICE_TYPE = #{noticeType};
+    </delete>
+
+    <update id="updateWarning" parameterType="com.zcc.platform.warning.entity.WarningEntity">
+        update warning_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="noticeName!=null">
+                NOTICE_NAME=#{noticeName},
+            </if>
+            <if test="noticeContent!=null">
+                NOTICE_CONTENT=#{noticeContent},
+            </if>
+            <if test="noticeType!=null">
+                NOTICE_TYPE=#{noticeType},
+            </if>
+            <if test="noticeLevel!=null">
+                NOTICE_LEVEL=#{noticeLevel},
+            </if>
+            <if test="noticeDate!=null">
+                NOTICE_DATE=#{noticeDate},
+            </if>
+            <if test="noticeAddr!=null">
+                NOTICE_ADDR=#{noticeAddr},
+            </if>
+            <if test="noticeLongi!=null">
+                NOTICE_LONGI=#{noticeLongi},
+            </if>
+            <if test="noticeLati!=null">
+                NOTICE_LATI=#{noticeLati},
+            </if>
+            <if test="noticeObjectName!=null">
+                NOTICE_OBJECT_NAME=#{noticeObjectName},
+            </if>
+            <if test="noticeObjectType!=null">
+                NOTICE_OBJECT_TYPE=#{noticeObjectType},
+            </if>
+            <if test="noticeObjectId!=null">
+                NOTICE_OBJECT_ID=#{noticeObjectId},
+            </if>
+            <if test="warningTags!=null">
+                WARNING_TAGS=#{warningTags},
+            </if>
+        </trim>
+        where NOTICE_ID=#{noticeId};
+    </update>
+
+    <select id="findWarningById" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select *
+        from warning_info
+        where NOTICE_ID = #{noticeId};
+    </select>
+
+    <select id="findWarning" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select * from warning_info
+        <where>
+            <if test="noticeName!=null and noticeName!=''">
+                NOTICE_NAME=#{noticeName}
+            </if>
+            <if test="noticeType!=null and noticeType!=''">
+                NOTICE_TYPE=#{noticeType}
+            </if>
+            <if test="beginTime!=null and beginTime!='' and (endTime==null or endTime=='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!='' and (beginTime==null or beginTime=='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
+            <if test="endTime!=null and endTime!='' and (beginTime!=null and beginTime!='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime} and
+                DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
+            <if test="tags!=null and tags.size()>0">
+                <foreach collection="tags" item="tagName" index="index" open="(" close=")" separator=",">
+                    and WARNING_TAGS like concat('%',#{tagName},'%');
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findWarningWithPage" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select * from warning_info
+        <where>
+            <if test="noticeName!=null and noticeName!=''">
+                NOTICE_NAME=#{noticeName}
+            </if>
+            <if test="noticeType!=null and noticeType!=''">
+                NOTICE_TYPE=#{noticeType}
+            </if>
+            <if test="beginTime!=null and beginTime!='' and (endTime==null or endTime=='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime}
+            </if>
+            <if test="endTime!=null and endTime!='' and (beginTime==null or beginTime=='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
+            <if test="endTime!=null and endTime!='' and (beginTime!=null and beginTime!='')">
+                and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime} and
+                DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
+            </if>
+            <if test="tags!=null and tags.size()>0">
+                <foreach collection="tags" item="tagName" index="index" open="(" close=")" separator=",">
+                    and WARNING_TAGS like concat('%',#{tagName},'%');
+                </foreach>
+            </if>
+        </where>
+        limit ${page.page},${page.pageSize}
+    </select>
+
+    <select id="findWarningByType" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select *
+        from warning_info
+        where NOTICE_TYPE = #{noticeType};
+    </select>
+
+    <select id="findWarningByNoticeObjectIdAndType" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select *
+        from warning_info
+        where NOTICE_OBJECT_ID = #{noticeObjectId}
+          and NOTICE_OBJECT_TYPE = #{noticeObjectType}
+    </select>
+
+    <select id="findAll" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select *
+        from warning_info;
+    </select>
+
+    <select id="findAllWithPage" resultType="com.zcc.platform.warning.entity.WarningEntity">
+        select *
+        from warning_info
+        limit ${page},${pageSize};
+    </select>
+
+    <select id="autoWarningEvent" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select e.*
+        from event_info e
+        where e.event_id in (select h.HANDLE_EVENT_ID
+                             from xhww_handle_log h
+                             where h.HANDLE_DATE &gt;= #{fromDate}
+                               and h.HANDLE_DATE &lt;= now()
+                               and h.IS_DELETE != '1'
+                             group by h.HANDLE_EVENT_ID
+                             having count(h.HANDLE_EVENT_ID) >= 5)
+          and e.is_delete != '1'
+          and e.is_settlement != '1';
+    </select>
+
+    <select id="autoWarningPerson" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select p.*
+        from person_info p
+        where p.person_id in (select r.OBJECT_ID
+                              from event_relation_object r
+                              where r.RELATION_TIME &gt;= #{fromDate}
+                                and r.RELATION_TIME &lt;= now()
+                                and r.IS_DELETE != '1'
+                                and r.OBJECT_TYPE = 'person'
+                              group by r.OBJECT_ID
+                              having count(r.OBJECT_ID) >= 5)
+          and p.is_delete != '1';
+    </select>
+
+    <select id="autoWarningUnit" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select u.*
+        from unit_info u
+        where u.unit_id in (select r.OBJECT_ID
+                            from event_relation_object r
+                            where r.RELATION_TIME &gt;= #{fromDate}
+                              and r.RELATION_TIME &lt;= now()
+                              and r.IS_DELETE != '1'
+                              and r.OBJECT_TYPE = 'unit'
+                            group by r.OBJECT_ID
+                            having count(r.OBJECT_ID) >= 5)
+          and u.is_delete != '1';
+
+    </select>
+</mapper>
