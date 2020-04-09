@@ -5,6 +5,7 @@ import com.zcc.platform.event.entity.EventRelationEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,10 +82,10 @@ public interface EventRelationDao {
 
     /**
      * 修改关联关系
-     *
+     * @param relationTime
      * @param eventId
      * @param objectId
      */
-    void updateEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId, @Param("relationName") String relationName);
+    void updateEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId, @Param("relationTime") Date relationTime);
 
 }

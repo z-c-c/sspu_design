@@ -9,7 +9,7 @@
             select replace(uuid(),'-','') from dual;
         </selectKey>
         insert into event_relation_object values
-        (#{relationListId},#{eventId},#{objectId},#{objectType},#{relationName},'0');
+        (#{relationListId},#{eventId},#{objectId},#{objectType},#{relationTime},'0');
     </insert>
 
     <update id="delEventRelationObject">
@@ -107,7 +107,7 @@
         update event_relation_object
         <trim prefix="set" suffixOverrides=",">
             <if test="relationName!=null or relationName!=''">
-                RELATION_NAME=#{relationName}
+                RELATION_TIME=#{relationTime}
             </if>
         </trim>
         where EVENT_ID=#{eventId} and OBJECT_ID=#{objectId}

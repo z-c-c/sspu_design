@@ -1,5 +1,7 @@
 package com.zcc.platform.event.entity;
 
+import java.util.Date;
+
 /**
  * @author zcc
  * 事件关联对象表
@@ -14,7 +16,7 @@ public class EventRelationEntity {
     private String eventId;
     private String objectId;
     private String objectType;
-    private String relationName;
+    private Date relationTime;
     private String isDelete;
 
 
@@ -50,12 +52,12 @@ public class EventRelationEntity {
         this.objectType = objectType;
     }
 
-    public String getRelationName() {
-        return relationName;
+    public Date getRelationTime() {
+        return relationTime;
     }
 
-    public void setRelationName(String relationName) {
-        this.relationName = relationName;
+    public void setRelationTime(Date relationTime) {
+        this.relationTime = relationTime;
     }
 
     public String getIsDelete() {

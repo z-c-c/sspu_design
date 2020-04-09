@@ -110,13 +110,13 @@ public class EventInfoServiceImpl implements EventInfoService {
         return eventInfoEntity.getEventId();
     }
 
-    private void addEventRelationObject(EventInfoEntity eventInfoEntity, String s, String objectTypeEvent) {
+    private void addEventRelationObject(EventInfoEntity eventInfoEntity, String objectId, String objectTypeEvent) {
         EventRelationEntity eventRelationEntity = new EventRelationEntity();
         eventRelationEntity.setEventId(eventInfoEntity.getEventId());
-        eventRelationEntity.setObjectId(s);
+        eventRelationEntity.setObjectId(objectId);
         eventRelationEntity.setObjectType(objectTypeEvent);
         eventRelationEntity.setIsDelete("0");
-        eventRelationEntity.setRelationName("");
+        eventRelationEntity.setRelationTime(new Date());
         this.addEventRelationObject(eventRelationEntity);
     }
 
@@ -207,10 +207,7 @@ public class EventInfoServiceImpl implements EventInfoService {
         if (byEventIdAndObjectId == null) {
             eventRelationDao.addEventRelationObject(eventRelationEntity);
         } else {
-            if (StringUtil.isValidStr(byEventIdAndObjectId.getRelationName())) {
-                eventRelationEntity.setRelationName(eventRelationEntity.getRelationName() + ";" + byEventIdAndObjectId.getRelationName());
-            }
-            eventRelationDao.updateEventRelationObject(eventRelationEntity.getEventId(), eventRelationEntity.getObjectId(), eventRelationEntity.getRelationName());
+            eventRelationDao.updateEventRelationObject(eventRelationEntity.getEventId(), eventRelationEntity.getObjectId(), eventRelationEntity.getRelationTime());
         }
         return eventRelationEntity.getEventId();
     }
