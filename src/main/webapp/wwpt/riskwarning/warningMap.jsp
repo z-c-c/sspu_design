@@ -618,7 +618,7 @@
     var map = initMap();
 
     //设置地图中心点
-    function setMapCenter(x, y) {
+    function setCenter(x, y) {
         var xy = [parseFloat(x), parseFloat(y)];
         map.getView().setCenter(xy);
         map.getView().setZoom(11);
@@ -864,6 +864,15 @@
         mapClick(type)
     }
 
+    function setMapCenter(longi, lati) {
+        map.getView().animate(
+            {
+                center: [longi, lati],
+                duration: 1000,
+                zoom: 12,
+            }
+        );
+    }
 
     function showDetail(type, data) {
         if (type == 'event') {
@@ -873,8 +882,8 @@
             } else {
                 data.occurredTime = new Date(data.occurredTime).format("yyyy-MM-dd hh:mm:ss");
             }
-            $("#popup-content").empty();
-            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+            $("#popup-content").html("");
+            let showStr = '<div class="ditu-popup2-arrow"></div>\n' +
                 '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                 '    overflow: hidden;\n' +
                 '    text-overflow: ellipsis;\n' +
@@ -902,15 +911,15 @@
                 '    </div>\n';
             map.removeOverlay(overlay);
             if (data.occurredLongti != null && data.occurredLongti != '' && data.occurredLati != null && data.occurredLati != '') {
-                $("#popup-content").append(showStr);
                 overlay.setPosition([data.occurredLongti, data.occurredLati]);
                 map.addOverlay(overlay);
-                $("#popup-content").append(showStr);
+                $("#popup-content").html(showStr);
+                setMapCenter(data.occurredLongti, data.occurredLati);
             }
         } else if (type == 'person') {
             getTags(data.personId)
-            $("#popup-content").empty();
-            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+            $("#popup-content").html("");
+            let showStr = '<div class="ditu-popup2-arrow"></div>\n' +
                 '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                 '    overflow: hidden;\n' +
                 '    text-overflow: ellipsis;\n' +
@@ -944,7 +953,8 @@
             if (data.longti != null && data.longti != '' && data.lati != null && data.lati != '') {
                 overlay.setPosition([data.longti, data.lati]);
                 map.addOverlay(overlay);
-                $("#popup-content").append(showStr);
+                $("#popup-content").html(showStr);
+                setMapCenter(parseFloat(data.longti), parseFloat(data.lati))
             }
         } else if (type == 'unit') {
             getTags(data.unitId)
@@ -953,8 +963,8 @@
             } else {
                 data.registerTime = new Date(data.registerTime).format("yyyy-MM-dd hh:mm:ss");
             }
-            $("#popup-content").empty();
-            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+            $("#popup-content").html("");
+            let showStr = '<div class="ditu-popup2-arrow"></div>\n' +
                 '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                 '    overflow: hidden;\n' +
                 '    text-overflow: ellipsis;\n' +
@@ -989,10 +999,11 @@
             if (data.longti != null && data.longti != '' && data.lati != null && data.lati != '') {
                 overlay.setPosition([data.longti, data.lati]);
                 map.addOverlay(overlay);
-                $("#popup-content").append(showStr);
+                $("#popup-content").html(showStr);
+                setMapCenter(parseFloat(data.longti), parseFloat(data.lati))
             }
         } else if (type == 'warning') {
-
+            console.log(data)
             var tags = data.warningTags;
             if (tags == null || tags == "") {
                 tags = [];
@@ -1012,8 +1023,8 @@
             } else {
                 data.noticeDate = new Date(data.noticeDate).format('yyyy-MM-dd hh:mm:ss');
             }
-            $("#popup-content").empty();
-            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+            $("#popup-content").html("");
+            let showStr = '<div class="ditu-popup2-arrow"></div>\n' +
                 '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                 '    overflow: hidden;\n' +
                 '    text-overflow: ellipsis;\n' +
@@ -1046,7 +1057,9 @@
             if (data.noticeLongi != null && data.noticeLongi != '' && data.noticeLati != null && data.noticeLati != '') {
                 overlay.setPosition([data.noticeLongi, data.noticeLati]);
                 map.addOverlay(overlay);
-                $("#popup-content").append(showStr);
+                $("#popup-content").html(showStr);
+                // map.getView().setCenter([parseFloat(data.noticeLongi), parseFloat(data.noticeLati)]);
+                setMapCenter(data.noticeLongi, data.noticeLati);
             }
         }
 
@@ -1104,6 +1117,7 @@
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);
                     $("#popup-content").append(showStr);
+                    setMapCenter(x, y);
                     // }
                 });
             });
@@ -1162,6 +1176,7 @@
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);
                     $("#popup-content").append(showStr);
+                    setMapCenter(x, y);
                     // }
                 });
             });
@@ -1221,6 +1236,7 @@
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);
                     $("#popup-content").append(showStr);
+                    setMapCenter(x, y);
                     // }
                 });
             });
@@ -1295,6 +1311,7 @@
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);
                     $("#popup-content").html(showStr);
+                    setMapCenter(x, y);
                 });
             });
         }
