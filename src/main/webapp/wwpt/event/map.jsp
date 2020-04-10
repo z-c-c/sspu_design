@@ -112,6 +112,11 @@
     });
 
     function showPoint(longi, lati) {
+
+        // map.getView().setCenter(longi,lati);
+        if (longi != '' && lati != '') {
+            setMapCenter(longi, lati)
+        }
         let feature = new ol.Feature({
             geometry: new ol.geom.Point([longi, lati]),
         });
@@ -123,6 +128,15 @@
         layer.getSource().addFeature(feature);
     }
 
+    function setMapCenter(longi, lati) {
+        map.getView().animate(
+            {
+                center: [longi, lati],
+                duration: 1000,
+                zoom: 12,
+            }
+        );
+    }
 
 </script>
 </body>
