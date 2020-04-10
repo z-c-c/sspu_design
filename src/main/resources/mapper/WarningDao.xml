@@ -93,10 +93,11 @@
                 DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
             </if>
             <if test="tags!=null and tags.size()>0">
-                and 1=0
+                and ( 1=0
                 <foreach collection="tags" item="tagName" index="index">
                     or WARNING_TAGS like concat('%',#{tagName},'%')
                 </foreach>
+                )
             </if>
         </where>
     </select>
@@ -121,10 +122,11 @@
                 DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
             </if>
             <if test="tags!=null and tags.size()>0">
-                and 1=0
+                and ( 1=0
                 <foreach collection="tags" item="tagName" index="index">
                     or WARNING_TAGS like concat('%',#{tagName},'%')
                 </foreach>
+                )
             </if>
         </where>
         limit ${page.page},${page.pageSize}
