@@ -7,6 +7,8 @@ import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.platform.unit.entity.UnitEntity;
 import com.zcc.platform.unit.service.UnitService;
+import com.zcc.platform.warning.entity.WarningEntity;
+import com.zcc.platform.warning.service.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,9 @@ public class UnitController {
     private final UnitService unitService;
 
     @Autowired
+    private WarningService warningService;
+
+    @Autowired
     public UnitController(UnitService unitService) {
         this.unitService = unitService;
     }
@@ -31,7 +36,12 @@ public class UnitController {
     @Log(name = "保存单位")
     @PostMapping("/save")
     public ResultBean save(UnitEntity unitEntity, String tags) {
-        return ResultBean.success(unitService.save(unitEntity, tags));
+        String unitId = unitService.save(unitEntity, tags);
+        WarningEntity warning = warningService.findWarningByNoticeObjectIdAndType(unitId, WarningEntity.WARNING_UNIT);
+        if (warning != null) {
+            warningService.saveWarning(warning);
+        }
+        return ResultBean.success();
     }
 
     @Log(name = "删除单位")

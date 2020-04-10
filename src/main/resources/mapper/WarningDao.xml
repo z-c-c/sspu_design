@@ -77,10 +77,10 @@
         select * from warning_info
         <where>
             <if test="noticeName!=null and noticeName!=''">
-                NOTICE_NAME=#{noticeName}
+                and concat(ifnull(NOTICE_NAME,''),ifnull(NOTICE_OBJECT_NAME,'')) like concat('%',#{noticeName},'%')
             </if>
-            <if test="noticeType!=null and noticeType!=''">
-                NOTICE_TYPE=#{noticeType}
+            <if test="noticeObjectType!=null and noticeObjectType!=''">
+                and NOTICE_OBJECT_TYPE=#{noticeObjectType}
             </if>
             <if test="beginTime!=null and beginTime!='' and (endTime==null or endTime=='')">
                 and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime}
@@ -93,8 +93,9 @@
                 DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
             </if>
             <if test="tags!=null and tags.size()>0">
-                <foreach collection="tags" item="tagName" index="index" open="(" close=")" separator=",">
-                    and WARNING_TAGS like concat('%',#{tagName},'%');
+                and 1=0
+                <foreach collection="tags" item="tagName" index="index">
+                    or WARNING_TAGS like concat('%',#{tagName},'%')
                 </foreach>
             </if>
         </where>
@@ -104,10 +105,10 @@
         select * from warning_info
         <where>
             <if test="noticeName!=null and noticeName!=''">
-                NOTICE_NAME=#{noticeName}
+                and concat(ifnull(NOTICE_NAME,''),ifnull(NOTICE_OBJECT_NAME,'')) like concat('%',#{noticeName},'%')
             </if>
-            <if test="noticeType!=null and noticeType!=''">
-                NOTICE_TYPE=#{noticeType}
+            <if test="noticeObjectType!=null and noticeObjectType!=''">
+                and NOTICE_OBJECT_TYPE=#{noticeObjectType}
             </if>
             <if test="beginTime!=null and beginTime!='' and (endTime==null or endTime=='')">
                 and DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &gt;= #{beginTime}
@@ -120,8 +121,9 @@
                 DATE_FORMAT(NOTICE_DATE,'%Y-%m-%d') &lt;= #{endTime}
             </if>
             <if test="tags!=null and tags.size()>0">
-                <foreach collection="tags" item="tagName" index="index" open="(" close=")" separator=",">
-                    and WARNING_TAGS like concat('%',#{tagName},'%');
+                and 1=0
+                <foreach collection="tags" item="tagName" index="index">
+                    or WARNING_TAGS like concat('%',#{tagName},'%')
                 </foreach>
             </if>
         </where>

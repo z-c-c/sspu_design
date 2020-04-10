@@ -22,9 +22,11 @@
     <link rel="stylesheet" href="../../css/newreset.css">
     <link rel="stylesheet" href="../../css/newstyle.css">
     <link rel="stylesheet" href="../../css/myselect.css">
+    <link rel="stylesheet" href="../../css/ol.css">
     <script src="../../js/ajaxfileupload.js" result="text/javascript"></script>
     <script result="text/javascript" src="../common/w_common_method.js"></script>
     <script type="text/javascript" src="../../js/myselect.js"></script>
+    <script type="text/javascript" src="../../js/ol.js"></script>
     <style result="text/css">
         .tabCon > div.tabConSon2 {
             height: 180px;
@@ -347,6 +349,20 @@
 </div>
 
 
+<div class="tanBox" id="addPoints" style="display: none;z-index: 1000000">
+    <div class="pubBlock kuang">
+        <i class="close">×</i>
+        <div class="bear-tit">
+            <h5>选择地点</h5>
+        </div>
+        <div class="titleCon" style="height: 430px;">
+            <iframe src="./map.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
+                    height="100%" class="iframeMain"></iframe>
+        </div>
+    </div>
+</div>
+
+
 <div class="tanBox" id="addEvent" style="display: none">
     <div class="pubBlock kuang">
         <i class="close">×</i>
@@ -388,14 +404,15 @@
                     <tr>
                         <td width="20%" class="center">事件发生经度</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="occurredLongti" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" autocomplete="off" id="occurredLongti"
+                                   placeholder="双击通过地图选择" style="width: 200px;" ondblclick="choicePoint()">
                         </td>
                         <td width="20%" class="center">事件发生纬度</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="occurredLati" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" autocomplete="off" id="occurredLati"
+                                   style="width: 200px;" ondblclick="choicePoint()">
                         </td>
                     </tr>
-
                 </table>
                 <table border="0" style="width: 700px;">
                     <div class="bear-tit bear-tit2 point">
@@ -418,27 +435,11 @@
                     <tr>
                         <td class="center">涉及单位</td>
                         <td colspan="3">
-                            <%--                            <select class="vV-drop" style="width:550px;height:28px;" id=""--%>
-                            <%--                                    multiple="multiple">--%>
-                            <%--                                <option value="A">A单位</option>--%>
-                            <%--                                <option value="B">B单位</option>--%>
-                            <%--                                <option value="C">C单位</option>--%>
-                            <%--                            </select>--%>
                             <object:object type="unit" clazz="vV-drop" style="width:550px;height:28px;"
                                            id="linkUnitNo"/>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="center">涉及事件</td>
-                        <td colspan="3">
-                            <select class="vV-drop" style="width:550px;height:28px;" id="linkEventNo"
-                                    multiple="multiple">
-                                <option value="AA">A事件</option>
-                                <option value="BB">B事件</option>
-                                <option value="CC">C事件</option>
-                            </select>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td width="20%" class="center"></td>
                         <td width="30%">
@@ -469,7 +470,7 @@
     var eventDateTogetherCount = 0;
     var unittag;
     var tagsJson = [];
-
+    var map;
     var initpersontagflag = false;
     var initunittagflag = false;
     var initeventtagflag = false;
@@ -505,7 +506,15 @@
     }
 
 
+    function choicePoint() {
+        $("#addPoints").show();
+    }
+
+
+
     $(function () {
+
+
         //隐藏列表框
         $("body").click(function () {
             $(".fuzzyData").fadeOut();
@@ -630,7 +639,8 @@
 
         // 弹窗关闭
         $(".kuang i.close").click(function () {
-            $(".tanBox").fadeOut();
+            $(this).parent().parent().fadeOut();
+            // $(".tanBox").fadeOut();
         })
         $(".clearBtn").click(function () {
             $(this).prev().val("");

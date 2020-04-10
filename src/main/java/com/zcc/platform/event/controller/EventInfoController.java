@@ -13,6 +13,8 @@ import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.entity.HandleLogEntity;
 import com.zcc.platform.event.service.EventInfoService;
+import com.zcc.platform.warning.entity.WarningEntity;
+import com.zcc.platform.warning.service.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +35,18 @@ public class EventInfoController {
     @Autowired
     private GovUnitService govUnitService;
 
+    @Autowired
+    private WarningService warningService;
 
     @Log(name = "保存事件")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResultBean save(EventInfoEntity eventInfoEntity, HttpServletRequest request, String tags, String linkPersonNos, String linkUnitNos, String linkEventNos) {
         String eventId = eventInfoService.save(eventInfoEntity, request, tags, linkPersonNos, linkUnitNos, linkEventNos);
+
+        WarningEntity warning = warningService.findWarningByNoticeObjectIdAndType(eventId, WarningEntity.WARNING_EVENT);
+        if (warning != null) {
+            warningService.saveWarning(warning);
+        }
         return ResultBean.success();
     }
 

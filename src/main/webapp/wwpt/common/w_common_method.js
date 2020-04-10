@@ -192,7 +192,7 @@ function openNewWindow(url,target) {
     f.method = "post";
     f.target = target;
     f.submit();
-    document.removeChild(f);
+    // document.removeChild(f);
 }
 
 function location_href(url) {

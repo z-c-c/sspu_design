@@ -51,10 +51,10 @@ public class WarningController {
 
     @Log(name = "查找预警")
     @PostMapping("/find")
-    public ResultBean findWarning(String noticeName, String noticeType, String begin, String end, String tags, int page, int pageSize) throws MyException {
+    public ResultBean findWarning(String noticeName, String noticeObjectType, String begin, String end, String tags, int page, int pageSize) throws MyException {
         Map<String, Object> map = new HashMap<>(2);
-        map.put("total", service.findWarning(noticeName, noticeType, begin, end, tags).size());
-        map.put("data", service.findWarning(noticeName, noticeType, begin, end, tags, Page.setPageAndSize(page, pageSize)));
+        map.put("total", service.findWarning(noticeName, noticeObjectType, begin, end, tags).size());
+        map.put("data", service.findWarning(noticeName, noticeObjectType, begin, end, tags, Page.setPageAndSize(page, pageSize)));
         return ResultBean.success(map);
     }
 
@@ -62,9 +62,7 @@ public class WarningController {
     @PostMapping("/findAll")
     public ResultBean findAll(int page, int pageSize) throws MyException {
         Map<String, Object> map = new HashMap<>(2);
-        map.put("total", service.findAll().size());
-        map.put("data", service.findAll(Page.setPageAndSize(page, pageSize)));
-        return ResultBean.success(map);
+        return ResultBean.success(service.findAll());
     }
 
     @Log(name = "更新自动预警")

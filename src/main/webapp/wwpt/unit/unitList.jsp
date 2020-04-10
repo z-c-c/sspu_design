@@ -686,9 +686,9 @@
                                 unittag = ''
                             }
 
-                            var regisTerTime = "无";
-                            if (units[i].regisTerTime != null) {
-                                regisTerTime = new Date(units[i].regisTerTime).format("yyyy-MM-dd  hh:mm:ss")
+                            var registerTime = "无";
+                            if (units[i].registerTime != null) {
+                                registerTime = new Date(units[i].registerTime).format("yyyy-MM-dd  hh:mm:ss")
                             }
                             var str = ' <li>\n' +
                                 '                        <div class="pubBox waitPG">\n' +
@@ -700,9 +700,9 @@
                                 '            text-overflow:ellipsis;\n' +
                                 '            overflow: hidden;">' + isValidStr(units[i].unitDetail) + '</p>\n' +
                                 '                            <div class="infoBox">\n' +
-                                '                                <div class="item" name="注册时间">\n' +
+                                '                                <div class="item">\n' +
                                 '                                    <i></i>\n' +
-                                '                                    <span>' + regisTerTime + '</span>\n' +
+                                '                                    <span>' + registerTime + '</span>\n' +
                                 '                                </div>\n' +
                                 '                                <div class="item">\n' +
                                 '                                    <i></i>\n' +

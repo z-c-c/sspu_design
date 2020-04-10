@@ -1172,6 +1172,12 @@ input.date {
     box-sizing: border-box;
 }
 
+.statusList li:nth-child(3) {
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    box-sizing: border-box;
+}
+
 .statusList li.active {
     color: #2c9beb;
 }

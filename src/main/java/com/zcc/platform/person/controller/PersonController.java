@@ -8,6 +8,8 @@ import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.platform.person.entity.PersonEntity;
 import com.zcc.platform.person.service.PersonService;
+import com.zcc.platform.warning.entity.WarningEntity;
+import com.zcc.platform.warning.service.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,8 @@ public class PersonController {
     private final PersonService personService;
 
     @Autowired
+    private WarningService warningService;
+    @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;
     }
@@ -33,7 +37,12 @@ public class PersonController {
     @Log(name = "保存人员")
     @PostMapping("/save")
     public ResultBean save(PersonEntity personEntity, String tags) {
-        return ResultBean.success(personService.save(personEntity, tags));
+        String personId = personService.save(personEntity, tags);
+        WarningEntity warning = warningService.findWarningByNoticeObjectIdAndType(personId, WarningEntity.WARNING_PERSON);
+        if (warning != null) {
+            warningService.saveWarning(warning);
+        }
+        return ResultBean.success();
     }
 
     @Log(name = "上传照片")

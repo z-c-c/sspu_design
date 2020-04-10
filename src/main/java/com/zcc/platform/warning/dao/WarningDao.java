@@ -56,27 +56,27 @@ public interface WarningDao {
      * 查找预警
      *
      * @param noticeName 预警名称
-     * @param noticeType 自动/手动
+     * @param noticeObjectType
      * @param begin      预警开始时间 yyyy-MM-dd
      * @param end        预警结束时间 yyyy-MM-dd
      * @param tags       预警标签
      * @return list
      */
-    List<WarningEntity> findWarning(@Param("noticeName") String noticeName, @Param("noticeType") String noticeType, @Param("beginTime") String begin, @Param("endTime") String end, @Param("tags") List<String> tags);
+    List<WarningEntity> findWarning(@Param("noticeName") String noticeName, @Param("noticeObjectType") String noticeObjectType, @Param("beginTime") String begin, @Param("endTime") String end, @Param("tags") List<String> tags);
 
 
     /**
      * 查找预警
      *
      * @param noticeName 预警名称
-     * @param noticeType 自动/手动
+     * @param noticeObjectType
      * @param begin      预警开始时间 yyyy-MM-dd
      * @param end        预警结束时间 yyyy-MM-dd
      * @param tags       预警标签
      * @param page       page
      * @return list
      */
-    List<WarningEntity> findWarningWithPage(@Param("noticeName") String noticeName, @Param("noticeType") String noticeType, @Param("beginTime") String begin, @Param("endTime") String end, @Param("tags") List<String> tags, @Param("page") Page page);
+    List<WarningEntity> findWarningWithPage(@Param("noticeName") String noticeName, @Param("noticeObjectType") String noticeObjectType, @Param("beginTime") String begin, @Param("endTime") String end, @Param("tags") List<String> tags, @Param("page") Page page);
 
     /**
      * 查找预警
