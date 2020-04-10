@@ -43,6 +43,13 @@ public interface PersonDao {
     PersonEntity findPersonById(String personId);
 
     /**
+     * 查好啊全部人员
+     *
+     * @return
+     */
+    List<PersonEntity> findAll();
+
+    /**
      * 查找人员
      *
      * @param gender

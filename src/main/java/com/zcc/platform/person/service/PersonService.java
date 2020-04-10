@@ -42,6 +42,13 @@ public interface PersonService {
     PersonEntity findById(String personId);
 
     /**
+     * 查找全部人员
+     *
+     * @return
+     */
+    List<PersonEntity> findAll();
+
+    /**
      * 查找人员
      *
      * @param gender gender

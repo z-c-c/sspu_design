@@ -97,6 +97,12 @@ public class PersonController {
 
     }
 
+    @Log(name = "查找全部人员")
+    @GetMapping("/findAll")
+    public ResultBean findAll() {
+        return ResultBean.success(personService.findAll());
+    }
+
     @Log(name = "单个人物的数据聚合")
     @PostMapping("/dataTogether")
     public ResultBean dataTogether(String personId, int page, int pageSize) throws MyException {

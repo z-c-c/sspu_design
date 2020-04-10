@@ -507,6 +507,7 @@
 
 
     function choicePoint() {
+        $("#main_frame")[0].contentWindow.showPoint($("#occurredLongti").val(), $("#occurredLati").val());
         $("#addPoints").show();
     }
 

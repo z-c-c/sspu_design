@@ -69,6 +69,12 @@
           and is_delete != '1';
     </select>
 
+    <select id="findAll" resultType="com.zcc.platform.person.entity.PersonEntity">
+        select *
+        from person_info
+        where is_delete != '1';
+    </select>
+
     <select id="findByGender" resultType="com.zcc.platform.person.entity.PersonEntity">
         select *
         from person_info

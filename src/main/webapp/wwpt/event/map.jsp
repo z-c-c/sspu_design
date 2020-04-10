@@ -94,7 +94,6 @@
 
 
     map.on('singleclick', function (event) {
-
         let feature = new ol.Feature({
             geometry: new ol.geom.Point(event.coordinate),
         });
@@ -109,8 +108,20 @@
         parent.$("#occurredLati").val(event.coordinate[1]);
         parent.$("#longti").val(event.coordinate[0]);
         parent.$("#lati").val(event.coordinate[1]);
-        console.log(ol.proj.transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'));
+        // console.log(ol.proj.transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'));
     });
+
+    function showPoint(longi, lati) {
+        let feature = new ol.Feature({
+            geometry: new ol.geom.Point([longi, lati]),
+        });
+        feature.setStyle(style);
+
+        layer.getSource().getFeatures().forEach(function (feature) {
+            layer.getSource().removeFeature(feature)
+        })
+        layer.getSource().addFeature(feature);
+    }
 
 
 </script>

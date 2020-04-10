@@ -1394,6 +1394,7 @@
 
 
     function choicePoint() {
+        $("#main_frame")[0].contentWindow.showPoint($("#longti").val(), $("#lati").val());
         $("#addPoints").show();
     }
 

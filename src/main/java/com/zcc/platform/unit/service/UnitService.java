@@ -43,6 +43,12 @@ public interface UnitService {
     UnitEntity findById(String unitId);
 
     /**
+     * 查找所有单位
+     *
+     * @return
+     */
+    List<UnitEntity> findAll();
+    /**
      * 查找单位
      *
      * @param status 单位经营状态 1：在经营 0：不在经营

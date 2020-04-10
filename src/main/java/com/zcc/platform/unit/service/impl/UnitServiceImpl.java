@@ -73,6 +73,11 @@ public class UnitServiceImpl implements UnitService {
     }
 
     @Override
+    public List<UnitEntity> findAll() {
+        return unitDao.findAll();
+    }
+
+    @Override
     public List<UnitEntity> findByStatus(String status) {
         return unitDao.findUnitByStatus(status);
     }

@@ -77,6 +77,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<PersonEntity> findAll() {
+        return personDao.findAll();
+    }
+
+    @Override
     public List<PersonEntity> findByGender(String gender) {
         return personDao.findByGender(gender);
     }

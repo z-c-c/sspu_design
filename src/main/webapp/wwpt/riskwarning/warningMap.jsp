@@ -64,8 +64,16 @@
     </div>
     <div class="neofx-btns js-left">
         <div class="neofx-tab-stuff" onclick="getEvent(true,1)">
-            <i class="sty4"></i>
+            <i class="sty1"></i>
             <b>事件分布</b>
+        </div>
+        <div class="neofx-tab-stuff" onclick="getPerson(true,1)">
+            <i class="sty5"></i>
+            <b>人员分布</b>
+        </div>
+        <div class="neofx-tab-stuff" onclick="getUnit(true,1)">
+            <i class="sty3"></i>
+            <b>单位分布</b>
         </div>
         <div class="neofx-tab-stuff" onclick="getWarning(true,1)">
             <i class="sty5"></i>
@@ -91,7 +99,59 @@
         $("#fly1").hide();
     }
 
+    function getEventDetail(eventId) {
+        $.ajax({
+            type: 'post',
+            url: '/eventInfo/findById',
+            dataType: 'json',
+            data: {
+                eventId: eventId
+            }, success: function (result) {
+                if (result.message == 'success') {
+                    showDetail('event', result.data);
+                }
+            }
+        });
+    }
 
+    function getPersonDetail(personId) {
+        $.ajax({
+            type: 'get',
+            url: '/persons/' + personId,
+            dataType: 'json',
+            success: function (result) {
+                if (result.message == 'success') {
+                    showDetail('person', result.data);
+                }
+            }
+        });
+    }
+
+    function getUnitDetail(unitId) {
+        $.ajax({
+            type: 'get',
+            url: '/units/' + unitId,
+            dataType: 'json',
+            success: function (result) {
+                if (result.message == 'success') {
+                    showDetail('unit', result.data);
+                }
+            }
+        });
+    }
+
+    function getWarningDetail(noticeId) {
+        $.ajax({
+            type: 'get',
+            url: '/warnings/' + noticeId,
+            dataType: 'json',
+            success: function (result) {
+                if (result.message == 'success') {
+                    showDetail('warning', result.data);
+                }
+            }
+        });
+    }
     function getAllEvent() {
         $.ajax({
             type: 'post',
@@ -102,6 +162,7 @@
             }
         });
     }
+
 
     function getAllWarning() {
         $.ajax({
@@ -119,13 +180,48 @@
                         formatData.push(result.data[i]);
                     }
                 }
-                console.log(formatData)
                 addpoints(formatData, 'warning');
             }
         });
     }
 
+    function getAllPerson() {
+        $.ajax({
+            type: 'get',
+            url: '/persons/findAll',
+            dataType: 'json',
+            success: function (result) {
+                var formatData = [];
+                for (let i = 0; i < result.data.length; i++) {
+                    if ((result.data[i].longti != null && result.data[i].longti != '') && (result.data[i].lati != null && result.data[i].lati != '')) {
+                        formatData.push(result.data[i]);
+                    }
+                }
+                addpoints(formatData, 'person');
+            }
+        });
+    }
+
+    function getAllUnit() {
+        $.ajax({
+            type: 'get',
+            url: '/units/findAll',
+            dataType: 'json',
+            success: function (result) {
+                var formatData = [];
+                for (let i = 0; i < result.data.length; i++) {
+                    if ((result.data[i].longti != null && result.data[i].longti != '') && (result.data[i].lati != null && result.data[i].lati != '')) {
+                        formatData.push(result.data[i]);
+                    }
+                }
+                addpoints(formatData, 'unit');
+            }
+        });
+    }
+
+
     function getEvent(flag, page) {
+        map.removeOverlay(overlay);
         $("#title").text("事件列表")
         $("#searchType").val('event');
         $("#fly").show();
@@ -174,7 +270,7 @@
                     var str = '';
                     str = '<dl>\n' +
                         '                    <dt>\n' +
-                        '                    <a>' + judgeNull(result.data.events[i].eventName) + '</a>\n' +
+                        '                    <a onclick="getEventDetail(\'' + result.data.events[i].eventId + '\')">' + judgeNull(result.data.events[i].eventName) + '</a>\n' +
                         '                    <div class="icon">\n' +
                         '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
@@ -199,7 +295,148 @@
         })
     };
 
+    function getPerson(flag, page) {
+        map.removeOverlay(overlay);
+        $("#title").text("人员列表")
+        $("#searchType").val('person');
+        $("#fly").show();
+        $.ajax({
+            type: 'post',
+            url: '/persons/find',
+            dataType: 'json',
+            data: {
+                page: page,
+                pageSize: 5
+            },
+            success: function (result) {
+                if (flag) {
+                    getAllPerson();
+                    $("#pagi").empty();
+                    if (result.data.total <= 5) {
+                        $("#total").val(1);
+                        $("#pagi").append('<div id="pagi_left" class="pagi_left pagi-arrow">&lt;</div>\n' +
+                            '                    <div class="pagi-item js-cur">1</div>\n' +
+                            '                    <div id="pagi_right" class="pagi_right pagi-arrow">&gt;</div>')
+                    } else {
+                        let pages = parseInt(result.data.total % 5 != 0 ? result.data.total / 5 + 1 : result.data.total / 5);
+                        $("#total").val(pages);
+                        $("#pagi").append('<div id="pagi_left" class="pagi_left pagi-arrow">&lt;</div>')
+                        pages = pages > 6 ? 6 : pages;
+                        for (let i = 0; i < pages; i++) {
+                            if (i == 0) {
+                                $("#pagi").append('<div class="pagi-item js-cur">' + (i + 1) + '</div>');
+                            } else {
+                                $("#pagi").append('<div class="pagi-item">' + (i + 1) + '</div>');
+                            }
+
+                        }
+                        $("#pagi").append('<div id="pagi_right" class="pagi_right pagi-arrow">&gt;</div>')
+                    }
+                    ypagi("#pagi", $("#total").val());
+                }
+
+                $(".view").empty();
+                for (var i = 0; i < result.data.data.length; i++) {
+                    var str = '';
+                    str = '<dl>\n' +
+                        '                    <dt>\n' +
+                        '                    <a onclick="getPersonDetail(\'' + result.data.data[i].personId + '\')">' + judgeNull(result.data.data[i].personName) + '</a>\n' +
+                        '                    <div class="icon">\n' +
+                        '                        <i class="warning1"</i>\n' +
+                        '                        </div>\n' +
+                        '                        </dt>\n' +
+                        '                        <dd class="time">' + judgeNull(result.data.data[i].phoneNo) + '</dd>\n' +
+                        '                        <dd>\n' +
+                        '                        </div>\n' +
+                        '                        </dd>\n' +
+                        '                        </dl>';
+                    $(".view").append(str);
+                }
+
+
+                $("#fly").show();
+                $("#js-fly").show();
+
+
+                if ($(".neofx-bg-fly").height() <= 523) {
+                    $(".neofx-bg-fly").height($(".sub-tit").height() + $(".warningMess").height() + $(".y-pagi").height() + 20)
+                }
+            }
+        })
+    }
+
+    function getUnit(flag, page) {
+        map.removeOverlay(overlay);
+        $("#title").text("单位列表")
+        $("#searchType").val('unit');
+        $("#fly").show();
+        $.ajax({
+            type: 'post',
+            url: '/units/param',
+            dataType: 'json',
+            data: {
+                page: page,
+                pageSize: 5
+            },
+            success: function (result) {
+                if (flag) {
+                    getAllUnit();
+                    $("#pagi").empty();
+                    if (result.data.total <= 5) {
+                        $("#total").val(1);
+                        $("#pagi").append('<div id="pagi_left" class="pagi_left pagi-arrow">&lt;</div>\n' +
+                            '                    <div class="pagi-item js-cur">1</div>\n' +
+                            '                    <div id="pagi_right" class="pagi_right pagi-arrow">&gt;</div>')
+                    } else {
+                        let pages = parseInt(result.data.total % 5 != 0 ? result.data.total / 5 + 1 : result.data.total / 5);
+                        $("#total").val(pages);
+                        $("#pagi").append('<div id="pagi_left" class="pagi_left pagi-arrow">&lt;</div>')
+                        pages = pages > 6 ? 6 : pages;
+                        for (let i = 0; i < pages; i++) {
+                            if (i == 0) {
+                                $("#pagi").append('<div class="pagi-item js-cur">' + (i + 1) + '</div>');
+                            } else {
+                                $("#pagi").append('<div class="pagi-item">' + (i + 1) + '</div>');
+                            }
+
+                        }
+                        $("#pagi").append('<div id="pagi_right" class="pagi_right pagi-arrow">&gt;</div>')
+                    }
+                    ypagi("#pagi", $("#total").val());
+                }
+
+                $(".view").empty();
+                for (var i = 0; i < result.data.data.length; i++) {
+                    var str = '';
+                    str = '<dl>\n' +
+                        '                    <dt>\n' +
+                        '                    <a onclick="getUnitDetail(\'' + result.data.data[i].unitId + '\')">' + judgeNull(result.data.data[i].unitName) + '</a>\n' +
+                        '                    <div class="icon">\n' +
+                        '                        <i class="warning1"</i>\n' +
+                        '                        </div>\n' +
+                        '                        </dt>\n' +
+                        '                        <dd class="time">' + judgeNull(result.data.data[i].addr) + '</dd>\n' +
+                        '                        <dd>\n' +
+                        '                        </div>\n' +
+                        '                        </dd>\n' +
+                        '                        </dl>';
+                    $(".view").append(str);
+                }
+
+
+                $("#fly").show();
+                $("#js-fly").show();
+
+
+                if ($(".neofx-bg-fly").height() <= 523) {
+                    $(".neofx-bg-fly").height($(".sub-tit").height() + $(".warningMess").height() + $(".y-pagi").height() + 20)
+                }
+            }
+        })
+    }
+
     function getWarning(flag, page) {
+        map.removeOverlay(overlay);
         $("#title").text("预警列表")
         $("#searchType").val('warning');
         $("#fly").show();
@@ -247,7 +484,7 @@
                     var str = '';
                     str = '<dl>\n' +
                         '                    <dt>\n' +
-                        '                    <a>' + judgeNull(result.data.data[i].noticeName) + '</a>\n' +
+                        '                    <a onclick="getWarningDetail(\'' + result.data.data[i].noticeId + '\')">' + judgeNull(result.data.data[i].noticeName) + '</a>\n' +
                         '                    <div class="icon">\n' +
                         '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
@@ -346,7 +583,7 @@
             view: new ol.View({
                 center: [121.438319, 31.105656],
                 projection: ol.proj.get("EPSG:4326"),
-                zoom: 13,
+                zoom: 11,
                 maxZoom: 18,
                 minZoom: 10
             }),
@@ -363,7 +600,7 @@
             element: container,
             positioning: 'center-center',
             autoPan: true,
-            offset: [0, -10],
+            offset: [0, 0],
             autoPanAnimation: {
                 duration: 250   //当Popup超出地图边界时，为了Popup全部可见，地图移动的速度.
             }
@@ -384,6 +621,7 @@
     function setMapCenter(x, y) {
         var xy = [parseFloat(x), parseFloat(y)];
         map.getView().setCenter(xy);
+        map.getView().setZoom(11);
     }
 
 
@@ -447,6 +685,7 @@
                 }
                 var locationPointfeature = new ol.Feature({
                     geometry: new ol.geom.Point(point),
+                    eventId: rows[i].eventId,
                     name: safeToStr(rows[i].eventName),
                     occuredTime: rows[i].occurredTime,
                     occuredPlace: safeToStr(rows[i].occurredPlace),
@@ -465,15 +704,98 @@
                         }),
                         image: new ol.style.Icon({
                             src: '../images/location_pointR.png', // 设置Image对象
-                            imgSize: [30, 40], // 及图标大小
-                            anchor: [0.5, 1],
+                            imgSize: [45, 45], // 及图标大小
+                            anchor: [0.5, 0.5],
                         }),
                     })
                 );
                 setMapCenter(121.438319, 31.135656);
                 pointfeatures.push(locationPointfeature);
             }
-        } else {
+        } else if (type == 'person') {
+            for (let i = 0; i < rows.length; i++) {
+                getTags(rows[i].personId);
+                var x = rows[i].longti;
+                var y = rows[i].lati;
+                var point = [parseFloat(x), parseFloat(y)];
+                var data = {}
+
+
+                var locationPointfeature = new ol.Feature({
+                    geometry: new ol.geom.Point(point),
+                    personId: rows[i].personId,
+                    name: safeToStr(rows[i].personName),
+                    gender: safeToStr(rows[i].gender),
+                    personIdentityNo: safeToStr(rows[i].personIdentityNo),
+                    phoneNo: safeToStr(rows[i].phoneNo),
+                    liveAddr: safeToStr(rows[i].liveAddr),
+                    tags: tag,
+                    x: safeToStr(x),
+                    y: safeToStr(y)
+                });
+                locationPointfeature.setStyle(new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color: 'rgba(255,255,255,0.2)'
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: '#ffffff',
+                        width: 2
+                    }),
+                    image: new ol.style.Icon({
+                        src: '../images/ditu-bigicon2.png', // 设置Image对象
+                        imgSize: [45, 45], // 及图标大小
+                        anchor: [0.5, 0.5],
+                        }),
+                    })
+                );
+                setMapCenter(121.438319, 31.135656);
+                pointfeatures.push(locationPointfeature);
+            }
+        } else if (type == 'unit') {
+            for (let i = 0; i < rows.length; i++) {
+                getTags(rows[i].unitId);
+                var x = rows[i].longti;
+                var y = rows[i].lati;
+                var point = [parseFloat(x), parseFloat(y)];
+                var data = {}
+
+                if (rows[i].registerTime == null) {
+                    rows[i].registerTime = "暂无"
+                } else {
+                    rows[i].registerTime = new Date(rows[i].registerTime).format('yyyy-MM-dd hh:mm:ss')
+                }
+
+                var locationPointfeature = new ol.Feature({
+                    geometry: new ol.geom.Point(point),
+                    unitId: rows[i].unitId,
+                    unitName: safeToStr(rows[i].unitName),
+                    unitDetail: safeToStr(rows[i].unitDetail),
+                    usccCode: safeToStr(rows[i].usccCode),
+                    addr: safeToStr(rows[i].addr),
+                    registerTime: safeToStr(rows[i].registerTime),
+                    tags: tag,
+                    x: safeToStr(x),
+                    y: safeToStr(y)
+                });
+                locationPointfeature.setStyle(new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: 'rgba(255,255,255,0.2)'
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: '#ffffff',
+                            width: 2
+                        }),
+                        image: new ol.style.Icon({
+                            src: '../images/location_pointR.png', // 设置Image对象
+                            imgSize: [45, 45], // 及图标大小
+                            anchor: [0.5, 0.5],
+                        }),
+                    })
+                );
+                setMapCenter(121.438319, 31.135656);
+                pointfeatures.push(locationPointfeature);
+            }
+        } else if (type == 'warning') {
             for (var i = 0; i < rows.length; i++) {
                 var x = rows[i].noticeLongi;
                 var y = rows[i].noticeLati;
@@ -523,7 +845,7 @@
                         image: new ol.style.Icon({
                             src: '../images/' + img, // 设置Image对象
                             imgSize: [30, 40], // 及图标大小
-                            anchor: [0.5, 1]
+                            anchor: [0.5, 0.5]
                         }),
                     })
                 )
@@ -542,6 +864,193 @@
         mapClick(type)
     }
 
+
+    function showDetail(type, data) {
+        if (type == 'event') {
+            getTags(data.eventId)
+            if (data.occurredTime == null || data.occurredTime == 0) {
+                data.occurredTime = '无';
+            } else {
+                data.occurredTime = new Date(data.occurredTime).format("yyyy-MM-dd hh:mm:ss");
+            }
+            $("#popup-content").empty();
+            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                '    overflow: hidden;\n' +
+                '    text-overflow: ellipsis;\n' +
+                '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/case-record1.png" style="clear:both"/>' + judgeNull(data.eventName) + '</div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tag +
+                '                                    </div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">事件名称:<span>' + judgeNull(data.eventName) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line2-inner1\'>事件内容:</div>\n' +
+                '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(data.eventContent) + '\t</div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>发生时间:<span>' + data.occurredTime + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点:<span>' + judgeNull(data.occuredPlace) + '</span></div>\n' +
+                '    </div>\n';
+            map.removeOverlay(overlay);
+            if (data.occurredLongti != null && data.occurredLongti != '' && data.occurredLati != null && data.occurredLati != '') {
+                $("#popup-content").append(showStr);
+                overlay.setPosition([data.occurredLongti, data.occurredLati]);
+                map.addOverlay(overlay);
+                $("#popup-content").append(showStr);
+            }
+        } else if (type == 'person') {
+            getTags(data.personId)
+            $("#popup-content").empty();
+            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                '    overflow: hidden;\n' +
+                '    text-overflow: ellipsis;\n' +
+                '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-bigicon4.png" style="clear:both"/>' + judgeNull(data.personName) + '</div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tag +
+                '                                    </div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/cluesTabCon2.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">姓名:<span>' + judgeNull(data.personName) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/cluesTabCon10.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1" style="width: 80%;":<span>性别：' + judgeNull(data.gender) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line2-inner1\'>身份证号:</div>\n' +
+                '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(data.personIdentityNo) + '\t</div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + judgeNull(data.phoneNo) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(data.liveAddr) + '</span></div>\n' +
+                '    </div>\n';
+            map.removeOverlay(overlay);
+            if (data.longti != null && data.longti != '' && data.lati != null && data.lati != '') {
+                overlay.setPosition([data.longti, data.lati]);
+                map.addOverlay(overlay);
+                $("#popup-content").append(showStr);
+            }
+        } else if (type == 'unit') {
+            getTags(data.unitId)
+            if (data.registerTime == null || data.registerTime == 0) {
+                data.registerTime = '无';
+            } else {
+                data.registerTime = new Date(data.registerTime).format("yyyy-MM-dd hh:mm:ss");
+            }
+            $("#popup-content").empty();
+            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                '    overflow: hidden;\n' +
+                '    text-overflow: ellipsis;\n' +
+                '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="clear:both"/>' + data.unitName + '</div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tag +
+                '                                    </div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">单位名称:<span>' + judgeNull(data.unitName) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line2-inner1\'>单位概况:</div>\n' +
+                '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(data.unitDetail) + '\t</div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1" style="width: 80%;":<span>社会统一信用码：' + judgeNull(data.usccCode) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>单位地址:<span>' + judgeNull(data.addr) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>注册时间:<span>' + judgeNull(data.registerTime) + '</span></div>\n' +
+                '    </div>\n';
+
+            map.removeOverlay(overlay);
+            if (data.longti != null && data.longti != '' && data.lati != null && data.lati != '') {
+                overlay.setPosition([data.longti, data.lati]);
+                map.addOverlay(overlay);
+                $("#popup-content").append(showStr);
+            }
+        } else if (type == 'warning') {
+
+            var tags = data.warningTags;
+            if (tags == null || tags == "") {
+                tags = [];
+            } else {
+                tags = JSON.parse(tags);
+            }
+            var tagStr = '';
+            var length = 4;
+            length = tags.length > 4 ? 4 : tags.length;
+            if (tags) {
+                for (var t = 0; t < tags.length; t++) {
+                    tagStr += '<span name="' + tags[t].tagName + '" style="background: ' + tags[t].tagCssCode.color + '" class="green">' + tags[t].tagName + '</span>';
+                }
+            }
+            if (data.noticeDate == null || data.noticeDate == 0) {
+                data.noticeDate = '无';
+            } else {
+                data.noticeDate = new Date(data.noticeDate).format('yyyy-MM-dd hh:mm:ss');
+            }
+            $("#popup-content").empty();
+            var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                '    overflow: hidden;\n' +
+                '    text-overflow: ellipsis;\n' +
+                '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="clear:both"/>' + judgeNull(data.noticeName) + '</div>\n' +
+
+                '    <div class="ditu-popup2-line1">\n' +
+                '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tagStr +
+                '                                    </div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class="ditu-popup2-line1-inner1">预警对象:<span>' + judgeNull(data.noticeObjectName) + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line2-inner1\'>预警内容:</div>\n' +
+                '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(data.noticeContent) + '\t</div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>预警时间:<span>' + data.noticeDate + '</span></div>\n' +
+                '    </div>\n' +
+                '    <div class="ditu-popup2-line1">\n' +
+                '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                '        <div class=\'ditu-popup2-line1-inner\'>预警地点:<span>' + judgeNull(data.noticeAddr) + '</span>' +
+                // '<a href="javascript:;" style="bottom: 0px" class="jumpBtn"  onclick="tomore(\'' + noticeId + '\')">关联事件</a></div>\n' +
+                '    </div>\n';
+
+            map.removeOverlay(overlay);
+            if (data.noticeLongi != null && data.noticeLongi != '' && data.noticeLati != null && data.noticeLati != '') {
+                overlay.setPosition([data.noticeLongi, data.noticeLati]);
+                map.addOverlay(overlay);
+                $("#popup-content").append(showStr);
+            }
+        }
+
+    }
 
     //地图点击
     function mapClick(type) {
@@ -569,7 +1078,7 @@
                         '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                         '    overflow: hidden;\n' +
                         '    text-overflow: ellipsis;\n' +
-                        '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="clear:both"/>' + name + '</div>\n' +
+                        '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/case-record1.png" style="clear:both"/>' + name + '</div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
                         '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tags +
                         '                                    </div>\n' +
@@ -579,12 +1088,12 @@
                         '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">事件名称:<span>' + judgeNull(name) + '</span></div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line2-inner1\'>事件内容:</div>\n' +
                         '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(eventContent) + '\t</div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line1-inner\'>发生时间:<span>' + occuredTime + '</span></div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
@@ -598,7 +1107,124 @@
                     // }
                 });
             });
-        } else {
+        } else if (type == 'person') {
+            map.on('click', function (e) {
+                var pixel = map.getEventPixel(e.originalEvent);
+                map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                    var property = feature.getProperties();
+
+
+                    var personId = feature.get('personId');
+                    var name = feature.get('name');
+                    var gender = feature.get('gender');
+                    var personIdentityNo = feature.get('personIdentityNo');
+                    var phoneNo = feature.get('phoneNo');
+                    var liveAddr = feature.get('liveAddr');
+
+                    var x = feature.get('x');
+                    var y = feature.get('y');
+                    var tags = feature.get('tags');
+                    var coodinate = [];
+                    coodinate[0] = x;
+                    coodinate[1] = y;
+                    $("#popup-content").empty();
+                    var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                        '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                        '    overflow: hidden;\n' +
+                        '    text-overflow: ellipsis;\n' +
+                        '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-bigicon4.png" style="clear:both"/>' + name + '</div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tags +
+                        '                                    </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/cluesTabCon2.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">姓名:<span>' + judgeNull(name) + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/cluesTabCon10.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class="ditu-popup2-line1-inner1" style="width: 80%;":<span>性别：' + judgeNull(gender) + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line2-inner1\'>身份证号:</div>\n' +
+                        '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(personIdentityNo) + '\t</div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + phoneNo + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(liveAddr) + '</span></div>\n' +
+                        '    </div>\n';
+
+                    overlay.setPosition(coodinate);
+                    map.addOverlay(overlay);
+                    $("#popup-content").append(showStr);
+                    // }
+                });
+            });
+        } else if (type == 'unit') {
+            map.on('click', function (e) {
+                var pixel = map.getEventPixel(e.originalEvent);
+                map.forEachFeatureAtPixel(pixel, function (feature, layer) {
+                    var property = feature.getProperties();
+
+
+                    var unitId = feature.get('unitId');
+                    var unitName = feature.get('unitName');
+                    var unitDetail = feature.get('unitDetail');
+                    var usccCode = feature.get('usccCode');
+                    var addr = feature.get('addr');
+                    var registerTime = feature.get('registerTime');
+
+
+                    var x = feature.get('x');
+                    var y = feature.get('y');
+                    var tags = feature.get('tags');
+                    var coodinate = [];
+                    coodinate[0] = x;
+                    coodinate[1] = y;
+                    $("#popup-content").empty();
+                    var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
+                        '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
+                        '    overflow: hidden;\n' +
+                        '    text-overflow: ellipsis;\n' +
+                        '    white-space: nowrap;cursor: pointer"><img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="clear:both"/>' + unitName + '</div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '                                    <div class="labelBox" style="top: 0px;width: 348px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;height: 30px;">\n' + tags +
+                        '                                    </div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class="ditu-popup2-line1-inner1" style="width: 80%;">单位名称:<span>' + judgeNull(unitName) + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line2-inner1\'>单位概况:</div>\n' +
+                        '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(unitDetail) + '\t</div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon2.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class="ditu-popup2-line1-inner1" style="width: 80%;":<span>社会统一信用码：' + judgeNull(usccCode) + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>单位地址:<span>' + addr + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>注册时间:<span>' + judgeNull(registerTime) + '</span></div>\n' +
+                        '    </div>\n';
+
+                    overlay.setPosition(coodinate);
+                    map.addOverlay(overlay);
+                    $("#popup-content").append(showStr);
+                    // }
+                });
+            });
+        } else if (type == 'warning') {
             map.on('click', function (e) {
                 var pixel = map.getEventPixel(e.originalEvent);
                 map.forEachFeatureAtPixel(pixel, function (feature, layer) {
@@ -623,7 +1249,6 @@
                     coodinate[0] = x;
                     coodinate[1] = y;
                     var tags = feature.get('warningTags');
-                    console.log(tags)
                     if (tags == null || tags == "") {
                         tags = [];
                     } else {
@@ -637,6 +1262,7 @@
                             tagStr += '<span name="' + tags[t].tagName + '" style="background: ' + tags[t].tagCssCode.color + '" class="green">' + tags[t].tagName + '</span>';
                         }
                     }
+                    $("#popup-content").empty();
                     var showStr = '<div class="ditu-popup2-arrow"></div>\n' +
                         '    <div class="ditu-popup2-line1" style="width: 348px;\n' +
                         '    overflow: hidden;\n' +
@@ -652,12 +1278,12 @@
                         '        <div class="ditu-popup2-line1-inner1">预警对象:<span>' + judgeNull(noticeObjectName) + '</span></div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line2-inner1\'>预警内容:</div>\n' +
                         '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(noticeContent) + '\t</div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line1-inner\'>预警时间:<span>' + noticeDate + '</span></div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
@@ -699,6 +1325,12 @@
         }
         if ('warning' == serchType) {
             getWarning(false, page);
+        }
+        if ('person' == serchType) {
+            getPerson(false, page);
+        }
+        if ("unit" == serchType) {
+            getUnit(false, page);
         }
 
     }
@@ -1149,8 +1781,6 @@
             };
         };
         dragFunc("fly");
-        // dragFunc("fly1");
-        // dragFunc("fly2");
     })
 </script>
 </html>

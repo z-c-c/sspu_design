@@ -34,6 +34,13 @@ public interface UnitDao {
     void updateUnit(UnitEntity unitEntity);
 
     /**
+     * 查找所有单位
+     *
+     * @return
+     */
+    List<UnitEntity> findAll();
+
+    /**
      * 查找单位
      *
      * @param unitId unitId

@@ -55,6 +55,12 @@
         where unit_id=#{unitId};
     </update>
 
+
+    <select id="findAll" resultType="com.zcc.platform.unit.entity.UnitEntity">
+        select *
+        from unit_info
+        where is_delete != '1';
+    </select>
     <select id="findUnitById" resultType="com.zcc.platform.unit.entity.UnitEntity">
         select *
         from unit_info

@@ -6875,8 +6875,8 @@ textarea.vV-area[disabled] {
     display: none;
     position: absolute;
     z-index: 20;
-    top: 0;
-    left: 340px;
+    top: -300px;
+    left: 0px;
     box-sizing: border-box;
     padding: 6px 12px;
     width: 298px;

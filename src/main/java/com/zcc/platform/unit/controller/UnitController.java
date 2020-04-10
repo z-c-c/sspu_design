@@ -81,6 +81,12 @@ public class UnitController {
         return ResultBean.success(map);
     }
 
+    @Log(name = "查找所有单位")
+    @GetMapping("/findAll")
+    public ResultBean findAll() {
+        return ResultBean.success(unitService.findAll());
+    }
+
     @Log(name = "单个单位的数据聚合")
     @PostMapping("/dataTogether")
     public ResultBean dataTogether(String unitId, int page, int pageSize) throws MyException {
