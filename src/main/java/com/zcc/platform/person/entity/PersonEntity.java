@@ -28,6 +28,12 @@ public class PersonEntity {
 
     private String isDelete;
 
+    private String longti;
+
+    private String lati;
+
+
+
     public String getPersonId() {
         return personId;
     }
@@ -122,5 +128,21 @@ public class PersonEntity {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getLongti() {
+        return longti;
+    }
+
+    public void setLongti(String longti) {
+        this.longti = longti;
+    }
+
+    public String getLati() {
+        return lati;
+    }
+
+    public void setLati(String lati) {
+        this.lati = lati;
     }
 }

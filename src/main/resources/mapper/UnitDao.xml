@@ -9,7 +9,7 @@
             select replace(uuid(),'-','') from dual;
         </selectKey>
         insert into unit_info values
-        (#{unitId},#{unitName},#{unitDetail},#{unitLegalPerson},#{usccCode},#{status},#{industry},#{addr},#{registerTime},'0');
+        (#{unitId},#{unitName},#{unitDetail},#{unitLegalPerson},#{usccCode},#{status},#{industry},#{addr},#{registerTime},'0',#{longti},#{lati});
     </insert>
 
     <update id="delUnit">
@@ -44,6 +44,12 @@
             </if>
             <if test="registerTime!=null">
                 register_time=#{registerTime},
+            </if>
+            <if test="longti!=null">
+                longti=#{longti},
+            </if>
+            <if test="lati!=null">
+                lati=#{lati}
             </if>
         </trim>
         where unit_id=#{unitId};

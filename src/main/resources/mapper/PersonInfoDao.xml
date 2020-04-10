@@ -9,7 +9,7 @@
             select replace(uuid(),'-','')from dual;
         </selectKey>
         insert into person_info values
-        (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0',#{age});
+        (#{personId},#{personName},#{personUsedName},#{gender},#{personIdentityNo},#{personImage},#{nationality},#{nativePlace},#{phoneNo},#{liveAddr},'0',#{age},#{longti},#{lati});
     </insert>
 
     <update id="delPerson">
@@ -50,7 +50,13 @@
                 phone_no=#{phoneNo},
             </if>
             <if test="liveAddr!=null">
-                live_addr=#{liveAddr}
+                live_addr=#{liveAddr},
+            </if>
+            <if test="longti!=null">
+                longti=#{longti},
+            </if>
+            <if test="lati!=null">
+                lati=#{lati}
             </if>
         </trim>
         where person_id=#{personId}

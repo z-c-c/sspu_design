@@ -370,8 +370,8 @@
             <h5 id="addEventTitle">新增事件</h5>
             <h5 id="updateEventTitle">修改事件</h5>
         </div>
-        <div class="titleCon" style="height: 550px;">
-            <div class="baseTable">
+        <div class="titleCon" id="eventDiv" style="height: 500px;">
+            <div class="baseTable" style="height: 700px;">
                 <table border="0" style="width: 700px;">
                     <div class="bear-tit bear-tit2 point">
                         <h5>基本信息</h5>
@@ -686,7 +686,8 @@
 
         newAdduploadImg();
         // 弹框滚动条
-        $(".titleCon").perfectScrollbar();
+        // $(".titleCon").perfectScrollbar();
+        $("#eventDiv").perfectScrollbar();
 
 
     });

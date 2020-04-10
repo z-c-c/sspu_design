@@ -107,6 +107,8 @@
         console.log(event.coordinate)
         parent.$("#occurredLongti").val(event.coordinate[0]);
         parent.$("#occurredLati").val(event.coordinate[1]);
+        parent.$("#longti").val(event.coordinate[0]);
+        parent.$("#lati").val(event.coordinate[1]);
         console.log(ol.proj.transform(event.coordinate, 'EPSG:3857', 'EPSG:4326'));
     });
 

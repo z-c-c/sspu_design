@@ -187,6 +187,19 @@
     </div>
 </div>
 
+<div class="tanBox" id="addPoints" style="display: none;z-index: 1000000">
+    <div class="pubBlock kuang">
+        <i class="close">×</i>
+        <div class="bear-tit">
+            <h5>选择地点</h5>
+        </div>
+        <div class="titleCon" style="height: 430px;">
+            <iframe src="../event/map.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
+                    height="100%" class="iframeMain"></iframe>
+        </div>
+    </div>
+</div>
+
 <div class="tanBox" id="addEvent" style="display: none">
     <div class="pubBlock kuang">
         <i class="close">×</i>
@@ -194,8 +207,8 @@
             <h5 id="addEventTitle">新增单位</h5>
             <h5 id="updateEventTitle">修改单位</h5>
         </div>
-        <div class="titleCon" style="height: 430px;">
-            <div class="baseTable">
+        <div class="titleCon" id="unitDiv" style="height: 500px;">
+            <div class="baseTable" style="height: 580px;">
                 <table border="0" style="width: 700px;">
                     <div class="bear-tit bear-tit2 point">
                         <h5>基本信息</h5>
@@ -220,10 +233,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <%--                        <td width="20%" class="center"></td>--%>
-                        <%--                        <td width="30%">--%>
-                        <%--                            <input class="vV-ipt" result="text" value="" id="" style="width: 200px;">--%>
-                        <%--                        </td>--%>
                         <td class="center">统一社会信用码</td>
                         <td colspan="3">
                             <textarea class="vV-area w-400 m8" style="width: 550px;height: 30px;"
@@ -252,6 +261,18 @@
                                 <option value="1" selected>经营中</option>
                                 <option value="0">未经营</option>
                             </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="center">单位地址经度</td>
+                        <td width="30%">
+                            <input class="vV-ipt" result="text" value="" id="longti" style="width: 200px;"
+                                   autocomplete="off" placeholder="双击通过地图选择" ondblclick="choicePoint()">
+                        </td>
+                        <td width="20%" class="center">单位地址维度</td>
+                        <td width="30%">
+                            <input class="vV-ipt" result="text" value="" id="lati" style="width: 200px;"
+                                   autocomplete="off" ondblclick="choicePoint()">
                         </td>
                     </tr>
                 </table>
@@ -287,6 +308,7 @@
         </div>
     </div>
 </div>
+
 <input type="hidden" id="addedTagNames">
 <input type="hidden" id="toUpdateEventId">
 <input type="hidden" id="toUpdateHandleLogId">
@@ -332,6 +354,9 @@
         }
     }
 
+    function choicePoint() {
+        $("#addPoints").show();
+    }
 
     $(function () {
         //隐藏列表框
@@ -430,11 +455,16 @@
 
         // 弹窗关闭
         $(".kuang i.close").click(function () {
-            $(".tanBox").fadeOut();
+            $(this).parent().parent().fadeOut();
+            // $(".tanBox").fadeOut();
         })
         $(".clearBtn").click(function () {
             $(this).prev().val("");
         })
+        $("#unitDiv").perfectScrollbar();
+        newAdduploadImg();
+
+    })
 
         function newAdduploadImg() {
             var img = '';
@@ -474,11 +504,11 @@
             })
         }
 
-        newAdduploadImg();
-        // 弹框滚动条
-        $(".titleCon").perfectScrollbar();
 
-    });
+        // 弹框滚动条
+    // $(".titleCon").perfectScrollbar();
+
+
 
 
     function footerChange() {
@@ -917,6 +947,8 @@
                     $("#industry").val(isValidStr(unit.industry));
                     $("#addr").val(isValidStr(unit.addr));
                     $("#status").val(isValidStr(unit.status));
+                    $("#longti").val(unit.longti);
+                    $("#lati").val(unit.lati);
                     $("#addEvent").show();
                 }
             }
@@ -934,6 +966,8 @@
         data.industry = $("#industry").val();
         data.addr = $("#addr").val();
         data.status = $("#status").val();
+        data.longti = $("#longti").val();
+        data.lati = $("#lati").val();
         let tags = '';
         $(".fs-options").eq(0).find('div').each(function () {
             if ($(this).hasClass('selected')) {

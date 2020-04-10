@@ -67,6 +67,8 @@ public class WarningServiceImpl implements WarningService {
             if (WarningEntity.WARNING_PERSON.equals(oldWarning.getNoticeObjectType())) {
                 PersonEntity person = personService.findById(oldWarning.getNoticeObjectId());
                 oldWarning.setNoticeAddr(person.getLiveAddr());
+                oldWarning.setNoticeLongi(person.getLongti());
+                oldWarning.setNoticeLati(person.getLati());
                 oldWarning.setNoticeObjectName(person.getPersonName());
                 setWarningTags(warningEntity, oldWarning);
             }
@@ -74,6 +76,8 @@ public class WarningServiceImpl implements WarningService {
             else if (WarningEntity.WARNING_UNIT.equals(oldWarning.getNoticeObjectType())) {
                 UnitEntity unit = unitService.findById(oldWarning.getNoticeObjectId());
                 oldWarning.setNoticeAddr(unit.getAddr());
+                oldWarning.setNoticeLongi(unit.getLongti());
+                oldWarning.setNoticeLati(unit.getLati());
                 oldWarning.setNoticeObjectName(unit.getUnitName());
                 setWarningTags(warningEntity, oldWarning);
             }
@@ -201,6 +205,8 @@ public class WarningServiceImpl implements WarningService {
                 warningEntity.setNoticeLevel(WarningEntity.LEVEL_THREE);
                 warningEntity.setNoticeDate(new Date());
                 warningEntity.setNoticeAddr(personEntity.getLiveAddr());
+                warningEntity.setNoticeLongi(personEntity.getLongti());
+                warningEntity.setNoticeLati(personEntity.getLati());
                 warningEntity.setNoticeObjectName(personEntity.getPersonName());
                 warningEntity.setNoticeObjectType(WarningEntity.WARNING_PERSON);
                 warningEntity.setNoticeObjectId(personEntity.getPersonId());
@@ -227,6 +233,8 @@ public class WarningServiceImpl implements WarningService {
                 warningEntity.setNoticeLevel(WarningEntity.LEVEL_THREE);
                 warningEntity.setNoticeDate(new Date());
                 warningEntity.setNoticeAddr(unitEntity.getAddr());
+                warningEntity.setNoticeLongi(unitEntity.getLongti());
+                warningEntity.setNoticeLati(unitEntity.getLati());
                 warningEntity.setNoticeObjectName(unitEntity.getUnitName());
                 warningEntity.setNoticeObjectType(WarningEntity.WARNING_UNIT);
                 warningEntity.setNoticeObjectId(unitEntity.getUnitId());

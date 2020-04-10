@@ -429,13 +429,26 @@
     </div>
 </div>
 
+<div class="tanBox" id="addPoints" style="display: none;z-index: 1000000">
+    <div class="pubBlock kuang">
+        <i class="close">×</i>
+        <div class="bear-tit">
+            <h5>选择地点</h5>
+        </div>
+        <div class="titleCon" style="height: 430px;">
+            <iframe src="../event/map.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
+                    height="100%" class="iframeMain"></iframe>
+        </div>
+    </div>
+</div>
+
 <div class="tanBox" id="addnew" style="display: none">
     <div class="pubBlock kuang" style="width: 850px">
         <i class="close" onclick="javascript:$('#addnew').fadeOut();">×</i>
         <div class="bear-tit">
             <h5>人员信息</h5>
         </div>
-        <div class="titleCon" id="insertnew">
+        <div class="titleCon" id="insertnew" style="height: 500px;">
             <div class="baseTable" style="height: 700px;">
                 <table border="0">
                     <tr>
@@ -498,6 +511,19 @@
                         <td width="20%" class="center">居住地：</td>
                         <td width="30%">
                             <input class="vV-ipt w-200" type="text" id="liveAddr" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="20%" class="center">居住地经度：</td>
+                        <td width="30%">
+                            <input class="vV-ipt w-200" type="text" id="longti" value="" autocomplete="off"
+                                   placeholder="双击通过地图选择" ondblclick="choicePoint()">
+                        </td>
+
+                        <td width="20%" class="center">居住地维度：</td>
+                        <td width="30%">
+                            <input class="vV-ipt w-200" type="text" id="lati" value="" autocomplete="off"
+                                   ondblclick="choicePoint()">
                         </td>
                     </tr>
                     <tr>
@@ -599,6 +625,8 @@
                 $("#phoneNo").val(person.phoneNo);
                 $("#liveAddr").val(person.liveAddr);
                 $("#age").val(person.age);
+                $("#longti").val(person.longti);
+                $("#lati").val(person.lati);
                 $("#addnew").show();
             }
         })
@@ -616,7 +644,8 @@
         data.nativePlace = $("#nativePlace").val();
         data.phoneNo = $("#phoneNo").val();
         data.liveAddr = $("#liveAddr").val();
-
+        data.longti = $("#longti").val();
+        data.lati = $("#lati").val();
         var tags = '';
         $(".fs-options").eq(0).find('div').each(function () {
             if ($(this).hasClass('selected')) {
@@ -1355,13 +1384,18 @@
 
         // 弹窗关闭
         $(".kuang i.close").click(function () {
-            $(".tanBox").fadeOut();
+            $(this).parent().parent().fadeOut();
+            // $(".tanBox").fadeOut();
         })
         $(".clearBtn").click(function () {
             $(this).prev().val("");
         })
     })
 
+
+    function choicePoint() {
+        $("#addPoints").show();
+    }
 
     function editnew(id) {
         $("#addshowname").hide();
