@@ -199,7 +199,8 @@
                     <tr>
                         <td width="20%" class="center">预警名称</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;"
+                                   autocomplete="no">
                         </td>
                         <td width="20%" class="center">预警等级</td>
                         <td width="30%">
@@ -252,7 +253,7 @@
             <h5 id="updateEventTitle">修改单位</h5>
         </div>
         <div class="titleCon" id="unitDiv" style="height: 500px;">
-            <div class="baseTable" style="height: 580px;">
+            <div class="baseTable" style="height: 700px;">
                 <table border="0" style="width: 700px;">
                     <div class="bear-tit bear-tit2 point">
                         <h5>基本信息</h5>

@@ -453,7 +453,8 @@
                     <tr>
                         <td width="20%" class="center">预警名称</td>
                         <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;">
+                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;"
+                                   autocomplete="no">
                         </td>
                         <td width="20%" class="center">预警等级</td>
                         <td width="30%">

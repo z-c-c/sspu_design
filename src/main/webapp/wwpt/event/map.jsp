@@ -10,12 +10,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>一个简单的事件应用</title>
+    <title>事件点击</title>
     <script src="../js/ol.js"></script>
     <link href="../css/ol.css">
 </head>
 <body>
-<div id="map" style="width: 100%;height: 700px"></div>
+<div id="map" style="width: 100%;height: 400px"></div>
 <script>
 
     let layer = new ol.layer.Vector({
@@ -103,7 +103,7 @@
             layer.getSource().removeFeature(feature)
         })
         layer.getSource().addFeature(feature);
-        console.log(event.coordinate)
+        // console.log(event.coordinate)
         parent.$("#occurredLongti").val(event.coordinate[0]);
         parent.$("#occurredLati").val(event.coordinate[1]);
         parent.$("#longti").val(event.coordinate[0]);
@@ -113,19 +113,21 @@
 
     function showPoint(longi, lati) {
 
-        // map.getView().setCenter(longi,lati);
         if (longi != '' && lati != '') {
             setMapCenter(longi, lati)
         }
-        let feature = new ol.Feature({
-            geometry: new ol.geom.Point([longi, lati]),
-        });
-        feature.setStyle(style);
 
         layer.getSource().getFeatures().forEach(function (feature) {
             layer.getSource().removeFeature(feature)
         })
+
+        let feature = new ol.Feature({
+            geometry: new ol.geom.Point([longi, lati]),
+        });
+        feature.setStyle(style);
         layer.getSource().addFeature(feature);
+
+
     }
 
     function setMapCenter(longi, lati) {
