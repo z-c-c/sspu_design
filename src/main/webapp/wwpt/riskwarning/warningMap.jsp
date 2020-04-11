@@ -585,7 +585,7 @@
                 projection: ol.proj.get("EPSG:4326"),
                 zoom: 11,
                 maxZoom: 18,
-                minZoom: 10
+                minZoom: 8
             }),
             interactions: ol.interaction.defaults({
                 doubleClickZoom: false
@@ -617,12 +617,12 @@
 
     var map = initMap();
 
-    //设置地图中心点
-    function setCenter(x, y) {
-        var xy = [parseFloat(x), parseFloat(y)];
-        map.getView().setCenter(xy);
-        map.getView().setZoom(11);
-    }
+    // //设置地图中心点
+    // function setCenter(x, y) {
+    //     var xy = [parseFloat(x), parseFloat(y)];
+    //     map.getView().setCenter(xy);
+    //     map.getView().setZoom(11);
+    // }
 
 
     function safeToStr(str) {
@@ -709,7 +709,7 @@
                         }),
                     })
                 );
-                setMapCenter(121.438319, 31.135656);
+                setCenter(121.438319, 31.135656);
                 pointfeatures.push(locationPointfeature);
             }
         } else if (type == 'person') {
@@ -748,7 +748,7 @@
                         }),
                     })
                 );
-                setMapCenter(121.438319, 31.135656);
+                setCenter(121.438319, 31.135656);
                 pointfeatures.push(locationPointfeature);
             }
         } else if (type == 'unit') {
@@ -792,7 +792,7 @@
                         }),
                     })
                 );
-                setMapCenter(121.438319, 31.135656);
+                setCenter(121.438319, 31.135656);
                 pointfeatures.push(locationPointfeature);
             }
         } else if (type == 'warning') {
@@ -849,7 +849,7 @@
                         }),
                     })
                 )
-                setMapCenter(121.438319, 31.135656);
+                setCenter(121.438319, 31.135656);
                 pointfeatures.push(locationPointfeature);
             }
         }
@@ -870,6 +870,20 @@
                 center: [longi, lati],
                 duration: 1000,
                 zoom: 12,
+            }
+        );
+    }
+
+    function setCenter(longi, lati) {
+        map.getView().animate(
+            {
+                zoom: 9,
+                duration: 500,
+            },
+            {
+                center: [longi, lati],
+                duration: 1000,
+                zoom: 10,
             }
         );
     }
