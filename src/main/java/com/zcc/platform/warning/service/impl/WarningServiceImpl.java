@@ -50,18 +50,18 @@ public class WarningServiceImpl implements WarningService {
 
         if (StringUtil.isValidStr(warningEntity.getNoticeId())) {
             WarningEntity oldWarning = warningDao.findWarningById(warningEntity.getNoticeId());
-
             oldWarning.setNoticeId(warningEntity.getNoticeId());
             oldWarning.setNoticeName(warningEntity.getNoticeName());
             oldWarning.setNoticeContent(warningEntity.getNoticeContent());
-            oldWarning.setNoticeDate(warningEntity.getNoticeDate());
+            if (warningEntity.getNoticeDate() != null) {
+                oldWarning.setNoticeDate(warningEntity.getNoticeDate());
+            }
             oldWarning.setNoticeLevel(warningEntity.getNoticeLevel());
             if (warningEntity.getNoticeType() == null) {
                 oldWarning.setNoticeType(WarningEntity.UN_AUTO);
             } else {
                 oldWarning.setNoticeType(warningEntity.getNoticeType());
             }
-
 
             //如果该预警是人员预警
             if (WarningEntity.WARNING_PERSON.equals(oldWarning.getNoticeObjectType())) {
@@ -93,12 +93,47 @@ public class WarningServiceImpl implements WarningService {
             warningDao.updateWarning(oldWarning);
         } else {
             warningEntity.setNoticeType(WarningEntity.UN_AUTO);
+            warningEntity.setNoticeDate(new Date());
+            //事件预警
+            if (WarningEntity.WARNING_EVENT.equals(warningEntity.getNoticeObjectType())) {
+                EventInfoEntity event = eventInfoService.find(warningEntity.getNoticeObjectId());
+                warningEntity.setNoticeAddr(event.getOccurredPlace());
+                warningEntity.setNoticeLongi(event.getOccurredLongti());
+                warningEntity.setNoticeLati(event.getOccurredLati());
+                warningEntity.setNoticeObjectName(event.getEventName());
+                warningAddTags(warningEntity);
+            }
+            //人员预警
+            if (WarningEntity.WARNING_PERSON.equals(warningEntity.getNoticeObjectType())) {
+                PersonEntity person = personService.findById(warningEntity.getNoticeObjectId());
+                warningEntity.setNoticeAddr(person.getLiveAddr());
+                warningEntity.setNoticeLongi(person.getLongti());
+                warningEntity.setNoticeLati(person.getLati());
+                warningEntity.setNoticeObjectName(person.getPersonName());
+                warningAddTags(warningEntity);
+
+            }
+            //单位预警
+            if (WarningEntity.WARNING_UNIT.equals(warningEntity.getNoticeObjectType())) {
+                UnitEntity unit = unitService.findById(warningEntity.getNoticeObjectId());
+                warningEntity.setNoticeAddr(unit.getAddr());
+                warningEntity.setNoticeLongi(unit.getLongti());
+                warningEntity.setNoticeLati(unit.getLati());
+                warningEntity.setNoticeObjectName(unit.getUnitName());
+                warningAddTags(warningEntity);
+
+            }
             warningDao.addWarning(warningEntity);
         }
         return warningEntity.getNoticeId();
     }
 
-    private void setWarningTags(WarningEntity warningEntity, WarningEntity oldWarning) {
+    private void warningAddTags(WarningEntity warningEntity) {
+        JSONArray jsonArray = tagFormat(warningEntity);
+        warningEntity.setWarningTags(jsonArray.toString());
+    }
+
+    private JSONArray tagFormat(WarningEntity warningEntity) {
         JSONArray jsonArray = new JSONArray();
         List<TagBaseInfoEntity> tags = tagObjectRelationService.findTagByObjectId(warningEntity.getNoticeObjectId());
         for (TagBaseInfoEntity tag : tags) {
@@ -107,6 +142,11 @@ public class WarningServiceImpl implements WarningService {
             jsonObject.element("tagCssCode", tag.getTagCssCode());
             jsonArray.add(jsonObject);
         }
+        return jsonArray;
+    }
+
+    private void setWarningTags(WarningEntity warningEntity, WarningEntity oldWarning) {
+        JSONArray jsonArray = tagFormat(warningEntity);
         oldWarning.setWarningTags(jsonArray.toString());
     }
 

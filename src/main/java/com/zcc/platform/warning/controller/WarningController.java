@@ -58,6 +58,12 @@ public class WarningController {
         return ResultBean.success(map);
     }
 
+    @Log(name = "查找预警")
+    @PostMapping("/find/type")
+    public ResultBean find(String objectId, String objectType) {
+        return ResultBean.success(service.findWarningByNoticeObjectIdAndType(objectId, objectType));
+    }
+
     @Log(name = "查找全部预警")
     @PostMapping("/findAll")
     public ResultBean findAll(int page, int pageSize) throws MyException {

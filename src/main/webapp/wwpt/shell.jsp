@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>徐汇区社会稳定风险防控综合管理系统</title>
+    <title>事件治理平台</title>
     <%@include file="./common/w_include_header.jsp"%>
     <script type="text/javascript" src="./common/w_common_method.js"></script>
     <style>

@@ -441,6 +441,49 @@
         </div>
     </div>
 </div>
+<div class="tanBox" id="warningInfo" style="display: none">
+    <div class="pubBlock kuang">
+        <i class="close">×</i>
+        <div class="bear-tit">
+            <h5>事件预警</h5>
+        </div>
+        <div class="titleCon" style="height: 330px;">
+            <div class="baseTable">
+                <table border="0" style="width: 700px;">
+                    <tr>
+                        <td width="20%" class="center">预警名称</td>
+                        <td width="30%">
+                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;">
+                        </td>
+                        <td width="20%" class="center">预警等级</td>
+                        <td width="30%">
+                            <select class="vV-drop" id="noticeLevel" style="width: 200px;">
+                                <option value="4" selected>严重</option>
+                                <option value="3">较严重</option>
+                                <option value="2">一般</option>
+                                <option value="1">轻度</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center">预警内容</td>
+                        <td colspan="3">
+                            <textarea class="vV-area w-400 m8" style="width: 550px;height: 200px"
+                                      id="noticeContent"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <table border="0" style="width: 700px;">
+                    <tr>
+                        <td colspan="4" height="60" align="center">
+                            <button class="alertBtn" onclick="saveWarning()">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="tanBox" id="addnew" style="display: none">
     <div class="pubBlock kuang" style="width: 850px">
@@ -550,6 +593,7 @@
 </div>
 
 <input type="hidden" id="updatePersonId">
+<input type="hidden" id="toUpdateWarningId">
 </body>
 <script result="text/javascript">
     function successOperator() {
@@ -769,6 +813,7 @@
                         // str1 += "</div>";
                         // str1 += "</div>";
                         str1 += "<div class=\"btnGroup\">";
+                        str1 += '<a class="btnSty" onclick="showWarning(\'' + persons[i].personId + '\')">预警</a>';
                         str1 += "<div class=\"sortList sortList2 v-fr\">";
                         str1 += "<a onclick='showPress(this)' class=\"sort\">操作</a>";
                         str1 += "<div class=\"sortDown sortDown2\">";
@@ -785,6 +830,55 @@
                 }
             }
         })
+    }
+
+    function showWarning(personId) {
+        $("#noticeName").val('');
+        $("#noticeContent").val('');
+        $("#noticeLevel").val('');
+        $.ajax({
+            type: 'post',
+            url: '/warnings/find/type',
+            data: {
+                objectId: personId,
+                objectType: 'person'
+            }, success: function (result) {
+                let warning = result.data;
+                if (warning == null) {
+                    $("#toUpdateWarningId").val('');
+                    $.messager.alert("提示", "该人员无预警");
+                } else {
+                    $("#toUpdateWarningId").val(warning.noticeId);
+                    $("#noticeName").val(warning.noticeName);
+                    $("#noticeContent").val(warning.noticeContent);
+                    $("#noticeLevel").val(warning.noticeLevel);
+                }
+            }
+        })
+        $("#updatePersonId").val(personId);
+        $("#warningInfo").show();
+    }
+
+    function saveWarning() {
+        let data = {};
+        data.noticeId = $("#toUpdateWarningId").val();
+        data.noticeName = $("#noticeName").val();
+        data.noticeContent = $("#noticeContent").val();
+        data.noticeLevel = $("#noticeLevel").val();
+        data.noticeObjectId = $("#updatePersonId").val();
+        data.noticeObjectType = 'person';
+        $.ajax({
+            type: 'post',
+            url: '/warnings/save',
+            data: data,
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 'success') {
+                    successOperator();
+                    $("#warningInfo").hide();
+                }
+            }
+        });
     }
 
     function toMoreDateTogether(personId, count) {

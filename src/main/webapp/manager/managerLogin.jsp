@@ -84,7 +84,7 @@
 <body>
     <div class="loginWrap">
         <div class="mapBgLogin"></div>
-        <h1>徐汇区社会稳定风险防控综合管理系统</h1>
+        <h1>事件治理平台后台管理系统</h1>
         <form action="" class="formBox" id="form1" style="height: 320px;">
             <h3>欢迎登录</h3>
             <p>用户名</p>

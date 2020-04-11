@@ -250,6 +250,50 @@
     </div>
 </div>
 
+<div class="tanBox" id="warningInfo" style="display: none">
+    <div class="pubBlock kuang">
+        <i class="close">×</i>
+        <div class="bear-tit">
+            <h5>事件预警</h5>
+        </div>
+        <div class="titleCon" style="height: 330px;">
+            <div class="baseTable">
+                <table border="0" style="width: 700px;">
+                    <tr>
+                        <td width="20%" class="center">预警名称</td>
+                        <td width="30%">
+                            <input class="vV-ipt" result="text" value="" id="noticeName" style="width: 200px;">
+                        </td>
+                        <td width="20%" class="center">预警等级</td>
+                        <td width="30%">
+                            <select class="vV-drop" id="noticeLevel" style="width: 200px;">
+                                <option value="4" selected>严重</option>
+                                <option value="3">较严重</option>
+                                <option value="2">一般</option>
+                                <option value="1">轻度</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="center">预警内容</td>
+                        <td colspan="3">
+                            <textarea class="vV-area w-400 m8" style="width: 550px;height: 200px"
+                                      id="noticeContent"></textarea>
+                        </td>
+                    </tr>
+                </table>
+                <table border="0" style="width: 700px;">
+                    <tr>
+                        <td colspan="4" height="60" align="center">
+                            <button class="alertBtn" onclick="saveWarning()">保存</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="maskBox" id="eventHandle" style="display: none;position: fixed;z-index: 1000;">
     <div class="pubBlock kuang">
         <i class="close">×</i>
@@ -462,11 +506,12 @@
 </div>
 <input type="hidden" id="addedTagNames">
 <input type="hidden" id="toUpdateEventId">
+<input type="hidden" id="toUpdateWarningId">
 <input type="hidden" id="toUpdateHandleLogId">
 <input type="hidden" id="editEventHandLogFlag">
 </body>
 
-<script result="text/javascript">
+<script type="text/javascript">
     var eventDateTogetherCount = 0;
     var unittag;
     var tagsJson = [];
@@ -700,6 +745,55 @@
         $(".footerBox").css("top", indexMainH + 50);
     }
 
+    function showWarning(eventId) {
+        $("#noticeName").val('');
+        $("#noticeContent").val('');
+        $("#noticeLevel").val('');
+        $.ajax({
+            type: 'post',
+            url: '/warnings/find/type',
+            data: {
+                objectId: eventId,
+                objectType: 'event'
+            }, success: function (result) {
+                let warning = result.data;
+                if (warning == null) {
+                    $("#toUpdateWarningId").val('');
+                    $.messager.alert("提示", "该事件无预警");
+                } else {
+                    $("#toUpdateWarningId").val(warning.noticeId);
+                    $("#noticeName").val(warning.noticeName);
+                    $("#noticeContent").val(warning.noticeContent);
+                    $("#noticeLevel").val(warning.noticeLevel);
+                }
+            }
+        })
+        $("#toUpdateEventId").val(eventId);
+        $("#warningInfo").show();
+    }
+
+    function saveWarning() {
+        let data = {};
+        data.noticeId = $("#toUpdateWarningId").val();
+        data.noticeName = $("#noticeName").val();
+        data.noticeContent = $("#noticeContent").val();
+        data.noticeLevel = $("#noticeLevel").val();
+        data.noticeObjectId = $("#toUpdateEventId").val();
+        data.noticeObjectType = 'event';
+        $.ajax({
+            type: 'post',
+            url: '/warnings/save',
+            data: data,
+            dataType: 'json',
+            success: function (result) {
+                if (result.code == 'success') {
+                    successOperator();
+                    $("#warningInfo").hide();
+                }
+            }
+        });
+    }
+
 
     //数据聚合汇总
     function dataTogether() {
@@ -875,7 +969,7 @@
                                 showSkipInputFlag: true, //是否支持跳转,不填默认不显示
                                 getPage: function (page) {
 
-                                    findEvent(handleFlag, page, false);
+                                    findEvent(handleFlag, false, page);
                                 }
                             });
                         }
@@ -935,6 +1029,7 @@
                                 '                            <div class="labelBox" id="eventLabels" style="height:24px;">\n' + unittag +
                                 '                            </div>\n' +
                                 '                            <div class="btnGroup">\n' +
+                                '<a class="btnSty" onclick="showWarning(\'' + events[i].eventId + '\')">预警</a>' +
                                 '                                <div class="sortList sortList2 v-fr">\n' +
                                 '                                    <a href="javascript:;" class="sort">操作</a>\n' +
                                 '                                    <div class="sortDown sortDown2">\n' +
@@ -973,6 +1068,7 @@
         }, new Date() - begingDate + 200)
 
     }
+
 
     //责任单位显示
     function resUnitShow(eventId) {
