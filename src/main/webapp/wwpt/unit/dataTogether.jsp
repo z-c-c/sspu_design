@@ -177,7 +177,7 @@
                     }
 
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
-                        '                <p class="proName">' + EVENT_NAME + '</p>\n' +
+                        '                <p class="proName" style="cursor: pointer;" onclick="toDetail(\'' + "unit" + '\',\'' + list[i].unitId + '\')">' + EVENT_NAME + '</p>\n' +
                         '                <p class="proInfo" style="width: 100%">' + EVENT_CONTENT + '</p>\n' +
                         '                <div class="infoBox">\n' +
                         '                    <div class="item">\n' +
@@ -270,7 +270,7 @@
                         OCCURED_TIME = '暂无';
                     }
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
-                        '                <p class="proName">' + EVENT_NAME + '</p>\n' +
+                        '                <p class="proName" style="cursor: pointer;" onclick="toDetail(\'' + "unit" + '\',\'' + list[i].unitId + '\')">' + EVENT_NAME + '</p>\n' +
                         '                <p class="proInfo" style="width: 100%">' + EVENT_CONTENT + '</p>\n' +
                         '                <div class="infoBox">\n' +
                         '                    <div class="item">\n' +

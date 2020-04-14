@@ -100,8 +100,8 @@
                                     '                    <img src=' + images + ' alt=\'' + judgeNull(data[i].personName) + '\'>\n' +
                                     '                </div>\n' +
                                     '                <div class="peoInfo">\n' +
-                                    '                    <div>\n' +
-                                    '                        <span class="name">' + judgeNull(data[i].personName) + '</span>\n' +
+                                    '                    <div style="cursor: pointer;" onclick="toDetail(\'' + "person" + '\',\'' + data[i].personId + '\')">\n' +
+                                    '                        <span class="name" style="cursor: pointer;" onclick="toDetail(\'' + "person" + '\',\'' + data[i].personId + '\')">' + judgeNull(data[i].personName) + '</span>\n' +
                                     '                        <div class="label">\n' +
                                     '' + personTags + '' +
                                     '                        </div>\n' +
@@ -182,8 +182,8 @@
                                     '                    <img src=' + images + ' alt=\'' + judgeNull(data[i].personName) + '\'>\n' +
                                     '                </div>\n' +
                                     '                <div class="peoInfo">\n' +
-                                    '                    <div>\n' +
-                                    '                        <span class="name">' + judgeNull(data[i].personName) + '</span>\n' +
+                                    '                    <div style="cursor: pointer;" onclick="toDetail(\'' + "person" + '\',\'' + data[i].personId + '\')">\n' +
+                                    '                        <span class="name" >' + judgeNull(data[i].personName) + '</span>\n' +
                                     '                        <div class="label">\n' +
                                     '' + personTags + '' +
                                     '                        </div>\n' +

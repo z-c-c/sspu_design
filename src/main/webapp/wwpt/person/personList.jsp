@@ -1283,7 +1283,7 @@
 
                         $("#dataTogether").append('<dl>\n' +
                             '                              <dt>\n' +
-                            '                              <span style="font-weight: bold;white-space: nowrap; text-overflow:ellipsis; overflow: hidden; ">' + personName + '</span>\n' +
+                            '                              <span style="cursor: pointer; font-weight: bold;white-space: nowrap; text-overflow:ellipsis; overflow: hidden; " onclick="toDetail(\'' + "person" + '\',\'' + list[i].personId + '\')">' + personName + '</span>\n' +
                             '                              <i class="new"></i>\n' +
                             '                                </dt>\n' +
                             '                                <dd>\n' +

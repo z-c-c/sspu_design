@@ -227,3 +227,20 @@ function safeToString(str) {
 function successOperator() {
     $.messager.alert("操作提示", "操作成功!");
 }
+
+
+function toDetail(type, objectId) {
+    if (type == 'event') {
+        openNewWindow('../event/eventDetail.jsp?eventId=' + objectId, 'top');
+    }
+    if (type == 'person') {
+        openNewWindow('../person/personDetail.jsp?personId=' + objectId, 'top');
+    }
+    if (type == 'unit') {
+        openNewWindow('../unit/unitDetail.jsp?unitId=' + objectId, 'top');
+    }
+    if (type == "warning") {
+        openNewWindow('../riskwarning/warningDetail.jsp?noticeId=' + objectId, 'top');
+    }
+
+}

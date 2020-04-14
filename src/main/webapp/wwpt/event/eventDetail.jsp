@@ -312,7 +312,7 @@
         $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"relationList.jsp?objectId=" + enentId + "\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
     function findIndex(id){
-        openNewWindow('../person/personDetail.jsp?personId=' + id + '', 'top');
+        toDetail('person', id);
     }
 
     //事件已有标签
@@ -431,7 +431,7 @@
                     }
                     $("#dataTogether").append('<dl>\n' +
                         '                                <dd class="pubBlock">\n' +
-                        '                                    <p class="con" style="height: 23px; font-size: 17px;white-space: nowrap; text-overflow:ellipsis; overflow: hidden;font-weight: bold">'+eventName+'</p>\n' +
+                        '                                    <p class="con" style="cursor:pointer; height: 23px; font-size: 17px;white-space: nowrap; text-overflow:ellipsis; overflow: hidden;font-weight: bold" onclick="toDetail(\'' + "event" + '\',\'' + list[i].eventId + '\')">' + eventName + '</p>\n' +
                         '                                    <p class="Zcon" style="margin-left: 0px; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">'+eventContent+'</p>\n' +
                         '                                    <div class="sourceInfo">\n' +
                         '                                        <strong style="margin-left: 0px;">\n' +
@@ -482,9 +482,18 @@
                         if(personName==null||personName.trim().length==0){
                             personName="无";
                         }
+
+                        var image = persons[i].personImage;
+                        if (image == null || image == "") {
+                            image = "../images/people.png";
+                        } else {
+
+                            image = "/uploads/" + persons[i].personImage;
+                        }
+
                         $("#linkPeople").append(' <li>\n' +
                             '                            <div class="imgBox">\n' +
-                            '                                <img src="../images/icon-person.jpg" alt="">\n' +
+                            '                                <img src="' + image + '" alt="">\n' +
                             '                                <p>' + personName + '</p>\n' +
                             '                            </div>\n' +
                             '                            <div class="maskBox">\n' +
@@ -564,7 +573,7 @@
                         let time = units[i].registerTime == null ? "无" : new Date(units[i].registerTime).format("yyyy-MM-dd hh:mm:ss");
 
                         $("#linkUnit").append('  <div class="pubBlock">\n' +
-                            '                                <div class="relatedUnits">' + judgeNull(units[i].unitName) + '</div>\n' +
+                            '                                <div class="relatedUnits" style="cursor:pointer;" onclick="toDetail(\'' + "unit" + '\',\'' + units[i].unitId + '\')">' + judgeNull(units[i].unitName) + '</div>\n' +
                             '                                <div class="label" id="labels">\n' +unittag+
                             '                                </div>\n' +
                             '                                <div class="text">\n' +

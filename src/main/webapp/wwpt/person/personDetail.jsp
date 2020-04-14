@@ -484,9 +484,9 @@
                     for (let i = 0; i < persons.length; i++) {
                         getTags(persons[i].personId);
                         if (persons[i].personName != null && persons[i].personName != "null" && persons[i].personName != "") {
-                            str1 += " <div class=\"r-item2-con\"> <div class=\"dataList dataList2\">  <dl><dd class=\"pubBlock\"> <p class=\"con\">" + persons[i].personName + "</p>";
+                            str1 += " <div class=\"r-item2-con\"> <div class=\"dataList dataList2\">  <dl><dd class=\"pubBlock\"> <p class=\"con\" style='cursor: pointer;' onclick='toDetail(\"" + 'person' + "\",\"" + persons[i].personId + "\",)'>" + persons[i].personName + "</p>";
                         } else {
-                            str1 += " <div class=\"r-item2-con\"> <div class=\"dataList dataList2\">  <dl><dd class=\"pubBlock\"> <p class=\"con\">无</p>";
+                            str1 += " <div class=\"r-item2-con\"> <div class=\"dataList dataList2\">  <dl><dd class=\"pubBlock\"> <p class=\"con\" style='cursor: pointer;' onclick='toDetail(\"" + 'person' + "\",\"" + persons[i].personId + "\",)'>无</p>";
 
                         }
                         /*if (persons[i].eventContent != null&&persons[i].eventContent != ""&&persons[i].eventContent != "null") {
@@ -581,7 +581,7 @@
                         let time = events[i].occurredTime == null ? "无" : new Date(events[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
 
                         var str = '  <div class="pubBlock">\n' +
-                            '                                <div class="relatedUnits">' + judgeNull(events[i].eventName) + '</div>\n';
+                            '                                <div class="relatedUnits" style="cursor: pointer;" onclick="toDetail(\'' + "event" + '\',\'' + events[i].eventId + '\')">' + judgeNull(events[i].eventName) + '</div>\n';
                         if (unittag != '') {
                             str += '                                <div class="label" style="margin-top: -3px">\n' + unittag +
                                 '                                </div>\n';

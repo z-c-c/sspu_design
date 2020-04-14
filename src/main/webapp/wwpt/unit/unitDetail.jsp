@@ -373,7 +373,6 @@
                 objectId: eventid
             },
             success: function (result) {
-                console.log(result)
                 if (result.message == "success") {
                     var tags = result.data;
                     $("#eventTags").empty();
@@ -393,7 +392,6 @@
             url: "/units/" + enentId,
             dataType: "json",
             success: function (result) {
-                console.log(result)
                 let unit = result.data;
                 if (unit != null) {
                     document.title = judgeNull(unit.unitName);
@@ -401,7 +399,7 @@
                     if (unit.status == "1") {
                         unitStatus = "在经营";
                     } else {
-                        unitStatus = "为经营";
+                        unitStatus = "未经营";
                     }
                     $("#unitName").text(judgeNull(unit.unitName));
                     $("#status").text(unitStatus);
@@ -453,36 +451,34 @@
                     $("#dataTogetherBox").hide();
                 }
                 for (var i = 0; i < length; i++) {
-                    var eventName = list[i].eventName;
-                    if (eventName == null || eventName.trim().length == 0) {
-                        eventName = "无";
-                    }
-                    var eventContent = list[i].eventContent;
-                    if (eventContent == null || eventContent.trim().length == 0) {
-                        eventContent = "无";
-                    }
-                    var eventSource = list[i].EVENT_SOURCE;
-                    if (eventSource == null || eventSource.trim().length == 0) {
-                        eventSource = "无";
-                    }
-                    var stCreateTime = new Date(list[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
-                    if (stCreateTime == list[i].occurredTime) {
-                        stCreateTime = "无";
-                    }
-                    getTags(list[i].eventId);
+                    getTags(list[i].unitId);
                     if (!unittag) {
                         unittag = ''
                     }
+                    var unitStatus = list[i].status;
+                    if (list[i].status == "1") {
+                        unitStatus = "在经营";
+                    } else {
+                        unitStatus = "未经营";
+                    }
+
+                    var time;
+                    if (list[i].registerTime != null) {
+                        time = judgeNull(new Date(list[i].registerTime).format("yyyy-MM-dd hh:mm:ss"));
+                    } else {
+                        time = '暂无';
+                    }
+
                     $("#dataTogether").append('<dl>\n' +
                         '                                <dd class="pubBlock">\n' +
-                        '                                    <p class="con" style="height: 23px; font-size: 17px;white-space: nowrap; text-overflow:ellipsis; overflow: hidden;font-weight: bold">' + eventName + '</p>\n' +
-                        '                                    <p class="Zcon" style="margin-left: 0px; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">' + eventContent + '</p>\n' +
+                        '                                    <p class="con" style="height: 23px; font-size: 17px;white-space: nowrap; text-overflow:ellipsis; overflow: hidden;font-weight: bold">' + judgeNull(list[i].unitName) + '</p>\n' +
+                        '                                    <p class="Zcon" style="margin-left: 0px; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;">' + judgeNull(list[i].unitName) + '</p>\n' +
                         '                                    <div class="sourceInfo">\n' +
                         '                                        <strong style="margin-left: 0px;">\n' +
-                        '                                            <b>来源</b>\n' +
-                        '                                            <span>' + eventSource + '</span>\n' +
+                        '                                            <b>经营状态</b>\n' +
+                        '                                            <span>' + unitStatus + '</span>\n' +
                         '                                        </strong>\n' +
-                        '                                        <em>' + stCreateTime + '</em>\n' +
+                        '                                        <em>注册时间：' + time + '</em>\n' +
                         '                                    </div>\n' +
                         '                                    <div class="label">\n' + unittag +
                         '                                    </div>\n' +
@@ -621,7 +617,7 @@
                         let time = events[i].occurredTime == null ? "无" : new Date(events[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
 
                         var str = '  <div class="pubBlock">\n' +
-                            '                                <div class="relatedUnits">' + judgeNull(events[i].eventName) + '</div>\n';
+                            '                                <div class="relatedUnits" style="cursor: pointer;" onclick="toDetail(\'' + "event" + '\',\'' + events[i].eventId + '\')">' + judgeNull(events[i].eventName) + '</div>\n';
                         if (unittag != '') {
                             str += '                                <div class="label" style="margin-top: -3px">\n' + unittag +
                                 '                                </div>\n';

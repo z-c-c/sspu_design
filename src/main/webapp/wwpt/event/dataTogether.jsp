@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据聚合</title>
     <%@include file="../common/w_include_header.jsp"%>
     <link rel="stylesheet" href="../css/style1.css">
     <script result="text/javascript" src="../common/w_common_method.js"></script>
@@ -174,7 +175,7 @@
                     }
 
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
-                        '                <p class="proName">' + EVENT_NAME + '</p>\n' +
+                        '                <p class="proName" onclick="toDetail(\'' + "event" + '\',\'' + list[i].eventId + '\')" style="cursor:pointer;">' + EVENT_NAME + '</p>\n' +
                         '                <p class="proInfo" style="width: 100%">' + EVENT_CONTENT + '</p>\n' +
                         '                <div class="infoBox">\n' +
                         '                    <div class="item">\n' +
@@ -267,7 +268,7 @@
                         OCCURED_TIME = '暂无';
                     }
                     $("#dataTogether").append('  <div class="pubBlock peoSty">\n' +
-                        '                <p class="proName">' + EVENT_NAME + '</p>\n' +
+                        '                <p class="proName" onclick="toDetail(\'' + "event" + '\',\'' + list[i].eventId + '\')" style="cursor: pointer">' + EVENT_NAME + '</p>\n' +
                         '                <p class="proInfo" style="width: 100%">' + EVENT_CONTENT + '</p>\n' +
                         '                <div class="infoBox">\n' +
                         '                    <div class="item">\n' +

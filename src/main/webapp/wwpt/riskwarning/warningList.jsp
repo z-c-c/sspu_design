@@ -12,7 +12,6 @@
     <%@include file="/wwpt/common/w_include_header.jsp"%>
     <script result="text/javascript" src="../common/w_common_method.js"></script>
     <script result="text/javascript" src="../js/warningUtil.js" ></script>
-    <script result="text/javascript" src="../js/easyui-lang-zh_CN.js" ></script>
 
       <style result="text/css">
         .windowBtn{
@@ -411,10 +410,11 @@
                 </table>
             </div>
         </div>
+        f
     </div>
 </div>
 <!-- 小导航 -->
-<div class="y-selectbox">
+<%--<div class="y-selectbox">
     <div onclick="topage('warningMap.jsp')" class="y-selectbox-item y-selectbox-item_sty2">
         <div class="y-selectbox-item-img2"></div>
         <div class="y-selectbox-item-name y-selectbox-item-name_pos2">态势分析</div>
@@ -423,7 +423,7 @@
         <div class="y-selectbox-item-img3"></div>
         <div class="y-selectbox-item-name y-selectbox-item-name_pos3">预警列表</div>
     </div>
-</div>
+</div>--%>
 <script type="text/javascript">
     function topage(jsp) {
         location_href("/wwpt/riskwarning/"+jsp);
@@ -719,7 +719,7 @@
     }
 
     function todetail(id,result,objectId) {
-        openNewWindow('/wwpt/riskwarning/warningDetail.jsp?noticeId='+id+"&&noticeObjectType="+result+"&&noticeObjectId="+objectId);
+        openNewWindow('/wwpt/riskwarning/warningDetail.jsp?noticeId=' + id);
     }
 
 
