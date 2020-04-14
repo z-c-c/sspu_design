@@ -707,7 +707,7 @@
             success: function (result) {
                 if (result.code == 'success') {
                     upImage(result.data);
-
+                    genderCount();
                     $("#addnew").hide();
                     //照片上传成功后再刷新页面
                     // find(1, true);
@@ -998,11 +998,13 @@
                             $.messager.alert("操作提示", "操作成功!");
                             find(1, true);
                             dataTogether();
+                            genderCount();
                         },
                         error: function (error) {
                             $.messager.alert("操作提示", "操作失败!");
                             find(1, true);
                             dataTogether();
+                            genderCount();
                         }
                     })
 

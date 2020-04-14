@@ -1453,6 +1453,7 @@
                     $("#eventHandle").hide();
                     uploadFile(result.data);
                     findEvent("", true, 1);
+                    handleCount();
                     // $("#m2").show();
                     successOperator();
                 }
@@ -1734,6 +1735,7 @@
                 objectType: 'person'
             },
             success: function (result) {
+                console.log(result)
                 if (result.code === "success") {
                     let persons = result.data;
                     let names = '';
@@ -1862,6 +1864,7 @@
                         handleCount();
                         successOperator();
                         dataTogether();
+                        handleCount();
                     }
                 }
             });

@@ -220,14 +220,19 @@ public class EventInfoServiceImpl implements EventInfoService {
             List<PersonEntity> result = new ArrayList<>();
             List<EventRelationEntity> byEventIdAndObjectType = eventRelationDao.findByEventIdAndObjectType(eventId, objectType);
             for (EventRelationEntity eventRelationEntity : byEventIdAndObjectType) {
-                result.add(personDao.findPersonById(eventRelationEntity.getObjectId()));
+                if (personDao.findPersonById(eventRelationEntity.getObjectId()) != null) {
+                    result.add(personDao.findPersonById(eventRelationEntity.getObjectId()));
+                }
+
             }
             return result;
         } else if (EventRelationEntity.OBJECT_TYPE_UNIT.equals(objectType)) {
             List<UnitEntity> result = new ArrayList<>();
             List<EventRelationEntity> byEventIdAndObjectType = eventRelationDao.findByEventIdAndObjectType(eventId, objectType);
             for (EventRelationEntity eventRelationEntity : byEventIdAndObjectType) {
-                result.add(unitDao.findUnitById(eventRelationEntity.getObjectId()));
+                if (unitDao.findUnitById(eventRelationEntity.getObjectId()) != null) {
+                    result.add(unitDao.findUnitById(eventRelationEntity.getObjectId()));
+                }
             }
             return result;
         }
