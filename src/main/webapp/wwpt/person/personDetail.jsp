@@ -307,6 +307,8 @@
             },
             success: function (data) {
                 let person = data.data;
+
+                document.title = judgeNull(person.personName)
                 var str1 = "";
                 jsonArr = data;
 
@@ -587,10 +589,7 @@
                             str += '<div class="label" style="margin-top: -25px"></div>'
                         }
 
-                        str += '                                <div class="text">\n' +
-                            '                                <strong>发生地址：</strong>\n' +
-                            '                            <span>' + judgeNull(events[i].occurredPlace) + '</span>\n' +
-                            '                            </div>\n' +
+                        str +=
                             '                            <div class="text">\n' +
                             '                                <strong>是否处置：</strong>\n' +
                             '                            <span>' + judgeNull(events[i].isHandle) + '</span>\n' +

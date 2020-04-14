@@ -16,18 +16,17 @@
     <name></name>
     <%@include file="../common/w_include_header.jsp" %>
     <link rel="stylesheet" href="../css/icon.css"><!--easyui-->
-    <script result="text/javascript" src="../js/my_scrollbar.js"></script>
-    <script result="text/javascript" src="../js/bootstrap-select.min.js"></script>
-    <script result="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script result="text/javascript" src="../js/getParameter.js"></script>
-    <script result="text/javascript" src="../common/w_common_method.js"></script>
-    <style result="text/css">
+    <script type="text/javascript" src="../js/my_scrollbar.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/getParameter.js"></script>
+    <script type="text/javascript" src="../common/w_common_method.js"></script>
+    <style type="text/css">
         .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
             line-height: unset;
 
         }
-
         .titleCon {
             overflow: scroll;
             height: 400px;
@@ -41,6 +40,111 @@
             line-height: 24px;
             color: rgba(0, 0, 0, 0.65);
             margin: 8px 0;
+        }
+
+        .infoBox-l-item1 p.line1 {
+            font-size: 30px;
+            line-height: 1px;
+            color: rgba(0, 0, 0, 0.85);
+        }
+
+        .dataList2 .label span, .infoBox-l-item .label span, .peoInfo .label span {
+            display: inline-block;
+            padding: 0 6px;
+            box-sizing: border-box;
+            font-size: 12px;
+            line-height: 24px;
+            color: #ffffff;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            margin-top: 10px;
+            /* position: absolute; */
+        }
+
+        .dataList2 .label, .infoBox-l-item .label, .peoInfo .label {
+            height: 36px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+
+        .tableStyy td {
+            margin: 0;
+            padding: 0;
+            border-bottom: thin dashed gainsboro;
+        }
+
+        .tableStyy {
+            font-size: 14px;
+            line-height: 22px;
+            color: rgba(0, 0, 0, 0.85);
+        }
+
+        .tableStyy tr {
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .tableStyy tr td.adress {
+            color: #2c9beb;
+        }
+
+        .tableStyy tr td.adress::after {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 14px;
+            background: url("../images/icon-adress.png") no-repeat;
+            position: relative;
+            top: 2px;
+            margin-left: 6px;
+            border-collapse: collapse;
+        }
+
+        .tableStyy tr td.green {
+            color: #3fc277;
+        }
+
+        .tableSty td {
+            margin: 0;
+            padding: 0;
+            width: 130px;
+        }
+
+        .infoBox-l-item1 .pg-status {
+            width: 30%;
+            height: auto;
+            display: inline-block;
+            margin-top: -80px;
+        }
+
+        #unitName::before {
+            content: "";
+            display: inline-block;
+            width: 23px;
+            height: 23px;
+            background: url(../images/icon-house.png) no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+            margin-right: 12px;
+            top: 2px;
+        }
+
+        .place {
+            color: #2c9beb
+        }
+
+        .place::after {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 14px;
+            background: url(../images/icon-adress.png) no-repeat;
+            position: relative;
+            top: 2px;
+            margin-left: 6px;
+            border-collapse: collapse;
         }
     </style>
     <script result="text/javascript">
@@ -56,55 +160,41 @@
                 <div>
                     <div class="name-l">
                         <!-- 这里一行调用line1  两行调用line2 -->
-                        <p class="con line1" id="eventName"></p>
-                        <div class="label" id="eventTags">
+                        <p class="con line1" id="unitName"></p>
+                        <div class="label" id="unitTags">
                         </div>
                     </div>
                     <div class="pg-status v-fr">
                         <div>
                             <p class="status-text">状态</p>
-                            <p class="status" id="eventStatus"></p>
+                            <p class="status" id="status"></p>
                         </div>
                         <!-- 已评估图 -->
                         <i></i>
                     </div>
                 </div>
-                <p class="complaintText" id="eventContent">
+                <p class="complaintText" id="unitDetail">
                 </p>
                 <table border="0" class="tableSty">
                     <tr>
-                        <td width="90" class="tdColor">时间：</td>
-                        <td width="350" id="occurredTime"></td>
+                        <td width="90" class="tdColor">单位法人：</td>
+                        <td width="350" class="green" id="unitLegalPerson"></td>
 
-                        <td width="90" class="tdColor">地点：</td>
-                        <td class="green" id="adress"></td>
+                        <td width="90" class="tdColor">社会信用码：</td>
+                        <td class="green" id="usccCode"></td>
                     </tr>
                     <tr>
-                        <td class="tdColor">甲方：</td>
-                        <td width="260" id="wwDsrA"></td>
+                        <td width="90" class="tdColor">单位行业：</td>
+                        <td width="350" class="green" id="industry"></td>
 
-                        <td width="90" class="tdColor">乙方：</td>
-                        <td id="wwDsrB"></td>
+                        <td width="90" class="tdColor">注册时间：</td>
+                        <td class="green" id="registerTime"></td>
                     </tr>
                     <tr>
-                        <td class="tdColor">矛盾类别：</td>
-                        <td width="260" id="wwMdlb"></td>
+                        <td width="90" class="tdColor">单位地址：</td>
+                        <td width="350" id="addr" class="adress">1</td>
+                    </tr>
 
-                        <td width="90" class="tdColor">矛盾级别：</td>
-                        <td class="green" id="wwMdjb" style="color: black"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdColor">涉及人数：</td>
-                        <td id="wwSjrs"></td>
-                        <td class="tdColor">涉及领域：</td>
-                        <td id="wwSjly"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdColor">协办部门：</td>
-                        <td id="wwZrbmXb"></td>
-                        <td class="tdColor">所属街道：</td>
-                        <td id="wwJdName" class="tdColor" style="color: black"></td>
-                    </tr>
                 </table>
                 <div class="catalogue" id="catalogue">
                     <span class="v-fl">目录</span>
@@ -114,82 +204,16 @@
             </div>
             <div class="contentWrap">
                 <div class="bear-tit bear-tit2 point" id="a1">
-                    <h5>关联情况</h5>
+                    <%--                    <h5>关联情况</h5>--%>
                 </div>
-                <div class="infoBox-l-item infoBox-l-item3" id="linkUnit">
-                    <div class="sub-tit mt-24 point" id="a3">
-                        <h4>关联单位</h4>
-                    </div>
+                <div id="glxx">
+                    <div class="infoBox-l-item infoBox-l-item3" id="companyRelation"></div>
                 </div>
-                <div class="infoBox-l-item infoBox-l-item4" id="linkPerson">
-                    <div class="sub-tit mt-24 point" id="a4">
-                        <h4>关联人员（<span id="linkPeopleCount"></span>）</h4>
-                    </div>
-                    <div class="peopleBox" id="linkPeopleBox">
-                        <ul id="linkPeople">
-                        </ul>
-                    </div>
-                    <div class="arrowBox" id="arrowBox">
-                        <a href="javascript:;" class="next"></a>
-                        <a href="javascript:;" class="prev"></a>
-                    </div>
-                </div>
-                <br>
-                <div class="bear-tit bear-tit2 point" id="a2">
-                    <h5>处置情况</h5>
-                </div>
-                <div class="infoBox-l-item infoBox-l-item5" id="handleLogBox">
-                    <div class="sub-tit mt-24 point" id="a5">
-                        <h4>处理日志</h4>
-
-                    </div>
-                    <div class="countBox">
-                        <div class="count">
-                            <i></i>
-                            <p>处理总数</p>
-                            <strong id="handleLogCount">0</strong>
-                        </div>
-                        <div class="clearfix countInfo">
-                            <div class="item clearfix">
-                                <span class="v-fl">召开会议</span>
-                                <strong class="v-fr" id="metting">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">人员聚集</span>
-                                <strong class="v-fr" id="personAssemble">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">日常处置</span>
-                                <strong class="v-fr" id="daily">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">集访人次</span>
-                                <strong class="v-fr" id="personNumber">0</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="con mt-40">
-                        <ul class="historyList mt-10" id="handleLogList">
-                            <li>
-                                <div class="dataList dataList2">
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="infoBox-l-item infoBox-l-item6" id="leaderBox">
-                    <div class="sub-tit mt-24 point" id="a6">
-                        <h4>领导批示（<span id="leaderCount">0</span>）</h4>
-                    </div>
-                    <div>
-                        <ul class="historyList mt-10" id="leaderList">
-                            <li>
-                                <div class="dataList dataList2">
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <%--                <div class="infoBox-l-item infoBox-l-item3" id="linkUnit">--%>
+                <%--                    <div class="sub-tit mt-24 point" id="a3">--%>
+                <%--                        <h4>关联单位（<span id="linkUnitCount">0</span>）</h4>--%>
+                <%--                    </div>--%>
+                <%--                </div>--%>
             </div>
         </div>
         <div class="infoBox-r">
@@ -217,152 +241,21 @@
         </div>
     </div>
 </div>
-<div class="tanBox" id="addInInfluent" style="display: none">
-    <div class="pubBlock kuang">
-        <i class="close" onclick="javascript:$('#addInInfluent').fadeOut();">×</i>
-        <div class="bear-tit">
-            <h5>加入维稳库</h5>
-        </div>
-        <div class="titleCon">
-            <div class="">
-                <table border="0">
-                    <tr id="alwayshide"><input result="hidden" id="personId"></tr>
-                    <tr>
-                        <td width="20%" class="center">姓名：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="personName" value="">
-                        </td>
-
-                        <td width="20%" class="center">曾用名：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="personUsedName" value="">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="20%" class="center">性别：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="gender" value="">
-                        </td>
-
-                        <td width="20%" class="center">证件号：</td>
-                        <td colspan="3">
-                            <input disabled class="vV-ipt" result="text" id="personDocuNum" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">国籍：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="nationality" value="">
-                        </td>
-
-                        <td width="20%" class="center">籍贯：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="nativePlace" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">手机号：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="phoneNum" value="">
-                        </td>
-
-                        <td width="20%" class="center">数据来源：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="dataSource" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">所属街道：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="liveStreet" value="">
-                        </td>
-                        <td width="20%" class="center">居委：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="neighborhood" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">地址：</td>
-                        <td colspan="3">
-                            <input disabled id="livePlace" class="vV-ipt" result="text" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">人员类别：</td>
-                        <td width="30%">
-                            <select id="addofpersonType" name="personType" class="selectpicker"
-                                    style="width:220px;height:28px;" multiple data-live-search="true">
-                                <option>药物滥用人员</option>
-                                <option>社区矫正人员</option>
-                                <option>刑满释放人员</option>
-                                <option>严重精神障碍者</option>
-                                <option>重点青少年</option>
-                                <option>涉邪人员</option>
-                                <option>信访人员</option>
-                                <option>涉军重点人员</option>
-                                <option>涉金融类投资受损人员</option>
-                            </select>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">录入原因：</td>
-                        <td colspan="3">
-                            <textarea class="vV-area w-400 m8" id="putReason"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">操作人：</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value="" id="putUserId">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">入库时间：</td>
-                        <td width="30%">
-                            <input id="putDate" class="vV-ipt date w-246" result="text" value="" placeholder="请选择时间"
-                                   readonly="readonly">
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">标签联动：</td>
-                        <td colspan="3">
-                            <div id="treeBox">
-                                <input class="focusEl" result="text" id="addLabel" placeholder="请选择">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" height="60" align="center">
-                            <button class="alertBtn" onclick="saveInfluent()">保存</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 <script result="text/javascript">
-    var enentId = getParameter("eventId")
+    var enentId = getParameter("unitId")
     var unittag;
     var relationCount = 0;
     var handleCount = 0;
     var catalogues = [];
 
     $(function () {
-        initEvent();
+        initUnit();
         dataTogether();
-        initRelationPerson();
-        initRelationUnit();
+        // initRelationPerson();
+        initRelationEvent();
         objectTagList("");
-        initHandleLog();
-        initLeader();
+        // initHandleLog();
         eventRelation();
         // 输入框控件调用
         vVsub();
@@ -384,12 +277,6 @@
         if ((relationCount == 0) && (handleCount == 0)) {
             $("#catalogue").hide();
         }
-
-        jeDate("#putDate", {
-            theme: {bgcolor: "#00A1CB", pnColor: "#00CCFF"},
-            format: "YYYY-MM-DD",
-            multiPane: true,
-        });
 
         //当点击跳转链接后，回到页面顶部位置
         $(".topBtn").click(function () {
@@ -453,23 +340,21 @@
         })
 
 
+
     })
 
     $(window).resize(function () {
         footerChangeDetail();
     })
-
     function quanping() {
-
-        openNewWindow("eventRelationList.jsp?objectId=" + enentId + "&&objectType=event&&flag=show");
+        openNewWindow("../event/relationList.jsp?objectId=" + enentId + "&&objectType=unit&&flag=show", "top");
     }
-
     function eventRelation() {
-        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"eventRelationList.jsp?objectId=" + enentId + "&&objectType=event\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
+        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"../event/relationList.jsp?objectId=" + enentId + "&&objectType=unit&&flag=false\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
 
     function findIndex(id) {
-        openNewWindow('../person/personDetail.jsp?paId=' + id + '');
+        openNewWindow('../person/personDetail.jsp?personId=' + id + '', 'top');
     }
 
     //事件已有标签
@@ -481,127 +366,81 @@
             eventid = id;
         }
         $.ajax({
-            result: "POST",
-            url: "/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
             dataType: "json",
             data: {
                 objectId: eventid
             },
             success: function (result) {
+                console.log(result)
                 if (result.message == "success") {
-                    var tags = result.objectTag;
+                    var tags = result.data;
                     $("#eventTags").empty();
                     for (var i = 0; i < tags.length; i++) {
-                        var color = tags[i].tagCssCode.split(":");
+                        var color = JSON.parse(tags[i].tagCssCode).color;
                         var colorcode = color[1].substring(1, (color[1].length - 2));
-                        $("#eventTags").append('<span  style="cursor: pointer;background-color:' + colorcode + '">' + tags[i].tagName + '</span>');
+                        $("#unitTags").append('<span  style="cursor: pointer;background-color:' + color + '">' + tags[i].tagName + '</span>');
                     }
                 }
             }
         });
     }
 
-    function initEvent() {
+    function initUnit() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/findEventBaseInfoById",
+            type: "GET",
+            url: "/units/" + enentId,
             dataType: "json",
-            data: {
-                eventType: "contradictionEvent",
-                eventId: enentId
-            },
             success: function (result) {
-                var eventById = result.eventById;
-                var contradictionEventById = result.contradictionEventById;
+                console.log(result)
+                let unit = result.data;
+                if (unit != null) {
+                    document.title = judgeNull(unit.unitName);
+                    var unitStatus = unit.status;
+                    if (unit.status == "1") {
+                        unitStatus = "在经营";
+                    } else {
+                        unitStatus = "为经营";
+                    }
+                    $("#unitName").text(judgeNull(unit.unitName));
+                    $("#status").text(unitStatus);
+                    $("#unitDetail").text(judgeNull(unit.unitDetail));
+                    $("#unitLegalPerson").text(judgeNull(unit.unitLegalPerson));
+                    $("#usccCode").text(judgeNull(unit.usccCode));
+                    $("#industry").text(judgeNull(unit.industry));
+                    if (unit.registerTime != null) {
+                        $("#registerTime").text(judgeNull(new Date(unit.registerTime).format("yyyy-MM-dd hh:mm:ss")));
+                    } else {
+                        $("#occurredTime").text('暂无');
+                    }
 
-                var eventName = eventById.eventName;
-                if (eventName == null || eventName.trim().length == 0) {
-                    eventName = "无";
-                }
-                document.name = eventName;
-                var eventStatus = contradictionEventById.wwSfhj;
-                if (eventStatus == "1") {
-                    eventStatus = "已化解";
-                } else {
-                    eventStatus = "未化解";
-                }
-                var eventContent = eventById.eventContent;
-                if (eventContent == null || eventContent.trim().length == 0) {
-                    eventContent = "无";
-                }
-                var occurredTime = new Date(eventById.occurredTime).format("yyyy-MM-dd hh:mm:ss")
-                if (eventById.occurredTime == null) {
-                    occurredTime = "无";
-                }
-                var occurredPlace = eventById.occurredPlace;
-                if (occurredPlace == null || occurredPlace.trim().length == 0) {
-                    occurredPlace = "无";
-                }
-                var wwDsrA = contradictionEventById.wwDsrA;
-                if (wwDsrA == null || wwDsrA.trim().length == 0) {
-                    wwDsrA = "无";
-                }
-                var wwDsrB = contradictionEventById.wwDsrB;
-                if (wwDsrB == null || wwDsrB.trim().length == 0) {
-                    wwDsrB = "无";
-                }
-                var wwMdlb = contradictionEventById.wwMdlb;
-                if (wwMdlb == null || wwMdlb.trim().length == 0) {
-                    wwMdlb = "无";
-                }
-                var wwMdjb = contradictionEventById.wwMdjb;
-                if (wwMdjb == null || wwMdjb.trim().length == 0) {
-                    wwMdjb = "无";
-                }
-                var wwSjrs = contradictionEventById.wwSjrs;
-                if (wwSjrs == null || wwSjrs.trim().length == 0) {
-                    wwSjrs = "无";
-                }
-                var wwSjly = contradictionEventById.wwSjly;
-                if (wwSjly == null || wwSjly.trim().length == 0) {
-                    wwSjly = "无";
+                    $("#addr").text(judgeNull(unit.addr));
                 }
 
-                var wwZrbmXb = contradictionEventById.wwZrbmXb;
-                if (wwZrbmXb == null || wwZrbmXb.trim().length == 0) {
-                    wwZrbmXb = "无";
-                }
-
-                var wwJdName = contradictionEventById.wwJdName;
-                if (wwJdName == null || wwJdName.trim().length == 0) {
-                    wwJdName = "无";
-                }
-
-                $("#eventName").text(eventName);
-                $("#eventStatus").text(eventStatus);
-                $("#eventContent").text(eventContent);
-                $("#occurredTime").text(occurredTime);
-                $("#occurredPlace").text(occurredPlace);
-                $("#wwDsrA").text(wwDsrA);
-                $("#wwDsrB").text(wwDsrB);
-                $("#wwMdjb").text(wwMdjb)
-                $("#wwMdlb").text(wwMdlb);
-                $("#wwSjrs").text(wwSjrs);
-                $("#wwSjly").text(wwSjly)
-                $("#wwZrbmXb").text(wwZrbmXb);
-                $("#wwJdName").text(wwJdName)
             }
         })
     }
 
+    function judgeNull(data) {
+        if (data == "" || data == null || data == undefined || data == "null")
+            data = "无"
+        return data;
+    }
+
     function dataTogether() {
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/units/dataTogether",
             dataType: "json",
             data: {
-                eventId: enentId,
+                unitId: enentId,
                 page: 1,
                 pageSize: 5
             },
             success: function (result) {
-                var list = result.dataTogether;
-                var count = result.count;
+                var list = result.data.data;
+                var count = result.data.total;
                 $("#dataTogetherCount").text(count);
                 $("#dataTogether").empty();
                 var length;
@@ -614,11 +453,11 @@
                     $("#dataTogetherBox").hide();
                 }
                 for (var i = 0; i < length; i++) {
-                    var eventName = list[i].EVENT_NAME;
+                    var eventName = list[i].eventName;
                     if (eventName == null || eventName.trim().length == 0) {
                         eventName = "无";
                     }
-                    var eventContent = list[i].EVENT_CONTENT;
+                    var eventContent = list[i].eventContent;
                     if (eventContent == null || eventContent.trim().length == 0) {
                         eventContent = "无";
                     }
@@ -626,11 +465,11 @@
                     if (eventSource == null || eventSource.trim().length == 0) {
                         eventSource = "无";
                     }
-                    var stCreateTime = new Date(list[i].ST_CREATE_TIME).format("yyyy-MM-dd hh:mm:ss");
-                    if (stCreateTime == null) {
+                    var stCreateTime = new Date(list[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                    if (stCreateTime == list[i].occurredTime) {
                         stCreateTime = "无";
                     }
-                    getTags(list[i].EVENT_ID);
+                    getTags(list[i].eventId);
                     if (!unittag) {
                         unittag = ''
                     }
@@ -660,8 +499,8 @@
     //事件关联人员列表
     function initRelationPerson() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/listEventRelationObject",
+            type: "POST",
+            url: "/eventInfo/findEventRelationObject",
             dataType: "json",
             async: false,
             data: {
@@ -671,30 +510,30 @@
             success: function (result) {
 
                 if (result.message == "success") {
-                    var relationObject = result.relationObject;
+                    var persons = result.data;
                     $("#linkPeople").empty();
-                    $("#linkPeopleCount").text(result.count)
-                    if (relationObject.length == 0) {
+                    $("#linkPeopleCount").text(persons.length)
+                    if (persons.length == 0) {
                         $("#linkPeopleBox").hide();
                         $("#linkPerson").hide();
                     }
-                    relationCount += relationObject.length;
+                    relationCount += persons.length;
                     if (relationCount <= 6) {
                         $("#arrowBox").hide();
                     }
-                    for (var i = 0; i < relationObject.length; i++) {
-                        var personName = relationObject[i].personName;
+                    for (var i = 0; i < persons.length; i++) {
+                        var personName = persons[i].personName;
                         if (personName == null || personName.trim().length == 0) {
                             personName = "无";
                         }
                         $("#linkPeople").append(' <li>\n' +
                             '                            <div class="imgBox">\n' +
                             '                                <img src="../images/icon-person.jpg" alt="">\n' +
-                            '                                <p>' + relationObject[i].personName + '</p>\n' +
+                            '                                <p>' + personName + '</p>\n' +
                             '                            </div>\n' +
                             '                            <div class="maskBox">\n' +
-                            '                                <a onclick="addInInfluent(\'' + relationObject[i].personId + '\')" class="add">加入维稳库</a>\n' +
-                            '                                <a onclick="findIndex(\'' + relationObject[i].personId + '\')" class="detail">查看详情</a>\n' +
+                            // '                                <a onclick="addInInfluent(\'' + persons[i].personId + '\')" class="add">加入维稳库</a>\n' +
+                            '                                <a onclick="findIndex(\'' + persons[i].personId + '\')" class="add">查看详情</a>\n' +
                             '                            </div>\n' +
                             '                        </li>')
                     }
@@ -738,95 +577,89 @@
         });
     }
 
-    function initRelationUnit() {
+    function initRelationEvent() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/listEventRelationObject",
+            url: '/eventInfo/findObjectLinkEvent',
+            type: 'POST',
             dataType: "json",
-            async: false,
             data: {
-                eventId: enentId,
-                objectType: "unit",
+                "objectId": enentId,
+                objectType: 'unit'
             },
-            success: function (result) {
+            success: function (data) {
+                var events = data.data;
+                if (events.length != 0) {
+                    // ifhaverelation = true;
+                    // haverelation();
 
-                if (result.message == "success") {
-                    var relationObject = result.relationObject;
-                    $("#linkUnit").empty();
-                    $("#linkUnit").append(' <div class="sub-tit mt-24 point" id="a3">\n' +
-                        '                                <h4>关联单位</h4>\n' +
+                    $("#companyRelation").empty();
+                    $("#companyRelation").append(' <div class="sub-tit mt-24 point" id="a3">\n' +
+                        '                                <h4>关联事件（<span id="linkUnitCount">0</span>）</h4>\n' +
                         '                                </div>');
-                    if (relationObject.length == 0) {
-                        $("#linkUnit").hide();
+                    if (events.length == 0) {
+                        $("#companyRelation").hide();
                     }
-                    relationCount += relationObject.length;
-                    for (var i = 0; i < relationObject.length; i++) {
+                    $("#linkUnitCount").text(events.length);
+                    // relationCount += events.length;
+                    for (var i = 0; i < events.length; i++) {
 
-                        getTags(relationObject[i].unitId);
+                        getTags(events[i].eventId);
                         if (!unittag) {
                             unittag = ''
                         }
-
-                        var unitName = relationObject[i].unitName;
-                        if (unitName == null || unitName.trim().length == 0) {
-                            unitName = "无";
-                        }
-                        var unitLegalPerson = relationObject[i].unitLegalPerson;
-                        if (unitLegalPerson == null || unitLegalPerson.trim().length == 0) {
-                            unitLegalPerson = "无";
-                        }
-                        var unitIndustry = relationObject[i].unitIndustry;
-                        if (unitIndustry == null || unitIndustry.trim().length == 0) {
-                            unitIndustry = "无";
-                        }
-                        var usccCode = relationObject[i].usccCode;
-                        if (usccCode == null || usccCode.trim().length == 0) {
-                            usccCode = "无";
-                        }
-                        var registerAddr = relationObject[i].registerAddr;
-                        if (registerAddr == null || registerAddr.trim().length == 0) {
-                            registerAddr = "无";
-                        }
-                        var unitAddr = relationObject[i].unitAddr;
-                        if (unitAddr == null || unitAddr.trim().length == 0) {
-                            unitAddr = "无";
+                        if (events[i].isHandle == 1) {
+                            events[i].isHandle = '已处置';
+                        } else {
+                            events[i].isHandle = '未处置';
                         }
 
-                        $("#linkUnit").append('  <div class="pubBlock">\n' +
-                            '                                <div class="relatedUnits">' + unitName + '</div>\n' +
-                            '                                <div class="label" id="labels">\n' + unittag +
-                            '                                </div>\n' +
-                            '                                <div class="text">\n' +
-                            '                                <strong>法定代言人：</strong>\n' +
-                            '                            <span>' + unitLegalPerson + '</span>\n' +
+                        if (events[i].isSettlement == 1) {
+                            events[i].isSettlement = '已化解';
+                        } else {
+                            events[i].isSettlement = '未化解';
+                        }
+                        let time = events[i].occurredTime == null ? "无" : new Date(events[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
+
+                        var str = '  <div class="pubBlock">\n' +
+                            '                                <div class="relatedUnits">' + judgeNull(events[i].eventName) + '</div>\n';
+                        if (unittag != '') {
+                            str += '                                <div class="label" style="margin-top: -3px">\n' + unittag +
+                                '                                </div>\n';
+                        } else {
+                            str += '<div class="label" style="margin-top: -25px"></div>'
+                        }
+
+                        str +=
+                            '                            <div class="text">\n' +
+                            '                                <strong>是否处置：</strong>\n' +
+                            '                            <span>' + judgeNull(events[i].isHandle) + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text">\n' +
-                            '                                <strong>所属行业：</strong>\n' +
-                            '                            <span>' + unitIndustry + '</span>\n' +
+                            '                                <strong>是否化解：</strong>\n' +
+                            '                            <span>' + judgeNull(events[i].isSettlement) + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text">\n' +
-                            '                                <strong>统一社会信用代码：</strong>\n' +
-                            '                            <span>' + usccCode + '</span>\n' +
-                            '                            </div>\n' +
-                            '                            <div class="text">\n' +
-                            '                                <strong>注册地址：</strong>\n' +
-                            '                            <span>' + registerAddr + '</span>\n' +
+                            '                                <strong>发生时间：</strong>\n' +
+                            '                            <span>' + time + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text text2 clearfix">\n' +
-                            '                                <strong>单位地址：</strong>\n' +
-                            '                            <span>' + unitAddr + '</span>\n' +
+                            '                                <strong>发生地址：</strong>\n' +
+                            '                            <span class="place"">' + judgeNull(events[i].occurredPlace) + '</span>\n' +
                             '                            </div>\n' +
-                            '                            </div>');
+                            '                            </div>';
+                        $("#companyRelation").append(str);
                     }
+                    $("#glxx").css("margin-bottom", "30px");
                 }
+                footerChangeDetail();
             }
         })
     }
 
     function getTags(objectId) {
         $.ajax({
-            result: "POST",
-            url: "/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
             dataType: "json",
             async: false,
             data: {
@@ -835,9 +668,10 @@
             success: function (result) {
                 var str = '';
                 if (result.message == "success") {
-                    var tags = result.objectTag;
+                    var tags = result.data;
                     for (var i = 0; i < tags.length; i++) {
-                        str += '<span style="background: ' + tags[i].tagColorCode + '" class="green">' + tags[i].tagName + '</span>';
+                        var color = JSON.parse(tags[i].tagCssCode).color;
+                        str += '<span style="background: ' + color + '" class="green">' + tags[i].tagName + '</span>';
                     }
                 }
                 unittag = str;
@@ -845,214 +679,8 @@
         });
     }
 
-    function initHandleLog() {
-        $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/listEventHandleLog",
-            dataType: "json",
-            async: false,
-            data: {
-                eventId: enentId,
-                result: "0"
-            },
-            success: function (result) {
-                if (result.message == "success") {
-
-                    var metting = 0;
-                    var personAssemble = 0;
-                    var daily = 0;
-                    var personNumber = 0;
-                    var eventHandleLog = result.eventHandleLog;
-                    var handleLogCount = eventHandleLog.length;
-                    $("#handleLogList").empty();
-                    if (eventHandleLog.length == 0) {
-                        $("#handleLogBox").hide();
-                    }
-                    handleCount += eventHandleLog.length;
-                    for (var i = 0; i < eventHandleLog.length; i++) {
-                        if (eventHandleLog[i].handleJflx == "WTQD_JFLX_THREE") {//召开会议
-                            metting++;
-                        }
-                        if (eventHandleLog[i].handleJflx == "WTQD_JFLX_ONE") {//人员聚集
-                            personAssemble++;
-                        }
-                        if (eventHandleLog[i].handleJflx == "WTQD_JFLX_TWO") {//日常处置
-                            daily++;
-                        }
-                        personNumber = personNumber + Number(eventHandleLog[i].handleJfrs);
-
-
-                        var handleContent = eventHandleLog[i].handleContent;
-                        if (handleContent == null || handleContent.trim().length == 0) {
-                            handleContent = "无";
-                        }
-                        var handleUser = eventHandleLog[i].handleUser;
-                        if (handleUser == null || handleUser.trim().length == 0) {
-                            handleUser = "无";
-                        }
-                        var handleDate = new Date(eventHandleLog[i].handleDate).format("yyyy-MM-dd hh:mm:ss");
-                        if (eventHandleLog[i].handleDate == null) {
-                            eventHandleLog[i].handleDate = "无";
-                        }
-                        var pgPath = eventHandleLog[i].handleFilepath;
-                        var FjName = "";
-                        debugger
-                        if (pgPath == null || pgPath.trim().length == 0) {
-                            pgPath = "";
-                            FjName = '无'
-                        } else {
-                            FjName = getCaption(eventHandleLog[i].handleFilepath);
-                        }
-                        $("#handleLogList").append(' <li style="height: auto;padding-bottom: 20px;">\n' +
-                            '                                <div class="dataList dataList2">\n' +
-                            '                                    <dl>\n' +
-                            '                                        <dd>\n' +
-                            '                                            <p class="conW">' + handleContent + '</p>\n' +
-                            '                                            <div class="sourceInfo">\n' +
-                            // '                                                <span class="name">'+handleUser+'</span>\n' +
-                            '                                                <em style="color: rgba(0, 0, 0, 0.25);">' + handleDate + '</em>\n' +
-                            '                                            </div>\n' +
-                            // '                                            <div class="appendix">\n' +
-                            // '                                                <span>附件1.docx</span>\n' +
-                            // '                                                <span>附件2.docx</span>\n' +
-                            // '                                                <span>附件3.docx</span>\n' +
-                            // '                                            </div>\n' +
-                            '                                            <div class="appendix">\n' +
-                            '                                                <span onclick="downLoadFj(\'' + pgPath + '\')">' + FjName + '</span>\n' +
-                            '                                            </div>\n' +
-                            '                                        </dd>\n' +
-                            '                                    </dl>\n' +
-                            '                                </div>\n' +
-                            '                            </li>');
-                    }
-
-                    $("#handleLogCount").text(handleLogCount);
-                    $("#metting").text(metting);
-                    $("#personAssemble").text(personAssemble);
-                    $("#daily").text(daily)
-                    $("#personNumber").text(personNumber)
-                    footerChangeDetail();
-                }
-            }
-        });
-
-    }
-
-    //截取字符串
-    function getCaption(obj) {
-        return obj.split("@@@@")[1]
-    }
-
-    function initLeader() {
-        $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/listEventHandleLog",
-            dataType: "json",
-            async: false,
-            data: {
-                eventId: enentId,
-                result: "1"
-            },
-            success: function (result) {
-                if (result.message == "success") {
-
-                    var eventHandleLog = result.eventHandleLog;
-                    var handleLogCount = eventHandleLog.length;
-                    $("#leaderCount").text(eventHandleLog.length);
-                    $("#leaderList").empty();
-                    if (eventHandleLog.length == 0) {
-                        $("#leaderBox").hide();
-                    }
-                    handleCount += eventHandleLog.length;
-                    for (var i = 0; i < eventHandleLog.length; i++) {
-
-                        var handleContent = eventHandleLog[i].handleContent;
-                        if (handleContent == null || handleContent.trim().length == 0) {
-                            handleContent = "无";
-                        }
-                        var handleUser = eventHandleLog[i].handleUser;
-                        if (handleUser == null || handleUser.trim().length == 0) {
-                            handleUser = "无";
-                        }
-                        var handleDate = new Date(eventHandleLog[i].handleDate).format("yyyy-MM-dd hh:mm:ss");
-                        if (eventHandleLog[i].handleDate == null) {
-                            eventHandleLog[i].handleDate = "无";
-                        }
-                        var pgPath = eventHandleLog[i].handleFilepath;
-                        var FjName = "";
-                        if (pgPath == null || pgPath.trim().length == 0) {
-                            pgPath = "";
-                            FjName = '无'
-                        } else {
-                            FjName = getCaption(eventHandleLog[i].handleFilepath);
-                        }
-                        $("#leaderList").append('<li style="height:auto ;padding-bottom: 20px;">\n' +
-                            '                                <div class="dataList dataList2">\n' +
-                            '                                    <dl>\n' +
-                            '                                        <dd>\n' +
-                            '                                            <p class="conW">' + handleContent + '</p>\n' +
-                            '                                            <div class="sourceInfo">\n' +
-                            // '                                                <span class="name">'+handleUser+'</span>\n' +
-                            '                                                <em>' + handleDate + '</em>\n' +
-                            '                                            </div>\n' +
-                            // '                                            <div class="appendix">\n' +
-                            // '                                                <span>附件1.docx</span>\n' +
-                            // '                                                <span>附件2.docx</span>\n' +
-                            // '                                                <span>附件3.docx</span>\n' +
-                            // '                                            </div>\n' +
-                            '                                            <div class="appendix">\n' +
-                            '                                                <span onclick="downLoadFj(\'' + pgPath + '\')">' + FjName + '</span>\n' +
-                            '                                            </div>\n' +
-                            '                                        </dd>\n' +
-                            '                                    </dl>\n' +
-                            '                                </div>\n' +
-                            '                            </li>');
-                    }
-                    footerChangeDetail();
-                }
-
-            }
-        });
-
-    }
-
-    function downLoadFj(pgPath) {
-        if (pgPath == "") {
-            $.messager.alert("操作提示", "无附件!");
-        } else {
-            $('<form id="exportEvent" method="post" action="/eventManager/downloadFj?fileName=' + pgPath + '"></form>').appendTo('body').submit().remove();
-        }
-    }
-
     function toEventDataTogether(eventId) {
-        openNewWindow("dataTogether.jsp?Type=" + eventId + "");
-    }
-
-    function addInInfluent(id) {
-        $.ajax({
-            url: '/personaffair/personBaseInfo',
-            result: 'POST',
-            dataType: "json",
-            data: {
-                "personId": id
-            },
-            success: function (data) {
-                $('#personId').val(id);
-                $('#personName').val(data[0].personName);
-                $('#personUsedName').val(data[0].personUsedName);
-                $('#gender').val(data[0].gender);
-                $('#personDocuNum').val(data[0].personDocuNum);
-                $('#nationality').val(data[0].nationality);
-                $('#phoneNum').val(data[0].phoneNum);
-                $('#nativePlace').val(data[0].nativePlace);
-                $('#dataSource').val(data[0].dataSource);
-                $('#liveStreet').val(data[0].liveStreet);
-                $('#neighborhood').val(data[0].neighborhood);
-                $('#livePlace').val(data[0].livePlace);
-            }
-
-        })
-        $("#addInInfluent").fadeIn();
+        openNewWindow("dataTogether.jsp?Type=" + eventId + "", 'top');
     }
 
     $(function () {
@@ -1064,64 +692,5 @@
         });
 
     });
-
-    function saveInfluent() {
-        var personId = $('#personId').val();
-        var personName = $("#personName").val();
-        var personUsedName = $('#personUsedName').val();
-        //$('#gender').val(data[0].gender);
-        var gender = $("#gender").val();
-        var personDocuNum = $('#personDocuNum').val();
-        var nationality = $('#nationality').val();
-        var phoneNum = $('#phoneNum').val();
-        var nativePlace = $('#nativePlace').val();
-        var dataSource = $('#dataSource').val();
-        var liveStreet = $("#liveStreet").val();
-        var neighborhood = $("#neighborhood").val();
-        var livePlace = $("#livePlace").val();
-        var putReason = $('#putReason').val();
-
-        if ($('#addofpersonType').selectpicker('val') == null || $('#addofpersonType').selectpicker('val').trim().length == 0) {
-            var personType = "";
-        } else {
-            var personType = $('#addofpersonType').selectpicker('val').toString();
-        }
-        var putUserId = $('#putUserId').val();
-        var putDate = $('#putDate').val();
-        var label = $('#addLabel').val();
-        //var personImage= $('#QRCode').attr("src");
-        $.ajax({
-            url: '/personaffair/addInfluentPersonHaveId',
-            result: 'POST',
-            dataType: "json",
-            data: {
-                "personId": personId,
-                "personName": personName,
-                "personUsedName": personUsedName,
-                "gender": gender,
-                "personDocuNum": personDocuNum,
-                "nationality": nationality,
-                "phoneNum": phoneNum,
-                "nativePlace": nativePlace,
-                "dataSource": dataSource,
-                "liveStreet": liveStreet,
-                "neighborhood": neighborhood,
-                "livePlace": livePlace,
-                "putReason": putReason,
-                "personType": personType,
-                "putUserId": putUserId,
-                "putDate": putDate,
-                "label": label,
-                /*                       "personImage": personImage*/
-            },
-            success: function (data) {
-                if (data == true) {
-                    $.messager.alert('操作提示', "操作成功");
-                } else {
-                    $.messager.alert('操作提示', "操作失败");
-                }
-            }
-        })
-    }
 </script>
 </html>

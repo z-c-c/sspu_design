@@ -56,7 +56,7 @@ public class PersonController {
     }
 
     @Log(name = "删除人员")
-    @DeleteMapping("/del/{id}")
+    @GetMapping("/del/{id}")
     public ResultBean del(@PathVariable("id") String personId) {
         personService.del(personId);
         return ResultBean.success();

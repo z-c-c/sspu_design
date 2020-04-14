@@ -45,6 +45,7 @@ public class UnitController {
     }
 
     @Log(name = "删除单位")
+    @PostMapping("/del")
     public ResultBean del(String unitId) {
         unitService.del(unitId);
         return ResultBean.success();

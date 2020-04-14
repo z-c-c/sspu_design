@@ -991,18 +991,18 @@
                 if (r) {
                     var personId = paId;
                     $.ajax({
-                        url: '/personaffair/deletePerson',
-                        result: 'post',
-                        async: false,
+                        url: '/persons/del/' + personId,
+                        type: 'get',
                         dataType: "json",
-                        data: {"paId": personId},
                         success: function (result) {
                             $.messager.alert("操作提示", "操作成功!");
-                            //window.location.reload();
+                            find(1, true);
+                            dataTogether();
                         },
                         error: function (error) {
                             $.messager.alert("操作提示", "操作失败!");
-                            // window.location.reload();
+                            find(1, true);
+                            dataTogether();
                         }
                     })
 

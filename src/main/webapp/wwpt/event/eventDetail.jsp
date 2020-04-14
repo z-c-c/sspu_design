@@ -40,6 +40,34 @@
             color: rgba(0, 0, 0, 0.65);
             margin: 8px 0;
         }
+
+        #eventName::before {
+            content: "";
+            display: inline-block;
+            width: 23px;
+            height: 23px;
+            background: url(../images/icon-item1.png) no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+            margin-right: 12px;
+            top: 2px;
+        }
+
+        .place {
+            color: #2c9beb
+        }
+
+        .place::after {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 14px;
+            background: url(../images/icon-adress.png) no-repeat;
+            position: relative;
+            top: 2px;
+            margin-left: 6px;
+            border-collapse: collapse;
+        }
     </style>
     <script result="text/javascript">
 
@@ -75,7 +103,7 @@
                         <td width="350" id="occurredTime"></td>
 
                         <td width="90" class="tdColor">发生地点：</td>
-                        <td class="green" id="occurredPlace"></td>
+                        <td class="adress" id="occurredPlace"></td>
                     </tr>
 
                 </table>
@@ -171,133 +199,6 @@
         </div>
     </div>
 </div>
-<div class="tanBox"   id = "addInInfluent" style="display: none">
-    <div class="pubBlock kuang">
-        <i class="close"  onclick="javascript:$('#addInInfluent').fadeOut();">×</i>
-        <div class="bear-tit">
-            <h5>加入维稳库</h5>
-        </div>
-        <div class="titleCon">
-            <div class="">
-                <table border="0">
-                    <tr  id="alwayshide"> <input result="hidden" id="personId"></tr>
-                    <tr>
-                        <td width="20%" class="center">姓名：</td>
-                        <td width="30%">
-                            <input disabled  class="vV-ipt" result="text" id="personName" value="">
-                        </td>
-
-                        <td width="20%" class="center">曾用名：</td>
-                        <td width="30%">
-                            <input  disabled  class="vV-ipt" result="text" id="personUsedName" value="">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td width="20%" class="center">性别：</td>
-                        <td width="30%">
-                            <input disabled  class="vV-ipt" result="text" id="gender" value="">
-                        </td>
-
-                        <td width="20%" class="center">证件号：</td>
-                        <td colspan="3">
-                            <input disabled  class="vV-ipt" result="text" id="personDocuNum" value="">
-                        </td> </tr>
-                    <tr>
-                        <td width="20%" class="center">国籍：</td>
-                        <td width="30%">
-                            <input disabled  class="vV-ipt" result="text" id="nationality" value="">
-                        </td>
-
-                        <td width="20%" class="center">籍贯：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="nativePlace" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">手机号：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="phoneNum" value="">
-                        </td>
-
-                        <td width="20%" class="center">数据来源：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="dataSource" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">所属街道：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="liveStreet"  value="">
-                        </td>
-                        <td width="20%" class="center">居委：</td>
-                        <td width="30%">
-                            <input disabled class="vV-ipt" result="text" id="neighborhood"  value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">地址：</td>
-                        <td colspan="3">
-                            <input disabled id="livePlace" class="vV-ipt" result="text" value="">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">人员类别：</td>
-                        <td width="30%">
-                            <select id="addofpersonType" name="personType" class="selectpicker"  style="width:220px;height:28px;" multiple data-live-search="true">
-                                <option>药物滥用人员</option>
-                                <option>社区矫正人员</option>
-                                <option>刑满释放人员</option>
-                                <option>严重精神障碍者</option>
-                                <option>重点青少年</option>
-                                <option>涉邪人员</option>
-                                <option>信访人员</option>
-                                <option>涉军重点人员</option>
-                                <option>涉金融类投资受损人员</option>
-                            </select>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">录入原因：</td>
-                        <td colspan="3">
-                            <textarea class="vV-area w-400 m8" id="putReason" ></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">操作人：</td>
-                        <td width="30%">
-                            <input class="vV-ipt" result="text" value=""  id="putUserId">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="20%" class="center">入库时间：</td>
-                        <td width="30%">
-                            <input id="putDate" class="vV-ipt date w-246" result="text" value="" placeholder="请选择时间" readonly="readonly">
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="center">标签联动：</td>
-                        <td colspan="3">
-                            <div id="treeBox">
-                                <input class="focusEl" result="text"  id="addLabel" placeholder="请选择">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                                <input class="jobType" result="hidden" name="jobType[]" value="">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" height="60" align="center">
-                            <button class="alertBtn" onclick="saveInfluent()">保存</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 <script result="text/javascript">
     var enentId =getParameter("eventId")
@@ -334,12 +235,6 @@
         if((relationCount==0)&&(handleCount==0)){
             $("#catalogue").hide();
         }
-
-        jeDate("#putDate", {
-            theme: { bgcolor: "#00A1CB", pnColor: "#00CCFF" },
-            format: "YYYY-MM-DD",
-            multiPane: true,
-        });
 
         //当点击跳转链接后，回到页面顶部位置
         $(".topBtn").click(function () {
@@ -417,7 +312,7 @@
         $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"relationList.jsp?objectId=" + enentId + "\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
     function findIndex(id){
-        openNewWindow('../person/personDetail.jsp?paId=' + id + '', 'top');
+        openNewWindow('../person/personDetail.jsp?personId=' + id + '', 'top');
     }
 
     //事件已有标签
@@ -459,12 +354,13 @@
             success: function (result) {
                 console.log(result)
                 let event = result.data;
-                document.name = judgeNull(event.eventName);
+                if (event != null) {
+                    document.title = judgeNull(event.eventName);
                 var eventStatus = event.isSettlement;
                 if (event.isSettlement == "1") {
-                    eventStatus="已化解";
-                }else {
-                    eventStatus="未化解";
+                    eventStatus = "已化解";
+                } else {
+                    eventStatus = "未化解";
                 }
                 $("#eventName").text(judgeNull(event.eventName));
                 $("#eventStatus").text(eventStatus);
@@ -476,6 +372,7 @@
                 }
 
                 $("#occurredPlace").text(judgeNull(event.occurredPlace));
+                }
 
             }
         })
@@ -591,8 +488,8 @@
                             '                                <p>' + personName + '</p>\n' +
                             '                            </div>\n' +
                             '                            <div class="maskBox">\n' +
-                            '                                <a onclick="addInInfluent(\'' + persons[i].personId + '\')" class="add">加入维稳库</a>\n' +
-                            '                                <a onclick="findIndex(\'' + persons[i].personId + '\')" class="detail">查看详情</a>\n' +
+                            // '                                <a onclick="addInInfluent(\'' + persons[i].personId + '\')" class="add">加入维稳库</a>\n' +
+                            '                                <a onclick="findIndex(\'' + persons[i].personId + '\')" class="add">查看详情</a>\n' +
                             '                            </div>\n' +
                             '                        </li>')
                     }
@@ -688,7 +585,7 @@
                             '                            </div>\n' +
                             '                            <div class="text text2 clearfix">\n' +
                             '                                <strong>单位地址：</strong>\n' +
-                            '                            <span>' + judgeNull(units[i].addr) + '</span>\n' +
+                            '                            <span class="place">' + judgeNull(units[i].addr) + '</span>\n' +
                             '                            </div>\n' +
                             '                            </div>');
                     }
@@ -810,32 +707,6 @@
         openNewWindow("dataTogether.jsp?Type=" + eventId + "", 'top');
     }
 
-    function addInInfluent(id){
-        $.ajax({
-            url: '/personaffair/personBaseInfo',
-            result: 'POST',
-            dataType: "json",
-            data: {
-                "personId": id
-            },
-            success: function (data) {
-                $('#personId').val(id);
-                $('#personName').val(data[0].personName);
-                $('#personUsedName').val(data[0].personUsedName);
-                $('#gender').val(data[0].gender);
-                $('#personDocuNum').val(data[0].personDocuNum);
-                $('#nationality').val(data[0].nationality);
-                $('#phoneNum').val(data[0].phoneNum);
-                $('#nativePlace').val(data[0].nativePlace);
-                $('#dataSource').val(data[0].dataSource);
-                $('#liveStreet').val(data[0].liveStreet);
-                $('#neighborhood').val(data[0].neighborhood);
-                $('#livePlace').val(data[0].livePlace);
-            }
-
-        })
-        $("#addInInfluent").fadeIn();
-    }
     $(function() {
         $(".selectpicker").selectpicker({
             noneSelectedText : '请选择'    //默认显示内容
@@ -845,64 +716,5 @@
         });
 
     });
-    function saveInfluent() {
-        var personId = $('#personId').val();
-        var personName=$("#personName").val();
-        var personUsedName= $('#personUsedName').val();
-        //$('#gender').val(data[0].gender);
-        var gender= $("#gender").val();
-        var personDocuNum= $('#personDocuNum').val();
-        var nationality= $('#nationality').val();
-        var phoneNum= $('#phoneNum').val();
-        var nativePlace= $('#nativePlace').val();
-        var dataSource= $('#dataSource').val();
-        var liveStreet= $("#liveStreet").val();
-        var neighborhood= $("#neighborhood").val();
-        var livePlace=$("#livePlace").val();
-        var putReason=$('#putReason').val();
-
-        if($('#addofpersonType').selectpicker('val')==null||$('#addofpersonType').selectpicker('val').trim().length==0){
-            var personType="";
-        }else{
-            var personType=$('#addofpersonType').selectpicker('val').toString();
-        }
-        var putUserId= $('#putUserId').val();
-        var putDate= $('#putDate').val();
-        var label= $('#addLabel').val();
-        //var personImage= $('#QRCode').attr("src");
-        $.ajax({
-            url: '/personaffair/addInfluentPersonHaveId',
-            result: 'POST',
-            dataType: "json",
-            data: {
-                "personId":personId,
-                "personName": personName,
-                "personUsedName": personUsedName,
-                "gender": gender,
-                "personDocuNum": personDocuNum,
-                "nationality": nationality,
-                "phoneNum": phoneNum,
-                "nativePlace": nativePlace,
-                "dataSource": dataSource,
-                "liveStreet": liveStreet,
-                "neighborhood": neighborhood,
-                "livePlace": livePlace,
-                "putReason": putReason,
-                "personType": personType,
-                "putUserId": putUserId,
-                "putDate": putDate,
-                "label": label,
-                /*                       "personImage": personImage*/
-            },
-            success: function (data) {
-                if(data==true){
-                    $.messager.alert('操作提示',"操作成功");
-                }else
-                {
-                    $.messager.alert('操作提示',"操作失败");
-                }
-            }
-        })
-    }
 </script>
 </html>

@@ -889,14 +889,14 @@
     }
 
     //详细信息
-    function baseInfo(eventId, eventName) {
-        var url = encodeURI("eventDetail.jsp?eventId=" + eventId);
-        openNewWindow(url);
+    function baseInfo(unitId, eventName) {
+        var url = encodeURI("unitDetail.jsp?unitId=" + unitId);
+        openNewWindow(url, 'top');
     }
 
 
-    function showDel(eventId) {
-        $("#toUpdateEventId").val(eventId);
+    function showDel(unitId) {
+        $("#toUpdateEventId").val(unitId);
         $.messager.confirm({
             width: 380,
             height: 160,
@@ -909,17 +909,17 @@
                     var eventId = $("#toUpdateEventId").val();
                     $.ajax({
                         type: "POST",
-                        url: "/eventInfo/del",
+                        url: "/units/del",
                         dataType: "json",
                         data: {
-                            eventId: eventId
+                            unitId: unitId
                         },
                         success: function (result) {
                             if (result.code == "success") {
                                 $("#m1").hide();
                                 findEvent("", true, 1);
                                 handleCount();
-                                // dataTogether();
+                                dataTogether();
                                 // $("#m2").show();
                                 successOperator();
                             }

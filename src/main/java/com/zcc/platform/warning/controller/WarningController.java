@@ -30,14 +30,14 @@ public class WarningController {
     }
 
     @Log(name = "根据Id删除预警")
-    @DeleteMapping("/{noticeId}")
-    public ResultBean delWarningById(@PathVariable("noticeId") String noticeId) {
+    @PostMapping("/del")
+    public ResultBean delWarningById(String noticeId) {
         service.delWarningById(noticeId);
         return ResultBean.success();
     }
 
     @Log(name = "根据预警类型删除预警")
-    @DeleteMapping("/type/{noticeType}")
+    @GetMapping("/type/{noticeType}")
     public ResultBean delWarningByType(@PathVariable("noticeType") String noticeType) {
         service.delWarningByType(noticeType);
         return ResultBean.success();

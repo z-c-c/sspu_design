@@ -688,8 +688,11 @@
             fn: function (r) {
                 if (r){
                     $.ajax({
-                        type: "delete",
-                        url: "/" + noticeId,
+                        type: "post",
+                        url: "/warnings/del",
+                        data: {
+                            noticeId: noticeId
+                        },
                         dataType: "json",
                         success: function (result) {
                             successOperator();
