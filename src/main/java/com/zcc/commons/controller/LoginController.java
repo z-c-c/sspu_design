@@ -46,7 +46,7 @@ public class LoginController {
                 if (ConstUtil.NO_FLAG.equals(flag)) {
                     map.put("url", "wwpt/shell.jsp");
                 } else {
-                    map.put("url", "/manager/shell.jsp");
+                    map.put("url", "/systemManager/shell.jsp");
                 }
                 map.put("result", "success");
                 System.out.println("用户" + userInfoEntity.getUserName() + " 登陆系统");

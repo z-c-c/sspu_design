@@ -170,6 +170,51 @@
         </where>
     </select>
 
+
+    <select id="findByParamWithTagNoPage" resultType="com.zcc.platform.event.entity.EventInfoEntity">
+        select * from event_info e,
+        dm_tag_object_relation r,
+        dm_tag_object_info t
+        <where>
+            <if test="Map.nameOrPlace!=null and Map.nameOrPlace!=''">
+                concat(IFNULL(e.event_name,''),IFNULL(e.occurred_place,'')) like concat('%',#{Map.nameOrPlace},'%')
+            </if>
+            <if test="Map.beginTime!=null and Map.beginTime!='' and (Map.endTime==null or Map.endTime=='')">
+                and DATE_FORMAT(e.occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime==null or Map.beginTime=='')">
+                and DATE_FORMAT(e.occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.endTime!=null and Map.endTime!='' and (Map.beginTime!=null and Map.beginTime!='')">
+                and DATE_FORMAT(e.occurred_time,'%Y-%m-%d') &gt;= #{Map.beginTime} and
+                DATE_FORMAT(occurred_time,'%Y-%m-%d') &lt;= #{Map.endTime}
+            </if>
+            <if test="Map.isHandle!=null and Map.isHandle!=''">
+                and e.is_handle=#{Map.isHandle}
+            </if>
+            <if test="Map.isSettlement!=null and Map.isSettlement!=''">
+                and e.is_settlement=#{Map.isSettlement}
+            </if>
+            <if test="Map.beginSettlementTime!=null and Map.beginSettlementTime!='' and (Map.endSettlementTime==null or Map.endSettlementTime=='')">
+                and DATE_FORMAT(e.settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime==null or Map.beginSettlementTime=='')">
+                and DATE_FORMAT(e.settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            <if test="Map.endSettlementTime!=null and Map.endSettlementTime!='' and (Map.beginSettlementTime!=null and Map.beginSettlementTime!='')">
+                and DATE_FORMAT(e.settlement_time,'%Y-%m-%d') &gt;= #{Map.beginSettlementTime} and
+                DATE_FORMAT(settlement_time,'%Y-%m-%d') &lt;= #{Map.endSettlementTime}
+            </if>
+            and r.OBJECT_ID = e.event_id
+            and r.TAG_ID = t.TAG_ID
+            and r.TAG_ID in
+            <foreach collection="Map.tags" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+            and e.is_delete!='1' and r.IS_DELETE!='1' and t.IS_DELETE!='1';
+        </where>
+    </select>
+
     <select id="findByParam" resultType="com.zcc.platform.event.entity.EventInfoEntity">
         select * from design_zcc.event_info
         <where>

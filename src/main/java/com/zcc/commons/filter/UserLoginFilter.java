@@ -28,11 +28,14 @@ public class UserLoginFilter implements Filter {
         UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute(ConstUtil.CURRENT_PERSON);
         String requestUri = request.getRequestURI();
         boolean flag = true;
+        //未登录且访问的不是登录页面
         if (currentPerson == null && !requestUri.contains(ConstUtil.LOGIN_JSP)) {
 
+            //如果是管理员登录页面，放行
             if (requestUri.contains(ConstUtil.MANAGER_LOGIN_JSP)) {
                 filterChain.doFilter(servletRequest, servletResponse);
             }else {
+                //如果是静态资源
                 if (requestUri.contains(ConstUtil.CSS) || requestUri.contains(ConstUtil.JS) || requestUri.contains(ConstUtil.PNG) || requestUri.contains(ConstUtil.JPG) || requestUri.contains(ConstUtil.MP4)) {
                     if (!requestUri.contains(ConstUtil.JSP)) {
                         filterChain.doFilter(servletRequest, servletResponse);
@@ -41,7 +44,9 @@ public class UserLoginFilter implements Filter {
                         PrintWriter writer = response.getWriter();
                         writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
                     }
-                } else if (requestUri.contains(ConstUtil.LOGIN_LOGIN)) {
+                }
+                //如果是登录接口，放行
+                else if (requestUri.contains(ConstUtil.LOGIN_LOGIN)) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 }
                 else {

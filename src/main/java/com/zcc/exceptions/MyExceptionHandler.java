@@ -29,7 +29,7 @@ public class MyExceptionHandler implements HandlerExceptionResolver {
             mv.setViewName("/WEB-INF/500");
         }else {
             e.printStackTrace();
-            mv.setViewName("/WEB-INF/404");
+            mv.setViewName("/WEB-INF/500");
         }
         return mv;
         /**

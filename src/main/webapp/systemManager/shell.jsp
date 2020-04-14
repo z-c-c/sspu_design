@@ -22,18 +22,16 @@
                 <ul class="menu_2nd">
                     <li class="menu_2nd_li f-cur"><a href="../systemManager/pages/tagManager.jsp" target="main_frame">标签管理</a>
                     </li>
-                    <li class="menu_2nd_li "><a href="../systemManager/pages/systemManager.jsp" target="main_frame">系统样式管理</a>
-                    </li>
                 </ul>
             </li>
-            <li><h6><img src="../systemManager/images/idx-icon2.png"/>知识库管理</h6>
-                <ul class="menu_2nd">
-                    <li class="menu_2nd_li"><a href="../systemManager/pages/ontologyManager.jsp" target="main_frame">本体领域管理</a></li>
-                    <li class="menu_2nd_li"><a href="../systemManager/pages/instanceManager.jsp" target="main_frame">实例数据管理</a></li>
-                    <li class="menu_2nd_li"><a href="../systemManager/pages/wordManager.jsp" target="main_frame">标签管理</a></li>
-                </ul>
-            </li>
-            <li><h6><img src="../systemManager/images/idx-icon3.png"  alt=""/>数据接口管理</h6>
+            <%--            <li><h6><img src="../systemManager/images/idx-icon2.png"/>知识库管理</h6>--%>
+            <%--                <ul class="menu_2nd">--%>
+            <%--&lt;%&ndash;                    <li class="menu_2nd_li"><a href="../systemManager/pages/ontologyManager.jsp" target="main_frame">本体领域管理</a></li>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;                    <li class="menu_2nd_li"><a href="../systemManager/pages/instanceManager.jsp" target="main_frame">实例数据管理</a></li>&ndash;%&gt;--%>
+            <%--                    <li class="menu_2nd_li"><a href="../systemManager/pages/wordManager.jsp" target="main_frame">标签管理</a></li>--%>
+            <%--                </ul>--%>
+            <%--            </li>--%>
+            <li><h6><img src="../systemManager/images/idx-icon3.png" alt=""/>系统监控</h6>
                 <ul class="menu_2nd">
                     <li class="menu_2nd_li"><a href="../systemManager/pages/interfaceManager.jsp" target="main_frame">接口管理</a></li>
                 </ul>
@@ -44,7 +42,7 @@
         <div class="f-header">
             <img class="door" src="../systemManager/images/idx-icon4.png" />
             <div class="infor">
-                <span><img src="../systemManager/images/idx-icon5.png" style="margin-right:10px" />星期五&nbsp;13:00:00</span>
+                <span></span>
                 <div>
                     <i class="notice has"></i>
                     <img class="avatar" src="../systemManager/images/idx-icon7.png" />

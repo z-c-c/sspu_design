@@ -50,7 +50,6 @@
                     $("#loginBtn").attr("disabled",false);
                 },
                 success:function(data){
-                    console.log(data);
                     $("#loginBtn").html("登录");
                     $("#loginBtn").attr("disabled",false);
                     if(data.result==="success")

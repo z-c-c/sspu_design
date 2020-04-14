@@ -192,7 +192,11 @@ public class EventInfoServiceImpl implements EventInfoService {
     @Override
     public List<EventInfoEntity> find(Map<String, Object> map) {
         formatTime(map);
-        return eventInfoDao.findByParam(map);
+        if (StringUtil.isValidStr(StringUtil.safeToString(map.get(ConstUtil.TAGS)))) {
+            return eventInfoDao.findByParamWithTagNoPage(map);
+        } else {
+            return eventInfoDao.findByParam(map);
+        }
     }
 
     /**

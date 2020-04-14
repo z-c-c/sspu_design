@@ -16,7 +16,7 @@ public class WebExceptionHandler {
     @ExceptionHandler()
     public ResultBean unknownException(Exception ex) {
         ex.printStackTrace();
-        return ResultBean.error(ResultBean.ERROR, "系统错误");
+        return ResultBean.error(ResultBean.ERROR, "系统异常");
     }
 
     @ExceptionHandler(MyException.class)

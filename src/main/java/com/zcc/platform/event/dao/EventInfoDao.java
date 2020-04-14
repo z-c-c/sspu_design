@@ -64,6 +64,14 @@ public interface EventInfoDao {
     List<EventInfoEntity> findByParamWithPage(@Param("Map") Map<String, Object> map, @Param("Page") Page page);
 
     /**
+     * 查找事件
+     *
+     * @param map map
+     * @return list
+     */
+    List<EventInfoEntity> findByParam(@Param("Map") Map<String, Object> map);
+
+    /**
      * 查找事件（标签）
      *
      * @param map
@@ -73,12 +81,12 @@ public interface EventInfoDao {
     List<EventInfoEntity> findByParamWithTag(@Param("Map") Map<String, Object> map, @Param("Page") Page page);
 
     /**
-     * 查找事件
-     *
-     * @param map map
-     * @return list
+     * 查找事件（标签）
+     * @param map
+     * @return
      */
-    List<EventInfoEntity> findByParam(@Param("Map") Map<String, Object> map);
+    List<EventInfoEntity> findByParamWithTagNoPage(@Param("Map") Map<String, Object> map);
+
 
     /**
      * 单个事件的数据聚合,分页

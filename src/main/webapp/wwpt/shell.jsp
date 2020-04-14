@@ -187,7 +187,7 @@
         <%
             if(currentPerson.getType().equals("1")){
         %>
-        <li><a href="javascript:top.location.href = '../systemManager/shell.jsp';" target="main_frame">后台管理</a></li>
+            <li><a href="javascript:top.location.href = '/systemManager/shell.jsp';" target="main_frame">后台管理</a></li>
         <%
             }
         %>
