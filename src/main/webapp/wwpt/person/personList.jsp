@@ -707,9 +707,11 @@
             success: function (result) {
                 if (result.code == 'success') {
                     upImage(result.data);
-                    successOperator();
+
                     $("#addnew").hide();
-                    find(1, true);
+                    //照片上传成功后再刷新页面
+                    // find(1, true);
+
                 }
             }
         })
@@ -774,7 +776,7 @@
                         str1 += "<li>";
                         str1 += "<div class=\"pubBox \" id=\"info\">";
                         if (persons[i].personImage != null && persons[i].personImage != "" && persons[i].personImage != "null") {
-                            str1 += "<div style=\"float: left;\"><img src=\"/uploads/" + persons[i].personImage + "\" style=\"margin-left: 20px;top: -22px\"alt=\"\"></div>"
+                            str1 += "<div style=\"float: left;\"><img src=\"/uploads/" + persons[i].personImage + "\" style=\"width: 80px;height: 100px; margin-left: 20px;top: -8px\"alt=\"\"></div>"
                         } else {
                             str1 += "<div style=\"float: left;\"><img src=\"../images/people.png\" style=\"margin-left: 20px;top: -8px\"alt=\"\"></div>"
                         }
@@ -886,7 +888,7 @@
         if (count == 0) {
             noDataTogether();
         } else {
-            openNewWindow("personDataTogether.jsp?paId=" + personId + "");
+            openNewWindow("personDataTogether.jsp?paId=" + personId + "", 'top');
         }
     }
 
@@ -1012,8 +1014,8 @@
 
     //个人主页
     function personIndex(id) {
-        var url = 'personDetail.jsp?paId=' + id + '';
-        openNewWindow(url);
+        var url = 'personDetail.jsp?personId=' + id + '';
+        openNewWindow(url, 'top');
     }
 
 
@@ -1075,7 +1077,7 @@
 
     function jump(id) {
         var url = 'dataTogether.jsp?paId=' + id + '';
-        openNewWindow(url);
+        openNewWindow(url, 'top');
     }
 
     function footerChange() {
@@ -1090,7 +1092,7 @@
 
     function findMore() {
         let url = 'personDataTogether.jsp';
-        openNewWindow(url);
+        openNewWindow(url, 'top');
     }
 
 
@@ -1102,11 +1104,19 @@
             result: "POST",
             url: "/persons/upImage",
             fileElementId: fileEleId,
+            async: false,
             dataType: "json",
             data: {
                 attrName: attrName,
                 personId: personId
             },
+            success: function (result) {
+                find(1, true);
+                successOperator();
+            }, error: function (result) {
+                find(1, true);
+                successOperator();
+            }
         });
     }
 

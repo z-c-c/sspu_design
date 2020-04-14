@@ -42,13 +42,13 @@ public class PersonController {
         if (warning != null) {
             warningService.saveWarning(warning);
         }
-        return ResultBean.success();
+        return ResultBean.success(personId);
     }
 
     @Log(name = "上传照片")
     @PostMapping("/upImage")
     public ResultBean uploadImage(HttpServletRequest request, String attrName, String personId) {
-        String fileName = FileUtil.upLoad(request, attrName, personId);
+        String fileName = FileUtil.upLoadImage(request, attrName, personId);
         PersonEntity byId = personService.findById(personId);
         byId.setPersonImage(fileName);
         personService.save(byId);

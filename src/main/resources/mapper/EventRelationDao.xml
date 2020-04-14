@@ -91,10 +91,7 @@
 
 
     <select id="findObjectLinkEvent" resultType="com.zcc.platform.event.entity.EventInfoEntity">
-        select distinct e.event_id,
-                        e.event_name,
-                        e.occurred_time,
-                        e.occurred_place
+        select distinct e.*
         from event_relation_object r
                  join event_info e on r.EVENT_ID = e.event_id
         where r.OBJECT_TYPE = #{objectType}

@@ -57,6 +57,54 @@ public class FileUtil {
     }
 
     /**
+     * 上传照片（单独写一个方法是为了保证上传的照片名里面没有中文）
+     *
+     * @param request
+     * @param attrName
+     * @param id
+     * @return
+     */
+    public static String upLoadImage(HttpServletRequest request, String attrName, String id) {
+        MultipartHttpServletRequest request1 = (MultipartHttpServletRequest) request;
+        MultipartFile mFile = request1.getFile(attrName);
+        //文件上传的位置
+        String path = request.getSession().getServletContext().getRealPath("/uploads/");
+        //判断该路径是否存在
+        File file = new File(path);
+        if (!file.exists()) {
+            // 创建文件夹
+            file.mkdirs();
+        }
+        String outPath = null;
+        String fileName = mFile.getOriginalFilename();
+        if (StringUtil.isValidStr(fileName)) {
+            fileName = id + "ZCC" + fileName;
+            for (int i = 0; i < fileName.length(); i++) {
+                char ch = fileName.charAt(i);
+                int m = (int) ch;
+                if (m >= 19968 && m <= 171941) {
+                    fileName = fileName.replace(ch, '_');
+                }
+            }
+            //获取当前系统下的文件分隔符
+            String property = System.getProperty("file.separator");
+            outPath = path + property + fileName;
+            try (OutputStream outputStream = new FileOutputStream(outPath);
+                 InputStream inputStream = mFile.getInputStream();) {
+                byte[] buffer = new byte[4096];
+                int length = 0;
+                while ((length = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, length);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return null;
+            }
+        }
+        return fileName;
+    }
+
+    /**
      * 文件下载
      *
      * @param response
