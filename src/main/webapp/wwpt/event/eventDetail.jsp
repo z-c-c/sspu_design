@@ -16,12 +16,12 @@
     <name></name>
     <%@include file="../common/w_include_header.jsp"%>
     <link rel="stylesheet" href="../css/icon.css"><!--easyui-->
-    <script result="text/javascript" src="../js/my_scrollbar.js"></script>
-    <script result="text/javascript" src="../js/bootstrap-select.min.js"></script>
-    <script result="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script result="text/javascript" src="../js/getParameter.js"></script>
-    <script result="text/javascript" src="../common/w_common_method.js"></script>
-    <style result="text/css">
+    <script type="text/javascript" src="../js/my_scrollbar.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/getParameter.js"></script>
+    <script type="text/javascript" src="../common/w_common_method.js"></script>
+    <style type="text/css">
         .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
             line-height: unset;
@@ -71,38 +71,13 @@
                 </p>
                 <table border="0" class="tableSty">
                     <tr>
-                        <td width="90" class="tdColor">时间：</td>
+                        <td width="90" class="tdColor">发生时间：</td>
                         <td width="350" id="occurredTime"></td>
 
-                        <td width="90" class="tdColor">地点：</td>
-                        <td class="green" id="adress"></td>
+                        <td width="90" class="tdColor">发生地点：</td>
+                        <td class="green" id="occurredPlace"></td>
                     </tr>
-                    <tr>
-                        <td class="tdColor">甲方：</td>
-                        <td width="260" id="wwDsrA"></td>
 
-                        <td width="90" class="tdColor">乙方：</td>
-                        <td  id="wwDsrB"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdColor">矛盾类别：</td>
-                        <td width="260" id="wwMdlb"></td>
-
-                        <td width="90" class="tdColor">矛盾级别：</td>
-                        <td class="green" id="wwMdjb" style="color: black"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdColor">涉及人数：</td>
-                        <td id="wwSjrs"></td>
-                        <td class="tdColor">涉及领域：</td>
-                        <td id="wwSjly"> </td>
-                    </tr>
-                    <tr>
-                        <td class="tdColor">协办部门：</td>
-                        <td id="wwZrbmXb"></td>
-                        <td class="tdColor">所属街道：</td>
-                        <td id="wwJdName" class="tdColor"  style="color: black"> </td>
-                    </tr>
                 </table>
                 <div class="catalogue" id="catalogue">
                     <span class="v-fl">目录</span>
@@ -116,7 +91,7 @@
                 </div>
                 <div class="infoBox-l-item infoBox-l-item3" id="linkUnit">
                     <div class="sub-tit mt-24 point" id="a3">
-                        <h4>关联单位</h4>
+                        <h4>关联单位（<span id="linkUnitCount">0</span>）</h4>
                     </div>
                 </div>
                 <div class="infoBox-l-item infoBox-l-item4" id="linkPerson">
@@ -138,49 +113,30 @@
                 </div>
                 <div class="infoBox-l-item infoBox-l-item5" id="handleLogBox">
                     <div class="sub-tit mt-24 point" id="a5">
-                        <h4>处理日志</h4>
+                        <h4>处理日志(<span id="handleLogCount">0</span>)</h4>
 
                     </div>
-                    <div class="countBox">
-                        <div class="count">
-                            <i></i>
-                            <p>处理总数</p>
-                            <strong id="handleLogCount">0</strong>
-                        </div>
-                        <div class="clearfix countInfo">
-                            <div class="item clearfix">
-                                <span class="v-fl">召开会议</span>
-                                <strong class="v-fr" id="metting">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">人员聚集</span>
-                                <strong class="v-fr" id="personAssemble">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">日常处置</span>
-                                <strong class="v-fr" id="daily">0</strong>
-                            </div>
-                            <div class="item clearfix">
-                                <span class="v-fl">集访人次</span>
-                                <strong class="v-fr" id="personNumber">0</strong>
-                            </div>
-                        </div>
-                    </div>
+                    <%--  <div class="countBox">
+                          <div class="count">
+
+                          </div>
+                          <div class="clearfix countInfo">
+                              <div class="item clearfix">
+
+                              </div>
+                              <div class="item clearfix">
+
+                              </div>
+                              <div class="item clearfix">
+
+                              </div>
+                              <div class="item clearfix">
+
+                              </div>
+                          </div>
+                      </div>--%>
                     <div class="con mt-40" >
                         <ul class="historyList mt-10" id="handleLogList">
-                            <li>
-                                <div class="dataList dataList2">
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="infoBox-l-item infoBox-l-item6" id="leaderBox">
-                    <div class="sub-tit mt-24 point" id="a6">
-                        <h4>领导批示（<span id="leaderCount">0</span>）</h4>
-                    </div>
-                    <div>
-                        <ul class="historyList mt-10" id="leaderList">
                             <li>
                                 <div class="dataList dataList2">
                                 </div>
@@ -357,7 +313,6 @@
         initRelationUnit();
         objectTagList("");
         initHandleLog();
-        initLeader();
         eventRelation();
         // 输入框控件调用
         vVsub();
@@ -456,13 +411,13 @@
     })
     function quanping() {
 
-        openNewWindow("eventRelationList.jsp?objectId="+enentId+"&&objectType=event&&flag=show");
+        location_href("relationList.jsp?objectId=" + enentId + "&&flag=show", "top");
     }
     function eventRelation() {
-        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"eventRelationList.jsp?objectId="+enentId+"&&objectType=event\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
+        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"relationList.jsp?objectId=" + enentId + "\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
     function findIndex(id){
-        openNewWindow ('../person/personDetail.jsp?paId='+id+'') ;
+        openNewWindow('../person/personDetail.jsp?paId=' + id + '', 'top');
     }
 
     //事件已有标签
@@ -474,20 +429,20 @@
             eventid=id;
         }
         $.ajax({
-            result:"POST",
-            url:"/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
             dataType:"json",
             data:{
                 objectId:eventid
             },
             success:function (result) {
                 if(result.message=="success"){
-                    var tags=result.objectTag;
+                    var tags = result.data;
                     $("#eventTags").empty();
                     for (var i = 0; i <tags.length ; i++) {
-                        var color=tags[i].tagCssCode.split(":");
+                        var color = JSON.parse(tags[i].tagCssCode).color;
                         var colorcode = color[1].substring(1,(color[1].length-2));
-                        $("#eventTags").append('<span  style="cursor: pointer;background-color:'+colorcode+'">'+tags[i].tagName+'</span>');
+                        $("#eventTags").append('<span  style="cursor: pointer;background-color:' + color + '">' + tags[i].tagName + '</span>');
                     }
                 }
             }
@@ -495,96 +450,47 @@
     }
     function initEvent() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/findEventBaseInfoById",
+            type: "POST",
+            url: "/eventInfo/findById",
             dataType: "json",
             data: {
-                eventType: "contradictionEvent",
                 eventId: enentId
             },
             success: function (result) {
-                var eventById=result.eventById;
-                var contradictionEventById=result.contradictionEventById;
-
-                var eventName=eventById.eventName;
-                if(eventName==null||eventName.trim().length==0){
-                    eventName="无";
-                }
-                document.name=eventName;
-                var eventStatus=contradictionEventById.wwSfhj;
-                if(eventStatus=="1"){
+                console.log(result)
+                let event = result.data;
+                document.name = judgeNull(event.eventName);
+                var eventStatus = event.isSettlement;
+                if (event.isSettlement == "1") {
                     eventStatus="已化解";
                 }else {
                     eventStatus="未化解";
                 }
-                var eventContent=eventById.eventContent;
-                if(eventContent==null||eventContent.trim().length==0){
-                    eventContent="无";
-                }
-                var occurredTime = new Date(eventById.occurredTime).format("yyyy-MM-dd hh:mm:ss")
-                if (eventById.occurredTime == null) {
-                    occurredTime = "无";
-                }
-                var occurredPlace = eventById.occurredPlace;
-                if (occurredPlace == null || occurredPlace.trim().length == 0) {
-                    occurredPlace = "无";
-                }
-                var wwDsrA=contradictionEventById.wwDsrA;
-                if(wwDsrA==null||wwDsrA.trim().length==0){
-                    wwDsrA="无";
-                }
-                var wwDsrB=contradictionEventById.wwDsrB;
-                if(wwDsrB==null||wwDsrB.trim().length==0){
-                    wwDsrB="无";
-                }
-                var wwMdlb=contradictionEventById.wwMdlb;
-                if(wwMdlb==null||wwMdlb.trim().length==0){
-                    wwMdlb="无";
-                }
-                var wwMdjb=contradictionEventById.wwMdjb;
-                if(wwMdjb==null||wwMdjb.trim().length==0){
-                    wwMdjb="无";
-                }
-                var wwSjrs=contradictionEventById.wwSjrs;
-                if(wwSjrs==null||wwSjrs.trim().length==0){
-                    wwSjrs="无";
-                }
-                var wwSjly=contradictionEventById.wwSjly;
-                if(wwSjly==null||wwSjly.trim().length==0){
-                    wwSjly="无";
-                }
-
-                var wwZrbmXb=contradictionEventById.wwZrbmXb;
-                if(wwZrbmXb==null||wwZrbmXb.trim().length==0){
-                    wwZrbmXb="无";
-                }
-
-                var wwJdName=contradictionEventById.wwJdName;
-                if(wwJdName==null||wwJdName.trim().length==0){
-                    wwJdName="无";
-                }
-
-                $("#eventName").text(eventName);
+                $("#eventName").text(judgeNull(event.eventName));
                 $("#eventStatus").text(eventStatus);
-                $("#eventContent").text(eventContent);
-                $("#occurredTime").text(occurredTime);
-                $("#occurredPlace").text(occurredPlace);
-                $("#wwDsrA").text(wwDsrA);
-                $("#wwDsrB").text(wwDsrB);
-                $("#wwMdjb").text(wwMdjb)
-                $("#wwMdlb").text(wwMdlb);
-                $("#wwSjrs").text(wwSjrs);
-                $("#wwSjly").text(wwSjly)
-                $("#wwZrbmXb").text(wwZrbmXb);
-                $("#wwJdName").text(wwJdName)
+                $("#eventContent").text(judgeNull(event.eventContent));
+                if (event.occurredTime != null) {
+                    $("#occurredTime").text(judgeNull(new Date(event.occurredTime).format("yyyy-MM-dd hh:mm:ss")));
+                } else {
+                    $("#occurredTime").text('暂无');
+                }
+
+                $("#occurredPlace").text(judgeNull(event.occurredPlace));
+
             }
         })
     }
 
+    function judgeNull(data) {
+        if (data == "" || data == null || data == undefined || data == "null")
+            data = "无"
+        return data;
+    }
+
     function dataTogether() {
         $.ajax({
-            result: "post",
-            url: "/eventManager/dataTogetherWithPage",
+            type: "post",
+            url: "/eventInfo/findDataTogether",
             dataType: "json",
             data:{
                 eventId:enentId,
@@ -592,8 +498,8 @@
                 pageSize:5
             },
             success:function (result) {
-                var list= result.dataTogether;
-                var count=result.count;
+                var list = result.data.dataTogether;
+                var count = result.data.count;
                 $("#dataTogetherCount").text(count);
                 $("#dataTogether").empty();
                 var length;
@@ -606,11 +512,11 @@
                     $("#dataTogetherBox").hide();
                 }
                 for (var i = 0; i < length; i++) {
-                    var eventName= list[i].EVENT_NAME;
+                    var eventName = list[i].eventName;
                     if(eventName==null||eventName.trim().length==0){
                         eventName="无";
                     }
-                    var eventContent=list[i].EVENT_CONTENT;
+                    var eventContent = list[i].eventContent;
                     if(eventContent==null||eventContent.trim().length==0){
                         eventContent="无";
                     }
@@ -618,11 +524,11 @@
                     if(eventSource==null||eventSource.trim().length==0){
                         eventSource="无";
                     }
-                    var stCreateTime=new Date(list[i].ST_CREATE_TIME).format("yyyy-MM-dd hh:mm:ss");
-                    if(stCreateTime==null){
+                    var stCreateTime = new Date(list[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
+                    if (stCreateTime == list[i].occurredTime) {
                         stCreateTime="无";
                     }
-                    getTags(list[i].EVENT_ID);
+                    getTags(list[i].eventId);
                     if (!unittag){
                         unittag=''
                     }
@@ -652,8 +558,8 @@
     //事件关联人员列表
     function initRelationPerson() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/listEventRelationObject",
+            type: "POST",
+            url: "/eventInfo/findEventRelationObject",
             dataType: "json",
             async: false,
             data: {
@@ -663,30 +569,30 @@
             success: function (result) {
 
                 if(result.message=="success"){
-                    var relationObject=result.relationObject;
+                    var persons = result.data;
                     $("#linkPeople").empty();
-                    $("#linkPeopleCount").text(result.count)
-                    if(relationObject.length==0){
+                    $("#linkPeopleCount").text(persons.length)
+                    if (persons.length == 0) {
                         $("#linkPeopleBox").hide();
                         $("#linkPerson").hide();
                     }
-                    relationCount+=relationObject.length;
+                    relationCount += persons.length;
                     if(relationCount<=6){
                         $("#arrowBox").hide();
                     }
-                    for (var i = 0; i < relationObject.length; i++) {
-                        var personName=relationObject[i].personName;
+                    for (var i = 0; i < persons.length; i++) {
+                        var personName = persons[i].personName;
                         if(personName==null||personName.trim().length==0){
                             personName="无";
                         }
                         $("#linkPeople").append(' <li>\n' +
                             '                            <div class="imgBox">\n' +
                             '                                <img src="../images/icon-person.jpg" alt="">\n' +
-                            '                                <p>'+relationObject[i].personName+'</p>\n' +
+                            '                                <p>' + personName + '</p>\n' +
                             '                            </div>\n' +
                             '                            <div class="maskBox">\n' +
-                            '                                <a onclick="addInInfluent(\''+relationObject[i].personId+'\')" class="add">加入维稳库</a>\n' +
-                            '                                <a onclick="findIndex(\''+relationObject[i].personId+'\')" class="detail">查看详情</a>\n' +
+                            '                                <a onclick="addInInfluent(\'' + persons[i].personId + '\')" class="add">加入维稳库</a>\n' +
+                            '                                <a onclick="findIndex(\'' + persons[i].personId + '\')" class="detail">查看详情</a>\n' +
                             '                            </div>\n' +
                             '                        </li>')
                     }
@@ -731,8 +637,8 @@
     }
     function initRelationUnit() {
         $.ajax({
-            result: "POST",
-            url: "/eventManager/listEventRelationObject",
+            type: "POST",
+            url: "/eventInfo/findEventRelationObject",
             dataType: "json",
             async: false,
             data: {
@@ -740,72 +646,49 @@
                 objectType: "unit",
             },
             success: function (result) {
-
                 if (result.message == "success") {
-                    var relationObject = result.relationObject;
+                    var units = result.data;
                     $("#linkUnit").empty();
                     $("#linkUnit").append(' <div class="sub-tit mt-24 point" id="a3">\n' +
-                        '                                <h4>关联单位</h4>\n' +
+                        '                                <h4>关联单位（<span id="linkUnitCount">0</span>）</h4>\n' +
                         '                                </div>');
-                    if(relationObject.length==0){
+                    if (units.length == 0) {
                         $("#linkUnit").hide();
                     }
-                    relationCount+=relationObject.length;
-                    for (var i = 0; i < relationObject.length; i++) {
+                    $("#linkUnitCount").text(units.length);
+                    relationCount += units.length;
+                    for (var i = 0; i < units.length; i++) {
 
-                        getTags(relationObject[i].unitId);
+                        getTags(units[i].unitId);
                         if (!unittag){
                             unittag=''
                         }
 
-                        var unitName=relationObject[i].unitName;
-                        if(unitName==null||unitName.trim().length==0){
-                            unitName="无";
-                        }
-                        var unitLegalPerson=relationObject[i].unitLegalPerson;
-                        if(unitLegalPerson==null||unitLegalPerson.trim().length==0){
-                            unitLegalPerson="无";
-                        }
-                        var unitIndustry=relationObject[i].unitIndustry;
-                        if(unitIndustry==null||unitIndustry.trim().length==0){
-                            unitIndustry="无";
-                        }
-                        var usccCode=relationObject[i].usccCode;
-                        if(usccCode==null||usccCode.trim().length==0){
-                            usccCode="无";
-                        }
-                        var registerAddr=relationObject[i].registerAddr;
-                        if(registerAddr==null||registerAddr.trim().length==0){
-                            registerAddr="无";
-                        }
-                        var unitAddr=relationObject[i].unitAddr;
-                        if(unitAddr==null||unitAddr.trim().length==0){
-                            unitAddr="无";
-                        }
+                        let time = units[i].registerTime == null ? "无" : new Date(units[i].registerTime).format("yyyy-MM-dd hh:mm:ss");
 
                         $("#linkUnit").append('  <div class="pubBlock">\n' +
-                            '                                <div class="relatedUnits">'+unitName+'</div>\n' +
+                            '                                <div class="relatedUnits">' + judgeNull(units[i].unitName) + '</div>\n' +
                             '                                <div class="label" id="labels">\n' +unittag+
                             '                                </div>\n' +
                             '                                <div class="text">\n' +
-                            '                                <strong>法定代言人：</strong>\n' +
-                            '                            <span>'+unitLegalPerson+'</span>\n' +
+                            '                                <strong>单位法人：</strong>\n' +
+                            '                            <span>' + judgeNull(units[i].unitLegalPerson) + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text">\n' +
                             '                                <strong>所属行业：</strong>\n' +
-                            '                            <span>'+unitIndustry+'</span>\n' +
+                            '                            <span>' + judgeNull(units[i].industry) + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text">\n' +
                             '                                <strong>统一社会信用代码：</strong>\n' +
-                            '                            <span>'+usccCode+'</span>\n' +
+                            '                            <span>' + judgeNull(units[i].usccCode) + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text">\n' +
-                            '                                <strong>注册地址：</strong>\n' +
-                            '                            <span>'+registerAddr+'</span>\n' +
+                            '                                <strong>注册时间：</strong>\n' +
+                            '                            <span>' + time + '</span>\n' +
                             '                            </div>\n' +
                             '                            <div class="text text2 clearfix">\n' +
                             '                                <strong>单位地址：</strong>\n' +
-                            '                            <span>'+unitAddr+'</span>\n' +
+                            '                            <span>' + judgeNull(units[i].addr) + '</span>\n' +
                             '                            </div>\n' +
                             '                            </div>');
                     }
@@ -815,8 +698,8 @@
     }
     function getTags(objectId){
         $.ajax({
-            result:"POST",
-            url:"/objectTagManager/getObjectTag",
+            type: "POST",
+            url: "/tagObjectRelation/findTagByObjectId",
             dataType:"json",
             async:false,
             data:{
@@ -825,9 +708,10 @@
             success:function (result) {
                 var str='';
                 if (result.message=="success"){
-                    var tags=result.objectTag;
+                    var tags = result.data;
                     for (var i=0;i<tags.length;i++){
-                        str+='<span style="background: '+tags[i].tagColorCode+'" class="green">'+tags[i].tagName+'</span>';
+                        var color = JSON.parse(tags[i].tagCssCode).color;
+                        str += '<span style="background: ' + color + '" class="green">' + tags[i].tagName + '</span>';
                     }
                 }
                 unittag=str;
@@ -835,23 +719,21 @@
         });
     }
     function initHandleLog() {
+        var data = {};
+        data.eventId = enentId;
+        data.page = 1;
+        data.pageSize = 10;
         $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/listEventHandleLog",
+            type: "GET",
+            url: "/eventInfo/findEventHandleLog",
             dataType: "json",
             async:false,
-            data: {
-                eventId: enentId,
-                result:"0"
-            },
+            data: data,
             success: function (result) {
+
                 if (result.message == "success") {
 
-                    var metting=0;
-                    var personAssemble=0;
-                    var daily=0;
-                    var personNumber=0;
-                    var eventHandleLog = result.eventHandleLog;
+                    var eventHandleLog = result.data.all;
                     var handleLogCount=eventHandleLog.length;
                     $("#handleLogList").empty();
                     if(eventHandleLog.length==0){
@@ -859,17 +741,6 @@
                     }
                     handleCount+= eventHandleLog.length;
                     for (var i = 0; i < eventHandleLog.length; i++) {
-                        if(eventHandleLog[i].handleJflx=="WTQD_JFLX_THREE"){//召开会议
-                            metting++;
-                        }
-                        if(eventHandleLog[i].handleJflx=="WTQD_JFLX_ONE"){//人员聚集
-                            personAssemble++;
-                        }
-                        if(eventHandleLog[i].handleJflx=="WTQD_JFLX_TWO"){//日常处置
-                            daily++;
-                        }
-                        personNumber=personNumber+Number(eventHandleLog[i].handleJfrs);
-
 
                         var  handleContent=eventHandleLog[i].handleContent;
                         if(handleContent==null||handleContent.trim().length==0){
@@ -883,14 +754,13 @@
                         if(eventHandleLog[i].handleDate==null){
                             eventHandleLog[i].handleDate="无";
                         }
-                        var pgPath=eventHandleLog[i].handleFilepath;
+                        var pgPath = eventHandleLog[i].handleFilePath;
                         var FjName="";
-                        debugger
                         if(pgPath==null||pgPath.trim().length==0){
                             pgPath="";
                             FjName='无'
                         }else{
-                            FjName=getCaption(eventHandleLog[i].handleFilepath);
+                            FjName = getCaption(eventHandleLog[i].handleFilePath);
                         }
                         $("#handleLogList").append(' <li style="height: auto;padding-bottom: 20px;">\n' +
                             '                                <div class="dataList dataList2">\n' +
@@ -898,7 +768,7 @@
                             '                                        <dd>\n' +
                             '                                            <p class="conW">'+handleContent+'</p>\n' +
                             '                                            <div class="sourceInfo">\n' +
-                            // '                                                <span class="name">'+handleUser+'</span>\n' +
+                            '                                                <span class="name">' + handleUser + '</span>\n' +
                             '                                                <em style="color: rgba(0, 0, 0, 0.25);">'+handleDate+'</em>\n' +
                             '                                            </div>\n' +
                             // '                                            <div class="appendix">\n' +
@@ -916,10 +786,6 @@
                     }
 
                     $("#handleLogCount").text(handleLogCount);
-                    $("#metting").text(metting);
-                    $("#personAssemble").text(personAssemble);
-                    $("#daily").text(daily)
-                    $("#personNumber").text(personNumber)
                     footerChangeDetail();
                 }
             }
@@ -928,90 +794,20 @@
     }
     //截取字符串
     function getCaption(obj){
-        return obj.split("@@@@")[1]
-    }
-    function initLeader() {
-        $.ajax({
-            result: "POST",
-            url: "/eventHandleLogController/listEventHandleLog",
-            dataType: "json",
-            async:false,
-            data: {
-                eventId: enentId,
-                result:"1"
-            },
-            success: function (result) {
-                if (result.message == "success") {
-
-                    var eventHandleLog = result.eventHandleLog;
-                    var handleLogCount=eventHandleLog.length;
-                    $("#leaderCount").text(eventHandleLog.length);
-                    $("#leaderList").empty();
-                    if(eventHandleLog.length==0){
-                        $("#leaderBox").hide();
-                    }
-                    handleCount+= eventHandleLog.length;
-                    for (var i = 0; i < eventHandleLog.length; i++) {
-
-                        var  handleContent=eventHandleLog[i].handleContent;
-                        if(handleContent==null||handleContent.trim().length==0){
-                            handleContent="无";
-                        }
-                        var handleUser= eventHandleLog[i].handleUser;
-                        if(handleUser==null||handleUser.trim().length==0){
-                            handleUser="无";
-                        }
-                        var handleDate=new Date(eventHandleLog[i].handleDate).format("yyyy-MM-dd hh:mm:ss");
-                        if(eventHandleLog[i].handleDate==null){
-                            eventHandleLog[i].handleDate="无";
-                        }
-                        var pgPath=eventHandleLog[i].handleFilepath;
-                        var FjName="";
-                        if(pgPath==null||pgPath.trim().length==0){
-                            pgPath="";
-                            FjName='无'
-                        }else{
-                            FjName=getCaption(eventHandleLog[i].handleFilepath);
-                        }
-                        $("#leaderList").append('<li style="height:auto ;padding-bottom: 20px;">\n' +
-                            '                                <div class="dataList dataList2">\n' +
-                            '                                    <dl>\n' +
-                            '                                        <dd>\n' +
-                            '                                            <p class="conW">'+handleContent+'</p>\n' +
-                            '                                            <div class="sourceInfo">\n' +
-                            // '                                                <span class="name">'+handleUser+'</span>\n' +
-                            '                                                <em>'+handleDate+'</em>\n' +
-                            '                                            </div>\n' +
-                            // '                                            <div class="appendix">\n' +
-                            // '                                                <span>附件1.docx</span>\n' +
-                            // '                                                <span>附件2.docx</span>\n' +
-                            // '                                                <span>附件3.docx</span>\n' +
-                            // '                                            </div>\n' +
-                            '                                            <div class="appendix">\n' +
-                            '                                                <span onclick="downLoadFj(\''+pgPath+'\')">'+FjName+'</span>\n' +
-                            '                                            </div>\n' +
-                            '                                        </dd>\n' +
-                            '                                    </dl>\n' +
-                            '                                </div>\n' +
-                            '                            </li>');
-                    }
-                    footerChangeDetail();
-                }
-
-            }
-        });
-
+        return obj.split("ZCC")[1]
     }
 
     function downLoadFj(pgPath) {
+        console.log(pgPath)
         if(pgPath==""){
             $.messager.alert("操作提示","无附件!");
         }else{
-            $('<form id="exportEvent" method="post" action="/eventManager/downloadFj?fileName='+pgPath+'"></form>').appendTo('body').submit().remove();
+            $('<form id="exportEvent" method="POST" action="/eventInfo/downloadFile" enctype="multipart/form-data" accept-charset="UTF-8">' +
+                '<input name="filePath" value="' + pgPath + '"></input></form>').appendTo('body').submit().remove();
         }
     }
     function toEventDataTogether(eventId) {
-        openNewWindow("dataTogether.jsp?Type="+eventId+"");
+        openNewWindow("dataTogether.jsp?Type=" + eventId + "", 'top');
     }
 
     function addInInfluent(id){

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,6 +191,7 @@ public class EventInfoController {
         return ResultBean.success(map);
     }
 
+
     @Log(name = "查找事件处置日志")
     @GetMapping("/findHandleLog")
     public ResultBean findHandleLog(Integer handleLogId) {
@@ -213,6 +215,12 @@ public class EventInfoController {
             eventInfoService.saveEventHandleLog(handleLog, request);
         }
         return ResultBean.success();
+    }
+
+    @ResponseBody
+    @PostMapping("/downloadFile")
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response) {
+        FileUtil.downLoad(response, request, request.getParameter("filePath"));
     }
 
     @Log(name = "事件化解存档")

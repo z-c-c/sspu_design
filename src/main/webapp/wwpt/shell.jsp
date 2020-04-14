@@ -177,8 +177,8 @@
         </ul>
     </div>
     <ul class="header-nav">
-        <li><a class="active" href="./index.jsp" target="main_frame">首页</a></li>
-        <li><a href="./event/eventList.jsp" target="main_frame">事件处理</a></li>
+        <%--        <li><a href="./index.jsp" target="main_frame">首页</a></li>--%>
+        <li><a class="active" href="./event/eventList.jsp" target="main_frame">事件处理</a></li>
         <li><a href="./person/personList.jsp" target="main_frame">人员管理</a></li>
         <li><a href="./unit/unitList.jsp" target="main_frame">单位管理</a></li>
         <%--        <li><a href="javascript:;" target="main_frame">关系管理</a></li>--%>
@@ -195,7 +195,7 @@
 </div>
 
 <div class="iframeBox">
-    <iframe src="index.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
+    <iframe src="./event/eventList.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
             height="100%" class="iframeMain"></iframe>
 </div>
 

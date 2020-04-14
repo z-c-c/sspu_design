@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
   调用方式：
   一共三个参数：objectId ：事件id或者对象id
-  flag：外层调用时，flag=false，全屏时，flag=true
+  flag：外层调用时，flag=false，全屏时，flag=show
   objectType：当查单位或者人员的关系图时，为unit或者person，当查事件的关系图时，不需要该参数
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

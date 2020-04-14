@@ -342,6 +342,12 @@
                         <td width="30%">
                             <gov:gov id="handleUnit" clazz="vV-drop" style="width:245px;height:28px;"></gov:gov>
                         </td>
+                        <td width="20%" class="center">处置人</td>
+                        <td width="30%">
+                            <input id="handleUser" class="vV-ipt" style="width:245px;height:28px;"/>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="center">是否通过</td>
                         <td id="handleIsflag">
                             <label class="vV-radio ck" name="handleIsflag">是</label>
@@ -558,7 +564,6 @@
     }
 
 
-
     $(function () {
 
 
@@ -572,7 +577,6 @@
         var labelArr = [];
         var labelAllH = 0;
         var labelTop = 0;
-
 
 
         //标签点击，填充到标签列表框
@@ -1128,7 +1132,7 @@
     //详细信息
     function baseInfo(eventId, eventName) {
         var url = encodeURI("eventDetail.jsp?eventId=" + eventId);
-        openNewWindow(url);
+        openNewWindow(url, 'top');
     }
 
     //保存标签
@@ -1438,6 +1442,7 @@
         }
         data.handlePass = handlePass;
         data.handleUnit = $("#handleUnit option:selected").text();
+        data.handleUser = $("#handleUser").val();
         $.ajax({
             type: "POST",
             url: "/eventInfo/saveEventHandleLog",
@@ -1545,7 +1550,7 @@
         data.page = page;
         data.pageSize = 3;
         $.ajax({
-            result: "POST",
+            type: "get",
             url: "/eventInfo/findEventHandleLog",
             dataType: "json",
             data: data,
@@ -1642,6 +1647,7 @@
                     }
 
                     $("#handleFilepath").text(getCaption(result.data.handleFilePath));
+                    $("#handleUser").val(result.data.handleUser);
                 }
 
 
@@ -1680,7 +1686,10 @@
 
     //截取字符串
     function getCaption(obj) {
-        return obj.split("ZCC")[1]
+        if (obj != null) {
+            return obj.split("ZCC")[1]
+        }
+        return "";
     }
 
     var IsHj;

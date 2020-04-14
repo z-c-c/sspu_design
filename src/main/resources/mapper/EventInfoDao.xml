@@ -279,6 +279,7 @@
         from xhww_handle_log
         where HANDLE_EVENT_ID = #{eventId}
           and IS_DELETE != '1'
+        order by HANDLE_DATE desc
         limit ${page.page},${page.pageSize};
     </select>
 
@@ -286,13 +287,15 @@
         select *
         from xhww_handle_log
         where HANDLE_EVENT_ID = #{eventId}
-          and IS_DELETE != '1';
+          and IS_DELETE != '1'
+        order by HANDLE_DATE desc;
     </select>
 
     <select id="findHandleLog" resultType="com.zcc.platform.event.entity.HandleLogEntity">
         select *
         from xhww_handle_log
         where HANDLE_LOG_ID = #{handleLogId}
+        order by HANDLE_DATE desc
         limit 1;
     </select>
 

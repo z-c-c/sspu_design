@@ -75,14 +75,11 @@ public class FileUtil {
             File file = new File(path);
             //文件名
             String name = FileName;
-            if (FileName.contains("@@@@")) {
-                name = FileName.substring(FileName.substring(0, FileName.indexOf("@")).length() + 4, FileName.length());
-            }
             if (file.exists()) {
                 response.setHeader("content-type", "application/octet-stream");
                 response.setContentType("application/octet-stream");
                 try {
-                    response.setHeader("Content-Disposition", "attachment;filename=" + new String(name.split("@@@@")[0].getBytes("utf-8"), "ISO-8859-1"));
+                    response.setHeader("Content-Disposition", "attachment;filename=" + new String(name.split("ZCC")[1].getBytes("utf-8"), "ISO-8859-1"));
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
