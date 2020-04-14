@@ -1170,7 +1170,7 @@
                                 $("#m1").hide();
                                 findEvent("", true, 1);
                                 handleCount();
-                                // dataTogether();
+                                dataTogether();
                                 // $("#m2").show();
                                 successOperator();
                             }
@@ -1861,6 +1861,7 @@
                         findEvent("", true, 1);
                         handleCount();
                         successOperator();
+                        dataTogether();
                     }
                 }
             });

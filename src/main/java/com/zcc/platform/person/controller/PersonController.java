@@ -59,6 +59,8 @@ public class PersonController {
     @GetMapping("/del/{id}")
     public ResultBean del(@PathVariable("id") String personId) {
         personService.del(personId);
+        //同时删除人员的预警
+        warningService.delWarningForObject(WarningEntity.WARNING_PERSON, personId);
         return ResultBean.success();
     }
 

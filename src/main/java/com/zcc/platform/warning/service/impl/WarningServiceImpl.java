@@ -161,6 +161,11 @@ public class WarningServiceImpl implements WarningService {
     }
 
     @Override
+    public void delWarningForObject(String noticeObjectType, String noticeObjectId) {
+        warningDao.delWarningForObject(noticeObjectType, noticeObjectId);
+    }
+
+    @Override
     public WarningEntity findWarningById(String noticeId) {
         return warningDao.findWarningById(noticeId);
     }

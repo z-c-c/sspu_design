@@ -48,6 +48,8 @@ public class UnitController {
     @PostMapping("/del")
     public ResultBean del(String unitId) {
         unitService.del(unitId);
+        //同时删除单位的预警
+        warningService.delWarningForObject(WarningEntity.WARNING_UNIT, unitId);
         return ResultBean.success();
     }
 

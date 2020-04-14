@@ -24,6 +24,13 @@
         where NOTICE_TYPE = #{noticeType};
     </delete>
 
+    <delete id="delWarningForObject">
+        delete
+        from warning_info
+        where NOTICE_OBJECT_TYPE = #{noticeObjectType}
+          and NOTICE_OBJECT_ID = #{noticeObjectId};
+    </delete>
+
     <update id="updateWarning" parameterType="com.zcc.platform.warning.entity.WarningEntity">
         update warning_info
         <trim prefix="set" suffixOverrides=",">

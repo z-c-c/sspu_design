@@ -55,6 +55,8 @@ public class EventInfoController {
     @RequestMapping(value = "/del", method = RequestMethod.POST)
     public ResultBean del(String eventId, HttpServletRequest request) {
         eventInfoService.del(eventId, request);
+        //同时删除事件的预警
+        warningService.delWarningForObject(WarningEntity.WARNING_EVENT, eventId);
         return ResultBean.success();
     }
 

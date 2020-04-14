@@ -32,6 +32,14 @@ public interface WarningService {
      */
     void delWarningByType(String noticeType);
 
+    /**
+     * 删除预警
+     *
+     * @param noticeObjectType
+     * @param noticeObjectId
+     */
+    void delWarningForObject(String noticeObjectType, String noticeObjectId);
+
 
     /**
      * 查找预警

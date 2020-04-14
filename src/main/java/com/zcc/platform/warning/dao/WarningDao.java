@@ -38,6 +38,14 @@ public interface WarningDao {
     void delWarningByType(String noticeType);
 
     /**
+     * 删除预警
+     *
+     * @param noticeObjectType 预警对象类型
+     * @param noticeObjectId   预警对象id
+     */
+    void delWarningForObject(@Param("noticeObjectType") String noticeObjectType, @Param("noticeObjectId") String noticeObjectId);
+
+    /**
      * 修改预警
      *
      * @param warningEntity warningEntity
