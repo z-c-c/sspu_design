@@ -45,7 +45,7 @@
                 <span></span>
                 <div>
                     <i class="notice has"></i>
-                    <img class="avatar" src="../systemManager/images/idx-icon7.png" />
+                    <%--                    <img class="avatar" src="../systemManager/images/idx-icon7.png" />--%>
                     <span><%=currentPerson.getUserName()%></span>
                 </div>
             </div>
