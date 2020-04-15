@@ -572,7 +572,7 @@
 
                         let time = units[i].registerTime == null ? "无" : new Date(units[i].registerTime).format("yyyy-MM-dd hh:mm:ss");
 
-                        $("#linkUnit").append('  <div class="pubBlock">\n' +
+                        $("#linkUnit").append('  <div class="pubBlock" style="margin-top: 10px">\n' +
                             '                                <div class="relatedUnits" style="cursor:pointer;" onclick="toDetail(\'' + "unit" + '\',\'' + units[i].unitId + '\')">' + judgeNull(units[i].unitName) + '</div>\n' +
                             '                                <div class="label" id="labels">\n' +unittag+
                             '                                </div>\n' +

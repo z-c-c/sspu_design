@@ -566,10 +566,10 @@
                 leavestr = "较严重";
                 str += '                                <i style="background:url(../../images/icon-orange.png) no-repeat;" class="icon">\n';
             } else if (data[i].noticeLevel == '2') {
-                leavestr="中等";
+                leavestr = "一般";
                 str += '                                <i style="background:url(../../images/icon-green.png) no-repeat;" class="icon">\n';
             }else {
-                leavestr="一般";
+                leavestr = "轻度";
                 str+='                                <i style="background:url(../../images/icon-green.png) no-repeat;" class="icon">\n';
             }
 

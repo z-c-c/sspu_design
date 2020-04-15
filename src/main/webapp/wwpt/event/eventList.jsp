@@ -187,20 +187,20 @@
     <div class="fx-right">
         <div class="bear-block">
             <div class="bear-tit">
-                <h5>处置情况</h5>
+                <h5>处理情况</h5>
             </div>
             <div class="assessBox">
                 <div id="handleLoading"></div>
                 <div class="item item1">
                     <i></i>
                     <p class="num" id="handling">0个</p>
-                    <p class="name">未处置</p>
+                    <p class="name">未处理</p>
                 </div>
                 <div class="line"></div>
                 <div class="item item2">
                     <i></i>
                     <p class="num" id="handled">0个</p>
-                    <p class="name">已处置</p>
+                    <p class="name">已处理</p>
                 </div>
             </div>
         </div>
@@ -753,7 +753,7 @@
     function showWarning(eventId) {
         $("#noticeName").val('');
         $("#noticeContent").val('');
-        $("#noticeLevel").val('');
+        $("#noticeLevel").val('4');
         $.ajax({
             type: 'post',
             url: '/warnings/find/type',
@@ -1452,7 +1452,7 @@
                 if (result.message != "error") {
                     $("#eventHandle").hide();
                     uploadFile(result.data);
-                    findEvent("", true, 1);
+                    reset();
                     handleCount();
                     // $("#m2").show();
                     successOperator();
@@ -1507,7 +1507,8 @@
                 if (result.code == 'success') {
                     $("#resolve").hide();
                     successOperator();
-                    findEvent("", true, 1);
+                    reset();
+                    // findEvent("", true, 1);
                 }
             }
 

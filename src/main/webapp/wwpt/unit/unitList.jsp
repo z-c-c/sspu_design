@@ -834,7 +834,7 @@
     function showWarning(unitId) {
         $("#noticeName").val('');
         $("#noticeContent").val('');
-        $("#noticeLevel").val('');
+        $("#noticeLevel").val('4');
         $.ajax({
             type: 'post',
             url: '/warnings/find/type',

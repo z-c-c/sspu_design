@@ -238,7 +238,8 @@
                     $("#noticeName").text(judgeNull(warning.noticeName));
                     $("#noticeType").text(judgeNull(warning.noticeType));
                     $("#noticeContent").text(judgeNull(warning.noticeContent));
-                    $("#noticeLevel").text(judgeNull(warning.noticeLevel));
+                    let level = ['', '轻度', '一般', '较严重', '严重'];
+                    $("#noticeLevel").text(judgeNull(level[warning.noticeLevel]));
                     $("#noticeAddr").text(judgeNull(warning.noticeAddr));
                     $("#noticeObjectType").text(judgeNull(type[warning.noticeObjectType]));
                     $("#noticeObjectName").text(judgeNull(warning.noticeObjectName));

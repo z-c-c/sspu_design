@@ -616,7 +616,7 @@
                         }
                         let time = events[i].occurredTime == null ? "无" : new Date(events[i].occurredTime).format("yyyy-MM-dd hh:mm:ss");
 
-                        var str = '  <div class="pubBlock">\n' +
+                        var str = '  <div class="pubBlock" style="margin-top: 10px">\n' +
                             '                                <div class="relatedUnits" style="cursor: pointer;" onclick="toDetail(\'' + "event" + '\',\'' + events[i].eventId + '\')">' + judgeNull(events[i].eventName) + '</div>\n';
                         if (unittag != '') {
                             str += '                                <div class="label" style="margin-top: -3px">\n' + unittag +

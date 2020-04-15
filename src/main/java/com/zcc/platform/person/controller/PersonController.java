@@ -49,9 +49,11 @@ public class PersonController {
     @PostMapping("/upImage")
     public ResultBean uploadImage(HttpServletRequest request, String attrName, String personId) {
         String fileName = FileUtil.upLoadImage(request, attrName, personId);
-        PersonEntity byId = personService.findById(personId);
-        byId.setPersonImage(fileName);
-        personService.save(byId);
+        if (StringUtil.isValidStr(fileName)) {
+            PersonEntity byId = personService.findById(personId);
+            byId.setPersonImage(fileName);
+            personService.save(byId);
+        }
         return ResultBean.success();
     }
 

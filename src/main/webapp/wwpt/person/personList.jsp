@@ -530,7 +530,8 @@
                         </td>
                         <td width="20%" class="center">证件号：</td>
                         <td width="30%">
-                            <input class="vV-ipt w-200" type="text" id="personIdentityNo" value="">
+                            <input class="vV-ipt w-200" type="text" id="personIdentityNo" value=""
+                                   onblur="personIdentityNoVerify($(this).val())">
                         </td>
 
 
@@ -549,7 +550,8 @@
                     <tr>
                         <td width="20%" class="center">手机号：</td>
                         <td width="30%">
-                            <input class="vV-ipt w-200" type="text" id="phoneNo" value="">
+                            <input class="vV-ipt w-200" type="text" id="phoneNo" value=""
+                                   onblur="phoneNoVerify($(this).val())">
                         </td>
 
                         <td width="20%" class="center">居住地：</td>
@@ -699,22 +701,65 @@
             }
         });
         data.tags = safeToString(tags);
-        $.ajax({
-            type: "POST",
-            url: "/persons/save",
-            dataType: "json",
-            data: data,
-            success: function (result) {
-                if (result.code == 'success') {
-                    upImage(result.data);
-                    genderCount();
-                    $("#addnew").hide();
-                    //照片上传成功后再刷新页面
-                    // find(1, true);
+        if (personIdentityNoVerify(data.personIdentityNo)) {
+            if (phoneNoVerify(data.phoneNo)) {
+                $.ajax({
+                    type: "POST",
+                    url: "/persons/save",
+                    dataType: "json",
+                    data: data,
+                    success: function (result) {
+                        if (result.code == 'success') {
+                            upImage(result.data);
+                            genderCount();
+                            $("#addnew").hide();
+                            //照片上传成功后再刷新页面
+                            // find(1, true);
 
-                }
+                        }
+                    }
+                })
             }
-        })
+        }
+
+
+    }
+
+    function personIdentityNoVerify(idcard) {
+        debugger
+        if (!idcard) {
+            $.messager.alert("提示!", "请输入有效合法的身份证号码!");
+            return false;
+        }
+        if (idcard.length < 18) {
+            $.messager.alert("提示!", "请输入有效合法的身份证号码!");
+            return false;
+        }
+        if (idcard.length > 18) {
+            $.messager.alert("提示!", "请输入有效合法的身份证号码!");
+            return false;
+        }
+        let len = 17;
+        let sum = 0;
+        let yzArray = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+        let codeArray = ['1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'];
+        for (let i = 0; i < len; i++) {
+            sum += idcard[i] * yzArray[i];
+        }
+        let mod = sum % 11;
+        if (codeArray[mod] == idcard[17]) {
+            return true;
+        }
+        $.messager.alert("提示!", "请输入有效合法的身份证号码!");
+        return false;
+    }
+
+    function phoneNoVerify(phoneNo) {
+        if (!(/^1(3|4|5|7|8)\d{9}$/.test(phoneNo))) {
+            $.messager.alert("提示!", "请输入有效合法的手机号码!");
+            return false;
+        }
+        return true;
     }
 
     function find(page, flag) {
@@ -838,7 +883,7 @@
     function showWarning(personId) {
         $("#noticeName").val('');
         $("#noticeContent").val('');
-        $("#noticeLevel").val('');
+        $("#noticeLevel").val('4');
         $.ajax({
             type: 'post',
             url: '/warnings/find/type',
