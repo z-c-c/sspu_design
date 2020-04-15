@@ -2,13 +2,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>徐汇区社会稳定风险防控综合管理系统</title>
+		<title>事件治理平台</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="./css/reset.css">
 		<link rel="stylesheet" type="text/css" href="./wwpt/css/style.css">
 		<script type="text/javascript" src="./js/jquery.min.js"></script>
 		<script type="text/javascript" src="./wwpt/js/bear.js"></script>
+		<script type="text/javascript" src="./js/md5.min.js"></script>
 		<script type="text/javascript" language="javascript">
+			var ps;
 			function trim(str){
 				return str.replace(/^(\s|\xA0)+|(\s|\xA0)+$/g, '');
 			}
@@ -28,11 +30,18 @@
 				}
 				$("#loginBtn").html("正在登录，请稍后。。。");
 				$("#loginBtn").attr("disabled",true);
+				getKey();
 				$.ajax({
 					cache:false,
 					type: 'POST',
 					url: "/login/login",
-					data : $("#form1").serialize(),
+					async: false,
+					data: {
+						userName: $("#userName").val(),
+						passWord: ps,
+						flag: $("#flag").val()
+
+					},
 					dataType : 'json',
 					error: function () {
 						messageTr.style.display="inline-block";
@@ -41,7 +50,7 @@
 						$("#loginBtn").attr("disabled",false);
 					},
 					success:function(data){
-						console.log(data);
+						debugger
 						$("#loginBtn").html("登录");
 						$("#loginBtn").attr("disabled",false);
 						if(data.result==="success")
@@ -68,7 +77,23 @@
 
 			}
 			function adminLogin() {
-				top.location.href = './manager/managerLogin.jsp'
+				top.location.href = './managerLogin.jsp'
+			}
+
+			function getKey() {
+				ps = $("#password").val();
+				$.ajax({
+					cache: false,
+					type: 'get',
+					url: "/key/",
+					async: false,
+					dataType: 'json',
+					success: function (result) {
+						let publicKey = result.data.publicKey;
+						let privateKey = result.data.privateKey;
+						ps = md5(md5(ps + publicKey) + privateKey);
+					}
+				})
 			}
 		</script>
 	</head>
@@ -121,7 +146,6 @@
 		};
 		$(function() {
 			widthFull(".y-lgnall");
-			
 			$("label").click(function(){
 				if($('#remember').is(":checked")){
 					$('#y-fakebox').removeClass("checked");

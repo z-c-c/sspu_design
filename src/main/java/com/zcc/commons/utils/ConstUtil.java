@@ -12,6 +12,7 @@ public class ConstUtil {
 
     public static final String CURRENT_PERSON = "currentPerson";
     public static final String LOGIN_JSP = "login.jsp";
+    public static final String KEY = "/key";
     public static final String MANAGER_LOGIN_JSP = "managerLogin.jsp";
     public static final String CSS = ".css";
     public static final String JS = ".js";

@@ -29,7 +29,7 @@ public class UserLoginFilter implements Filter {
         String requestUri = request.getRequestURI();
         boolean flag = true;
         //未登录且访问的不是登录页面
-        if (currentPerson == null && !requestUri.contains(ConstUtil.LOGIN_JSP)) {
+        if (currentPerson == null && !requestUri.contains(ConstUtil.LOGIN_JSP) && !requestUri.contains(ConstUtil.KEY)) {
 
             //如果是管理员登录页面，放行
             if (requestUri.contains(ConstUtil.MANAGER_LOGIN_JSP)) {

@@ -1,6 +1,7 @@
 package com.zcc.commons.controller;
 
 import com.zcc.commons.utils.ConstUtil;
+import com.zcc.commons.utils.MD5;
 import com.zcc.log.annotation.Log;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import com.zcc.manager.usermanager.service.UserInfoService;
@@ -36,8 +37,9 @@ public class LoginController {
         HttpSession session = request.getSession();
         UserInfoEntity userInfoEntity = userInfoService.findByNameAndType(userName,type);
         if (userInfoEntity != null) {
+
             //密码错误
-            if (!passWord.equals(userInfoEntity.getPassword())) {
+            if (!MD5.verify(userInfoEntity.getPassword(), KeyController.getPrivateKey(), passWord)) {
                 map.put("result", "passError");
             } else {
                 userInfoEntity.setPassword(null);
@@ -46,7 +48,7 @@ public class LoginController {
                 if (ConstUtil.NO_FLAG.equals(flag)) {
                     map.put("url", "wwpt/shell.jsp");
                 } else {
-                    map.put("url", "/systemManager/shell.jsp");
+                    map.put("url", "systemManager/shell.jsp");
                 }
                 map.put("result", "success");
                 System.out.println("用户" + userInfoEntity.getUserName() + " 登陆系统");
