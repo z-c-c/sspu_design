@@ -164,4 +164,28 @@ public class TimeUtil {
         now = now.minus(index, ChronoUnit.DAYS);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }
+
+    /**
+     * 获取过去n天的日期格式化后的List
+     *
+     * @param index
+     * @return
+     */
+    public static List<String> getDayBeforeFormat(int index, String format) {
+        List<String> dateList = new ArrayList<>(7);
+        if (index == 0) {
+            dateList.add(getDateStr(format, new Date()));
+        } else if (index > 0) {
+            for (int i = 0; i < index; i++) {
+                dateList.add(getDateStr(format, getDayBefore(i)));
+            }
+
+        } else {
+            for (int i = index; i <= 0; i++) {
+                dateList.add(getDateStr(format, getDayBefore(i)));
+            }
+        }
+
+        return dateList;
+    }
 }

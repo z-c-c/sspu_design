@@ -33,7 +33,7 @@
             <%--            </li>--%>
             <li><h6><img src="../systemManager/images/idx-icon3.png" alt=""/>系统监控</h6>
                 <ul class="menu_2nd">
-                    <li class="menu_2nd_li"><a href="../systemManager/pages/interfaceManager.jsp" target="main_frame">接口管理</a></li>
+                    <li class="menu_2nd_li"><a href="../manager/pages/statistics.jsp" target="main_frame">接口管理</a></li>
                 </ul>
             </li>
         </ul>

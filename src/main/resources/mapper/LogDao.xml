@@ -11,4 +11,28 @@
         insert into log values (#{logId},#{result},#{name},#{remoteAddr},#{requestUri},
         #{method},#{params},#{exception},#{operateTime},#{endTime},#{userId});
     </insert>
+
+
+    <select id="find" resultType="com.zcc.log.entity.LogEntity">
+        select *
+        from log
+        where date_format(operateTime, '%Y-%m-%d') &gt;= #{begin}
+          and date_format(operateTime, '%Y-%m-%d') &lt;= #{end}
+        order by operateTime desc
+        limit 50;
+    </select>
+
+
+    <resultMap id="countByDayResult" type="Map">
+        <result column="date" property="date"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+    <select id="countByDay" resultMap="countByDayResult">
+        select date_format(operateTime, '%Y-%m-%d') as 'date', count(date_format(operateTime, '%Y-%m-%d')) as 'count'
+        from log
+        where date_format(operateTime, '%Y-%m-%d') &gt;= #{begin}
+          and date_format(operateTime, '%Y-%m-%d') &lt;= #{end}
+        group by date_format(operateTime, '%Y-%m-%d')
+    </select>
 </mapper>
