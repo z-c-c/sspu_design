@@ -29,6 +29,7 @@ public class PersonController {
 
     @Autowired
     private WarningService warningService;
+
     @Autowired
     public PersonController(PersonService personService) {
         this.personService = personService;

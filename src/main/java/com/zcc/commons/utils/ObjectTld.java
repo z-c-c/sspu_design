@@ -1,6 +1,5 @@
 package com.zcc.commons.utils;
 
-import com.zcc.manager.govunitmanager.service.impl.GovUnitServiceImpl;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.person.entity.PersonEntity;
 import com.zcc.platform.person.service.PersonService;

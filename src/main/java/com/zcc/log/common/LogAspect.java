@@ -11,7 +11,6 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +20,6 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author zcc
@@ -91,9 +89,9 @@ public class LogAspect {
 
         HttpSession session = request.getSession();
         //读取session中的用户
-        UserInfoEntity currentPerson = (UserInfoEntity)session.getAttribute("currentPerson");
+        UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute("currentPerson");
         logEntity.setUserId(null);
-        if(currentPerson!=null){
+        if (currentPerson != null) {
             logEntity.setUserId(currentPerson.getUserName());
         }
     }
@@ -125,13 +123,13 @@ public class LogAspect {
 
         //这是在登陆的接口执行成功之后才能正确获取到登陆人
         HttpSession session = request.getSession();
-        UserInfoEntity currentPerson = (UserInfoEntity)session.getAttribute("currentPerson");
+        UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute("currentPerson");
         logEntity.setUserId(null);
-        if(currentPerson!=null){
+        if (currentPerson != null) {
             logEntity.setUserId(currentPerson.getUserName());
         }
 
-         // 通过线程池来执行日志保存
+        // 通过线程池来执行日志保存
         //threadPoolT askExe  cu  to r.e x e c u te(new Save LogT hread(log Entity , logService));
         logService.save(logEntity);
         BEGIN_TIME_THREAD_LOCAL.remove();

@@ -48,6 +48,7 @@ public interface UnitService {
      * @return
      */
     List<UnitEntity> findAll();
+
     /**
      * 查找单位
      *
@@ -58,17 +59,19 @@ public interface UnitService {
 
     /**
      * 模糊查找
-     * @param status  status
-     * @param param 单位名称/单位行业/单位地址/单位法人
+     *
+     * @param status status
+     * @param param  单位名称/单位行业/单位地址/单位法人
      * @return list
      */
     List<UnitEntity> find(String param, String status);
 
     /**
      * 模糊查找+标签查找
+     *
      * @param status status
-     * @param param 单位名称/单位行业/单位地址/单位法人
-     * @param tags  tags
+     * @param param  单位名称/单位行业/单位地址/单位法人
+     * @param tags   tags
      * @return list
      */
     List<UnitEntity> find(String param, String tags, String status);
@@ -76,19 +79,21 @@ public interface UnitService {
 
     /**
      * 模糊查找+分页
+     *
      * @param status status
-     * @param param 单位名称/单位行业/单位地址/单位法人
-     * @param page  page
+     * @param param  单位名称/单位行业/单位地址/单位法人
+     * @param page   page
      * @return list
      */
     List<UnitEntity> find(String param, Page page, String status);
 
     /**
      * 模糊查找+标签查找+分页
+     *
      * @param status status
-     * @param param 单位名称/单位行业/单位地址/单位法人
-     * @param page  page
-     * @param tags  tags
+     * @param param  单位名称/单位行业/单位地址/单位法人
+     * @param page   page
+     * @param tags   tags
      * @return list
      */
     List<UnitEntity> find(String param, Page page, String tags, String status);

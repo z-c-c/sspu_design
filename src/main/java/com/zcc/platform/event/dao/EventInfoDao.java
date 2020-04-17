@@ -2,7 +2,6 @@ package com.zcc.platform.event.dao;
 
 import com.zcc.commons.utils.Page;
 import com.zcc.platform.event.entity.EventInfoEntity;
-import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.entity.HandleLogEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -82,6 +81,7 @@ public interface EventInfoDao {
 
     /**
      * 查找事件（标签）
+     *
      * @param map
      * @return
      */

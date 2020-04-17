@@ -191,7 +191,8 @@
           and r1.IS_DELETE != '1'
           and r2.IS_DELETE != '1'
           and p.is_delete != '1'
-          and r1.OBJECT_ID = #{personId};
+          and r1.OBJECT_ID = #{personId}
+          and p.person_id != #{personId};
     </select>
 
     <select id="dateTogetherWithPage" resultType="com.zcc.platform.person.entity.PersonEntity">
@@ -205,6 +206,7 @@
           and r2.IS_DELETE != '1'
           and p.is_delete != '1'
           and r1.OBJECT_ID = #{personId}
+          and p.person_id != #{personId}
         limit ${page.page},${page.pageSize};
     </select>
 

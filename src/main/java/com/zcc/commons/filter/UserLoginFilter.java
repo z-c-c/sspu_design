@@ -34,12 +34,12 @@ public class UserLoginFilter implements Filter {
             //如果是管理员登录页面，放行
             if (requestUri.contains(ConstUtil.MANAGER_LOGIN_JSP)) {
                 filterChain.doFilter(servletRequest, servletResponse);
-            }else {
+            } else {
                 //如果是静态资源
                 if (requestUri.contains(ConstUtil.CSS) || requestUri.contains(ConstUtil.JS) || requestUri.contains(ConstUtil.PNG) || requestUri.contains(ConstUtil.JPG) || requestUri.contains(ConstUtil.MP4)) {
                     if (!requestUri.contains(ConstUtil.JSP)) {
                         filterChain.doFilter(servletRequest, servletResponse);
-                    }else {
+                    } else {
                         HttpServletResponse response = (HttpServletResponse) servletResponse;
                         PrintWriter writer = response.getWriter();
                         writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
@@ -48,14 +48,13 @@ public class UserLoginFilter implements Filter {
                 //如果是登录接口，放行
                 else if (requestUri.contains(ConstUtil.LOGIN_LOGIN)) {
                     filterChain.doFilter(servletRequest, servletResponse);
-                }
-                else {
+                } else {
                     HttpServletResponse response = (HttpServletResponse) servletResponse;
                     PrintWriter writer = response.getWriter();
                     writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
                 }
             }
-            flag=false;
+            flag = false;
         }
 
         if (flag) {

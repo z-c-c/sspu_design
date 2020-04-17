@@ -22,10 +22,10 @@ public class UserInfoController {
 
     @Log(name = "添加用户")
     @ResponseBody
-    @RequestMapping(value = "/add",method = RequestMethod.GET)
-    public String add(){
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String add() {
 
-        UserInfoEntity userInfoEntity=new UserInfoEntity();
+        UserInfoEntity userInfoEntity = new UserInfoEntity();
         userInfoEntity.setUserName("zcc");
         userInfoEntity.setPassword("1");
         userInfoEntity.setPhoneNumber("1312231");

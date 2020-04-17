@@ -11,6 +11,7 @@ public interface LogDao {
 
     /**
      * 保存日志
+     *
      * @param logEntity logEntity
      */
     void save(LogEntity logEntity);

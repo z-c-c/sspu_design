@@ -6,7 +6,6 @@ import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.service.TagBaseInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,23 +32,23 @@ public class TagBaseInfoController {
     @Log(name = "保存标签")
     @RequestMapping(value = "/saveTag", method = RequestMethod.POST)
     @ResponseBody
-    public ResultBean addTag(TagBaseInfoEntity tagBaseInfoEntity){
+    public ResultBean addTag(TagBaseInfoEntity tagBaseInfoEntity) {
         tagBaseInfoService.save(tagBaseInfoEntity);
         return ResultBean.success();
     }
 
     @Log(name = "删除标签")
     @ResponseBody
-    @RequestMapping(value = "/delTag",method = RequestMethod.POST)
-    public ResultBean delTag(String tagId){
+    @RequestMapping(value = "/delTag", method = RequestMethod.POST)
+    public ResultBean delTag(String tagId) {
         tagBaseInfoService.del(tagId);
         return ResultBean.success();
     }
 
     @Log(name = "根据标签名查找标签")
     @ResponseBody
-    @RequestMapping(value = "/findTagByName",method = RequestMethod.POST)
-    public ResultBean findTagByName(String tagName){
+    @RequestMapping(value = "/findTagByName", method = RequestMethod.POST)
+    public ResultBean findTagByName(String tagName) {
         return ResultBean.success(tagBaseInfoService.find(tagName));
     }
 
@@ -62,8 +61,8 @@ public class TagBaseInfoController {
 
     @Log(name = "根据变化参数查找标签")
     @ResponseBody
-    @RequestMapping(value = "/findTagByParam",method = RequestMethod.POST)
-    public ResultBean findTagByParam(TagBaseInfoEntity tagBaseInfoEntity){
+    @RequestMapping(value = "/findTagByParam", method = RequestMethod.POST)
+    public ResultBean findTagByParam(TagBaseInfoEntity tagBaseInfoEntity) {
         return ResultBean.success(tagBaseInfoService.find(tagBaseInfoEntity));
     }
 
@@ -76,17 +75,18 @@ public class TagBaseInfoController {
         map.put("tags", tagBaseInfoService.find(tagBaseInfoEntity, Page.setPageAndSize(page, pageSize)));
         return ResultBean.success(map);
     }
+
     @Log(name = "查找所有标签")
     @ResponseBody
-    @RequestMapping(value = "/findAllTag",method = RequestMethod.POST)
-    public ResultBean findAllTag(){
+    @RequestMapping(value = "/findAllTag", method = RequestMethod.POST)
+    public ResultBean findAllTag() {
         return ResultBean.success(tagBaseInfoService.findAll());
     }
 
     @Log(name = "根据标签标注对象查标签")
     @ResponseBody
-    @RequestMapping(value = "/findByObjectId",method = RequestMethod.POST)
-    public ResultBean findByObjectId(String objectId){
+    @RequestMapping(value = "/findByObjectId", method = RequestMethod.POST)
+    public ResultBean findByObjectId(String objectId) {
         return ResultBean.success(tagBaseInfoService.findTagByObject(objectId));
     }
 }

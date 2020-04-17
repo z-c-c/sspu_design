@@ -9,15 +9,15 @@ public class ResultBean<T> {
     /**
      * 成功返回码
      */
-    public static final String SUCCESS="success";
+    public static final String SUCCESS = "success";
     /**
      * 系统错误返回码
      */
-    public static final String ERROR="error";
+    public static final String ERROR = "error";
     /**
      * 用户操作造成的错误返回码
      */
-    public static final String WARNING="warning";
+    public static final String WARNING = "warning";
     /**
      * 状态码
      */
@@ -49,7 +49,7 @@ public class ResultBean<T> {
         return resultBean;
     }
 
-    public static<T> ResultBean<T> success(T data) {
+    public static <T> ResultBean<T> success(T data) {
         ResultBean<T> resultBean = new ResultBean<>();
         resultBean.setCode(ResultBean.SUCCESS);
         resultBean.setMessage("success");

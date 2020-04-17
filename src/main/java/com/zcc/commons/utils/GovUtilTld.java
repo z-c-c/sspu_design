@@ -3,7 +3,6 @@ package com.zcc.commons.utils;
 import com.zcc.manager.govunitmanager.entity.GovUnitEntity;
 import com.zcc.manager.govunitmanager.service.GovUnitService;
 import com.zcc.manager.govunitmanager.service.impl.GovUnitServiceImpl;
-import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 

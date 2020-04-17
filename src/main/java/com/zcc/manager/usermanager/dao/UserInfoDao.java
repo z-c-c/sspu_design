@@ -11,13 +11,15 @@ import org.springframework.stereotype.Repository;
 public interface UserInfoDao {
     /**
      * 添加用户
+     *
      * @param userInfoEntity 用户信息
      * @return id
      */
-     void add(UserInfoEntity userInfoEntity);
+    void add(UserInfoEntity userInfoEntity);
 
     /**
      * 根据用户名查找
+     *
      * @param userName userName
      * @return UserInfoEntity
      */
@@ -26,15 +28,17 @@ public interface UserInfoDao {
 
     /**
      * 修改用户
+     *
      * @param userInfoEntity userInfoEntity
      */
     void update(UserInfoEntity userInfoEntity);
 
     /**
      * 查找
+     *
      * @param userName userName
-     * @param type type
+     * @param type     type
      * @return UserInfoEntity
      */
-    UserInfoEntity findByUserNameAndType(@Param("userName") String userName,@Param("type")String type);
+    UserInfoEntity findByUserNameAndType(@Param("userName") String userName, @Param("type") String type);
 }

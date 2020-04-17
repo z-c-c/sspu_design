@@ -3,13 +3,9 @@ package com.zcc.commons.utils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.mail.Multipart;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.util.UUID;
 
 /**
  * @author zcc
@@ -20,8 +16,8 @@ public class FileUtil {
      * 上传文件
      *
      * @param request
-     * @param attrName    标签的name属性
-     * @param id 文件的id
+     * @param attrName 标签的name属性
+     * @param id       文件的id
      */
     public static String upLoad(HttpServletRequest request, String attrName, String id) {
         MultipartHttpServletRequest request1 = (MultipartHttpServletRequest) request;

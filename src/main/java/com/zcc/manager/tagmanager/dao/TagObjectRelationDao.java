@@ -5,7 +5,6 @@ import com.zcc.manager.tagmanager.entity.TagObjectRelationEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
 import java.util.List;
 
 /**

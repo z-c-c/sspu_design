@@ -35,7 +35,7 @@ public class LoginController {
         Map<String, Object> map = new HashMap<>(4);
 
         HttpSession session = request.getSession();
-        UserInfoEntity userInfoEntity = userInfoService.findByNameAndType(userName,type);
+        UserInfoEntity userInfoEntity = userInfoService.findByNameAndType(userName, type);
         if (userInfoEntity != null) {
 
             //密码错误

@@ -2,7 +2,6 @@ package com.zcc.manager.tagmanager.dao;
 
 import com.zcc.commons.utils.Page;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
-import com.zcc.manager.tagmanager.service.TagBaseInfoService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +15,7 @@ public interface TagBaseInfoDao {
 
     /**
      * 添加标签
+     *
      * @param tagBaseInfoEntity tagBaseInfoEntity
      */
     void add(TagBaseInfoEntity tagBaseInfoEntity);
@@ -23,17 +23,21 @@ public interface TagBaseInfoDao {
 
     /**
      * 删除标签
+     *
      * @param tagId
      */
-    void  del(String tagId);
+    void del(String tagId);
 
     /**
      * 修改标签
+     *
      * @param tagBaseInfoEntity tagBaseInfoEntity
      */
     void update(TagBaseInfoEntity tagBaseInfoEntity);
+
     /**
      * 查找标签
+     *
      * @param tagName 标签名
      * @return list
      */
@@ -41,12 +45,15 @@ public interface TagBaseInfoDao {
 
     /**
      * 查找标签
+     *
      * @param tagId id
      * @return TagBaseInfoEntity
      */
     TagBaseInfoEntity findById(String tagId);
+
     /**
      * 查找标签
+     *
      * @param tagBaseInfoEntity tagBaseInfoEntity
      * @return list
      */
@@ -60,8 +67,10 @@ public interface TagBaseInfoDao {
      * @return list
      */
     List<TagBaseInfoEntity> findWithPages(@Param("TagBaseInfoEntity") TagBaseInfoEntity tagBaseInfoEntity, @Param("Page") Page page);
+
     /**
      * 根据标注对象查标签
+     *
      * @param objectId objectId
      * @return list
      */
@@ -69,6 +78,7 @@ public interface TagBaseInfoDao {
 
     /**
      * 查询所有
+     *
      * @return
      */
     List<TagBaseInfoEntity> findAll();

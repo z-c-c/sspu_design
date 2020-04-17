@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 自定义异常处理器，两种定义方式都可以
+ *
  * @author zcc
  */
 @ControllerAdvice
@@ -20,7 +21,7 @@ public class WebExceptionHandler {
     }
 
     @ExceptionHandler(MyException.class)
-    public ResultBean myException(){
+    public ResultBean myException() {
         return ResultBean.error(ResultBean.ERROR, "发生了'我的异常'");
     }
 }

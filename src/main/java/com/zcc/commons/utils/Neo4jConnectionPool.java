@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.neo4j.driver.internal.shaded.io.netty.util.ReferenceCountUtil.release;
-
 /**
  * @author zcc
  */

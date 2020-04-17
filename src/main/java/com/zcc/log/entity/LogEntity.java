@@ -12,8 +12,8 @@ public class LogEntity implements Serializable {
     /**
      * 日志类型
      */
-    public static final String SUCCESS="success";
-    public static final String ERROR="error";
+    public static final String SUCCESS = "success";
+    public static final String ERROR = "error";
 
     /**
      * 日志主键

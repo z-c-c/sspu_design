@@ -4,7 +4,6 @@ import com.zcc.commons.utils.Page;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.entity.HandleLogEntity;
-import org.apache.ibatis.annotations.Param;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -78,6 +77,7 @@ public interface EventInfoService {
 
     /**
      * 查找事件关联对象（提供对象的全额信息）
+     *
      * @param eventId    eventId
      * @param objectType objectType
      * @return list

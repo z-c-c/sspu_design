@@ -33,7 +33,6 @@ public class PersonEntity {
     private String lati;
 
 
-
     public String getPersonId() {
         return personId;
     }

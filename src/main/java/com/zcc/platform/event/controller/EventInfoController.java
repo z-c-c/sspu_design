@@ -136,6 +136,7 @@ public class EventInfoController {
     public ResultBean findObjectLinkEvent(String objectId, String objectType) {
         return ResultBean.success(eventInfoService.findObjectLinkEvent(objectId, objectType));
     }
+
     @Log(name = "单个事件数据聚合")
     @RequestMapping(value = "/findDataTogether", method = RequestMethod.POST)
     public ResultBean findDataTogether(String eventId, Integer page, Integer pageSize) throws Exception {

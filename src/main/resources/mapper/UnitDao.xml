@@ -169,7 +169,8 @@
           and r1.IS_DELETE != '1'
           and r2.IS_DELETE != '1'
           and p.is_delete != '1'
-          and r1.OBJECT_ID = #{unitId};
+          and r1.OBJECT_ID = #{unitId}
+          and p.unit_id != #{unitId};
     </select>
 
     <select id="dataTogetherWithPage" resultType="com.zcc.platform.unit.entity.UnitEntity">
@@ -192,6 +193,7 @@
           and r2.IS_DELETE != '1'
           and p.is_delete != '1'
           and r1.OBJECT_ID = #{unitId}
+          and p.unit_id != #{unitId}
         limit ${page.page},${page.pageSize};
     </select>
 

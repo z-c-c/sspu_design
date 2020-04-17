@@ -257,6 +257,7 @@
                  join event_relation_object r2 on r1.OBJECT_ID = r2.OBJECT_ID
                  join event_info e on r2.EVENT_ID = e.event_id
         where r1.event_id = #{eventId}
+          and e.event_id != #{eventId}
           and e.is_delete != '1'
           and r1.IS_DELETE != '1'
           and r2.IS_DELETE != '1'
@@ -269,6 +270,7 @@
                  join event_relation_object r2 on r1.OBJECT_ID = r2.OBJECT_ID
                  join event_info e on r2.EVENT_ID = e.event_id
         where r1.event_id = #{eventId}
+          and e.event_id != #{eventId}
           and e.is_delete != '1'
           and r1.IS_DELETE != '1'
           and r2.IS_DELETE != '1';

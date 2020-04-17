@@ -3,7 +3,7 @@ package com.zcc.exceptions;
 /**
  * @author zcc
  */
-public class MyException extends Exception{
+public class MyException extends Exception {
 
     private String message;
 

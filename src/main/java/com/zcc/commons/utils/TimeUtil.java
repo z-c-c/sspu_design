@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TimeUtil {
     /**
-     * »ñÈ¡Ò»¸öÔÂµÄµÚÒ»Ìì
+     * è·å–ä¸€ä¸ªæœˆçš„ç¬¬ä¸€å¤©
      *
      * @param date eg:2020-01
      * @return
@@ -36,7 +36,7 @@ public class TimeUtil {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨ÈÕÆÚµÄ¼¸¸öÔÂÇ°µÄµÚÒ»Ìì
+     * è·å–æŒ‡å®šæ—¥æœŸçš„å‡ ä¸ªæœˆå‰çš„ç¬¬ä¸€å¤©
      *
      * @param index
      * @param date
@@ -47,7 +47,7 @@ public class TimeUtil {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨ÈÕÆÚµÄ¼¸¸öÔÂÇ°µÄµÚÒ»Ìì
+     * è·å–æŒ‡å®šæ—¥æœŸçš„å‡ ä¸ªæœˆå‰çš„ç¬¬ä¸€å¤©
      *
      * @param index
      * @param date  yyyy-MM
@@ -69,7 +69,7 @@ public class TimeUtil {
 
 
     /**
-     * »ñÈ¡Ò»¸öÔÂµÄ×îºóÒ»ÌìµÄ×îºóÒ»¿Ì
+     * è·å–ä¸€ä¸ªæœˆçš„æœ€åä¸€å¤©çš„æœ€åä¸€åˆ»
      *
      * @param date eg:2020-01
      * @return 2020-01-31 23:59:59.999
@@ -89,9 +89,9 @@ public class TimeUtil {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨ÈÕÆÚ¼¸¸öÔÂÇ°ÔÂµÄ×îºóÒ»¿Ì
+     * è·å–æŒ‡å®šæ—¥æœŸå‡ ä¸ªæœˆå‰æœˆçš„æœ€åä¸€åˆ»
      *
-     * @param index ¼¸¸öÔÂÇ°
+     * @param index ???????
      * @param date
      * @return
      */
@@ -110,10 +110,10 @@ public class TimeUtil {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨¸ñÊ½µÄÊ±¼ä×Ö·û´®ĞÎÊ½
+     * è·å–æŒ‡å®šæ ¼å¼çš„æ—¶é—´å­—ç¬¦ä¸²å½¢å¼
      *
-     * @param format Ê±¼ä¸ñÊ½
-     * @param date   Ê±¼ä
+     * @param format æ—¶é—´æ ¼å¼
+     * @param date   æ—¶é—´
      * @return
      */
     public static String getDateStr(String format, Date date) {
@@ -126,24 +126,24 @@ public class TimeUtil {
     }
 
     /**
-     * »ñÈ¡Ö¸¶¨ÈÕÆÚµÄÇ°¼¸¸öÔÂµÄ¸ñÊ½»¯ĞÅÏ¢
+     * è·å–æŒ‡å®šæ—¥æœŸçš„å‰å‡ ä¸ªæœˆçš„æ ¼å¼åŒ–ä¿¡æ¯
      *
-     * @param date   Ö¸¶¨ÈÕÆÚ yyyy-MM
-     * @param index  ¼¸¸öÔÂÇ°
-     * @param format Ö¸¶¨¸ñÊ½
+     * @param date   æŒ‡å®šæ—¥æœŸ yyyy-MM
+     * @param index  å‡ ä¸ªæœˆå‰
+     * @param format æŒ‡å®šæ ¼å¼
      */
     public static List<String> getMonthBeforeFormat(String date, int index, String format) {
         List<String> dateList = new ArrayList<>(6);
         if (index == 0) {
             dateList.add(getDateStr(format, new Date()));
         }
-        //¼¸¸öÔÂÇ°
+        //å‡ ä¸ªæœˆå‰
         else if (index > 0) {
             for (int i = 0; i <= index; i++) {
                 dateList.add(getDateStr(format, getBeforeMonthFirstDaytoDate(date, i)));
             }
         }
-        //¼¸¸öÔÂºó
+        //å‡ ä¸ªæœˆå
         else {
             for (int i = index; i <= 0; i++) {
                 dateList.add(getDateStr(format, getBeforeMonthFirstDaytoDate(date, i)));
@@ -154,7 +154,7 @@ public class TimeUtil {
 
 
     /**
-     * »ñÈ¡¹ıÈ¥nÌìµÄÊ±¼ä
+     * è·å–è¿‡å»nå¤©çš„æ—¶é—´
      *
      * @param index
      * @return

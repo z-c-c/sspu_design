@@ -3,12 +3,9 @@ package com.zcc.manager.govunitmanager.controller;
 import com.zcc.commons.utils.Page;
 import com.zcc.commons.utils.ResultBean;
 import com.zcc.manager.govunitmanager.entity.GovUnitEntity;
-import com.zcc.manager.govunitmanager.entity.GovUnitRelation;
 import com.zcc.manager.govunitmanager.service.GovUnitService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author zcc

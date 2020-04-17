@@ -5,7 +5,6 @@ import com.zcc.manager.tagmanager.dao.TagObjectRelationDao;
 import com.zcc.manager.tagmanager.entity.TagBaseInfoEntity;
 import com.zcc.manager.tagmanager.entity.TagObjectRelationEntity;
 import com.zcc.manager.tagmanager.service.TagObjectRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

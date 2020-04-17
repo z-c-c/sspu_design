@@ -18,7 +18,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public String add(UserInfoEntity userInfoEntity) {
         UserInfoEntity byUserName = userInfoDao.findByUserName(userInfoEntity.getUserName());
-        if(byUserName==null){
+        if (byUserName == null) {
             userInfoDao.add(userInfoEntity);
             String userName = userInfoEntity.getUserName();
             return userName;
@@ -34,7 +34,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public void del(String userName) {
         UserInfoEntity byUserName = userInfoDao.findByUserName(userName);
-        if(byUserName!=null){
+        if (byUserName != null) {
             byUserName.setIsDelete("1");
             userInfoDao.update(byUserName);
         }
@@ -48,7 +48,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public void update(UserInfoEntity userInfoEntity) {
         UserInfoEntity byUserName = userInfoDao.findByUserName(userInfoEntity.getUserName());
-        if(byUserName!=null){
+        if (byUserName != null) {
             userInfoDao.update(userInfoEntity);
         }
     }
@@ -56,6 +56,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfoEntity findByNameAndType(String name, String type) {
 
-        return userInfoDao.findByUserNameAndType(name,type);
+        return userInfoDao.findByUserNameAndType(name, type);
     }
 }
