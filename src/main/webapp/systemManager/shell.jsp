@@ -1,7 +1,18 @@
 <%@ page import="com.zcc.manager.usermanager.entity.UserInfoEntity" %>
+<%@ page import="com.zcc.commons.utils.ConstUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     UserInfoEntity currentPerson = (UserInfoEntity)session.getAttribute("currentPerson");
+%>
+<%
+    if (!ConstUtil.USER_TYPE_ONE.equals(currentPerson.getType())) {
+
+%>
+<script>
+    window.location.href = '/managerLogin.jsp';
+</script>
+<%
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -24,16 +35,9 @@
                     </li>
                 </ul>
             </li>
-            <%--            <li><h6><img src="../systemManager/images/idx-icon2.png"/>知识库管理</h6>--%>
-            <%--                <ul class="menu_2nd">--%>
-            <%--&lt;%&ndash;                    <li class="menu_2nd_li"><a href="../systemManager/pages/ontologyManager.jsp" target="main_frame">本体领域管理</a></li>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;                    <li class="menu_2nd_li"><a href="../systemManager/pages/instanceManager.jsp" target="main_frame">实例数据管理</a></li>&ndash;%&gt;--%>
-            <%--                    <li class="menu_2nd_li"><a href="../systemManager/pages/wordManager.jsp" target="main_frame">标签管理</a></li>--%>
-            <%--                </ul>--%>
-            <%--            </li>--%>
             <li><h6><img src="../systemManager/images/idx-icon3.png" alt=""/>系统监控</h6>
                 <ul class="menu_2nd">
-                    <li class="menu_2nd_li"><a href="../manager/pages/statistics.jsp" target="main_frame">接口管理</a></li>
+                    <li class="menu_2nd_li"><a href="../manager/pages/statistics.jsp" target="main_frame">接口监控</a></li>
                 </ul>
             </li>
         </ul>

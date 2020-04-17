@@ -1,5 +1,19 @@
 <%@ page import="com.zcc.manager.usermanager.entity.UserInfoEntity" %>
+<%@ page import="com.zcc.commons.utils.ConstUtil" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%
+    UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute("currentPerson");
+%>
+<%
+    if (!ConstUtil.USER_TYPE_ONE.equals(currentPerson.getType())) {
+
+%>
+<script>
+    window.location.href = '/managerLogin.jsp';
+</script>
+<%
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

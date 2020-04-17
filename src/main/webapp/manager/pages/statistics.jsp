@@ -1,7 +1,18 @@
+<%@ page import="com.zcc.manager.usermanager.entity.UserInfoEntity" %>
+<%@ page import="com.zcc.commons.utils.ConstUtil" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    UserInfoEntity currentPerson = (UserInfoEntity) session.getAttribute("currentPerson");
+%>
+<%
+    if (!ConstUtil.USER_TYPE_ONE.equals(currentPerson.getType())) {
+
+%>
+<script>
+    window.location.href = '/managerLogin.jsp';
+</script>
+<%
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +51,7 @@
             }
             return dt.format(str); //扩展的Date的format方法(上述插件实现)
         }
+
         /*datagrid 日期格式化*/
         Date.prototype.format = function (format) {
             var o = {
@@ -180,6 +192,7 @@
             })
 
         }
+
         function getMessage(){
             $("#messageul").html("")
             $.ajax({
@@ -190,7 +203,7 @@
                     var data = result.data;
                     if (data){
                         var str="";
-                        for (var i=0;i<data.length;i++){
+                        for (var i=0; i<data.length; i++){
                             var result="";
                             if (data[i].exception != null) {
                                 result="异常"
@@ -214,6 +227,7 @@
                 }
             });
         }
+
         $(function(){
             loadlinechart();
             getMessage();
@@ -221,25 +235,25 @@
     </script>
 </head>
 <body>
-    <div class="iframeBox">
-        <div class="indexLeft v-fl" style="width: 42%">
-            <div class="statistic" style="height: 850px">
-                <div class="publicTitle mt-25"><span>接口访问量</span></div>
-                <div id="statisticEcharts1" class="statisticEcharts" style="height: 500px;"></div>
-            </div>
+<div class="iframeBox">
+    <div class="indexLeft v-fl" style="width: 42%">
+        <div class="statistic" style="height: 850px">
+            <div class="publicTitle mt-25"><span>接口访问量</span></div>
+            <div id="statisticEcharts1" class="statisticEcharts" style="height: 500px;"></div>
         </div>
-        <div class="indexCenter v-fl" style="width: 54%;margin-right: 0px">
-            <!-- 统计分析 -->
-            <div class="statistic" style="height:840px ">
-                <div class="publicTitle mt-25">统计分析</div>
-                <br><br>
-                <div class="overdue mt-18" style="height:600px ">
-                    <ul id="messageul">
+    </div>
+    <div class="indexCenter v-fl" style="width: 54%;margin-right: 0px">
+        <!-- 统计分析 -->
+        <div class="statistic" style="height:840px ">
+            <div class="publicTitle mt-25">统计分析</div>
+            <br><br>
+            <div class="overdue mt-18" style="height:600px ">
+                <ul id="messageul">
 
-                    </ul>
-                </div>
+                </ul>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ConstUtil {
 
     public static final String CURRENT_PERSON = "currentPerson";
+    public static final String USER_TYPE = "userType";
+    public static final String USER_TYPE_ONE = "1";
+    public static final String USER_TYPE_ZERO = "0";
     public static final String LOGIN_JSP = "login.jsp";
     public static final String KEY = "/key";
     public static final String MANAGER_LOGIN_JSP = "managerLogin.jsp";
