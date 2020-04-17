@@ -88,7 +88,8 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox" style="width: 474px">
-                            <input type="text" placeholder="单位名称/单位行业/单位地址/单位法人" id="searchParam">
+                            <input type="text" placeholder="单位名称/单位行业/单位地址/单位法人" id="searchParam"
+                                   onkeypress="if(event.keyCode==13){findEvent('',true,1)}">
                         </div>
                         <button class="btn1" onclick="findEvent('',true,1)">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>

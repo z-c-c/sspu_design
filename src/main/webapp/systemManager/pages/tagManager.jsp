@@ -425,7 +425,8 @@
                 <span>新建标签</span>
             </div>
             <div class="searchbar">
-                <input type="text" id="search" placeholder="请输入标签名"/>
+                <input type="text" id="search" placeholder="请输入标签名"
+                       onkeypress="if(event.keyCode==13){getTagList($('#searchLabelType').val())}"/>
                 <%--                <img src=../../images/microphone.png class="mcp">--%>
                 <img src=../../images/search.png class="mg" onclick="getTagList()">
             </div>

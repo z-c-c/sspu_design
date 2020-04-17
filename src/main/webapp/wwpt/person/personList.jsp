@@ -347,7 +347,8 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox" style="width: 474px">
-                            <input type="text" placeholder="姓名/曾用名/性别/证件号/手机号/籍贯/居住地" id="param">
+                            <input type="text" placeholder="姓名/曾用名/性别/证件号/手机号/籍贯/居住地" id="param"
+                                   onkeypress="if(event.keyCode==13){find(1,true)}">
                         </div>
                         <button class="btn1" onclick=" find(1,true);">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>

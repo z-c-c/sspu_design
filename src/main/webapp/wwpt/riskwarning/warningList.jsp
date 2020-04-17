@@ -277,7 +277,8 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox">
-                            <input id="keyWord" type="text" placeholder="预警名称/预警对象名称">
+                            <input id="keyWord" type="text" placeholder="预警名称/预警对象名称"
+                                   onkeypress="if(event.keyCode==13){eventList(true,1,'')}">
                         </div>
                         <button class="btn1" onclick="eventList(true,1,'')">搜索</button>
                         <button class="btn2" onclick="chongzhi()">重置</button>

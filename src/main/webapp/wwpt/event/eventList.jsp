@@ -91,7 +91,8 @@
                 <div class="advanceBox">
                     <div class="searchInp">
                         <div class="inpBox">
-                            <input result="text" placeholder="事件名/发生地址" id="SearchNameOrPlace">
+                            <input result="text" placeholder="事件名/发生地址" id="SearchNameOrPlace"
+                                   onkeypress="if(event.keyCode==13){findEvent('',true,1)}">
                         </div>
                         <button class="btn1" onclick="findEvent('',true,1)">搜索</button>
                         <button class="btn2" onclick="reset()">重置</button>
