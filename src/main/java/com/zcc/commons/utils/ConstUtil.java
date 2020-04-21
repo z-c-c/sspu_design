@@ -14,9 +14,9 @@ public class ConstUtil {
     public static final String USER_TYPE = "userType";
     public static final String USER_TYPE_ONE = "1";
     public static final String USER_TYPE_ZERO = "0";
-    public static final String LOGIN_JSP = "login.jsp";
+    public static final String LOGIN_JSP = "/login";
     public static final String KEY = "/key";
-    public static final String MANAGER_LOGIN_JSP = "managerLogin.jsp";
+    public static final String MANAGER_LOGIN_JSP = "/managerLogin";
     public static final String CSS = ".css";
     public static final String JS = ".js";
     public static final String PNG = ".png";

@@ -9,7 +9,7 @@
 
 %>
 <script>
-    window.location.href = '/managerLogin.jsp';
+    window.location.href = '/managerLogin';
 </script>
 <%
     }
@@ -26,10 +26,10 @@
 <body>
 <div class="shell open">
     <div class="leftmenu">
-        <div class="logo"><span onclick="javascript:top.window.location='../wwpt/shell.jsp'" style="cursor: pointer"><&nbsp;&nbsp;</span>后台管理系统
+        <div class="logo"><span onclick="javascript:top.window.location='../wwpt/shell'" style="cursor: pointer"><&nbsp;&nbsp;</span>后台管理系统
         </div>
         <ul class="menu_1st opened">
-            <li><h6><img src="../systemManager/images/idx-icon1.png">基本信息管理</h6>
+            <li class="opened"><h6><img src="../systemManager/images/idx-icon1.png">基本信息管理</h6>
                 <ul class="menu_2nd">
                     <li class="menu_2nd_li f-cur"><a href="../systemManager/pages/tagManager.jsp" target="main_frame">标签管理</a>
                     </li>
@@ -78,7 +78,7 @@
             $(".shell").hasClass('open') ? $(".shell").removeClass("open") : $(".shell").addClass("open");
             if ($(".shell").hasClass("open")) {
                 $(".logo").text("后台管理系统")
-                $(".logo").prepend('<span onclick="javascript:top.window.location=\'../wwpt/shell.jsp\'" style="cursor: pointer"><&nbsp;&nbsp;</span>');
+                $(".logo").prepend('<span onclick="javascript:top.window.location=\'../wwpt/shell\'" style="cursor: pointer"><&nbsp;&nbsp;</span>');
 
             } else {
                 $(".logo").text("");

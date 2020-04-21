@@ -347,14 +347,14 @@
         footerChangeDetail();
     })
     function quanping() {
-        openNewWindow("../event/relationList.jsp?objectId=" + enentId + "&&objectType=unit&&flag=show", "top");
+        openNewWindow("../event/relationList?objectId=" + enentId + "&&objectType=unit&&flag=show", "top");
     }
     function eventRelation() {
-        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"../event/relationList.jsp?objectId=" + enentId + "&&objectType=unit&&flag=false\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
+        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"../event/relationList?objectId=" + enentId + "&&objectType=unit&&flag=false\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
 
     function findIndex(id) {
-        openNewWindow('../person/personDetail.jsp?personId=' + id + '', 'top');
+        openNewWindow('../person/personDetail?personId=' + id + '', 'top');
     }
 
     //事件已有标签
@@ -676,7 +676,7 @@
     }
 
     function toEventDataTogether(eventId) {
-        openNewWindow("dataTogether.jsp?Type=" + eventId + "", 'top');
+        openNewWindow("dataTogether?Type=" + eventId + "", 'top');
     }
 
     $(function () {

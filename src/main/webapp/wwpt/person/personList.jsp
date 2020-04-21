@@ -934,7 +934,7 @@
         if (count == 0) {
             noDataTogether();
         } else {
-            openNewWindow("personDataTogether.jsp?paId=" + personId + "", 'top');
+            openNewWindow("personDataTogether?paId=" + personId + "", 'top');
         }
     }
 
@@ -1062,7 +1062,7 @@
 
     //个人主页
     function personIndex(id) {
-        var url = 'personDetail.jsp?personId=' + id + '';
+        var url = 'personDetail?personId=' + id + '';
         openNewWindow(url, 'top');
     }
 
@@ -1124,7 +1124,7 @@
     }
 
     function jump(id) {
-        var url = 'dataTogether.jsp?paId=' + id + '';
+        var url = 'dataTogether?paId=' + id + '';
         openNewWindow(url, 'top');
     }
 
@@ -1139,7 +1139,7 @@
 
 
     function findMore() {
-        let url = 'personDataTogether.jsp';
+        let url = 'personDataTogether';
         openNewWindow(url, 'top');
     }
 

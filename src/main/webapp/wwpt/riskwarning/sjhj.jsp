@@ -207,11 +207,11 @@
             <div class="y-selectbox-item-img1"></div>
             <div class="y-selectbox-item-name y-selectbox-item-name_pos1">数据汇聚</div>
         </div>
-        <div onclick="topage('warningMap.jsp')" class="y-selectbox-item y-selectbox-item_sty2">
+        <div onclick="topage('warningMap')" class="y-selectbox-item y-selectbox-item_sty2">
             <div class="y-selectbox-item-img2"></div>
             <div class="y-selectbox-item-name y-selectbox-item-name_pos2">态势分析</div>
         </div>
-        <div onclick="topage('warningList.jsp')" class="y-selectbox-item y-selectbox-item_sty3">
+        <div onclick="topage('warningList')" class="y-selectbox-item y-selectbox-item_sty3">
             <div class="y-selectbox-item-img3"></div>
             <div class="y-selectbox-item-name y-selectbox-item-name_pos3">预警列表</div>
         </div>

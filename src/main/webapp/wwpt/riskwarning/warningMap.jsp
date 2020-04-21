@@ -1350,19 +1350,19 @@
     }
 
     function todetail(id, type, objectId) {
-        openNewWindow('warningDetail_cj.jsp?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
+        openNewWindow('warningDetail_cj?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
     }
 
     function tomore(id) {
-        openNewWindow('warningEventsList.jsp?noticeId=' + id);
+        openNewWindow('warningEventsList?noticeId=' + id);
     }
 
     function todetail(id, type, objectId, noticeType) {
         if (noticeType == '自动') {
-            openNewWindow('/wwpt/riskwarning/warningDetail.jsp?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
+            openNewWindow('/wwpt/riskwarning/warningDetail?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
 
         } else {
-            openNewWindow('/wwpt/riskwarning/warningDetail_cj.jsp?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
+            openNewWindow('/wwpt/riskwarning/warningDetail_cj?noticeId=' + id + "&&noticeObjectType=" + type + "&&noticeObjectId=" + objectId);
 
         }
     }

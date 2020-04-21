@@ -46,9 +46,9 @@ public class LoginController {
                 userInfoEntity.setPhoneNumber(null);
                 session.setAttribute(ConstUtil.CURRENT_PERSON, userInfoEntity);
                 if (ConstUtil.NO_FLAG.equals(flag)) {
-                    map.put("url", "wwpt/shell.jsp");
+                    map.put("url", "wwpt/shell");
                 } else {
-                    map.put("url", "systemManager/shell.jsp");
+                    map.put("url", "systemManager/shell");
                 }
                 map.put("result", "success");
                 System.out.println("用户" + userInfoEntity.getUserName() + " 登陆系统");

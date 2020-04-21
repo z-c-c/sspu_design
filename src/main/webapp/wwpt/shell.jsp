@@ -155,7 +155,7 @@
                 type: "get",
                 url: "/login/userLogout",
                 success: function () {
-                    window.location.href = "/login.jsp"
+                    window.location.href = "/login"
                 }
             });
         }
@@ -178,16 +178,16 @@
     </div>
     <ul class="header-nav">
         <%--        <li><a href="./index.jsp" target="main_frame">首页</a></li>--%>
-        <li><a class="active" href="./event/eventList.jsp" target="main_frame">事件处理</a></li>
-        <li><a href="./person/personList.jsp" target="main_frame">人员管理</a></li>
-        <li><a href="./unit/unitList.jsp" target="main_frame">单位管理</a></li>
+        <li><a class="active" href="./event/eventList" target="main_frame">事件处理</a></li>
+        <li><a href="./person/personList" target="main_frame">人员管理</a></li>
+        <li><a href="./unit/unitList" target="main_frame">单位管理</a></li>
         <%--        <li><a href="javascript:;" target="main_frame">关系管理</a></li>--%>
-        <li><a href="./riskwarning/warningList.jsp" target="main_frame">风险洞察</a></li>
-        <li><a href="./riskwarning/warningMap.jsp" target="main_frame">态势分析</a></li>
+        <li><a href="./riskwarning/warningList" target="main_frame">风险洞察</a></li>
+        <li><a href="./riskwarning/warningMap" target="main_frame">态势分析</a></li>
         <%
             if(currentPerson.getType().equals("1")){
         %>
-            <li><a href="javascript:top.location.href = '/systemManager/shell.jsp';" target="main_frame">后台管理</a></li>
+        <li><a href="javascript:top.location.href = '/systemManager/shell';" target="main_frame">后台管理</a></li>
         <%
             }
         %>
@@ -195,7 +195,7 @@
 </div>
 
 <div class="iframeBox">
-    <iframe src="./event/eventList.jsp" id="main_frame" name="main_frame" frameborder="0" width="100%"
+    <iframe src="./event/eventList" id="main_frame" name="main_frame" frameborder="0" width="100%"
             height="100%" class="iframeMain"></iframe>
 </div>
 

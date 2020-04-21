@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite
+        PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+    <rule>
+        <from>^/manager/pages/statistics$</from>
+        <to type="forward">/manager/pages/statistics.jsp</to>
+    </rule>
+    <rule>
+        <from>^/systemManager/shell$</from>
+        <to type="forward">/systemManager/shell.jsp</to>
+    </rule>
+    <rule>
+        <from>^/systemManager/pages/tagManager$</from>
+        <to type="forward">/systemManager/pages/tagManager.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/event/dataTogether$</from>
+        <to type="forward">/wwpt/event/dataTogether.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/event/eventDetail$</from>
+        <to type="forward">/wwpt/event/eventDetail.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/event/eventList$</from>
+        <to type="forward">/wwpt/event/eventList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/event/map$</from>
+        <to type="forward">/wwpt/event/map.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/event/relationList$</from>
+        <to type="forward">/wwpt/event/relationList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/person/personList$</from>
+        <to type="forward">/wwpt/person/personList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/person/personDetail$</from>
+        <to type="forward">/wwpt/person/personDetail.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/person/personDataTogether$</from>
+        <to type="forward">/wwpt/person/personDataTogether.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/riskwarning/warningDetail$</from>
+        <to type="forward">/wwpt/riskwarning/warningDetail.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/riskwarning/warningList$</from>
+        <to type="forward">/wwpt/riskwarning/warningList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/riskwarning/warningMap$</from>
+        <to type="forward">/wwpt/riskwarning/warningMap.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/unit/unitRelationList$</from>
+        <to type="forward">/wwpt/unit/unitRelationList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/unit/unitList$</from>
+        <to type="forward">/wwpt/unit/unitList.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/unit/unitDetail$</from>
+        <to type="forward">/wwpt/unit/unitDetail.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/unit/dataTogether$</from>
+        <to type="forward">/wwpt/unit/dataTogether.jsp</to>
+    </rule>
+    <rule>
+        <from>^/wwpt/shell$</from>
+        <to type="forward">/wwpt/shell.jsp</to>
+    </rule>
+    <rule>
+        <from>^/login$</from>
+        <to type="forward">/login.jsp</to>
+    </rule>
+    <rule>
+        <from>^/managerLogin$</from>
+        <to type="forward">/managerLogin.jsp</to>
+    </rule>
+
+
+</urlrewrite>

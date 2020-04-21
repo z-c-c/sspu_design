@@ -9,7 +9,7 @@
 
 %>
 <script>
-    window.location.href = '/managerLogin.jsp';
+    window.location.href = '/managerLogin';
 </script>
 <%
     }
@@ -314,7 +314,7 @@
                     success: function (result) {
                         if (result.code == 'success') {
                             var tag = result.data;
-                            $("#showTagExplain").text(tag.tagExplain);
+                            $("#showTagExplain").text(judgeNull(tag.tagExplain));
                             $("#showTagColor").css("background-color", JSON.parse(tag.tagCssCode).color);
                             if (tag.tagLabelType == 'person') {
                                 $("#showTagLabelType").text("人员");
@@ -363,7 +363,7 @@
                         if (result.code == 'success') {
                             var tag = result.data;
                             $("#tagName").val(tag.tagName);
-                            $("#tagExplain").val(tag.tagExplain);
+                            $("#tagExplain").val(judgeNull(tag.tagExplain));
                             $("#tagLabelType").val(tag.tagLabelType);
                             var color = JSON.parse(tag.tagCssCode).color;
                             $("#addColorDiv").find("div[class='sp-preview-inner']").css("background-color", color)
@@ -374,6 +374,13 @@
                 $('#StagID').val('');
             }
             $("#m1").show();
+        }
+
+        function judgeNull(str) {
+            if (str == null || str == '' || str == 'null' || str == undefined || str == 'undefined') {
+                return '无';
+            }
+            return str;
         }
 
         //保存

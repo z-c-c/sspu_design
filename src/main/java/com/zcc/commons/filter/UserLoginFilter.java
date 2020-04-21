@@ -42,7 +42,7 @@ public class UserLoginFilter implements Filter {
                     } else {
                         HttpServletResponse response = (HttpServletResponse) servletResponse;
                         PrintWriter writer = response.getWriter();
-                        writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
+                        writer.println("<html><script>window.open ('/login','_top')</script></html>");
                     }
                 }
                 //如果是登录接口，放行
@@ -51,7 +51,7 @@ public class UserLoginFilter implements Filter {
                 } else {
                     HttpServletResponse response = (HttpServletResponse) servletResponse;
                     PrintWriter writer = response.getWriter();
-                    writer.println("<html><script>window.open ('/login.jsp','_top')</script></html>");
+                    writer.println("<html><script>window.open ('/login','_top')</script></html>");
                 }
             }
             flag = false;

@@ -82,7 +82,7 @@
     <div class="left v-fl"></div>
     <div class="right v-fr">
         <p class="sorry">系统错误！</p>
-        <a href="/wwpt/shell.jsp" class="backHome">返回首页</a>
+        <a href="/wwpt/shell" class="backHome">返回首页</a>
     </div>
 </div>
 </body>

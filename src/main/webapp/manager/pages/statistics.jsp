@@ -9,7 +9,7 @@
 
 %>
 <script>
-    window.location.href = '/managerLogin.jsp';
+    window.location.href = '/managerLogin';
 </script>
 <%
     }
@@ -220,7 +220,7 @@
                         }
                         //超期报警
                         $('.overdue').myScroll({
-                            speed: 1, //数值越大，速度越慢
+                            speed: 10, //数值越大，速度越慢
                             rowHeight: 150 //li的高度
                         });
                     }

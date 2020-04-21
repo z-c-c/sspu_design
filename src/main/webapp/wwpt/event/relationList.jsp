@@ -80,10 +80,10 @@
             myEchart.on('contextmenu', function (param) {
                 param.event.event.preventDefault();
                 if (param.data.objectType == "person") {
-                    var url = '../person/personDetail.jsp?paId=' + param.data.OBJECTID + '';
+                    var url = '../person/personDetail?paId=' + param.data.OBJECTID + '';
                     openNewWindow(url);
                 } else if (param.data.objectType == "unit") {
-                    var url = '../common/unitDetail.jsp?unitId=' + param.data.OBJECTID + '';
+                    var url = '../common/unitDetail?unitId=' + param.data.OBJECTID + '';
                     openNewWindow(url);
                 }
             });

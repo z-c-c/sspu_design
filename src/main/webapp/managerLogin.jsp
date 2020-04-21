@@ -79,7 +79,7 @@
         }
 
         function adminLogin() {
-            top.location.href = './login.jsp'
+            top.location.href = './login'
         }
 
         function getKey() {

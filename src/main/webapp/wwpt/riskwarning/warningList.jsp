@@ -720,7 +720,7 @@
     }
 
     function todetail(id,result,objectId) {
-        openNewWindow('/wwpt/riskwarning/warningDetail.jsp?noticeId=' + id);
+        openNewWindow('/wwpt/riskwarning/warningDetail?noticeId=' + id);
     }
 
 

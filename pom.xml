@@ -377,6 +377,15 @@
         </dependency>
 
 
+        <!--        使用该jar配置 访问jsp页面时，隐藏.jsp-->
+        <!-- https://mvnrepository.com/artifact/org.tuckey/urlrewritefilter -->
+        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.4</version>
+        </dependency>
+
+
     </dependencies>
 
 

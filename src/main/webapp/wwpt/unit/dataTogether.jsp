@@ -201,7 +201,7 @@
 
     function toEventDataTogether(eventId) {
 
-        openNewWindow("dataTogether.jsp?Type=" + eventId + "");
+        openNewWindow("dataTogether?Type=" + eventId + "");
     }
 
     //事件的数据聚合

@@ -81,11 +81,11 @@
         function goDetailPage(id, result, objName) {
             var url = "";
             if ('person' == result) {
-                url = '../person/personDetail.jsp?paId=' + id;
+                url = '../person/personDetail?paId=' + id;
             } else if ('event' == result) {
-                url = "../event/eventDetail.jsp?eventId=" + id + "&eventName=" + objName;
+                url = "../event/eventDetail?eventId=" + id + "&eventName=" + objName;
             } else if ('risk' == result) {
-                url = "../riskAssess/riskAssessDetail.jsp?eventId=" + id + "&eventName=" + objName;
+                url = "../riskAssess/riskAssessDetail?eventId=" + id + "&eventName=" + objName;
             }
             if (url != null && url != undefined && url != "") {
                 openNewWindow(url/*, "_target"*/);
@@ -94,7 +94,7 @@
 
         function getInfoByPage(result, page) {
             if (pageType == null || pageType == undefined || pageType == "") {
-                location_href('/wwpt/shell.jsp');
+                location_href('/wwpt/shell');
             }
             if (result == undefined || result == null || result == "") {
                 result == "event";
@@ -105,7 +105,7 @@
             } else if (pageType == "newInfo") {
                 url += "getLatestNewsInfo";
             } else {
-                location_href('/wwpt/shell.jsp');
+                location_href('/wwpt/shell');
             }
             var pageSize = 5;
             $.ajax({
@@ -253,7 +253,7 @@
             pageType = getParameter("result");
             $("name").html(name);
             if (pageType == null || pageType == undefined || pageType == "") {
-                location_href('/wwpt/shell.jsp');
+                location_href('/wwpt/shell');
             }
             if (pageType == "waitLog") {
                 $("#person").html("涉稳重点人员");

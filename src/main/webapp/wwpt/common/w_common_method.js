@@ -231,16 +231,16 @@ function successOperator() {
 
 function toDetail(type, objectId) {
     if (type == 'event') {
-        openNewWindow('../event/eventDetail.jsp?eventId=' + objectId, 'top');
+        openNewWindow('../event/eventDetail?eventId=' + objectId, 'top');
     }
     if (type == 'person') {
-        openNewWindow('../person/personDetail.jsp?personId=' + objectId, 'top');
+        openNewWindow('../person/personDetail?personId=' + objectId, 'top');
     }
     if (type == 'unit') {
-        openNewWindow('../unit/unitDetail.jsp?unitId=' + objectId, 'top');
+        openNewWindow('../unit/unitDetail?unitId=' + objectId, 'top');
     }
     if (type == "warning") {
-        openNewWindow('../riskwarning/warningDetail.jsp?noticeId=' + objectId, 'top');
+        openNewWindow('../riskwarning/warningDetail?noticeId=' + objectId, 'top');
     }
 
 }

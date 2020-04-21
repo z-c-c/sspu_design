@@ -306,10 +306,10 @@
     })
     function quanping() {
 
-        location_href("relationList.jsp?objectId=" + enentId + "&&flag=show", "top");
+        location_href("relationList?objectId=" + enentId + "&&flag=show", "top");
     }
     function eventRelation() {
-        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"relationList.jsp?objectId=" + enentId + "\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
+        $("#relationIframe").html("<iframe id=\"graphFrame\" src=\"relationList?objectId=" + enentId + "\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
     function findIndex(id){
         toDetail('person', id);
@@ -713,7 +713,7 @@
         }
     }
     function toEventDataTogether(eventId) {
-        openNewWindow("dataTogether.jsp?Type=" + eventId + "", 'top');
+        openNewWindow("dataTogether?Type=" + eventId + "", 'top');
     }
 
     $(function() {

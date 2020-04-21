@@ -253,7 +253,7 @@
 
     function usei() {
         var adid = GetQueryString("personId");
-        $("#useiframe").html("<iframe id=\"graphFrame\" src=\"../event/relationList.jsp?objectId=" + adid + "&&objectType=person\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
+        $("#useiframe").html("<iframe id=\"graphFrame\" src=\"../event/relationList?objectId=" + adid + "&&objectType=person\"  style=\"width: 100%;height: 210px;border: 0;overflow: hidden;\"></iframe>")
     }
 
     var cishu = 0;
@@ -275,12 +275,12 @@
 
     function quanping() {
         var id = GetQueryString("personId");
-        var url = '../event/relationList.jsp?objectId=' + id + '&&objectType=person&&flag=show';
+        var url = '../event/relationList?objectId=' + id + '&&objectType=person&&flag=show';
         openNewWindow(url, 'top');
     }
 
     function findIndex(id) {
-        var url = 'personDetail.jsp?paId=' + id + '';
+        var url = 'personDetail?paId=' + id + '';
         openNewWindow(url);
     }
 
@@ -459,7 +459,7 @@
 
     function findMoreById() {
         var id = GetQueryString("personId");
-        var url = 'personDataTogether.jsp?paId=' + id + '';
+        var url = 'personDataTogether?paId=' + id + '';
         openNewWindow(url, 'top');
     }
 

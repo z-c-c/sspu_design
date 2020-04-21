@@ -208,7 +208,7 @@
         <div class="bear-block">
             <div class="bear-tit">
                 <h5>数据聚合（<span id="dataTogetherCount">0</span>）</h5>
-                <a href="dataTogether.jsp?Type=event" target="_blank">更多>></a>
+                <a href="dataTogether?Type=event" target="_blank">更多>></a>
             </div>
             <div class="dataBox">
                 <div id="dataBoxLoading"></div>
@@ -1100,7 +1100,7 @@
         if (eventDateTogetherCount == 0) {
             noDataTogether();
         } else {
-            openNewWindow("dataTogether.jsp?Type=" + eventId + "");
+            openNewWindow("dataTogether?Type=" + eventId + "");
         }
     }
 
@@ -1132,7 +1132,7 @@
 
     //详细信息
     function baseInfo(eventId, eventName) {
-        var url = encodeURI("eventDetail.jsp?eventId=" + eventId);
+        var url = encodeURI("eventDetail?eventId=" + eventId);
         openNewWindow(url, 'top');
     }
 
