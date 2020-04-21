@@ -122,7 +122,7 @@
                         <%--								<label id="y-fakebox" for="remember">√</label>--%>
                         <label for="remember" style="margin-left: 4px;" onclick="adminLogin()">用户登陆</label>
                     </div>
-                    <a href='#' class="v-fr" style="color: #fff;">忘记密码</a>
+                    <%--                    <a href='#' class="v-fr" style="color: #fff;">忘记密码</a>--%>
                 </div>
                 <div class="rememberPwd" id="messageTr" style="width: 100%;text-align: center;height: 15px">
                     <font style="color:red;font-size: 17px" id="message"></font>

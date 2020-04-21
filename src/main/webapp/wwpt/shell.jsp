@@ -160,6 +160,10 @@
             });
         }
 
+        function toManager() {
+            top.location.href = '/systemManager/shell';
+        }
+
     </script>
 
 </head>
@@ -173,7 +177,14 @@
     <div class="dropdown-link header-box">
         <h1><%=currentPerson.getUserName()%><span></span></h1>
         <ul>
-            <li><a onclick="logOut()">注销系统</a></li>
+            <li><a onclick="logOut()">退出登录</a></li>
+            <%
+                if (currentPerson.getType().equals("1")) {
+            %>
+            <li><a onclick="toManager()">后台管理</a></li>
+            <%
+                }
+            %>
         </ul>
     </div>
     <ul class="header-nav">
@@ -184,13 +195,7 @@
         <%--        <li><a href="javascript:;" target="main_frame">关系管理</a></li>--%>
         <li><a href="./riskwarning/warningList" target="main_frame">风险洞察</a></li>
         <li><a href="./riskwarning/warningMap" target="main_frame">态势分析</a></li>
-        <%
-            if(currentPerson.getType().equals("1")){
-        %>
-        <li><a href="javascript:top.location.href = '/systemManager/shell';" target="main_frame">后台管理</a></li>
-        <%
-            }
-        %>
+
     </ul>
 </div>
 

@@ -833,9 +833,11 @@
                         if (eventContent == null || eventContent.trim().length == 0) {
                             eventContent = '无';
                         }
-                        var eventSource = event.eventSource;
-                        if (eventSource == null || eventSource.trim().length == 0) {
-                            eventSource = '无';
+                        var isSettlement = event.isSettlement;
+                        if (isSettlement == null || isSettlement.trim().length == 0 || isSettlement == "0") {
+                            isSettlement = '否';
+                        } else {
+                            isSettlement = '是'
                         }
                         var occurredTime = new Date(event.occurredTime).format("yyyy-MM-dd hh:mm:ss");
                         if (event.occurredTime == null) {
@@ -852,8 +854,8 @@
                             '                            <div class="sourceInfo">\n' +
                             // '                                <span class="name">小林</span>\n' +
                             '                                <strong style="margin-left: 0px;">\n' +
-                            '                                <b>来源</b>\n' +
-                            '                                <span>' + eventSource + '</span>\n' +
+                            '                                <b>是否化解</b>\n' +
+                            '                                <span>' + isSettlement + '</span>\n' +
                             '                                </strong>\n' +
                             '                                <em>' + occurredTime + '</em>\n' +
                             '                            </div>\n' +
@@ -1509,7 +1511,7 @@
                     $("#resolve").hide();
                     successOperator();
                     reset();
-                    // findEvent("", true, 1);
+                    dataTogether();
                 }
             }
 
