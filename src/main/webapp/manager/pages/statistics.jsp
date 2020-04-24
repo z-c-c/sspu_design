@@ -204,16 +204,17 @@
                     if (data){
                         var str="";
                         for (var i=0; i<data.length; i++){
-                            var result="";
+                            var result = "";
                             if (data[i].exception != null) {
-                                result="异常"
+                                result = "异常"
                             } else {
-                                result="日志"
+                                result = "日志"
                             }
-                            str+=" <li style='height: 130px'>\n" +
+                            str += " <li style='height: 130px'>\n" +
                                 "                            <h3>" + data[i].userId + "</h3>\n" +
                                 "                            <p>日志时间：" + formatDatebox(new Date(data[i].operateTime), "-", true) + "</p>\n" +
                                 "                            <p>访问接口：" + data[i].requestUri + "</p>\n" +
+                                "                            <p>访问IP：" + data[i].remoteAddr + "</p>\n" +
                                 "                            <p style='overflow: hidden;text-overflow:ellipsis;white-space: nowrap;'>" + result + "内容：" + data[i].name + "</p>\n" +
                                 "                        </li>";
                             $("#messageul").append(str)

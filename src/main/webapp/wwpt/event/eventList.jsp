@@ -1222,6 +1222,8 @@
         $(".fs-label").eq(0).text("");
         $(".fs-label").eq(1).attr("title", "");
         $(".fs-label").eq(1).text("");
+        $(".fs-label").eq(2).attr("title", "");
+        $(".fs-label").eq(2).text("");
         $("#addEvent").show();
     }
 

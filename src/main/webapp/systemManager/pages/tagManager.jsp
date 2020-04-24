@@ -562,6 +562,7 @@
 <script>
 
     function del() {
+        // mmodalConfirm("","提示","删除！");
         mmodalConfirm("", "提示", "是否删除", function (e) {
             if (e) {
 

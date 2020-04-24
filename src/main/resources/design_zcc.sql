@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mac
+ Source Server         : localhost
  Source Server Type    : MySQL
  Source Server Version : 50728
  Source Host           : localhost:3306
@@ -11,50 +11,11 @@
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 15/04/2020 22:16:01
+ Date: 24/04/2020 16:50:40
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for dm_monitor_data_log
--- ----------------------------
-DROP TABLE IF EXISTS `dm_monitor_data_log`;
-CREATE TABLE `dm_monitor_data_log`
-(
-    `DATA_LOG_ID`    int(11) NOT NULL AUTO_INCREMENT,
-    `MODULE_NAME`    varchar(64)  DEFAULT NULL,
-    `MODULE_EXPLAIN` varchar(255) DEFAULT NULL,
-    `MODULE_CONTENT` varchar(255) DEFAULT NULL,
-    `START_TIME`     datetime     DEFAULT NULL,
-    `START_STATUS`   varchar(64)  DEFAULT NULL,
-    `END_TIME`       datetime     DEFAULT NULL,
-    `END_STATUS`     varchar(64)  DEFAULT NULL,
-    `RUN_TYPE`       varchar(64)  DEFAULT NULL,
-    PRIMARY KEY (`DATA_LOG_ID`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 2992
-  DEFAULT CHARSET = utf8;
-
--- ----------------------------
--- Table structure for dm_monitor_runtime_log
--- ----------------------------
-DROP TABLE IF EXISTS `dm_monitor_runtime_log`;
-CREATE TABLE `dm_monitor_runtime_log`
-(
-    `RUNTIME_LOG_ID` int(11) NOT NULL AUTO_INCREMENT,
-    `ACCESS_MODULE`  varchar(64)  DEFAULT NULL,
-    `ACCESS_CONTENT` text,
-    `ACCESS_URL`     varchar(255) DEFAULT NULL,
-    `ACCESS_TYPE`    varchar(64)  DEFAULT NULL,
-    `ACCESS_USER`    varchar(64)  DEFAULT NULL,
-    `ACCESS_TIME`    datetime     DEFAULT NULL,
-    `ACCESS_STATUS`  varchar(64)  DEFAULT NULL,
-    PRIMARY KEY (`RUNTIME_LOG_ID`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 581323
-  DEFAULT CHARSET = utf8 COMMENT ='系统运行监控日志';
 
 -- ----------------------------
 -- Table structure for dm_tag_object_info
@@ -218,28 +179,6 @@ CREATE TABLE `person_info`
   COLLATE = utf8_bin COMMENT ='人员信息表';
 
 -- ----------------------------
--- Table structure for place_info
--- ----------------------------
-DROP TABLE IF EXISTS `place_info`;
-CREATE TABLE `place_info`
-(
-    `ADDR_ID`        varchar(64) NOT NULL COMMENT '地址主键',
-    `ADDR_NAME`      varchar(64)     DEFAULT NULL COMMENT '地址名称',
-    `ADDR_LONGI`     decimal(16, 12) DEFAULT NULL COMMENT '经度',
-    `ADDR_LATI`      decimal(16, 12) DEFAULT NULL COMMENT '纬度',
-    `ADDR_TYPE`      varchar(64)     DEFAULT NULL COMMENT '地址类型（医院|学校等）',
-    `ADDR_DETAILED`  mediumtext COMMENT '地址详细描述',
-    `ADDR_DISTRICT`  varchar(255)    DEFAULT NULL COMMENT '区域',
-    `ADDR_TOWN`      varchar(255)    DEFAULT NULL COMMENT '街道',
-    `ADDR_STREET`    varchar(255)    DEFAULT NULL COMMENT '路',
-    `ADDR_COMMUNITY` varchar(255)    DEFAULT NULL COMMENT '小区',
-    `DATA_SOURCE`    varchar(255)    DEFAULT NULL COMMENT '数据来源',
-    `DATA_SOURCE_ID` varchar(255)    DEFAULT NULL COMMENT '数据来源id',
-    PRIMARY KEY (`ADDR_ID`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
--- ----------------------------
 -- Table structure for unit_info
 -- ----------------------------
 DROP TABLE IF EXISTS `unit_info`;
@@ -302,37 +241,6 @@ CREATE TABLE `warning_info`
   DEFAULT CHARSET = utf8 COMMENT ='预警表';
 
 -- ----------------------------
--- Table structure for xhww_fk_fxpg
--- ----------------------------
-DROP TABLE IF EXISTS `xhww_fk_fxpg`;
-CREATE TABLE `xhww_fk_fxpg`
-(
-    `TID`       varchar(64) NOT NULL,
-    `EVENT_ID`  varchar(64)   DEFAULT NULL,
-    `PGLX`      varchar(30)   DEFAULT NULL,
-    `PGLXMC`    varchar(30)   DEFAULT NULL,
-    `MDDL`      varchar(30)   DEFAULT NULL,
-    `MDDLMC`    varchar(30)   DEFAULT NULL,
-    `MDXL`      varchar(30)   DEFAULT NULL,
-    `MDXLMC`    varchar(30)   DEFAULT NULL,
-    `PGRQ`      datetime      DEFAULT NULL,
-    `PSBG`      varchar(2000) DEFAULT NULL,
-    `FXGS`      varchar(2000) DEFAULT NULL,
-    `FXDJ`      varchar(30)   DEFAULT NULL,
-    `FXDJMC`    varchar(30)   DEFAULT NULL,
-    `CSJY`      varchar(2000) DEFAULT NULL,
-    `PGPATH`    varchar(500)  DEFAULT NULL,
-    `BGBZDW`    varchar(200)  DEFAULT NULL,
-    `CTIME`     datetime      DEFAULT NULL,
-    `CUSER`     varchar(50)   DEFAULT NULL,
-    `MDJB`      varchar(10)   DEFAULT NULL,
-    `IS_DELETE` varchar(2)    DEFAULT NULL,
-    PRIMARY KEY (`TID`),
-    KEY `FK_Reference_8` (`EVENT_ID`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
--- ----------------------------
 -- Table structure for xhww_handle_log
 -- ----------------------------
 DROP TABLE IF EXISTS `xhww_handle_log`;
@@ -351,7 +259,7 @@ CREATE TABLE `xhww_handle_log`
     `IS_DELETE`          varchar(2)    DEFAULT '0' COMMENT '是否删除',
     PRIMARY KEY (`HANDLE_LOG_ID`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 26
+  AUTO_INCREMENT = 29
   DEFAULT CHARSET = utf8 COMMENT ='事件处置日志';
 
 SET FOREIGN_KEY_CHECKS = 1;

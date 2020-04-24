@@ -355,9 +355,9 @@
                 } else {
                     str1 += "<td width=\"90\"  style=\"color:#999999;\">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</td><td width=\"350\" >无</td></tr> ";
                 }
-                if (person.personDocuNum != "" && person.personDocuNum != null && person.personDocuNum != "null") {
-                    var re = secreting(person.personDocuNum);
-                    str1 += " <tr><td width=\"90\" style=\"color:#999999;\">证 &nbsp;件&nbsp;号</td><td width=\"350\">" + person.personDocuNum + "</td>";
+                if (person.personIdentityNo != "" && person.personIdentityNo != null && person.personIdentityNo != "null") {
+                    // var re = secreting(person.personDocuNum);
+                    str1 += " <tr><td width=\"90\" style=\"color:#999999;\">证 &nbsp;件&nbsp;号</td><td width=\"350\">" + person.personIdentityNo + "</td>";
                 } else {
                     str1 += " <tr><td width=\"90\" style=\"color:#999999;\">证 &nbsp;件&nbsp;号</td></td><td width=\"350\">无</td>";
                 }
