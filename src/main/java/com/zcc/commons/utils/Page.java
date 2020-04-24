@@ -4,7 +4,7 @@ import com.zcc.exceptions.MyException;
 
 /**
  * @author zcc
- * 分页工具
+ * 分页工具类
  */
 public class Page {
 

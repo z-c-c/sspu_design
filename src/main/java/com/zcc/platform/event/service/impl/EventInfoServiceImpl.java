@@ -173,13 +173,15 @@ public class EventInfoServiceImpl implements EventInfoService {
     }
 
     private void formatTime(Map<String, Object> map) {
-        if (StringUtil.isValidStr(StringUtil.safeToString(map.get("occurredTime")))) {
-            map.put("beginTime", StringUtil.safeToString(map.get("occurredTime")).substring(0, 10));
-            map.put("endTime", StringUtil.safeToString(map.get("occurredTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
+        if (StringUtil.isValidStr(StringUtil.safeToString(map.get(ConstUtil.OCCURRED_TIME)))) {
+            map.put(ConstUtil.BEGIN_TIME, StringUtil.safeToString(map.get(ConstUtil.OCCURRED_TIME)).substring(0, 10));
+            map.put(ConstUtil.END_TIME,
+                    StringUtil.safeToString(map.get(ConstUtil.OCCURRED_TIME)).substring(StringUtil.safeToString(map.get(
+                            ConstUtil.OCCURRED_TIME)).length() - 10));
         }
-        if (StringUtil.isValidStr(StringUtil.safeToString(map.get("settlementTime")))) {
-            map.put("beginTime", StringUtil.safeToString(map.get("settlementTime")).substring(0, 10));
-            map.put("endTime", StringUtil.safeToString(map.get("settlementTime")).substring(StringUtil.safeToString(map.get("occurredTime")).length() - 10));
+        if (StringUtil.isValidStr(StringUtil.safeToString(map.get(ConstUtil.SETTLEMENT_TIME)))) {
+            map.put(ConstUtil.BEGIN_TIME, StringUtil.safeToString(map.get(ConstUtil.SETTLEMENT_TIME)).substring(0, 10));
+            map.put(ConstUtil.END_TIME, StringUtil.safeToString(map.get(ConstUtil.SETTLEMENT_TIME)).substring(StringUtil.safeToString(map.get(ConstUtil.OCCURRED_TIME)).length() - 10));
         }
     }
 

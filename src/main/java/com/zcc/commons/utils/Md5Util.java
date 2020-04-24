@@ -4,8 +4,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * @author zcc
+ * MD5工具类
  */
-public class MD5 {
+public class Md5Util {
 
     public static final String SOIL = "@3d823?>!@#!DA980¥……l03；。SDF@D¥S@@#C；oe·wfdf、QS~@E@$#${{";
 

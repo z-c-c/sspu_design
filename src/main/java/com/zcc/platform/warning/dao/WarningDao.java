@@ -64,7 +64,7 @@ public interface WarningDao {
      * 查找预警
      *
      * @param noticeName       预警名称
-     * @param noticeObjectType
+     * @param noticeObjectType 预警对象类型
      * @param begin            预警开始时间 yyyy-MM-dd
      * @param end              预警结束时间 yyyy-MM-dd
      * @param tags             预警标签
@@ -77,7 +77,7 @@ public interface WarningDao {
      * 查找预警
      *
      * @param noticeName       预警名称
-     * @param noticeObjectType
+     * @param noticeObjectType 预警对象类型
      * @param begin            预警开始时间 yyyy-MM-dd
      * @param end              预警结束时间 yyyy-MM-dd
      * @param tags             预警标签

@@ -4,6 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * @author zcc
+ * 自定义Log注解
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

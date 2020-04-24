@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
  * @author zcc
+ * 日期格式化工具类
  */
 public class DateFormat {
 

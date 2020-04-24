@@ -66,8 +66,8 @@ public interface EventRelationDao {
     /**
      * 查找事件关联单位
      *
-     * @param eventId
-     * @return
+     * @param eventId eventId
+     * @return list
      */
     List findEventLinkUnit(String eventId);
 
@@ -83,9 +83,9 @@ public interface EventRelationDao {
     /**
      * 修改关联关系
      *
-     * @param relationTime
-     * @param eventId
-     * @param objectId
+     * @param relationTime relationTime
+     * @param eventId      eventId
+     * @param objectId     objectId
      */
     void updateEventRelationObject(@Param("eventId") String eventId, @Param("objectId") String objectId, @Param("relationTime") Date relationTime);
 

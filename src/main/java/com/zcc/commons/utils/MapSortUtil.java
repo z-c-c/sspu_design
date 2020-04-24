@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author zcc
+ * Map排序工具类
  */
 public class MapSortUtil {
     private static Comparator<Map.Entry> comparatorByKeyAsc = (Map.Entry o1, Map.Entry o2) -> {

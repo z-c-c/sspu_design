@@ -61,9 +61,6 @@ public class LogEntity implements Serializable {
     private String userId;
 
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getLogId() {
         return logId;

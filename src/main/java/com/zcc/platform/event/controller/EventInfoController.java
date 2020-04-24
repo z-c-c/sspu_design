@@ -85,7 +85,7 @@ public class EventInfoController {
 
     @Log(name = "事件处置统计")
     @RequestMapping(value = "/handleCount", method = RequestMethod.GET)
-    public ResultBean HandleCount() {
+    public ResultBean handleCount() {
         HashMap map = new HashMap<>(2);
         map.put("isHandle", "1");
         int handled = eventInfoService.find(map).size();

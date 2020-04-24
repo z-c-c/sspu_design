@@ -35,7 +35,7 @@ public interface TagObjectRelationService {
     /**
      * 删除对象的所有标签
      *
-     * @param objectId
+     * @param objectId objectId
      */
     void delTagForObject(String objectId);
 }

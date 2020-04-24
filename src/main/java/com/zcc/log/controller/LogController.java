@@ -1,4 +1,4 @@
-package com.zcc.log;
+package com.zcc.log.controller;
 
 import com.zcc.commons.utils.ResultBean;
 import com.zcc.commons.utils.TimeUtil;

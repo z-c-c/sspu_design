@@ -13,13 +13,14 @@ import java.util.List;
 
 /**
  * @author zcc
+ * 时间处理工具类
  */
 public class TimeUtil {
     /**
      * 获取一个月的第一天
      *
      * @param date eg:2020-01
-     * @return
+     * @return Date
      */
     public static Date getMonthFirstDay(String date) {
         DateFormat format = new SimpleDateFormat("yyyy-MM");
@@ -38,9 +39,9 @@ public class TimeUtil {
     /**
      * 获取指定日期的几个月前的第一天
      *
-     * @param index
-     * @param date
-     * @return
+     * @param index index
+     * @param date  yyyy-MM
+     * @return String
      */
     public static String getBeforeMonthFirstDay(String date, int index) {
         return getDateStr("yyyy-MM-dd HH:mm:ss", getBeforeMonthFirstDaytoDate(date, index));
@@ -49,9 +50,9 @@ public class TimeUtil {
     /**
      * 获取指定日期的几个月前的第一天
      *
-     * @param index
+     * @param index index
      * @param date  yyyy-MM
-     * @return
+     * @return Date
      */
     public static Date getBeforeMonthFirstDaytoDate(String date, int index) {
         DateFormat format = new SimpleDateFormat("yyyy-MM");
@@ -91,9 +92,9 @@ public class TimeUtil {
     /**
      * 获取指定日期几个月前月的最后一刻
      *
-     * @param index ???????
-     * @param date
-     * @return
+     * @param index index
+     * @param date yyyy-MM
+     * @return Date
      */
     public static Date getBeforeMonthEndDay(String date, int index) {
         DateFormat format = new SimpleDateFormat("yyyy-MM");
@@ -114,7 +115,7 @@ public class TimeUtil {
      *
      * @param format 时间格式
      * @param date   时间
-     * @return
+     * @return String
      */
     public static String getDateStr(String format, Date date) {
         if (date == null) {
@@ -156,8 +157,8 @@ public class TimeUtil {
     /**
      * 获取过去n天的时间
      *
-     * @param index
-     * @return
+     * @param index index
+     * @return Date
      */
     public static Date getDayBefore(int index) {
         LocalDateTime now = LocalDateTime.now();
@@ -168,8 +169,8 @@ public class TimeUtil {
     /**
      * 获取过去n天的日期格式化后的List
      *
-     * @param index
-     * @return
+     * @param index index
+     * @return List
      */
     public static List<String> getDayBeforeFormat(int index, String format) {
         List<String> dateList = new ArrayList<>(7);

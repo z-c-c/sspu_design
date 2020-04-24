@@ -45,7 +45,7 @@ public interface UnitService {
     /**
      * 查找所有单位
      *
-     * @return
+     * @return list
      */
     List<UnitEntity> findAll();
 

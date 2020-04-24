@@ -1,6 +1,6 @@
 package com.zcc.commons.controller;
 
-import com.zcc.commons.utils.MD5;
+import com.zcc.commons.utils.Md5Util;
 import com.zcc.commons.utils.ResultBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ public class KeyController {
     @GetMapping("/")
     public ResultBean getKey() {
         Map<String, String> map = new HashMap<>(2);
-        map.put("publicKey", MD5.SOIL);
+        map.put("publicKey", Md5Util.SOIL);
         String key = UUID.randomUUID().toString();
         this.setPrivateKey(key);
         map.put("privateKey", key);

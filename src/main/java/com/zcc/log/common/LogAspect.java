@@ -23,6 +23,7 @@ import java.util.Map;
 
 /**
  * @author zcc
+ * 系统日志切面
  */
 @Aspect
 @Component
@@ -61,8 +62,8 @@ public class LogAspect {
         BEGIN_TIME_THREAD_LOCAL.set(beginTime);
         //这里日志级别为debug
         if (logger.isDebugEnabled()) {
-//            logger.debug(" {}  访问接口: {}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-//                    .format(beginTime), request.getRequestURI());
+            logger.debug(" {}  访问接口: {}", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+                    .format(beginTime), request.getRequestURI());
         }
         //注解中的name对应的值
         String name = getAnnotationName(joinPoint);
@@ -108,14 +109,14 @@ public class LogAspect {
         //结束时间
         long endTime = System.currentTimeMillis();
         if (logger.isDebugEnabled()) {
-//            logger.debug("{} 接口访问结束 URI: {}  耗时： {}mm   最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
-//                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime),
-//                    request.getRequestURI(),
-//                    endTime - beginTime,
-//                    Runtime.getRuntime().maxMemory() / 1024 / 1024,
-//                    Runtime.getRuntime().totalMemory() / 1024 / 1024,
-//                    Runtime.getRuntime().freeMemory() / 1024 / 1024,
-//                    (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024);
+            logger.debug("{} 接口访问结束 URI: {}  耗时： {}mm   最大内存: {}m  已分配内存: {}m  已分配内存中的剩余空间: {}m  最大可用内存: {}m",
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime),
+                    request.getRequestURI(),
+                    endTime - beginTime,
+                    Runtime.getRuntime().maxMemory() / 1024 / 1024,
+                    Runtime.getRuntime().totalMemory() / 1024 / 1024,
+                    Runtime.getRuntime().freeMemory() / 1024 / 1024,
+                    (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory() + Runtime.getRuntime().freeMemory()) / 1024 / 1024);
         }
         LogEntity logEntity = LOG_THREAD_LOCAL.get();
         logEntity.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime));
@@ -129,8 +130,6 @@ public class LogAspect {
             logEntity.setUserId(currentPerson.getUserName());
         }
 
-        // 通过线程池来执行日志保存
-        //threadPoolT askExe  cu  to r.e x e c u te(new Save LogT hread(log Entity , logService));
         logService.save(logEntity);
         BEGIN_TIME_THREAD_LOCAL.remove();
         LOG_THREAD_LOCAL.remove();
@@ -150,8 +149,6 @@ public class LogAspect {
         log.setException(e.toString());
         long endTime = System.currentTimeMillis();
         log.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(endTime));
-
-//        threadPoolTaskExecutor.execute(new SaveLogThread(log,logService));
         logService.save(log);
         BEGIN_TIME_THREAD_LOCAL.remove();
         LOG_THREAD_LOCAL.remove();

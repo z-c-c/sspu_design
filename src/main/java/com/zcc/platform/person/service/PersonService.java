@@ -12,39 +12,39 @@ public interface PersonService {
     /**
      * 保存人员
      *
-     * @param personEntity
-     * @param tags
-     * @return
+     * @param personEntity personEntity
+     * @param tags         tags
+     * @return Id
      */
     String save(PersonEntity personEntity, String tags);
 
     /**
      * 保存人员
      *
-     * @param personEntity
-     * @return
+     * @param personEntity  personEntity
+     * @return Id
      */
     String save(PersonEntity personEntity);
 
     /**
      * 删除人员
      *
-     * @param personId
+     * @param personId personId
      */
     void del(String personId);
 
     /**
      * 查找人员
      *
-     * @param personId
-     * @return
+     * @param personId personId
+     * @return PersonEntity
      */
     PersonEntity findById(String personId);
 
     /**
      * 查找全部人员
      *
-     * @return
+     * @return list
      */
     List<PersonEntity> findAll();
 
@@ -59,36 +59,36 @@ public interface PersonService {
     /**
      * 模糊查找
      *
-     * @param param
-     * @return
+     * @param param param
+     * @return list
      */
     List<PersonEntity> find(String param);
 
     /**
      * 模糊查找+标签查找
      *
-     * @param param
-     * @param tags
-     * @return
+     * @param param param
+     * @param tags tags
+     * @return list
      */
     List<PersonEntity> find(String param, String tags);
 
     /**
      * 模糊查找+分页
      *
-     * @param param
-     * @param page
-     * @return
+     * @param param param
+     * @param page page
+     * @return list
      */
     List<PersonEntity> find(String param, Page page);
 
     /**
      * 模糊查找+标签+分页
      *
-     * @param param
-     * @param page
-     * @param tags
-     * @return
+     * @param param param
+     * @param page page
+     * @param tags tags
+     * @return list
      */
     List<PersonEntity> find(String param, Page page, String tags);
 
@@ -112,7 +112,7 @@ public interface PersonService {
     /**
      * 数据聚合
      *
-     * @return
+     * @return list
      */
     List<PersonEntity> dateTogetherAll();
 
@@ -120,7 +120,7 @@ public interface PersonService {
      * 数据聚合
      *
      * @param page page
-     * @return
+     * @return list
      */
     List<PersonEntity> dateTogetherAll(Page page);
 }

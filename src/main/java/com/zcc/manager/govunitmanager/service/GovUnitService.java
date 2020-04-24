@@ -15,19 +15,20 @@ public interface GovUnitService {
      * 添加政府部门
      *
      * @param govUnitEntity govUnit
-     * @return
+     * @return Id
      */
     Integer add(GovUnitEntity govUnitEntity);
 
     /**
      * 删除政府部门
      *
-     * @param id
+     * @param id id
      */
     void delete(int id);
 
     /**
      * 修改政府部门
+     * @param govUnitEntity  govUnitEntity
      */
     void update(GovUnitEntity govUnitEntity);
 
@@ -56,15 +57,16 @@ public interface GovUnitService {
     /**
      * 删除事件的责任单位
      *
-     * @param eventId
+     * @param  eventId eventId
      */
     void delGovRelation(String eventId);
 
     /**
      * 查找事件的责任单位
      *
-     * @param eventId
-     * @return
+     * @param eventId eventId
+     * @param type 主办/委办
+     * @return GovUnitEntity
      */
     GovUnitEntity findGovRelationUnit(String eventId, String type);
 }

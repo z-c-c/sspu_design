@@ -39,7 +39,7 @@ public interface LogService {
      *
      * @param begin 开始时间 yyyy-MM-dd
      * @param end   结束时间 yyyy-MM-dd
-     * @return
+     * @return Map
      */
     Map<String, Object> countByDay(Date begin, Date end);
 }

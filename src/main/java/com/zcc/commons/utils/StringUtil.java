@@ -10,6 +10,12 @@ public class StringUtil {
         return str != null && !"".equals(str);
     }
 
+    /**
+     * 转换为String
+     *
+     * @param object object
+     * @return String
+     */
     public static String safeToString(Object object) {
         if (object == null) {
             return "";

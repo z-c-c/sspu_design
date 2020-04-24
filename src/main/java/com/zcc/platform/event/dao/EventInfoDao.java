@@ -73,8 +73,8 @@ public interface EventInfoDao {
     /**
      * 查找事件（标签）
      *
-     * @param map
-     * @param page
+     * @param map  map
+     * @param page page
      * @return list
      */
     List<EventInfoEntity> findByParamWithTag(@Param("Map") Map<String, Object> map, @Param("Page") Page page);
@@ -82,7 +82,7 @@ public interface EventInfoDao {
     /**
      * 查找事件（标签）
      *
-     * @param map
+     * @param map map
      * @return
      */
     List<EventInfoEntity> findByParamWithTagNoPage(@Param("Map") Map<String, Object> map);
@@ -123,8 +123,7 @@ public interface EventInfoDao {
     /**
      * 添加处置日志
      *
-     * @param handleLogEntity
-     * @return
+     * @param handleLogEntity handleLogEntity
      */
     void addEventHandleLog(HandleLogEntity handleLogEntity);
 
@@ -132,40 +131,39 @@ public interface EventInfoDao {
     /**
      * 修改处置日志
      *
-     * @param handleLogEntity
-     * @return
+     * @param handleLogEntity handleLogEntity
      */
     void updateEventHandleLog(HandleLogEntity handleLogEntity);
 
     /**
      * 查找处置日志
      *
-     * @param eventId
-     * @param page
-     * @return
+     * @param eventId eventId
+     * @param page page
+     * @return list
      */
     List<HandleLogEntity> findEventHandleLogWithPage(@Param("eventId") String eventId, @Param("page") Page page);
 
     /**
      * 查找处置日志
      *
-     * @param eventId
-     * @return
+     * @param eventId eventId
+     * @return list
      */
     List<HandleLogEntity> findEventHandleLog(String eventId);
 
     /**
      * 查找处置日志
      *
-     * @param handleLogId
-     * @return
+     * @param handleLogId handleLogId
+     * @return HandleLogEntity
      */
     HandleLogEntity findHandleLog(Integer handleLogId);
 
     /**
      * 删除处置日志
      *
-     * @param handleLogId
+     * @param handleLogId handleLogId
      */
     void delHandleLog(int handleLogId);
 

@@ -104,21 +104,21 @@ public class FileUtil {
      * 文件下载
      *
      * @param response
-     * @param FileName 文件路径
+     * @param fileName 文件路径
      * @return
      */
-    public static void downLoad(HttpServletResponse response, HttpServletRequest request, String FileName) {
-        if (FileName != null) {
+    public static void downLoad(HttpServletResponse response, HttpServletRequest request, String fileName) {
+        if (fileName != null) {
 
 
             String path = request.getSession().getServletContext().getRealPath("/uploads/");
             //获取当前系统下的文件分隔符
             String property = System.getProperty("file.separator");
-            path = path + property + FileName;
+            path = path + property + fileName;
             //设置文件路径
             File file = new File(path);
             //文件名
-            String name = FileName;
+            String name = fileName;
             if (file.exists()) {
                 response.setHeader("content-type", "application/octet-stream");
                 response.setContentType("application/octet-stream");

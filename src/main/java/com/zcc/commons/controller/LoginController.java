@@ -1,7 +1,7 @@
 package com.zcc.commons.controller;
 
 import com.zcc.commons.utils.ConstUtil;
-import com.zcc.commons.utils.MD5;
+import com.zcc.commons.utils.Md5Util;
 import com.zcc.log.annotation.Log;
 import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import com.zcc.manager.usermanager.service.UserInfoService;
@@ -19,6 +19,7 @@ import java.util.Map;
 
 /**
  * @author zcc
+ * 登录控制器
  */
 @Controller
 @RequestMapping("/login")
@@ -39,7 +40,7 @@ public class LoginController {
         if (userInfoEntity != null) {
 
             //密码错误
-            if (!MD5.verify(userInfoEntity.getPassword(), KeyController.getPrivateKey(), passWord)) {
+            if (!Md5Util.verify(userInfoEntity.getPassword(), KeyController.getPrivateKey(), passWord)) {
                 map.put("result", "passError");
             } else {
                 userInfoEntity.setPassword(null);

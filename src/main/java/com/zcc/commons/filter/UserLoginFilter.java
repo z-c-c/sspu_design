@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 
 /**
  * @author zcc
+ * 登录过滤器
  */
 public class UserLoginFilter implements Filter {
 

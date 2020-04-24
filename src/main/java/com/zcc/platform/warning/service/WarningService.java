@@ -35,8 +35,8 @@ public interface WarningService {
     /**
      * 删除预警
      *
-     * @param noticeObjectType
-     * @param noticeObjectId
+     * @param noticeObjectType noticeObjectType
+     * @param noticeObjectId   noticeObjectId
      */
     void delWarningForObject(String noticeObjectType, String noticeObjectId);
 
@@ -88,7 +88,7 @@ public interface WarningService {
      *
      * @param noticeObjectId   预警对象Id
      * @param noticeObjectType 预警对象Type
-     * @return
+     * @return WarningEntity
      */
     WarningEntity findWarningByNoticeObjectIdAndType(String noticeObjectId, String noticeObjectType);
 
@@ -103,7 +103,7 @@ public interface WarningService {
      * 查找预警
      *
      * @param page page
-     * @return
+     * @return list
      */
     List<WarningEntity> findAll(Page page);
 

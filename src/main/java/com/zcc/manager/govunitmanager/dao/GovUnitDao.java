@@ -30,6 +30,8 @@ public interface GovUnitDao {
 
     /**
      * 修改政府部门
+     *
+     * @param govUnitEntity govUnitEntity
      */
     void update(GovUnitEntity govUnitEntity);
 
@@ -58,7 +60,7 @@ public interface GovUnitDao {
     /**
      * 删除事件的责任单位
      *
-     * @param eventId
+     * @param eventId eventId
      */
     void delGovRelation(String eventId);
 
@@ -66,7 +68,8 @@ public interface GovUnitDao {
      * 查找事件的责任单位
      *
      * @param eventId
-     * @return
+     * @param type 主办/委办
+     * @return GovUnitEntity
      */
     GovUnitEntity findGovRelationUnit(@Param("eventId") String eventId, @Param("type") String type);
 }

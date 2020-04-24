@@ -87,18 +87,18 @@ public interface EventInfoService {
     /**
      * 查找事件关联对象（只提供对象的简略信息）
      *
-     * @param eventId
-     * @param objectType
-     * @return
+     * @param eventId    eventId
+     * @param objectType objectType
+     * @return list
      */
     List findEventRelationObjectSimp(String eventId, String objectType);
 
     /**
      * 查找对象关联的事件
      *
-     * @param objectId
-     * @param objectType
-     * @return
+     * @param objectId objectId
+     * @param objectType objectType
+     * @return list
      */
     List<EventInfoEntity> findObjectLinkEvent(String objectId, String objectType);
 
@@ -146,49 +146,49 @@ public interface EventInfoService {
     /**
      * 保存处置日志
      *
-     * @param handleLogEntity
-     * @param request
-     * @return
+     * @param handleLogEntity handleLogEntity
+     * @param request HttpServletRequest
+     * @return id
      */
     int saveEventHandleLog(HandleLogEntity handleLogEntity, HttpServletRequest request);
 
     /**
      * 查找处置日志
      *
-     * @param eventId
-     * @param page
-     * @return
+     * @param eventId eventId
+     * @param page Page
+     * @return list
      */
     List<HandleLogEntity> findEventHandleLog(String eventId, Page page);
 
     /**
      * 查找处置日志
      *
-     * @param eventId
-     * @return
+     * @param eventId eventId
+     * @return list
      */
     List<HandleLogEntity> findEventHandleLog(String eventId);
 
     /**
      * 查找处置日志
      *
-     * @param handleLogId
-     * @return
+     * @param handleLogId handleLogId
+     * @return HandleLogEntity
      */
     HandleLogEntity findHandleLog(Integer handleLogId);
 
     /**
      * 删除处置日志
      *
-     * @param handleLogId
+     * @param handleLogId handleLogId
      */
     void delHandleLog(int handleLogId);
 
     /**
      * 事件化解存档
      *
-     * @param request
-     * @param eventInfoEntity
+     * @param request HttpServletRequest
+     * @param eventInfoEntity eventInfoEntity
      */
     void settlement(HttpServletRequest request, EventInfoEntity eventInfoEntity);
 

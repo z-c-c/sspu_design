@@ -102,7 +102,7 @@
         </property>
     </bean>
 
-
+    <!-- 定时任务-->
     <task:scheduled-tasks>
         <task:scheduled ref="warningServiceImpl" method="autoWarning" cron="0 0 0/2 * * ?"/>
     </task:scheduled-tasks>

@@ -30,6 +30,12 @@ public class ConstUtil {
     public static final String UNIT_TAG = "unit";
     public static final String TAGS = "tags";
 
+    public static final String OCCURRED_TIME = "occurredTime";
+    public static final String BEGIN_TIME = "beginTime";
+    public static final String END_TIME = "endTime";
+    public static final String SETTLEMENT_TIME = "settlementTime";
+
+
     public static UserInfoEntity currentPerson(HttpServletRequest request) {
         return (UserInfoEntity) request.getSession().getAttribute(CURRENT_PERSON);
     }

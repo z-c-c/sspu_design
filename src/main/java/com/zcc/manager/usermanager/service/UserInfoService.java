@@ -18,7 +18,7 @@ public interface UserInfoService {
      * 根据用户名查找
      *
      * @param userName userName
-     * @return
+     * @return UserInfoEntity
      */
     UserInfoEntity findByUserName(String userName);
 
@@ -32,16 +32,16 @@ public interface UserInfoService {
     /**
      * 修改用户
      *
-     * @param userInfoEntity
+     * @param userInfoEntity userInfoEntity
      */
     void update(UserInfoEntity userInfoEntity);
 
     /**
      * 查找
      *
-     * @param name
-     * @param type
-     * @return
+     * @param name name
+     * @param type type
+     * @return UserInfoEntity
      */
     UserInfoEntity findByNameAndType(String name, String type);
 
