@@ -69,48 +69,12 @@
     </style>
     <script type="text/javascript">
 
-        function getTitle() {
-            <%--$.ajax({--%>
-            <%--    url: "/indexController/initTitle",--%>
-            <%--    async: false,--%>
-            <%--    type: "post",--%>
-            <%--    data: {--%>
-            <%--        &lt;%&ndash;userId: '<%=userInfo.getUserId()%>'&ndash;%&gt;--%>
-            <%--    },--%>
-            <%--    dataType: "json",--%>
-            <%--    success: function (res) {--%>
-            <%--        if (res.code === '200') {--%>
-            <%--            var titleArr = res.data;--%>
-            <%--            console.log(titleArr)--%>
-            <%--            if (titleArr.length > 0) {--%>
-            <%--                $(".header-nav").empty();--%>
-            <%--                var html = "";--%>
-            <%--                for (var i = 0; i < titleArr.length; i++) {--%>
-            <%--                    if (i == 0) {--%>
-            <%--                        //--%>
-            <%--                        //href=\"javascript:void(0);\" onclick=\"goUrl('"+titleArr[i].url+"')\"--%>
-            <%--                        html += "<li><a class=\"active\" href=\"" + titleArr[i].url + "\" target=\"main_frame\">" + titleArr[i].name + "</a></li>";--%>
-            <%--                    } else {--%>
-            <%--                        html += "<li><a  href=\"" + titleArr[i].url + "\"  target=\"main_frame\">" + titleArr[i].name + "</a></li>";--%>
-            <%--                    }--%>
-            <%--                }--%>
-            <%--                $(".header-nav").html(html);--%>
-            <%--            }--%>
-            <%--        } else {--%>
-            <%--            $.messager.alert('Warning',res.message);--%>
-            <%--        }--%>
-            <%--    }--%>
-            <%--})--%>
-        }
 
         function goUrl(url) {
-            // window.location = url;
-          // window.open(url,"main_frame" );
             openNewWindow(url,"main_frame");
         }
 
         $(function () {
-            getTitle();
 
             /*导航切换*/
             $(".header-nav a").click(function () {
@@ -177,7 +141,6 @@
     <div class="dropdown-link header-box">
         <h1><%=currentPerson.getUserName()%><span></span></h1>
         <ul>
-            <li><a onclick="logOut()">退出登录</a></li>
             <%
                 if (currentPerson.getType().equals("1")) {
             %>
@@ -185,14 +148,13 @@
             <%
                 }
             %>
+            <li><a onclick="logOut()">退出登录</a></li>
         </ul>
     </div>
     <ul class="header-nav">
-        <%--        <li><a href="./index.jsp" target="main_frame">首页</a></li>--%>
         <li><a class="active" href="./event/eventList" target="main_frame">事件处理</a></li>
         <li><a href="./person/personList" target="main_frame">人员管理</a></li>
         <li><a href="./unit/unitList" target="main_frame">单位管理</a></li>
-        <%--        <li><a href="javascript:;" target="main_frame">关系管理</a></li>--%>
         <li><a href="./riskwarning/warningList" target="main_frame">风险洞察</a></li>
         <li><a href="./riskwarning/warningMap" target="main_frame">态势分析</a></li>
 
