@@ -252,7 +252,7 @@
 
 
             // 弹窗关闭
-            $(".kuang i.close").click(function(){
+            $(".kuang i.close").click(function () {
                 $(".tanBox").fadeOut();
             })
             // 弹框滚动条
@@ -260,6 +260,17 @@
         })
 
 
+        function update() {
+            $.ajax({
+                type: 'get',
+                url: "/warnings/auto",
+                success: function (result) {
+                    if (result.message == 'success') {
+                        eventList(true, 1, '');
+                    }
+                }
+            })
+        }
     </script>
 </head>
 <body>
@@ -282,6 +293,7 @@
                         </div>
                         <button class="btn1" onclick="eventList(true,1,'')">搜索</button>
                         <button class="btn2" onclick="chongzhi()">重置</button>
+                        <button class="btn2" onclick="update()">刷新预警</button>
                     </div>
                 </div>
                 <div class="labelSearch">

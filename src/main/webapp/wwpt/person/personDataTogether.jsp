@@ -252,42 +252,6 @@
         </div>
 
         <div class="peoBox" id="personList">
-            <%--            <div class="pubBlock">--%>
-            <%--                <div class="peoImg">--%>
-            <%--                    <img src="../images/people.png" alt="">--%>
-            <%--                </div>--%>
-            <%--                <div class="peoInfo">--%>
-            <%--                    <div>--%>
-            <%--                        <span class="name">孙海</span>--%>
-            <%--                        <div class="label">--%>
-            <%--                            <span class="green">劳资纠纷</span>--%>
-            <%--                            <span class="blue">有市监类行政处罚史</span>--%>
-            <%--                            <span class="yellow">暴力前科</span>--%>
-            <%--                            <span class="green">劳资纠纷</span>--%>
-            <%--                            <span class="blue">有市监类行政处罚史</span>--%>
-            <%--                            <span class="yellow">暴力前科</span>--%>
-            <%--                        </div>--%>
-            <%--                    </div>--%>
-            <%--                    <p>--%>
-            <%--                        <span>姓名：</span>--%>
-            <%--                        <strong>男</strong>--%>
-            <%--                        <span class="ml-60">电话：</span>--%>
-            <%--                        <strong>13523523232</strong>--%>
-            <%--                    </p>--%>
-            <%--                    <p>--%>
-            <%--                        <span>证件号：</span>--%>
-            <%--                        <strong>321009********1111</strong>--%>
-            <%--                    </p>--%>
-            <%--                    <p>--%>
-            <%--                        <span>户籍地：</span>--%>
-            <%--                        <strong>上海市徐汇区</strong>--%>
-            <%--                    </p>--%>
-            <%--                    <p>--%>
-            <%--                        <span>居住地址：</span>--%>
-            <%--                        <strong>上海市徐汇区田林14村41号柳州路宜山路</strong>--%>
-            <%--                    </p>--%>
-            <%--                </div>--%>
-            <%--            </div>--%>
         </div>
         <div id="pagination" class="pagination" style="left:30%"></div>
     </div>

@@ -272,7 +272,7 @@
                         '                    <dt>\n' +
                         '                    <a onclick="getEventDetail(\'' + result.data.events[i].eventId + '\')">' + judgeNull(result.data.events[i].eventName) + '</a>\n' +
                         '                    <div class="icon">\n' +
-                        '                        <i class="warning1"</i>\n' +
+                        // '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
                         '                        </dt>\n' +
                         '                        <dd class="time">' + date + '</dd>\n' +
@@ -342,7 +342,7 @@
                         '                    <dt>\n' +
                         '                    <a onclick="getPersonDetail(\'' + result.data.data[i].personId + '\')">' + judgeNull(result.data.data[i].personName) + '</a>\n' +
                         '                    <div class="icon">\n' +
-                        '                        <i class="warning1"</i>\n' +
+                        // '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
                         '                        </dt>\n' +
                         '                        <dd class="time">' + judgeNull(result.data.data[i].phoneNo) + '</dd>\n' +
@@ -412,7 +412,7 @@
                         '                    <dt>\n' +
                         '                    <a onclick="getUnitDetail(\'' + result.data.data[i].unitId + '\')">' + judgeNull(result.data.data[i].unitName) + '</a>\n' +
                         '                    <div class="icon">\n' +
-                        '                        <i class="warning1"</i>\n' +
+                        // '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
                         '                        </dt>\n' +
                         '                        <dd class="time">' + judgeNull(result.data.data[i].addr) + '</dd>\n' +
@@ -486,7 +486,7 @@
                         '                    <dt>\n' +
                         '                    <a onclick="getWarningDetail(\'' + result.data.data[i].noticeId + '\')">' + judgeNull(result.data.data[i].noticeName) + '</a>\n' +
                         '                    <div class="icon">\n' +
-                        '                        <i class="warning1"</i>\n' +
+                        // '                        <i class="warning1"</i>\n' +
                         '                        </div>\n' +
                         '                        </dt>\n' +
                         '                        <dd class="time">' + date + '</dd>\n' +
@@ -1194,15 +1194,15 @@
                         '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line2-inner1\'>身份证号:</div>\n' +
                         '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(personIdentityNo) + '\t</div>\n' +
-                        '    </div>\n' +
-                        '    <div class="ditu-popup2-line1">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
-                        '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + phoneNo + '</span></div>\n' +
-                        '    </div>\n' +
-                        '    <div class="ditu-popup2-line1">\n' +
-                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
-                        '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(liveAddr) + '</span></div>\n' +
-                        '    </div>\n';
+                        '    </div>\n' + E
+                    '    <div class="ditu-popup2-line1">\n' +
+                    '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                    '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + judgeNull(phoneNo) + '</span></div>\n' +
+                    '    </div>\n' +
+                    '    <div class="ditu-popup2-line1">\n' +
+                    '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                    '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(liveAddr) + '</span></div>\n' +
+                    '    </div>\n';
 
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);

@@ -1603,6 +1603,9 @@
                     if (handleContent == null || handleContent.trim().length == 0) {
                         handleContent = "无"
                     }
+                    if (handleContent.length >= 20) {
+                        handleContent = handleContent.substr(0, 20) + '...';
+                    }
                     var handleUnit = rows[i].handleUnit;
                     if (handleUnit == null || handleUnit.trim().length == 0) {
                         handleUnit = "无"
