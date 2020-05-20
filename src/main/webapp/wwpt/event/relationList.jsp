@@ -77,16 +77,16 @@
                     getRelations(objectid)
                 }
             });
-            myEchart.on('contextmenu', function (param) {
-                param.event.event.preventDefault();
-                if (param.data.objectType == "person") {
-                    var url = '../person/personDetail?paId=' + param.data.OBJECTID + '';
-                    openNewWindow(url);
-                } else if (param.data.objectType == "unit") {
-                    var url = '../common/unitDetail?unitId=' + param.data.OBJECTID + '';
-                    openNewWindow(url);
-                }
-            });
+            /*   myEchart.on('contextmenu', function (param) {
+                   param.event.event.preventDefault();
+                   if (param.data.objectType == "person") {
+                       var url = '../person/personDetail?paId=' + param.data.OBJECTID + '';
+                       openNewWindow(url);
+                   } else if (param.data.objectType == "unit") {
+                       var url = '../common/unitDetail?unitId=' + param.data.OBJECTID + '';
+                       openNewWindow(url);
+                   }
+               });*/
         }
 
         $(function () {
