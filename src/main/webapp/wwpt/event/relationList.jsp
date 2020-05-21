@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>关系图谱</title>
 
     <script type="text/javascript" src="../common/w_common_method.js"></script>
     <script type="text/javascript" src="/wwpt/js/jquery.min.js"></script>

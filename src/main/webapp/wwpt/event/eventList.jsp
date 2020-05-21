@@ -343,11 +343,11 @@
                         <td width="30%">
                             <gov:gov id="handleUnit" clazz="vV-drop" style="width:245px;height:28px;"></gov:gov>
                         </td>
-                        <td width="20%" class="center">处置人</td>
-                        <td width="30%">
-                            <input id="handleUser" class="vV-ipt" style="width:245px;height:28px;"/>
-                        </td>
-                    </tr>
+                    <td width="20%" class="center">处置人</td>
+                    <td width="30%">
+                        <input id="handleUser" class="vV-ipt" style="width:245px;height:28px;" readonly/>
+                    </td>
+                </tr>
                     <tr>
                         <td class="center">是否通过</td>
                         <td id="handleIsflag">

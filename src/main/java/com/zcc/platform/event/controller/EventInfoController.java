@@ -1,14 +1,12 @@
 package com.zcc.platform.event.controller;
 
-import com.zcc.commons.utils.FileUtil;
-import com.zcc.commons.utils.Page;
-import com.zcc.commons.utils.ResultBean;
-import com.zcc.commons.utils.StringUtil;
+import com.zcc.commons.utils.*;
 import com.zcc.exceptions.MyException;
 import com.zcc.log.annotation.Log;
 import com.zcc.manager.govunitmanager.entity.GovUnitEntity;
 import com.zcc.manager.govunitmanager.entity.GovUnitRelation;
 import com.zcc.manager.govunitmanager.service.GovUnitService;
+import com.zcc.manager.usermanager.entity.UserInfoEntity;
 import com.zcc.platform.event.entity.EventInfoEntity;
 import com.zcc.platform.event.entity.EventRelationEntity;
 import com.zcc.platform.event.entity.HandleLogEntity;
@@ -180,6 +178,8 @@ public class EventInfoController {
     @Log(name = "保存事件处置日志")
     @PostMapping(value = "/saveEventHandleLog")
     public ResultBean saveEventHandleLog(HandleLogEntity handleLogEntity, HttpServletRequest request) {
+        UserInfoEntity currentPerson = ConstUtil.currentPerson(request);
+        handleLogEntity.setHandleUser(currentPerson.getUserName());
         return ResultBean.success(eventInfoService.saveEventHandleLog(handleLogEntity, request));
     }
 

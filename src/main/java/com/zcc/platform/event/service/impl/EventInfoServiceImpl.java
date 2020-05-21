@@ -81,6 +81,8 @@ public class EventInfoServiceImpl implements EventInfoService {
         }
         //添加事件关联人员
         if (StringUtil.isValidStr(linkPersonNos)) {
+            //先删除关联的人员
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_PERSON);
             String[] split = linkPersonNos.split(",");
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_PERSON);
@@ -90,6 +92,8 @@ public class EventInfoServiceImpl implements EventInfoService {
         }
         //添加事件关联单位
         if (StringUtil.isValidStr(linkUnitNos)) {
+            //先删除关联的单位
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_UNIT);
             String[] split = linkUnitNos.split(",");
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_UNIT);
@@ -99,6 +103,8 @@ public class EventInfoServiceImpl implements EventInfoService {
         }
         //添加事件关联事件
         if (StringUtil.isValidStr(linkEventNos)) {
+            //先删除关联的事件
+            eventRelationDao.delEventRelationType(eventInfoEntity.getEventId(), EventRelationEntity.OBJECT_TYPE_EVENT);
             String[] split = linkEventNos.split(",");
             for (String s : split) {
                 addEventRelationObject(eventInfoEntity, s, EventRelationEntity.OBJECT_TYPE_EVENT);

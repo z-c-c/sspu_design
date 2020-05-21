@@ -1064,7 +1064,7 @@
                 '    </div>\n' +
                 '    <div class="ditu-popup2-line1">\n' +
                 '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
-                '        <div class="ditu-popup2-line1-inner1">预警对象:<span>' + judgeNull(data.noticeObjectName) + '</span></div>\n' +
+                '        <div class="ditu-popup2-line1-inner2">预警对象:<span>' + judgeNull(data.noticeObjectName) + '</span></div>\n' +
                 '    </div>\n' +
                 '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
                 '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
@@ -1194,15 +1194,15 @@
                         '        <img class="ditu-popup2-icon" src="../images/ditu-icon4.png" style="float: left;margin-right: 6px;"/>\n' +
                         '        <div class=\'ditu-popup2-line2-inner1\'>身份证号:</div>\n' +
                         '        <div class="ditu-popup2-line2-inner2" style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">' + judgeNull(personIdentityNo) + '\t</div>\n' +
-                        '    </div>\n' + E
-                    '    <div class="ditu-popup2-line1">\n' +
-                    '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
-                    '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + judgeNull(phoneNo) + '</span></div>\n' +
-                    '    </div>\n' +
-                    '    <div class="ditu-popup2-line1">\n' +
-                    '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
-                    '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(liveAddr) + '</span></div>\n' +
-                    '    </div>\n';
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>手机号:<span>' + judgeNull(phoneNo) + '</span></div>\n' +
+                        '    </div>\n' +
+                        '    <div class="ditu-popup2-line1">\n' +
+                        '        <img class="ditu-popup2-icon" src="../images/ditu-icon1.png" style="float: left;margin-right: 6px;"/>\n' +
+                        '        <div class=\'ditu-popup2-line1-inner\'>居住地:<span>' + judgeNull(liveAddr) + '</span></div>\n' +
+                        '    </div>\n';
 
                     overlay.setPosition(coodinate);
                     map.addOverlay(overlay);
@@ -1322,7 +1322,7 @@
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line1">\n' +
                         '        <img class="ditu-popup2-icon" src="../images/ditu-icon3.png" style="float: left;margin-right: 6px;"/>\n' +
-                        '        <div class="ditu-popup2-line1-inner1">预警对象:<span>' + judgeNull(noticeObjectName) + '</span></div>\n' +
+                        '        <div class="ditu-popup2-line1-inner2">预警对象:<span>' + judgeNull(noticeObjectName) + '</span></div>\n' +
                         '    </div>\n' +
                         '    <div class="ditu-popup2-line2" style="height: auto;max-height: 50px">\n' +
                         '        <img class="ditu-popup2-icon" src="../images/ditu-icon5.png" style="float: left;margin-right: 6px;"/>\n' +
